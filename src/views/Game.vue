@@ -1,23 +1,25 @@
 <template>
-  <canvas id="game" ref="gameCanvas" height="100vh" width="100vw"></canvas>
+  <canvas id="game" ref="gameCanvas"></canvas>
 </template>
 
 <script lang="ts">
 import { defineComponent, onMounted, onUnmounted, ref } from "vue";
 
-import Player from "../models/Player";
-import router from "../router";
-import store from "../store";
+import Player from "@/models/Player";
+import store from "@/store";
 
 export default defineComponent({
   setup() {
-    const gameCanvas = ref(null);
+    const gameCanvas = ref(null); // Don't give type, TypeScript will yell.
 
+    /**
+     * Entry point A.K.A. main
+     */
     onMounted(() => {
       store.isGaming = true;
 
-      const canvas = prepareCanvas(gameCanvas);
-      const ctx = canvas.getContext("2d");
+      const canvas = prepareCanvas(gameCanvas); // Don't give type, TypeScript will yell.
+      const ctx = canvas.getContext("2d"); // Don't give type, TypeScript will yell.
       const player: Player = preparePlayer();
 
       preparePlayerInputListener(player);
@@ -44,37 +46,65 @@ function prepareCanvas(gameCanvas: any): HTMLCanvasElement {
 function preparePlayer(): Player {
   const x: number = innerWidth / 2;
   const y: number = (innerHeight * 3) / 4;
-  const velocity: number = 50;
+  const velocity: number = 10;
   const player: Player = new Player(x, y, velocity);
   return player;
 }
 
-function preparePlayerInputListener(player: Player) {
-  addEventListener("keydown", (e: KeyboardEvent) => {
+function preparePlayerInputListener(player: Player): void {
+  onkeydown = e => inputListener(e, true);
+  onkeyup = e => inputListener(e, false);
+
+  function inputListener(e: KeyboardEvent, keyDown: boolean) {
     switch (e.code) {
+      case "ArrowUp":
       case "KeyW":
-        player.moveUp();
+        player.isMovingUp = keyDown;
         break;
-      case "KeyA":
-        player.moveLeft();
-        break;
+
+      case "ArrowDown":
       case "KeyS":
-        player.moveDown();
+        player.isMovingDown = keyDown;
         break;
+
+      case "ArrowLeft":
+      case "KeyA":
+        player.isMovingLeft = keyDown;
+        break;
+
+      case "ArrowRight":
       case "KeyD":
-        player.moveRight();
+        player.isMovingRight = keyDown;
         break;
+
+      case "ShiftLeft":
+        player.isSlowingDown = keyDown;
+        break;
+
+      case "Space":
+        player.shoot();
+        break;
+
       case "Escape":
-        router.push("/");
+        (async () => {
+          const { default: router } = await (() => import("../router"))();
+          router.push("/");
+        })();
         break;
     }
-  });
+  }
 }
 
-function doAnimation(ctx: any, player: Player) {
+function doAnimation(ctx: any, player: Player): void {
   function animationLoop() {
     ctx.clearRect(0, 0, innerWidth, innerHeight);
-    player.draw(ctx);
+
+    player.moveAndDraw(ctx);
+
+    store.bullets.forEach((bullet: any) => bullet.move());
+    store.bullets = store.bullets.filter(
+      (bullet: any) => !bullet.isOutOfBounds
+    );
 
     requestAnimationFrame(animationLoop);
   }
