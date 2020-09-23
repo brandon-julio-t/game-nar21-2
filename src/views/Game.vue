@@ -11,13 +11,13 @@ import store from "../store";
 
 export default defineComponent({
   setup() {
-    const gameCanvas = ref<HTMLCanvasElement>(null);
+    const gameCanvas = ref(null);
 
     onMounted(() => {
       store.isGaming = true;
 
-      const canvas: HTMLCanvasElement = prepareCanvas(gameCanvas);
-      const ctx: CanvasRenderingContext2D = canvas.getContext("2d");
+      const canvas = prepareCanvas(gameCanvas);
+      const ctx = canvas.getContext("2d");
       const player: Player = preparePlayer();
 
       preparePlayerInputListener(player);
@@ -34,7 +34,7 @@ export default defineComponent({
   }
 });
 
-function prepareCanvas(gameCanvas): HTMLCanvasElement {
+function prepareCanvas(gameCanvas: any): HTMLCanvasElement {
   const canvas: HTMLCanvasElement = gameCanvas.value;
   canvas.height = innerHeight;
   canvas.width = innerWidth;
@@ -71,7 +71,7 @@ function preparePlayerInputListener(player: Player) {
   });
 }
 
-function doAnimation(ctx: CanvasRenderingContext2D, player: Player) {
+function doAnimation(ctx: any, player: Player) {
   function animationLoop() {
     ctx.clearRect(0, 0, innerWidth, innerHeight);
     player.draw(ctx);
