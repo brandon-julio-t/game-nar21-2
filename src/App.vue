@@ -1,10 +1,9 @@
 <template>
-  <div class="container mx-auto flex justify-center items-center w-screen h-screen">
+  <div
+    class="container mx-auto flex justify-center items-center w-screen h-screen"
+  >
     <div>
-      <nav class="text-center">
-        <router-link class="text-black no-underline hover:underline" to="/">Home</router-link> |
-        <router-link class="text-black no-underline hover:underline" to="/about">About</router-link>
-      </nav>
+      <navbar v-if="!store.isGaming" />
 
       <main>
         <router-view />
@@ -13,4 +12,19 @@
   </div>
 </template>
 
-<style></style>
+<script lang="ts">
+import { defineComponent } from "vue";
+
+import Navbar from "./components/Navbar.vue";
+import store from "./store";
+
+export default defineComponent({
+  components: {
+    Navbar
+  },
+
+  data() {
+    return { store };
+  }
+});
+</script>
