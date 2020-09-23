@@ -77,6 +77,6 @@ export default class Bullet {
 
   public draw(ctx: CanvasRenderingContext2D) {
     const { x, y } = this.position;
-    ctx.fillRect(x, y, this.WIDTH, this.HEIGHT);
+    ctx.fillRect(x - this.WIDTH / 2, y, this.WIDTH, this.HEIGHT);
   }
 }

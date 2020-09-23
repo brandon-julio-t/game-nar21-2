@@ -7,7 +7,7 @@ export default class Player {
   private readonly HEIGHT = 25;
 
   private _velocity: number;
-  private _nextTimeToAttack: number | null = null;
+  private nextTimeToAttack: number = Date.now();
   private position: Vector2;
 
   public isMovingUp: boolean = false;
@@ -23,18 +23,6 @@ export default class Player {
 
   private get velocity(): number {
     return this._velocity / (this.isSlowingDown ? 1.5 : 1);
-  }
-
-  private get nextTimeToAttack(): number {
-    if (this._nextTimeToAttack === null) {
-      this._nextTimeToAttack = Date.now();
-    }
-
-    return this._nextTimeToAttack;
-  }
-
-  private set nextTimeToAttack(time: number) {
-    this._nextTimeToAttack = time;
   }
 
   public moveAndDraw(ctx: CanvasRenderingContext2D): void {
