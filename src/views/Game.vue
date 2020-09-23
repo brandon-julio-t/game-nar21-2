@@ -43,7 +43,7 @@ function prepareCanvas(gameCanvas): HTMLCanvasElement {
 
 function preparePlayer(): Player {
   const x: number = innerWidth / 2;
-  const y: number = (innerHeight * 3) / 4; // 3/4 of innerHeight
+  const y: number = (innerHeight * 3) / 4;
   const velocity: number = 50;
   const player: Player = new Player(x, y, velocity);
   return player;
