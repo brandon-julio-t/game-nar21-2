@@ -21,15 +21,7 @@ export default defineComponent({
       const player: Player = preparePlayer();
 
       preparePlayerInputListener(player);
-
-      function animationLoop() {
-        ctx.clearRect(0, 0, innerWidth, innerHeight);
-        player.draw(ctx);
-
-        requestAnimationFrame(animationLoop);
-      }
-
-      requestAnimationFrame(animationLoop);
+      doAnimation(ctx, player);
     });
 
     onUnmounted(() => {
@@ -74,5 +66,16 @@ function preparePlayerInputListener(player: Player) {
         break;
     }
   });
+}
+
+function doAnimation(ctx: CanvasRenderingContext2D, player: Player) {
+  function animationLoop() {
+    ctx.clearRect(0, 0, innerWidth, innerHeight);
+    player.draw(ctx);
+
+    requestAnimationFrame(animationLoop);
+  }
+
+  requestAnimationFrame(animationLoop);
 }
 </script>
