@@ -127,6 +127,7 @@ function doAnimation(
     if (enemy.isDead) {
       alert("Game Over. Thank you for playing.");
       routeTo("/about");
+      return;
     }
 
     ctx.clearRect(0, 0, innerWidth, innerHeight);
