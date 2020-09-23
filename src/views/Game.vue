@@ -96,23 +96,23 @@ function preparePlayerInputListener(player: Player): void {
       //   break;
 
       case "Escape":
-        backToIndex();
+        routeTo("/");
         break;
     }
   }
 }
 
-function backToIndex() {
+function routeTo(uri: string) {
   (async () => {
     const { default: router } = await (() => import("../router"))();
-    router.push("/");
+    router.push(uri);
   })();
 }
 
 function doAnimation(ctx: any, player: Player, enemy: Enemy): void {
   function animationLoop() {
     if (enemy.isDead) {
-      backToIndex();
+      routeTo("/about");
     }
 
     ctx.clearRect(0, 0, innerWidth, innerHeight);
