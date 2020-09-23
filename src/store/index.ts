@@ -1,13 +1,18 @@
 import { reactive } from "vue";
 
 import Bullet from "@/models/Bullet";
+import Enemy from "@/models/Enemy";
 
-export default reactive({
-  isGaming: false,
-  bullets: []
-});
+const initialState: Store = {
+  bullets: [],
+  enemy: null,
+  isGaming: false
+};
+
+export default reactive(initialState);
 
 export interface Store {
-  isGaming: boolean;
   bullets: Bullet[];
+  enemy: Enemy | null;
+  isGaming: boolean;
 }

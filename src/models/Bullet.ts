@@ -1,5 +1,7 @@
 import Direction from "./Direction";
 import Vector2 from "./Vector2";
+import store from "@/store";
+import Enemy from "./Enemy";
 
 export default class Bullet {
   private readonly HEIGHT = 20;
@@ -8,6 +10,8 @@ export default class Bullet {
 
   private direction: Direction;
   private position: Vector2;
+
+  public isEnded: boolean = false;
 
   constructor(x: number, y: number, direction: Direction = Direction.NORTH) {
     this.position = new Vector2(x, y);
@@ -75,8 +79,25 @@ export default class Bullet {
     this.position.x += this.VELOCITY;
   }
 
-  public draw(ctx: CanvasRenderingContext2D) {
+  public draw(ctx: CanvasRenderingContext2D): void {
     const { x, y } = this.position;
+    ctx.fillStyle = "black";
     ctx.fillRect(x - this.WIDTH / 2, y, this.WIDTH, this.HEIGHT);
+  }
+
+  public checkCollisionWithEnemy(): void {
+    const enemy: Enemy | null = store.enemy as Enemy | null;
+    if (enemy !== null) {
+      const hasCollision: boolean =
+        this.position.x >= enemy.position.x &&
+        this.position.y >= enemy.position.y &&
+        this.position.x <= enemy.position.x + enemy.WIDTH &&
+        this.position.y <= enemy.position.y + enemy.HEIGHT;
+      
+      if (hasCollision) {
+        enemy.reduceHealth(5);
+        this.isEnded = true;
+      }
+    }
   }
 }

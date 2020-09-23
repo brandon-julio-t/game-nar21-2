@@ -5,6 +5,7 @@
 <script lang="ts">
 import { defineComponent, onMounted, onUnmounted, ref } from "vue";
 
+import Enemy from "@/models/Enemy";
 import Player from "@/models/Player";
 import store from "@/store";
 
@@ -21,9 +22,10 @@ export default defineComponent({
       const canvas = prepareCanvas(gameCanvas); // Don't give type, TypeScript will yell.
       const ctx = canvas.getContext("2d"); // Don't give type, TypeScript will yell.
       const player: Player = preparePlayer();
+      const enemy: Enemy = (store.enemy = prepareEnemy());
 
       preparePlayerInputListener(player);
-      doAnimation(ctx, player);
+      doAnimation(ctx, player, enemy);
     });
 
     onUnmounted(() => {
@@ -49,6 +51,11 @@ function preparePlayer(): Player {
   const velocity: number = 10;
   const player: Player = new Player(x, y, velocity);
   return player;
+}
+
+function prepareEnemy(): Enemy {
+  const enemy: Enemy = new Enemy(100);
+  return enemy;
 }
 
 function preparePlayerInputListener(player: Player): void {
@@ -81,6 +88,7 @@ function preparePlayerInputListener(player: Player): void {
         player.isSlowingDown = keyDown;
         break;
 
+      // Reserved for future in case RecSel wants manual shooting.
       // case "Space":
       //   if (keyDown) {
       //     player.shoot();
@@ -88,29 +96,40 @@ function preparePlayerInputListener(player: Player): void {
       //   break;
 
       case "Escape":
-        (async () => {
-          const { default: router } = await (() => import("../router"))();
-          router.push("/");
-        })();
+        backToIndex();
         break;
     }
   }
 }
 
-function doAnimation(ctx: any, player: Player): void {
+function backToIndex() {
+  (async () => {
+    const { default: router } = await (() => import("../router"))();
+    router.push("/");
+  })();
+}
+
+function doAnimation(ctx: any, player: Player, enemy: Enemy): void {
   function animationLoop() {
+    if (enemy.isDead) {
+      backToIndex();
+    }
+
     ctx.clearRect(0, 0, innerWidth, innerHeight);
 
     player.moveAndDraw(ctx);
     player.shoot();
 
+    enemy.drawSelfAndHealthBar(ctx);
+
     store.bullets.forEach((bullet: any) => {
       bullet.move();
       bullet.draw(ctx);
+      bullet.checkCollisionWithEnemy();
     });
 
     store.bullets = store.bullets.filter(
-      (bullet: any) => !bullet.isOutOfBounds
+      (bullet: any) => !bullet.isOutOfBounds && !bullet.isEnded
     );
 
     requestAnimationFrame(animationLoop);

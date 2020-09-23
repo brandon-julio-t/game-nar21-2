@@ -82,13 +82,15 @@ export default class Player {
   }
 
   private draw(ctx: CanvasRenderingContext2D): void {
+    const { x, y } = this.position;
     const offsetX = this.WIDTH / 2;
     const offsetY = this.HEIGHT / 2;
 
+    ctx.fillStyle = "black";
     ctx.beginPath();
-    ctx.moveTo(this.position.x - offsetX, this.position.y + offsetY);
-    ctx.lineTo(this.position.x, this.position.y - offsetY);
-    ctx.lineTo(this.position.x + offsetX, this.position.y + offsetY);
+    ctx.moveTo(x - offsetX, y + offsetY);
+    ctx.lineTo(x, y - offsetY);
+    ctx.lineTo(x + offsetX, y + offsetY);
     ctx.fill();
   }
 
@@ -97,12 +99,8 @@ export default class Player {
      * https://dev.to/ycmjason/thought-on-vue-3-composition-api-reactive-considered-harmful-j8c
      */
     if (Date.now() >= this.nextTimeToAttack) {
-      store.bullets.splice(
-        0,
-        0,
-        new Bullet(this.position.x, this.position.y - this.HEIGHT / 2) as never
-      );
-
+      const { x, y } = this.position;
+      store.bullets.splice(0, 0, new Bullet(x, y - this.HEIGHT / 2));
       this.nextTimeToAttack = Date.now() + 500;
     }
   }
