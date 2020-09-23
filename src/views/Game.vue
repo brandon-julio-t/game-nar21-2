@@ -19,10 +19,12 @@ export default defineComponent({
     onMounted(() => {
       store.isGaming = true;
 
-      const canvas = prepareCanvas(gameCanvas); // Don't give type, TypeScript will yell.
-      const ctx = canvas.getContext("2d"); // Don't give type, TypeScript will yell.
+      const canvas: HTMLCanvasElement = prepareCanvas(gameCanvas);
+      const ctx: CanvasRenderingContext2D | null = canvas.getContext("2d");
       const player: Player = preparePlayer();
       const enemy: Enemy = (store.enemy = prepareEnemy());
+
+      if (ctx === null) return;
 
       preparePlayerInputListener(player);
       doAnimation(ctx, player, enemy);
@@ -40,8 +42,15 @@ export default defineComponent({
 
 function prepareCanvas(gameCanvas: any): HTMLCanvasElement {
   const canvas: HTMLCanvasElement = gameCanvas.value;
-  canvas.height = innerHeight;
-  canvas.width = innerWidth;
+  matchCanvasHeightAndWidthWithWindow();
+
+  onresize = matchCanvasHeightAndWidthWithWindow;
+
+  function matchCanvasHeightAndWidthWithWindow() {
+    canvas.height = innerHeight;
+    canvas.width = innerWidth;
+  }
+
   return canvas;
 }
 
@@ -109,32 +118,47 @@ function routeTo(uri: string) {
   })();
 }
 
-function doAnimation(ctx: any, player: Player, enemy: Enemy): void {
+function doAnimation(
+  ctx: CanvasRenderingContext2D,
+  player: Player,
+  enemy: Enemy
+): void {
   function animationLoop() {
     if (enemy.isDead) {
+      alert("Game Over. Thank you for playing.");
       routeTo("/about");
     }
 
     ctx.clearRect(0, 0, innerWidth, innerHeight);
 
-    player.moveAndDraw(ctx);
-    player.shoot();
-
-    enemy.drawSelfAndHealthBar(ctx);
-
-    store.bullets.forEach((bullet: any) => {
-      bullet.move();
-      bullet.draw(ctx);
-      bullet.checkCollisionWithEnemy();
-    });
-
-    store.bullets = store.bullets.filter(
-      (bullet: any) => !bullet.isOutOfBounds && !bullet.isEnded
-    );
+    handlePlayer(ctx, player);
+    handleEnemy(ctx, enemy);
+    handleBullets(ctx);
 
     requestAnimationFrame(animationLoop);
   }
 
   requestAnimationFrame(animationLoop);
+}
+
+function handlePlayer(ctx: CanvasRenderingContext2D, player: Player) {
+  player.moveAndDraw(ctx);
+  player.shoot();
+}
+
+function handleEnemy(ctx: CanvasRenderingContext2D, enemy: Enemy): void {
+  enemy.drawSelfAndHealthBar(ctx);
+}
+
+function handleBullets(ctx: CanvasRenderingContext2D) {
+  store.bullets.forEach((bullet: any) => {
+    bullet.move();
+    bullet.draw(ctx);
+    bullet.checkCollisionWithEnemy();
+  });
+
+  store.bullets = store.bullets.filter(
+    (bullet: any) => !bullet.isOutOfBounds && !bullet.isEnded
+  );
 }
 </script>

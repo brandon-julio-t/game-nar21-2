@@ -1,8 +1,8 @@
 import Vector2 from "./Vector2";
 
 export default class Enemy {
-  public readonly WIDTH: number = innerWidth / 2;
   public readonly HEIGHT: number = innerHeight / 4;
+  public readonly WIDTH: number = innerWidth / 2;
 
   public position: Vector2 = new Vector2(innerWidth / 2 - this.WIDTH / 2, 0);
 

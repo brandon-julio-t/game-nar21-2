@@ -1,6 +1,6 @@
 import Bullet from "./Bullet";
 import Vector2 from "./Vector2";
-import store, { Store } from "@/store";
+import store from "@/store";
 
 export default class Player {
   private readonly WIDTH = 25;
