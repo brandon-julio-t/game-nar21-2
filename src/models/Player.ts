@@ -6,8 +6,9 @@ export default class Player {
   private readonly WIDTH = 25;
   private readonly HEIGHT = 25;
 
-  private position: Vector2;
   private _velocity: number;
+  private _nextTimeToAttack: number | null = null;
+  private position: Vector2;
 
   public isMovingUp: boolean = false;
   public isMovingDown: boolean = false;
@@ -22,6 +23,18 @@ export default class Player {
 
   private get velocity(): number {
     return this._velocity / (this.isSlowingDown ? 1.5 : 1);
+  }
+
+  private get nextTimeToAttack(): number {
+    if (this._nextTimeToAttack === null) {
+      this._nextTimeToAttack = Date.now();
+    }
+
+    return this._nextTimeToAttack;
+  }
+
+  private set nextTimeToAttack(time: number) {
+    this._nextTimeToAttack = time;
   }
 
   public moveAndDraw(ctx: CanvasRenderingContext2D): void {
@@ -95,10 +108,14 @@ export default class Player {
     /**
      * https://dev.to/ycmjason/thought-on-vue-3-composition-api-reactive-considered-harmful-j8c
      */
-    store.bullets.splice(
-      0,
-      0,
-      new Bullet(this.position.x, this.position.y + this.HEIGHT / 2) as never
-    );
+    if (Date.now() >= this.nextTimeToAttack) {
+      store.bullets.splice(
+        0,
+        0,
+        new Bullet(this.position.x, this.position.y - this.HEIGHT / 2) as never
+      );
+
+      this.nextTimeToAttack = Date.now() + 500;
+    }
   }
 }

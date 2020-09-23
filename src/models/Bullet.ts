@@ -2,8 +2,9 @@ import Direction from "./Direction";
 import Vector2 from "./Vector2";
 
 export default class Bullet {
-  private readonly VELOCITY = 5;
-  private readonly WIDTH = 2;
+  private readonly HEIGHT = 20;
+  private readonly VELOCITY = 10;
+  private readonly WIDTH = 5;
 
   private direction: Direction;
   private position: Vector2;
@@ -72,5 +73,10 @@ export default class Bullet {
 
   private moveRight(): void {
     this.position.x += this.VELOCITY;
+  }
+
+  public draw(ctx: CanvasRenderingContext2D) {
+    const { x, y } = this.position;
+    ctx.fillRect(x, y, this.WIDTH, this.HEIGHT);
   }
 }

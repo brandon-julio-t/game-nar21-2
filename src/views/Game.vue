@@ -81,9 +81,11 @@ function preparePlayerInputListener(player: Player): void {
         player.isSlowingDown = keyDown;
         break;
 
-      case "Space":
-        player.shoot();
-        break;
+      // case "Space":
+      //   if (keyDown) {
+      //     player.shoot();
+      //   }
+      //   break;
 
       case "Escape":
         (async () => {
@@ -100,8 +102,13 @@ function doAnimation(ctx: any, player: Player): void {
     ctx.clearRect(0, 0, innerWidth, innerHeight);
 
     player.moveAndDraw(ctx);
+    player.shoot();
 
-    store.bullets.forEach((bullet: any) => bullet.move());
+    store.bullets.forEach((bullet: any) => {
+      bullet.move();
+      bullet.draw(ctx);
+    });
+
     store.bullets = store.bullets.filter(
       (bullet: any) => !bullet.isOutOfBounds
     );
