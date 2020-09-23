@@ -5,9 +5,9 @@
 <script lang="ts">
 import { defineComponent, onMounted, onUnmounted, ref } from "vue";
 
-import store from "../store";
-
 import Player from "../models/Player";
+import router from "../router";
+import store from "../store";
 
 export default defineComponent({
   setup() {
@@ -63,6 +63,9 @@ function preparePlayerInputListener(player: Player) {
         break;
       case "KeyD":
         player.moveRight();
+        break;
+      case "Escape":
+        router.push("/");
         break;
     }
   });
