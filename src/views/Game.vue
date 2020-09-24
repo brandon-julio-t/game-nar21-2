@@ -11,6 +11,9 @@ import router from "@/router";
 import store from "@/store";
 import EnemyBullet from "@/classes/enemy-bullet";
 
+const bgImg = new Image();
+bgImg.src = "https://i.ibb.co/7RHgNhL/galaxy.jpg";
+
 let animationId: number | null = null;
 
 export default defineComponent({
@@ -123,6 +126,7 @@ function doAnimation(
     }
 
     ctx.clearRect(0, 0, innerWidth, innerHeight);
+    ctx.drawImage(bgImg, 0, 0, window.innerWidth, window.innerHeight);
 
     handlePlayer(ctx, player);
     handleEnemy(ctx, enemy);
