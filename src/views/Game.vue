@@ -5,8 +5,8 @@
 <script lang="ts">
 import { defineComponent, onMounted, onUnmounted, ref } from "vue";
 
-import Enemy from "@/models/enemy";
-import Player from "@/models/player";
+import Enemy from "@/classes/enemy";
+import Player from "@/classes/player";
 import router from "@/router";
 import store from "@/store";
 

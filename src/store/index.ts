@@ -1,8 +1,8 @@
 import { reactive } from "vue";
 
-import Bullet from "@/models/bullet";
-import Enemy from "@/models/enemy";
-import Player from '@/models/player';
+import Bullet from "@/classes/bullet";
+import Enemy from "@/classes/enemy";
+import Player from '@/classes/player';
 
 const initialState: Store = {
   bullets: [],
