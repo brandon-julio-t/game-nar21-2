@@ -20,7 +20,9 @@ if (process.env.NODE_ENV === "production") {
       console.log("New content is downloading.");
     },
     updated() {
-      alert("New content is available; please refresh.");
+      alert(
+        "New content is available, please do a hard refresh by pressing CTRL + SHIFT + R or CTRL + F5."
+      );
     },
     offline() {
       console.log(
