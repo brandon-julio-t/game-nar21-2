@@ -5,7 +5,7 @@ import store from "@/store";
 
 export default class EnemyBullet extends Bullet {
   protected readonly HEIGHT: number = 5;
-  protected readonly VELOCITY: number = 5;
+  protected readonly VELOCITY: number = 7;
   protected readonly WIDTH: number = 5;
   protected readonly RADIUS: number = 5;
 
@@ -15,8 +15,8 @@ export default class EnemyBullet extends Bullet {
 
   public draw(ctx: CanvasRenderingContext2D): void {
     const { x, y } = this.position;
-    ctx.fillStyle = "black";
     ctx.beginPath();
+    ctx.fillStyle = "black";
     ctx.arc(x, y, this.RADIUS, 0, Math.PI * 2, true);
     ctx.fill();
   }

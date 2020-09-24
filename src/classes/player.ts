@@ -104,9 +104,6 @@ export default class Player  {
   }
 
   public shoot(): void {
-    /**
-     * https://dev.to/ycmjason/thought-on-vue-3-composition-api-reactive-considered-harmful-j8c
-     */
     if (Date.now() >= this.nextTimeToAttack) {
       const { x, y } = this.position;
       store.bullets.splice(0, 0, new PlayerBullet(x, y - this.HEIGHT / 2));

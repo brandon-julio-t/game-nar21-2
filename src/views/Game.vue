@@ -54,15 +54,8 @@ export default defineComponent({
 
 function prepareCanvas(gameCanvas: any): HTMLCanvasElement {
   const canvas: HTMLCanvasElement = gameCanvas.value;
-  matchCanvasHeightAndWidthWithWindow();
-
-  onresize = matchCanvasHeightAndWidthWithWindow;
-
-  function matchCanvasHeightAndWidthWithWindow() {
-    canvas.height = innerHeight;
-    canvas.width = innerWidth;
-  }
-
+  canvas.height = innerHeight;
+  canvas.width = innerWidth;
   return canvas;
 }
 
@@ -165,7 +158,7 @@ function handleBullets(ctx: CanvasRenderingContext2D) {
   });
 
   store.bullets = store.bullets.filter(
-    bullet => !bullet.isOutOfBounds && !bullet.isEnded
+    bullet => !bullet.isEnded && !bullet.isOutOfBounds
   );
 }
 </script>
