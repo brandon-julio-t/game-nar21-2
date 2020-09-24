@@ -6,6 +6,7 @@ import Player from "@/classes/player";
 
 const initialState: Store = {
   bullets: [],
+  color: "white",
   enemy: null,
   isGaming: false,
   player: null
@@ -15,6 +16,7 @@ export default reactive(initialState);
 
 export interface Store {
   bullets: Bullet[];
+  color: string;
   enemy: Enemy | null;
   isGaming: boolean;
   player: Player | null;

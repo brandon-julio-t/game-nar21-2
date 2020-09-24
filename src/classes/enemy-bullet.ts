@@ -16,7 +16,7 @@ export default class EnemyBullet extends Bullet {
   public draw(ctx: CanvasRenderingContext2D): void {
     const { x, y } = this.position;
     ctx.beginPath();
-    ctx.fillStyle = "black";
+    ctx.fillStyle = store.color;
     ctx.arc(x, y, this.RADIUS, 0, Math.PI * 2, true);
     ctx.fill();
   }

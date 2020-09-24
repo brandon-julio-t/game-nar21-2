@@ -34,7 +34,7 @@ export default class Enemy {
 
   private drawSelf(ctx: CanvasRenderingContext2D): void {
     const { x, y } = this.position;
-    ctx.fillStyle = "black";
+    ctx.fillStyle = store.color;
     ctx.fillRect(x, y, this.WIDTH, this.HEIGHT);
   }
 

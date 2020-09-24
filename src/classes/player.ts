@@ -2,7 +2,7 @@ import PlayerBullet from "./player-bullet";
 import Vector2 from "./vector2";
 import store from "@/store";
 
-export default class Player  {
+export default class Player {
   public readonly WIDTH = 25;
   public readonly HEIGHT = 25;
 
@@ -95,7 +95,7 @@ export default class Player  {
     const offsetX = this.WIDTH / 2;
     const offsetY = this.HEIGHT / 2;
 
-    ctx.fillStyle = "black";
+    ctx.fillStyle = store.color;
     ctx.beginPath();
     ctx.moveTo(x - offsetX, y + offsetY);
     ctx.lineTo(x, y - offsetY);
