@@ -5,8 +5,8 @@
 <script lang="ts">
 import { defineComponent, onMounted, onUnmounted, ref } from "vue";
 
-import Enemy from "@/models/enemy";
-import Player from "@/models/player";
+import Enemy from "../models/enemy";
+import Player from "../models/player";
 import router from "@/router";
 import store from "@/store";
 
@@ -169,4 +169,3 @@ function handleBullets(ctx: CanvasRenderingContext2D) {
   );
 }
 </script>
-  
