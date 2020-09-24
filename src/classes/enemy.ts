@@ -8,6 +8,8 @@ export default class Enemy {
   public readonly HEIGHT: number = innerHeight / 4;
   public readonly WIDTH: number = innerWidth / 2;
 
+  private readonly HEALTHBAR_HEIGHT = this.HEIGHT / 4;
+
   public position: Vector2 = new Vector2(innerWidth / 2 - this.WIDTH / 2, 0);
 
   private maxHealth: number;
@@ -42,20 +44,20 @@ export default class Enemy {
       0,
       0,
       innerWidth * (this.currentHealth / this.maxHealth),
-      this.HEIGHT / 4
+      this.HEALTHBAR_HEIGHT
     );
   }
 
   public shoot(): void {
     const directions: Direction[] = [
-      Direction.NORTH,
-      Direction.NORTH_EAST,
-      Direction.NORTH_WEST,
+      // Direction.NORTH,
+      // Direction.NORTH_EAST,
+      // Direction.NORTH_WEST,
       Direction.SOUTH,
       Direction.SOUTH_EAST,
-      Direction.SOUTH_WEST,
-      Direction.EAST,
-      Direction.WEST
+      Direction.SOUTH_WEST
+      // Direction.EAST,
+      // Direction.WEST
     ];
 
     const { x, y } = this.position;
@@ -66,7 +68,10 @@ export default class Enemy {
         direction =>
           new EnemyBullet(
             utility.randomIntegerBetween(x, x + this.WIDTH),
-            utility.randomIntegerBetween(y, y + this.HEIGHT),
+            utility.randomIntegerBetween(
+              y + this.HEALTHBAR_HEIGHT,
+              y + this.HEIGHT
+            ),
             direction
           )
       )

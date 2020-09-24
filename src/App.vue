@@ -1,19 +1,17 @@
 <template>
   <div
-    v-if="!store.isGaming"
-    class="container mx-auto flex justify-center items-center w-screen h-screen"
+    :class="{
+      'container mx-auto flex justify-center items-center w-screen h-screen': !store.isGaming
+    }"
   >
     <div>
-      <navbar />
+      <navbar v-if="!store.isGaming" />
 
       <main>
         <router-view />
       </main>
     </div>
   </div>
-  <main v-else>
-    <router-view />
-  </main>
 </template>
 
 <script lang="ts">

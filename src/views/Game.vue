@@ -9,6 +9,7 @@ import Enemy from "@/classes/enemy";
 import Player from "@/classes/player";
 import router from "@/router";
 import store from "@/store";
+import EnemyBullet from "@/classes/enemy-bullet";
 
 let animationId: number | null = null;
 
@@ -20,6 +21,7 @@ export default defineComponent({
      * Entry point A.K.A. main *
      * * * * * * * * * * * * * */
     onMounted(() => {
+      store.isGaming = true;
       cleanUp();
 
       const canvas: HTMLCanvasElement = prepareCanvas(gameCanvas);
@@ -33,7 +35,10 @@ export default defineComponent({
       doAnimation(ctx, player, enemy);
     });
 
-    onUnmounted(cleanUp);
+    onUnmounted(() => {
+      store.isGaming = false;
+      cleanUp();
+    });
 
     return {
       gameCanvas
@@ -144,6 +149,10 @@ function handleBullets(ctx: CanvasRenderingContext2D) {
     bullet.move();
     bullet.draw(ctx);
     bullet.checkCollision();
+
+    if (bullet instanceof EnemyBullet) {
+      bullet.wrapHorizontal();
+    }
   });
 
   store.bullets = store.bullets.filter(
@@ -152,7 +161,6 @@ function handleBullets(ctx: CanvasRenderingContext2D) {
 }
 
 function cleanUp() {
-  store.isGaming = false;
   store.bullets.splice(0);
 
   if (animationId !== null) {
