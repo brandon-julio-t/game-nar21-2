@@ -24,8 +24,15 @@ export default class Game {
     this.player = store.player = this.preparePlayer();
     this.enemy = store.enemy = this.prepareEnemy();
     this.prepareCanvas(canvas);
-    // this.prepareKeyboardInputListener();
-    this.prepareMouseInputListener();
+
+    if (confirm("Use keyboard as input?")) {
+      this.prepareKeyboardInputListener();
+      onmousemove = null;
+    } else {
+      this.prepareMouseInputListener();
+      onkeydown = null;
+      onkeyup = null;
+    }
 
     this.play();
   }
@@ -65,11 +72,14 @@ export default class Game {
   }
 
   private static prepareKeyboardInputListener(): void {
-    onkeydown = e => this.inputListener(e, true);
-    onkeyup = e => this.inputListener(e, false);
+    onkeydown = e => this.keyboardInputListener(e, true);
+    onkeyup = e => this.keyboardInputListener(e, false);
   }
 
-  private static inputListener(e: KeyboardEvent, keyDown: boolean): void {
+  private static keyboardInputListener(
+    e: KeyboardEvent,
+    keyDown: boolean
+  ): void {
     switch (e.code) {
       case "ArrowUp":
       case "KeyW":
