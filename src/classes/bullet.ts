@@ -1,6 +1,5 @@
 import Direction from "./direction";
 import Vector2 from "./vector2";
-import store from "@/store";
 
 export default abstract class Bullet {
   protected readonly HEIGHT: number = 0;
