@@ -1,10 +1,11 @@
 import Direction from "./direction";
 import EnemyBullet from "./enemy-bullet";
+import Entity from './entity';
 import Vector2 from "./vector2";
 import store from "@/store";
 import utility from "./utilities";
 
-export default class Enemy {
+export default class Enemy extends Entity {
   public readonly HEIGHT: number = innerHeight / 4;
   public readonly WIDTH: number = innerWidth / 2;
 
@@ -14,15 +15,16 @@ export default class Enemy {
   private currentHealth: number;
 
   constructor(health: number) {
+    super();
     this.currentHealth = this.maxHealth = health;
-  }
-
-  public reduceHealth(points: number): void {
-    this.currentHealth -= points;
   }
 
   public get isDead(): boolean {
     return this.currentHealth <= 0;
+  }
+
+  public reduceHealth(points: number): void {
+    this.currentHealth -= points;
   }
 
   public drawSelfAndHealthBar(ctx: CanvasRenderingContext2D): void {

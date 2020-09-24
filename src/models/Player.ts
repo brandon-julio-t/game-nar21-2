@@ -1,15 +1,16 @@
+import Entity from "./entity";
 import PlayerBullet from "./player-bullet";
 import Vector2 from "./vector2";
 import store from "@/store";
 
-export default class Player {
+export default class Player extends Entity {
   public readonly WIDTH = 25;
   public readonly HEIGHT = 25;
 
   private _velocity: number;
   private nextTimeToAttack: number = Date.now();
 
-  public isDead: boolean = false;
+  public _isDead: boolean = false;
   public isMovingDown: boolean = false;
   public isMovingLeft: boolean = false;
   public isMovingRight: boolean = false;
@@ -18,8 +19,17 @@ export default class Player {
   public position: Vector2;
 
   constructor(x: number, y: number, velocity: number) {
+    super();
     this.position = new Vector2(x, y);
     this._velocity = velocity;
+  }
+
+  public get isDead(): boolean {
+    return this._isDead;
+  }
+
+  public set isDead(isDead: boolean) {
+    this._isDead = isDead;
   }
 
   private get velocity(): number {
