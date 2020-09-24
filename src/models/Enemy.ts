@@ -1,11 +1,10 @@
 import Direction from "./direction";
 import EnemyBullet from "./enemy-bullet";
-import Entity from './entity';
 import Vector2 from "./vector2";
 import store from "@/store";
 import utility from "./utilities";
 
-export default class Enemy extends Entity {
+export default class Enemy {
   public readonly HEIGHT: number = innerHeight / 4;
   public readonly WIDTH: number = innerWidth / 2;
 
@@ -15,7 +14,6 @@ export default class Enemy extends Entity {
   private currentHealth: number;
 
   constructor(health: number) {
-    super();
     this.currentHealth = this.maxHealth = health;
   }
 
