@@ -16,16 +16,11 @@ export default defineComponent({
   setup() {
     const gameCanvas = ref(null); // Don't give type, TypeScript will yell.
 
-    /**
-     * Entry point A.K.A. main
-     */
+    /* * * * * * * * * * * * * *
+     * Entry point A.K.A. main *
+     * * * * * * * * * * * * * */
     onMounted(() => {
-      store.isGaming = true;
-
-      if (animationId !== null) {
-        cancelAnimationFrame(animationId);
-        animationId = null;
-      }
+      cleanUp();
 
       const canvas: HTMLCanvasElement = prepareCanvas(gameCanvas);
       const ctx: CanvasRenderingContext2D | null = canvas.getContext("2d");
@@ -38,13 +33,7 @@ export default defineComponent({
       doAnimation(ctx, player, enemy);
     });
 
-    onUnmounted(() => {
-      store.isGaming = false;
-      store.bullets.splice(0);
-      if (animationId !== null) {
-        cancelAnimationFrame(animationId);
-      }
-    });
+    onUnmounted(cleanUp);
 
     return {
       gameCanvas
@@ -54,8 +43,8 @@ export default defineComponent({
 
 function prepareCanvas(gameCanvas: any): HTMLCanvasElement {
   const canvas: HTMLCanvasElement = gameCanvas.value;
-  canvas.height = innerHeight;
   canvas.width = innerWidth;
+  canvas.height = innerHeight;
   return canvas;
 }
 
@@ -160,5 +149,15 @@ function handleBullets(ctx: CanvasRenderingContext2D) {
   store.bullets = store.bullets.filter(
     bullet => !bullet.isEnded && !bullet.isOutOfBounds
   );
+}
+
+function cleanUp() {
+  store.isGaming = false;
+  store.bullets.splice(0);
+
+  if (animationId !== null) {
+    cancelAnimationFrame(animationId);
+    animationId = null;
+  }
 }
 </script>

@@ -1,15 +1,19 @@
 <template>
   <div
+    v-if="!store.isGaming"
     class="container mx-auto flex justify-center items-center w-screen h-screen"
   >
     <div>
-      <navbar v-if="!store.isGaming" />
+      <navbar />
 
       <main>
         <router-view />
       </main>
     </div>
   </div>
+  <main v-else>
+    <router-view />
+  </main>
 </template>
 
 <script lang="ts">
@@ -24,7 +28,9 @@ export default defineComponent({
   },
 
   data() {
-    return { store };
+    return {
+      store
+    };
   }
 });
 </script>
