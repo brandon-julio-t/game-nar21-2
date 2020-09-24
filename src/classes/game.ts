@@ -3,6 +3,8 @@ import EnemyBullet from "./enemy-bullet";
 import Player from "./player";
 import router from "@/router";
 import store from "@/store";
+import PlayerBullet from "./player-bullet";
+import Bullet from "./bullet";
 
 export default class Game {
   private static bgImg: HTMLImageElement;
@@ -21,23 +23,12 @@ export default class Game {
     store.isGaming = true;
     this.cleanUp();
 
-    this.bgImg = new Image();
-    this.bgImg.src = "https://i.ibb.co/7RHgNhL/galaxy.jpg";
-
     this.ctx = ctx;
-    this.player = store.player = this.preparePlayer();
+    this.bgImg = this.prepareBackgroundImage();
     this.enemy = store.enemy = this.prepareEnemy();
+    this.player = store.player = this.preparePlayer();
+    this.chooseInputSystem();
     this.prepareCanvas(canvas);
-
-    if (confirm("Use keyboard as input?")) {
-      this.prepareKeyboardInputListener();
-      onmousemove = null;
-    } else {
-      this.prepareMouseInputListener();
-      onkeydown = null;
-      onkeyup = null;
-    }
-
     this.play();
   }
 
@@ -51,13 +42,12 @@ export default class Game {
     canvas.height = innerHeight;
   }
 
-  private static preparePlayer(): Player {
-    const x: number = innerWidth / 2;
-    const y: number = (innerHeight * 3) / 4;
-    const velocity: number = 10;
+  private static prepareBackgroundImage(): HTMLImageElement {
+    const imgSrc: string = "https://i.ibb.co/7RHgNhL/galaxy.jpg";
 
-    const player: Player = new Player(x, y, velocity);
-    return player;
+    const img: HTMLImageElement = new Image();
+    img.src = imgSrc;
+    return img;
   }
 
   private static prepareEnemy(): Enemy {
@@ -67,17 +57,25 @@ export default class Game {
     return enemy;
   }
 
-  private static prepareMouseInputListener(): void {
-    onmousemove = (e: MouseEvent) => {
-      const { clientX, clientY } = e;
-      this.player.position.x = clientX;
-      this.player.position.y = clientY;
-    };
+  private static preparePlayer(): Player {
+    const x: number = innerWidth / 2;
+    const y: number = (innerHeight * 3) / 4;
+    const velocity: number = 10;
+
+    const player: Player = new Player(x, y, velocity);
+    return player;
+  }
+
+  private static chooseInputSystem(): void {
+    confirm("Use keyboard as input? Yes: [ENTER] or No: [ESC]")
+      ? this.prepareKeyboardInputListener()
+      : this.prepareMouseInputListener();
   }
 
   private static prepareKeyboardInputListener(): void {
     onkeydown = e => this.keyboardInputListener(e, true);
     onkeyup = e => this.keyboardInputListener(e, false);
+    onmousemove = null;
   }
 
   private static keyboardInputListener(
@@ -122,6 +120,16 @@ export default class Game {
     }
   }
 
+  private static prepareMouseInputListener(): void {
+    onkeydown = null;
+    onkeyup = null;
+    onmousemove = (e: MouseEvent) => {
+      const { clientX, clientY } = e;
+      this.player.position.x = clientX;
+      this.player.position.y = clientY;
+    };
+  }
+
   private static play(): void {
     const loop = () => {
       if (this.enemy.isDead || this.player.isDead) {
@@ -160,19 +168,30 @@ export default class Game {
   }
 
   private static handleBullets(): void {
-    store.bullets.forEach(bullet => {
-      bullet.move();
-      bullet.draw(this.ctx);
-      bullet.checkCollision();
+    this.ctx.beginPath();
+    this.ctx.fillStyle = store.color;
 
-      if (bullet instanceof EnemyBullet) {
-        bullet.wrapHorizontal();
-      }
-    });
-
-    store.bullets = store.bullets.filter(
-      bullet => !bullet.isEnded && !bullet.isOutOfBounds
+    store.bullets = store.bullets.filter(bullet =>
+      this.filterWhileDrawing(bullet as Bullet)
     );
+
+    this.ctx.fill();
+  }
+
+  private static filterWhileDrawing(bullet: Bullet): boolean {
+    if (bullet.isEnded || bullet.isOutOfBounds) {
+      return false;
+    }
+
+    bullet.move();
+    bullet.draw(this.ctx);
+    bullet.checkCollision();
+
+    if (bullet instanceof EnemyBullet) {
+      bullet.wrapHorizontal();
+    }
+
+    return true;
   }
 
   private static cleanUp(): void {

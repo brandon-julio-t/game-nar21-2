@@ -1,6 +1,6 @@
 import Direction from "./direction";
 import Vector2 from "./vector2";
-import store from '@/store';
+import store from "@/store";
 
 export default abstract class Bullet {
   protected readonly HEIGHT: number = 0;
@@ -79,8 +79,8 @@ export default abstract class Bullet {
 
   public draw(ctx: CanvasRenderingContext2D): void {
     const { x, y } = this.position;
-    ctx.fillStyle = store.color;
-    ctx.fillRect(x - this.WIDTH / 2, y, this.WIDTH, this.HEIGHT);
+    ctx.moveTo(x, y);
+    ctx.rect(x - this.WIDTH / 2, y, this.WIDTH, this.HEIGHT);
   }
 
   public checkCollision(): void {}
