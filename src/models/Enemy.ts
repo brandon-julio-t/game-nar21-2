@@ -1,4 +1,8 @@
-import Vector2 from "./Vector2";
+import Direction from "./direction";
+import EnemyBullet from "./enemy-bullet";
+import Vector2 from "./vector2";
+import store from "@/store";
+import utility from "./utilities";
 
 export default class Enemy {
   public readonly HEIGHT: number = innerHeight / 4;
@@ -39,6 +43,33 @@ export default class Enemy {
       0,
       innerWidth * (this.currentHealth / this.maxHealth),
       this.HEIGHT / 4
+    );
+  }
+
+  public shoot(): void {
+    const directions: Direction[] = [
+      Direction.NORTH,
+      Direction.NORTH_EAST,
+      Direction.NORTH_WEST,
+      Direction.SOUTH,
+      Direction.SOUTH_EAST,
+      Direction.SOUTH_WEST,
+      Direction.EAST,
+      Direction.WEST
+    ];
+
+    const { x, y } = this.position;
+    store.bullets.splice(
+      0,
+      0,
+      ...directions.map(
+        direction =>
+          new EnemyBullet(
+            utility.randomIntegerBetween(x, x + this.WIDTH),
+            utility.randomIntegerBetween(y, y + this.HEIGHT),
+            direction
+          )
+      )
     );
   }
 }

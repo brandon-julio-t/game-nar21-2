@@ -5,9 +5,12 @@
 <script lang="ts">
 import { defineComponent, onMounted, onUnmounted, ref } from "vue";
 
-import Enemy from "@/models/Enemy";
-import Player from "@/models/Player";
+import Enemy from "@/models/enemy";
+import Player from "@/models/player";
+import router from "@/router";
 import store from "@/store";
+
+let animationId: number | null = null;
 
 export default defineComponent({
   setup() {
@@ -19,9 +22,14 @@ export default defineComponent({
     onMounted(() => {
       store.isGaming = true;
 
+      if (animationId !== null) {
+        cancelAnimationFrame(animationId);
+        animationId = null;
+      }
+
       const canvas: HTMLCanvasElement = prepareCanvas(gameCanvas);
       const ctx: CanvasRenderingContext2D | null = canvas.getContext("2d");
-      const player: Player = preparePlayer();
+      const player: Player = (store.player = preparePlayer());
       const enemy: Enemy = (store.enemy = prepareEnemy());
 
       if (ctx === null) return;
@@ -32,6 +40,10 @@ export default defineComponent({
 
     onUnmounted(() => {
       store.isGaming = false;
+      store.bullets.splice(0);
+      if (animationId !== null) {
+        cancelAnimationFrame(animationId);
+      }
     });
 
     return {
@@ -105,17 +117,10 @@ function preparePlayerInputListener(player: Player): void {
       //   break;
 
       case "Escape":
-        routeTo("/");
+        router.push("/");
         break;
     }
   }
-}
-
-function routeTo(uri: string) {
-  (async () => {
-    const { default: router } = await (() => import("../router"))();
-    router.push(uri);
-  })();
 }
 
 function doAnimation(
@@ -124,9 +129,9 @@ function doAnimation(
   enemy: Enemy
 ): void {
   function animationLoop() {
-    if (enemy.isDead) {
+    if (enemy.isDead || player.isDead) {
       alert("Game Over. Thank you for playing.");
-      routeTo("/about");
+      router.push("/about");
       return;
     }
 
@@ -136,10 +141,10 @@ function doAnimation(
     handleEnemy(ctx, enemy);
     handleBullets(ctx);
 
-    requestAnimationFrame(animationLoop);
+    animationId = requestAnimationFrame(animationLoop);
   }
 
-  requestAnimationFrame(animationLoop);
+  animationId = requestAnimationFrame(animationLoop);
 }
 
 function handlePlayer(ctx: CanvasRenderingContext2D, player: Player) {
@@ -149,17 +154,19 @@ function handlePlayer(ctx: CanvasRenderingContext2D, player: Player) {
 
 function handleEnemy(ctx: CanvasRenderingContext2D, enemy: Enemy): void {
   enemy.drawSelfAndHealthBar(ctx);
+  enemy.shoot();
 }
 
 function handleBullets(ctx: CanvasRenderingContext2D) {
-  store.bullets.forEach((bullet: any) => {
+  store.bullets.forEach(bullet => {
     bullet.move();
     bullet.draw(ctx);
-    bullet.checkCollisionWithEnemy();
+    bullet.checkCollision();
   });
 
   store.bullets = store.bullets.filter(
-    (bullet: any) => !bullet.isOutOfBounds && !bullet.isEnded
+    bullet => !bullet.isOutOfBounds && !bullet.isEnded
   );
 }
 </script>
+  

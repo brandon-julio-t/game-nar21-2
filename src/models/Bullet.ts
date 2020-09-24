@@ -1,19 +1,16 @@
-import Direction from "./Direction";
-import Vector2 from "./Vector2";
-import store from "@/store";
-import Enemy from "./Enemy";
+import Direction from "./direction";
+import Vector2 from "./vector2";
 
-export default class Bullet {
-  private readonly HEIGHT = 20;
-  private readonly VELOCITY = 10;
-  private readonly WIDTH = 5;
+export default abstract class Bullet {
+  protected readonly HEIGHT: number = 0;
+  protected readonly VELOCITY: number = 0;
+  protected readonly WIDTH: number = 0;
 
   private direction: Direction;
-  private position: Vector2;
-
+  protected position: Vector2;
   public isEnded: boolean = false;
 
-  constructor(x: number, y: number, direction: Direction = Direction.NORTH) {
+  constructor(x: number, y: number, direction: Direction) {
     this.position = new Vector2(x, y);
     this.direction = direction;
   }
@@ -85,19 +82,5 @@ export default class Bullet {
     ctx.fillRect(x - this.WIDTH / 2, y, this.WIDTH, this.HEIGHT);
   }
 
-  public checkCollisionWithEnemy(): void {
-    const enemy: Enemy | null = store.enemy as Enemy | null;
-    if (enemy !== null) {
-      const hasCollision: boolean =
-        this.position.x >= enemy.position.x &&
-        this.position.y >= enemy.position.y &&
-        this.position.x <= enemy.position.x + enemy.WIDTH &&
-        this.position.y <= enemy.position.y + enemy.HEIGHT;
-      
-      if (hasCollision) {
-        enemy.reduceHealth(5);
-        this.isEnded = true;
-      }
-    }
-  }
+  public checkCollision(): void {}
 }

@@ -1,0 +1,38 @@
+import Bullet from "./bullet";
+import Direction from "./direction";
+import Player from "./player";
+import store from "@/store";
+
+export default class EnemyBullet extends Bullet {
+  protected readonly HEIGHT: number = 5;
+  protected readonly VELOCITY: number = 5;
+  protected readonly WIDTH: number = 5;
+  protected readonly RADIUS: number = 5;
+
+  constructor(x: number, y: number, direction: Direction) {
+    super(x, y, direction);
+  }
+
+  public draw(ctx: CanvasRenderingContext2D): void {
+    const { x, y } = this.position;
+    ctx.fillStyle = "black";
+    ctx.beginPath();
+    ctx.arc(x, y, this.RADIUS, 0, Math.PI * 2, true);
+    ctx.fill();
+  }
+
+  public checkCollision(): void {
+    const player: Player = store.player as Player;
+    if (player !== null) {
+      const hasCollision: boolean =
+        this.position.x >= player.position.x &&
+        this.position.y >= player.position.y &&
+        this.position.x <= player.position.x + player.WIDTH / 2 &&
+        this.position.y <= player.position.y + player.HEIGHT / 2;
+
+      if (hasCollision) {
+        this.isEnded = player.isDead = true;
+      }
+    }
+  }
+}

@@ -1,20 +1,21 @@
-import Bullet from "./Bullet";
-import Vector2 from "./Vector2";
+import PlayerBullet from "./player-bullet";
+import Vector2 from "./vector2";
 import store from "@/store";
 
 export default class Player {
-  private readonly WIDTH = 25;
-  private readonly HEIGHT = 25;
+  public readonly WIDTH = 25;
+  public readonly HEIGHT = 25;
 
   private _velocity: number;
   private nextTimeToAttack: number = Date.now();
-  private position: Vector2;
 
-  public isMovingUp: boolean = false;
+  public isDead: boolean = false;
   public isMovingDown: boolean = false;
   public isMovingLeft: boolean = false;
   public isMovingRight: boolean = false;
+  public isMovingUp: boolean = false;
   public isSlowingDown: boolean = false;
+  public position: Vector2;
 
   constructor(x: number, y: number, velocity: number) {
     this.position = new Vector2(x, y);
@@ -22,7 +23,7 @@ export default class Player {
   }
 
   private get velocity(): number {
-    return this._velocity / (this.isSlowingDown ? 1.5 : 1);
+    return this._velocity / (this.isSlowingDown ? 1.75 : 1);
   }
 
   public moveAndDraw(ctx: CanvasRenderingContext2D): void {
@@ -100,8 +101,8 @@ export default class Player {
      */
     if (Date.now() >= this.nextTimeToAttack) {
       const { x, y } = this.position;
-      store.bullets.splice(0, 0, new Bullet(x, y - this.HEIGHT / 2));
-      this.nextTimeToAttack = Date.now() + 500;
+      store.bullets.splice(0, 0, new PlayerBullet(x, y - this.HEIGHT / 2));
+      this.nextTimeToAttack = Date.now() + 250;
     }
   }
 }
