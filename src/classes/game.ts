@@ -5,9 +5,10 @@ import router from "@/router";
 import store from "@/store";
 
 export default class Game {
+  private static bgImg: HTMLImageElement;
   private static ctx: CanvasRenderingContext2D;
-  private static player: Player;
   private static enemy: Enemy;
+  private static player: Player;
 
   private static animationId: number | null = null;
 
@@ -19,6 +20,9 @@ export default class Game {
 
     store.isGaming = true;
     this.cleanUp();
+
+    this.bgImg = new Image();
+    this.bgImg.src = "https://i.ibb.co/7RHgNhL/galaxy.jpg";
 
     this.ctx = ctx;
     this.player = store.player = this.preparePlayer();
@@ -127,6 +131,13 @@ export default class Game {
       }
 
       this.ctx.clearRect(0, 0, innerWidth, innerHeight);
+      this.ctx.drawImage(
+        this.bgImg,
+        0,
+        0,
+        window.innerWidth,
+        window.innerHeight
+      );
 
       this.handlePlayer();
       this.handleEnemy();

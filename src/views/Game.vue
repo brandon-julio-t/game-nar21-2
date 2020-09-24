@@ -7,9 +7,6 @@ import { defineComponent, onMounted, onUnmounted, ref } from "vue";
 
 import Game from "@/classes/game";
 
-const bgImg = new Image();
-bgImg.src = "https://i.ibb.co/7RHgNhL/galaxy.jpg";
-
 export default defineComponent({
   setup() {
     const gameCanvas = ref(null); // Don't give type, TypeScript will yell.
