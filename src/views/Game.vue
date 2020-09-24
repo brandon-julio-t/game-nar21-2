@@ -5,47 +5,19 @@
 <script lang="ts">
 import { defineComponent, onMounted, onUnmounted, ref } from "vue";
 
-import Enemy from "@/classes/enemy";
-import Player from "@/classes/player";
-import router from "@/router";
-import store from "@/store";
-import EnemyBullet from "@/classes/enemy-bullet";
+import Game from "@/classes/game";
 
 const bgImg = new Image();
 bgImg.src = "https://i.ibb.co/7RHgNhL/galaxy.jpg";
-
-let animationId: number | null = null;
 
 export default defineComponent({
   setup() {
     const gameCanvas = ref(null); // Don't give type, TypeScript will yell.
 
-    /* * * * * * * * * * * * * *
-     * Entry point A.K.A. main *
-     * * * * * * * * * * * * * */
-    onMounted(() => {
-      store.isGaming = true;
-      cleanUp();
+    onMounted(() => Game.start(gameCanvas.value)); // Entry point A.K.A. main
+    onUnmounted(() => Game.end());
 
-      const canvas: HTMLCanvasElement = prepareCanvas(gameCanvas);
-      const ctx: CanvasRenderingContext2D | null = canvas.getContext("2d");
-      const player: Player = (store.player = preparePlayer());
-      const enemy: Enemy = (store.enemy = prepareEnemy());
-
-      if (ctx === null) return;
-
-      preparePlayerInputListener(player);
-      doAnimation(ctx, player, enemy);
-    });
-
-    onUnmounted(() => {
-      store.isGaming = false;
-      cleanUp();
-    });
-
-    return {
-      gameCanvas
-    };
+    return { gameCanvas };
   }
 });
 
