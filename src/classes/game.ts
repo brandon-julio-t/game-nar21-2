@@ -3,7 +3,6 @@ import EnemyBullet from "./enemy-bullet";
 import Player from "./player";
 import router from "@/router";
 import store from "@/store";
-import PlayerBullet from "./player-bullet";
 import Bullet from "./bullet";
 
 export default class Game {
@@ -42,19 +41,9 @@ export default class Game {
     canvas.height = innerHeight;
   }
 
-  public static preparePlaneSprite() : HTMLImageElement {
-    const imgSrc: string = "https://i.ibb.co/xYD2NkC/plane.png";
-
-    const img:HTMLImageElement = new Image();
-    img.src = imgSrc;
-    return img;
-  }
-
   private static prepareBackgroundImage(): HTMLImageElement {
-    const imgSrc: string = "https://i.ibb.co/7RHgNhL/galaxy.jpg";
-
     const img: HTMLImageElement = new Image();
-    img.src = imgSrc;
+    img.src = `${process.env.BASE_URL}background.jpg`;
     return img;
   }
 
