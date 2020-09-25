@@ -7,6 +7,8 @@ import Bullet from "./abstracts/bullet";
 import Meteor from "./meteor";
 
 export default class Game {
+  public static readonly TOTAL_ASSETS_COUNT: number = 5;
+
   private static bgImg: HTMLImageElement;
   private static ctx: CanvasRenderingContext2D;
   private static enemy: Enemy;
@@ -24,15 +26,19 @@ export default class Game {
     store.isGaming = true;
     this.cleanUp();
 
-    this.ctx = ctx;
-    this.bgImg = this.prepareBackgroundImage();
-    this.enemy = store.enemy = this.prepareEnemy();
-    this.player = store.player = this.preparePlayer();
+    this.bgImg = store.assets.backgroundImage;
     this.chooseInputSystem();
-    this.prepareCanvas(canvas);
-    this.play();
-
+    this.ctx = ctx;
+    this.enemy = store.enemy = this.prepareEnemy();
     this.meteor = new Meteor();
+    this.player = store.player = this.preparePlayer();
+    this.prepareCanvas(canvas);
+
+    this.play();
+  }
+
+  public static get loading(): boolean {
+    return store.loadedAssetsCount < Object.keys(store.assets).length;
   }
 
   public static end(): void {
@@ -43,12 +49,6 @@ export default class Game {
   private static prepareCanvas(canvas: HTMLCanvasElement): void {
     canvas.width = innerWidth;
     canvas.height = innerHeight;
-  }
-
-  private static prepareBackgroundImage(): HTMLImageElement {
-    const img: HTMLImageElement = new Image();
-    img.src = `${process.env.BASE_URL}background.jpg`;
-    return img;
   }
 
   private static prepareEnemy(): Enemy {
@@ -133,6 +133,10 @@ export default class Game {
 
   private static play(): void {
     const loop = () => {
+      if (this.loading) {
+        return;
+      }
+
       if (this.enemy.isDead || this.player.isDead) {
         alert("Game Over. Thank you for playing.");
         router.push("/about");
@@ -157,6 +161,7 @@ export default class Game {
   private static handleMeteor(): void {
     this.meteor.move();
     this.meteor.drawSelf(this.ctx);
+    this.meteor.checkCollision();
     if (this.meteor.isOutOfBounds) {
       this.meteor.spawnAgainLater();
     }

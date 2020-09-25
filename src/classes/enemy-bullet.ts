@@ -4,29 +4,36 @@ import Player from "./player";
 import store from "@/store";
 
 export default class EnemyBullet extends Bullet {
-  protected readonly HEIGHT: number = 5;
   protected readonly VELOCITY: number = 7;
-  protected readonly WIDTH: number = 5;
-  protected readonly RADIUS: number = 5;
+  protected readonly RADIUS: number = 10;
+
+  public readonly sprite: HTMLImageElement;
 
   constructor(x: number, y: number, direction: Direction) {
     super(x, y, direction);
+    this.sprite = store.assets.enemyBullet;
   }
 
   public draw(ctx: CanvasRenderingContext2D): void {
     const { x, y } = this.position;
-    ctx.moveTo(x, y);
-    ctx.arc(x, y, this.RADIUS, 0, Math.PI * 2, true);
+    ctx.drawImage(this.sprite, x, y, this.RADIUS, this.RADIUS);
   }
 
   public checkCollision(): void {
     const player: Player = store.player as Player;
     if (player !== null) {
+      const { x: left, y: top } = this.position;
+      const right = left + this.RADIUS;
+      const bottom = top + this.RADIUS;
+
+      const hitboxOffset = player.HITBOX_SIZE;
+      const xMin = player.position.x - hitboxOffset;
+      const yMin = player.position.y - hitboxOffset;
+      const xMax = player.position.x + hitboxOffset;
+      const yMax = player.position.y + hitboxOffset;
+
       const hasCollision: boolean =
-        this.position.x >= player.position.x &&
-        this.position.y >= player.position.y &&
-        this.position.x <= player.position.x + player.HITBOX_SIZE / 2 &&
-        this.position.y <= player.position.y + player.HITBOX_SIZE / 2;
+        left >= xMin && top >= yMin && right <= xMax && bottom <= yMax;
 
       if (hasCollision) {
         this.isEnded = player.isDead = true;

@@ -1,6 +1,6 @@
 export default abstract class Entity {
-  public readonly HEIGHT: number = 0;
-  public readonly WIDTH: number = 0;
+  public readonly HEIGHT: number | null = null;
+  public readonly WIDTH: number | null = null;
 
   public get isDead(): boolean {
     return false;
