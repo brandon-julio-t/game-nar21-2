@@ -1,6 +1,6 @@
 import { reactive } from "vue";
 
-import Bullet from "@/classes/bullet";
+import Bullet from "@/classes/abstracts/bullet";
 import Enemy from "@/classes/enemy";
 import Player from "@/classes/player";
 
