@@ -152,9 +152,7 @@ export default class Game {
 
       let now = Date.now();
       let delta = now - lastFrameTime;
-      console.log({ delta, interval: FPSInterval });
       if (delta > FPSInterval) {
-        console.log("hm");
         lastFrameTime = now - (delta % FPSInterval);
 
         this.ctx.clearRect(0, 0, innerWidth, innerHeight);
