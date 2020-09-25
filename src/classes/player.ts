@@ -4,11 +4,12 @@ import Vector2 from "./core/vector2";
 import store from "@/store";
 
 export default class Player extends Entity {
-  public readonly WIDTH = 25;
-  public readonly HEIGHT = 25;
+  public readonly SIZE = 50;
+  public readonly HITBOX_SIZE = this.SIZE / 4;
 
   private _velocity: number;
   private nextTimeToAttack: number = Date.now();
+  private sprite: HTMLImageElement;
 
   public _isDead: boolean = false;
   public isMovingDown: boolean = false;
@@ -22,6 +23,9 @@ export default class Player extends Entity {
     super();
     this.position = new Vector2(x, y);
     this._velocity = velocity;
+
+    this.sprite = new Image();
+    this.sprite.src = `${process.env.BASE_URL}player.png`;
   }
 
   public get isDead(): boolean {
@@ -54,7 +58,7 @@ export default class Player extends Entity {
     }
 
     const afterMoveLeft = this.position.x - this.velocity;
-    if (afterMoveLeft >= this.WIDTH) {
+    if (afterMoveLeft >= this.SIZE) {
       this.position.x = afterMoveLeft;
     }
   }
@@ -65,7 +69,7 @@ export default class Player extends Entity {
     }
 
     const afterMoveRight = this.position.x + this.velocity;
-    if (afterMoveRight <= innerWidth - this.WIDTH) {
+    if (afterMoveRight <= innerWidth - this.SIZE) {
       this.position.x = afterMoveRight;
     }
   }
@@ -76,7 +80,7 @@ export default class Player extends Entity {
     }
 
     const afterMoveUp = this.position.y - this.velocity;
-    if (afterMoveUp >= this.HEIGHT) {
+    if (afterMoveUp >= this.SIZE) {
       this.position.y = afterMoveUp;
     }
   }
@@ -87,28 +91,33 @@ export default class Player extends Entity {
     }
 
     const afterMoveDown = this.position.y + this.velocity;
-    if (afterMoveDown <= innerHeight - this.HEIGHT) {
+    if (afterMoveDown <= innerHeight - this.SIZE) {
       this.position.y = afterMoveDown;
     }
   }
 
   private draw(ctx: CanvasRenderingContext2D): void {
     const { x, y } = this.position;
-    const offsetX = this.WIDTH / 2;
-    const offsetY = this.HEIGHT / 2;
+    const { naturalWidth, naturalHeight } = this.sprite;
+    const width = (this.SIZE * naturalWidth) / naturalHeight + 10;
+    const height = (this.SIZE * naturalHeight) / naturalWidth;
+    ctx.drawImage(this.sprite, x - width / 2, y - height / 2, width, height);
 
-    ctx.fillStyle = store.color;
-    ctx.beginPath();
-    ctx.moveTo(x - offsetX, y + offsetY);
-    ctx.lineTo(x, y - offsetY);
-    ctx.lineTo(x + offsetX, y + offsetY);
-    ctx.fill();
+    if (process.env.NODE_ENV === "development") {
+      ctx.fillStyle = "red";
+      ctx.fillRect(
+        x - this.HITBOX_SIZE / 2,
+        y - this.HITBOX_SIZE / 2,
+        this.HITBOX_SIZE,
+        this.HITBOX_SIZE
+      );
+    }
   }
 
   public shoot(): void {
     if (Date.now() >= this.nextTimeToAttack) {
       const { x, y } = this.position;
-      store.bullets.splice(0, 0, new PlayerBullet(x, y - this.HEIGHT / 2));
+      store.bullets.splice(0, 0, new PlayerBullet(x, y));
       this.nextTimeToAttack = Date.now() + 250;
     }
   }

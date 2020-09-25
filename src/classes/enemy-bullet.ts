@@ -25,8 +25,8 @@ export default class EnemyBullet extends Bullet {
       const hasCollision: boolean =
         this.position.x >= player.position.x &&
         this.position.y >= player.position.y &&
-        this.position.x <= player.position.x + player.WIDTH / 2 &&
-        this.position.y <= player.position.y + player.HEIGHT / 2;
+        this.position.x <= player.position.x + player.HITBOX_SIZE / 2 &&
+        this.position.y <= player.position.y + player.HITBOX_SIZE / 2;
 
       if (hasCollision) {
         this.isEnded = player.isDead = true;

@@ -46,10 +46,8 @@ export default class Game {
   }
 
   private static prepareBackgroundImage(): HTMLImageElement {
-    const imgSrc: string = "https://i.ibb.co/7RHgNhL/galaxy.jpg";
-
     const img: HTMLImageElement = new Image();
-    img.src = imgSrc;
+    img.src = `${process.env.BASE_URL}background.jpg`;
     return img;
   }
 
