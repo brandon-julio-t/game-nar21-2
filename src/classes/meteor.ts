@@ -53,7 +53,6 @@ export default class Meteor {
   }
 
   public drawSelf(ctx: CanvasRenderingContext2D): void {
-    console.log(this.image);
     const { x, y } = this.position;
     ctx.drawImage(this.image, x, y);
   }
