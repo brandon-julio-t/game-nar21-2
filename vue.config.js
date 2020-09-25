@@ -4,18 +4,16 @@ module.exports = {
     themeColor: "#4D78BA"
   },
 
-  productionSourceMap: false,
-
   chainWebpack: config => {
-    config.module
-      .rule("svg-sprite")
-      .use("svgo-loader")
-      .loader("svgo-loader");
-  },
+    const svgRule = config.module.rule("svg");
 
-  pluginOptions: {
-    svgSprite: {
-      dir: "src/assets"
-    }
-  }
+    svgRule.uses.clear();
+
+    svgRule
+      .use("babel-loader")
+      .loader("babel-loader")
+      .end()
+      .use("vue-svg-loader")
+      .loader("vue-svg-loader");
+  },
 };

@@ -5,12 +5,12 @@ export default class Meteor {
   private readonly VELOCITY: Vector2 = new Vector2(10, 3);
 
   private image: HTMLImageElement;
-  private position: Vector2;
+  private position: Vector2 = new Vector2(0, 0);
   private timeoutId: number | null = null;
 
   constructor() {
     this.image = new Image();
-    this.image.src = require("@/assets/meteor.svg");
+    this.image.src = `${process.env.BASE_URL}meteor.svg`;
 
     this.position = new Vector2(0, 0);
     this.resetPositionToSpawnPosition();
@@ -53,6 +53,7 @@ export default class Meteor {
   }
 
   public drawSelf(ctx: CanvasRenderingContext2D): void {
+    console.log(this.image);
     const { x, y } = this.position;
     ctx.drawImage(this.image, x, y);
   }
