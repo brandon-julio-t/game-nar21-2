@@ -7,7 +7,7 @@ import Bullet from "./abstracts/bullet";
 import Meteor from "./meteor";
 
 export default class Game {
-  private static readonly FPS: number = 5;
+  private static readonly FPS: number = 60;
 
   public static readonly TOTAL_ASSETS_COUNT: number = 5;
 
