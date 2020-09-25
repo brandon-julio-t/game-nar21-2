@@ -3,14 +3,15 @@ import EnemyBullet from "./enemy-bullet";
 import Player from "./player";
 import router from "@/router";
 import store from "@/store";
-import PlayerBullet from "./player-bullet";
-import Bullet from "./bullet";
+import Bullet from "./abstracts/bullet";
+import Meteor from "./meteor";
 
 export default class Game {
   private static bgImg: HTMLImageElement;
   private static ctx: CanvasRenderingContext2D;
   private static enemy: Enemy;
   private static player: Player;
+  private static meteor: Meteor;
 
   private static animationId: number | null = null;
 
@@ -30,6 +31,8 @@ export default class Game {
     this.chooseInputSystem();
     this.prepareCanvas(canvas);
     this.play();
+
+    this.meteor = new Meteor();
   }
 
   public static end(): void {
@@ -139,14 +142,10 @@ export default class Game {
       }
 
       this.ctx.clearRect(0, 0, innerWidth, innerHeight);
-      this.ctx.drawImage(
-        this.bgImg,
-        0,
-        0,
-        window.innerWidth,
-        window.innerHeight
-      );
 
+      this.ctx.drawImage(this.bgImg, 0, 0, innerWidth, innerHeight);
+
+      this.handleMeteor();
       this.handlePlayer();
       this.handleEnemy();
       this.handleBullets();
@@ -157,12 +156,21 @@ export default class Game {
     this.animationId = requestAnimationFrame(loop);
   }
 
+  private static handleMeteor(): void {
+    this.meteor.move();
+    this.meteor.drawSelf(this.ctx);
+    if (this.meteor.isOutOfBounds) {
+      this.meteor.spawnAgainLater();
+    }
+  }
+
   private static handlePlayer(): void {
     this.player.moveAndDraw(this.ctx);
     this.player.shoot();
   }
 
   private static handleEnemy(): void {
+    this.enemy.move();
     this.enemy.drawSelfAndHealthBar(this.ctx);
     this.enemy.shoot();
   }

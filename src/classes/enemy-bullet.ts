@@ -1,5 +1,5 @@
-import Bullet from "./bullet";
-import Direction from "./direction";
+import Bullet from "./abstracts/bullet";
+import Direction from "./enums/direction";
 import Player from "./player";
 import store from "@/store";
 

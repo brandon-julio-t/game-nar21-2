@@ -1,10 +1,11 @@
-import Direction from "./direction";
+import Direction from "./enums/direction";
 import EnemyBullet from "./enemy-bullet";
-import Vector2 from "./vector2";
+import Entity from "./abstracts/entity";
+import Vector2 from "./core/vector2";
 import store from "@/store";
-import utility from "./utilities";
+import utility from "./core/utilities";
 
-export default class Enemy {
+export default class Enemy extends Entity {
   public readonly HEIGHT: number = innerHeight / 4;
   public readonly WIDTH: number = innerWidth / 2;
 
@@ -12,10 +13,12 @@ export default class Enemy {
 
   public position: Vector2 = new Vector2(innerWidth / 2 - this.WIDTH / 2, 0);
 
+  private velocity: number = 5;
   private maxHealth: number;
   private currentHealth: number;
 
   constructor(health: number) {
+    super();
     this.currentHealth = this.maxHealth = health;
   }
 
@@ -25,6 +28,15 @@ export default class Enemy {
 
   public reduceHealth(points: number): void {
     this.currentHealth -= points;
+  }
+
+  public move(): void {
+    const { x } = this.position;
+    if (x + this.WIDTH >= innerWidth || x <= 0) {
+      this.velocity *= -1;
+    }
+
+    this.position.x += this.velocity;
   }
 
   public drawSelfAndHealthBar(ctx: CanvasRenderingContext2D): void {
