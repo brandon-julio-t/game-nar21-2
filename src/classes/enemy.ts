@@ -3,23 +3,26 @@ import EnemyBullet from "./enemy-bullet";
 import Entity from "./abstracts/entity";
 import Vector2 from "./core/vector2";
 import store from "@/store";
-import utility from "./core/utilities";
+import { randomIntegerBetween } from "./core/utilities";
 
 export default class Enemy extends Entity {
-  public readonly HEIGHT: number = /* innerHeight / 4 */ innerHeight / 3;
-  public readonly WIDTH: number = /* innerWidth / 2 */ innerWidth / 3;
+  public position: Vector2;
+  public sprite: HTMLImageElement;
 
-  private readonly HEALTHBAR_HEIGHT = this.HEIGHT / 4;
-
-  public position: Vector2 = new Vector2(innerWidth / 2 - this.WIDTH / 2, 0);
-
-  private velocity: number = 5;
-  private maxHealth: number;
   private currentHealth: number;
+  private healthbarHeight: number;
+  private maxHealth: number;
+  private velocity: number = 5;
 
   constructor(health: number) {
     super();
     this.currentHealth = this.maxHealth = health;
+    this.sprite = store.assets.enemy;
+    this.healthbarHeight = this.sprite.naturalHeight / 4;
+    this.position = new Vector2(
+      innerWidth / 2 - this.sprite.naturalWidth / 2,
+      0
+    );
   }
 
   public get isDead(): boolean {
@@ -32,7 +35,7 @@ export default class Enemy extends Entity {
 
   public move(): void {
     const { x } = this.position;
-    if (x + this.WIDTH >= innerWidth || x <= 0) {
+    if (x + this.sprite.naturalWidth >= innerWidth || x <= 0) {
       this.velocity *= -1;
     }
 
@@ -46,39 +49,32 @@ export default class Enemy extends Entity {
 
   private drawSelf(ctx: CanvasRenderingContext2D): void {
     const { x, y } = this.position;
+    const { naturalHeight, naturalWidth } = this.sprite;
     ctx.fillStyle = store.color;
-    // ctx.fillRect(x, y, this.WIDTH, this.HEIGHT);
-    ctx.drawImage(this.prepareEnemySprite(), x, y, this.WIDTH, this.HEIGHT);
-  }
-
-  private prepareEnemySprite(): HTMLImageElement {
-    const imgSrc:string = "https://i.ibb.co/1Xchfmh/Ship5.png";
-
-    const img:HTMLImageElement = new Image();
-    img.src = imgSrc;
-    return img;
+    ctx.drawImage(
+      this.sprite,
+      x,
+      y + this.healthbarHeight,
+      naturalWidth,
+      naturalHeight
+    );
   }
 
   private drawHealthBar(ctx: CanvasRenderingContext2D): void {
     ctx.fillStyle = "red";
     ctx.fillRect(
+      this.position.x,
       0,
-      0,
-      innerWidth * (this.currentHealth / this.maxHealth),
-      this.HEALTHBAR_HEIGHT
+      this.sprite.naturalWidth * (this.currentHealth / this.maxHealth),
+      this.healthbarHeight
     );
   }
 
   public shoot(): void {
     const directions: Direction[] = [
-      // Direction.NORTH,
-      // Direction.NORTH_EAST,
-      // Direction.NORTH_WEST,
       Direction.SOUTH,
       Direction.SOUTH_EAST,
       Direction.SOUTH_WEST
-      // Direction.EAST,
-      // Direction.WEST
     ];
 
     const { x, y } = this.position;
@@ -88,11 +84,8 @@ export default class Enemy extends Entity {
       ...directions.map(
         direction =>
           new EnemyBullet(
-            utility.randomIntegerBetween(x, x + this.WIDTH),
-            utility.randomIntegerBetween(
-              y + this.HEALTHBAR_HEIGHT,
-              y + this.HEIGHT
-            ),
+            randomIntegerBetween(x, x + this.sprite.naturalWidth),
+            y + this.sprite.naturalHeight + this.healthbarHeight,
             direction
           )
       )

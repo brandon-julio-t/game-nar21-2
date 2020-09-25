@@ -1,4 +1,4 @@
-import Entity from './abstracts/entity';
+import Entity from "./abstracts/entity";
 import PlayerBullet from "./player-bullet";
 import Vector2 from "./core/vector2";
 import store from "@/store";
@@ -9,7 +9,6 @@ export default class Player extends Entity {
 
   private _velocity: number;
   private nextTimeToAttack: number = Date.now();
-  private sprite: HTMLImageElement;
 
   public _isDead: boolean = false;
   public isMovingDown: boolean = false;
@@ -18,14 +17,13 @@ export default class Player extends Entity {
   public isMovingUp: boolean = false;
   public isSlowingDown: boolean = false;
   public position: Vector2;
+  public sprite: HTMLImageElement;
 
   constructor(x: number, y: number, velocity: number) {
     super();
-    this.position = new Vector2(x, y);
     this._velocity = velocity;
-
-    this.sprite = new Image();
-    this.sprite.src = `${process.env.BASE_URL}player.png`;
+    this.position = new Vector2(x, y);
+    this.sprite = store.assets.player;
   }
 
   public get isDead(): boolean {
@@ -105,19 +103,21 @@ export default class Player extends Entity {
 
     if (process.env.NODE_ENV === "development") {
       ctx.fillStyle = "red";
-      ctx.fillRect(
-        x - this.HITBOX_SIZE / 2,
-        y - this.HITBOX_SIZE / 2,
-        this.HITBOX_SIZE,
-        this.HITBOX_SIZE
-      );
+      ctx.beginPath();
+      ctx.arc(x, y, this.HITBOX_SIZE, 0, Math.PI * 2);
+      ctx.fill();
     }
   }
 
   public shoot(): void {
     if (Date.now() >= this.nextTimeToAttack) {
+      const { naturalHeight, naturalWidth } = this.sprite;
       const { x, y } = this.position;
-      store.bullets.splice(0, 0, new PlayerBullet(x, y));
+      store.bullets.splice(
+        0,
+        0,
+        new PlayerBullet(x, y - (this.SIZE * naturalWidth) / naturalHeight)
+      );
       this.nextTimeToAttack = Date.now() + 250;
     }
   }

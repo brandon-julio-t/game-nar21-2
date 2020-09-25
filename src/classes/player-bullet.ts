@@ -15,11 +15,12 @@ export default class PlayerBullet extends Bullet {
   public checkCollision(): void {
     const enemy: Enemy | null = store.enemy as Enemy;
     if (enemy !== null) {
+      const { naturalWidth, naturalHeight } = enemy.sprite;
       const hasCollision: boolean =
         this.position.x >= enemy.position.x &&
         this.position.y >= enemy.position.y &&
-        this.position.x <= enemy.position.x + enemy.WIDTH &&
-        this.position.y <= enemy.position.y + enemy.HEIGHT;
+        this.position.x <= enemy.position.x + naturalWidth &&
+        this.position.y <= enemy.position.y + naturalHeight;
 
       if (hasCollision) {
         enemy.reduceHealth(1);

@@ -1,16 +1,19 @@
-import utilities from "./core/utilities";
+import Player from "./player";
 import Vector2 from "./core/vector2";
+import store from "@/store";
+import { randomIntegerBetween } from "./core/utilities";
 
 export default class Meteor {
   private readonly VELOCITY: Vector2 = new Vector2(10, 3);
+  private readonly SIZE: number = 100;
 
-  private image: HTMLImageElement;
   private position: Vector2 = new Vector2(0, 0);
   private timeoutId: number | null = null;
 
+  public sprite: HTMLImageElement;
+
   constructor() {
-    this.image = new Image();
-    this.image.src = `${process.env.BASE_URL}meteor.svg`;
+    this.sprite = store.assets.meteor;
 
     this.position = new Vector2(0, 0);
     this.resetPositionToSpawnPosition();
@@ -26,10 +29,10 @@ export default class Meteor {
   }
 
   private resetPositionToSpawnPosition(): void {
-    const { naturalHeight } = this.image;
+    const { naturalHeight } = this.sprite;
     this.position = new Vector2(
       innerWidth,
-      utilities.randomIntegerBetween(0, (innerHeight + naturalHeight) / 2)
+      randomIntegerBetween(0, (innerHeight + naturalHeight) / 2)
     );
   }
 
@@ -48,12 +51,47 @@ export default class Meteor {
 
   public get isOutOfBounds(): boolean {
     const { x, y } = this.position;
-    const { naturalWidth } = this.image;
-    return x + naturalWidth < 0 || y < 0 || x > innerWidth || y > innerHeight;
+    const { naturalHeight, naturalWidth } = this.sprite;
+    return (
+      x + this.SIZE * (naturalWidth / naturalHeight) < 0 ||
+      y < 0 ||
+      x > innerWidth ||
+      y > innerHeight
+    );
   }
 
   public drawSelf(ctx: CanvasRenderingContext2D): void {
     const { x, y } = this.position;
-    ctx.drawImage(this.image, x, y);
+    const { naturalHeight, naturalWidth } = this.sprite;
+    ctx.drawImage(
+      this.sprite,
+      x,
+      y,
+      this.SIZE * (naturalWidth / naturalHeight),
+      this.SIZE * (naturalHeight / naturalWidth)
+    );
+  }
+
+  public checkCollision(): void {
+    const player: Player = store.player as Player;
+    if (player !== null) {
+      const { naturalHeight, naturalWidth } = this.sprite;
+      const { x: xMin, y: yMin } = this.position;
+      const xMax = xMin + this.SIZE * (naturalWidth / naturalHeight);
+      const yMax = yMin + this.SIZE * (naturalHeight / naturalWidth);
+
+      const hitboxOffset = player.HITBOX_SIZE;
+      const left = player.position.x - hitboxOffset;
+      const top = player.position.y - hitboxOffset;
+      const right = player.position.x + hitboxOffset;
+      const bottom = player.position.y + hitboxOffset;
+
+      const hasCollision: boolean =
+        left >= xMin && top >= yMin && right <= xMax && bottom <= yMax;
+
+      if (hasCollision) {
+        player.isDead = true;
+      }
+    }
   }
 }
