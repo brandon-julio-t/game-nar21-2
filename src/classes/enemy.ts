@@ -1,10 +1,11 @@
-import Direction from "./enums/direction";
 import EnemyBullet from "./enemy-bullet";
 import Entity from "./abstracts/entity";
 import store from "@/store";
 import { randomIntegerBetween } from "./core/utilities";
 
 export default class Enemy extends Entity {
+  private readonly BULLETS_MULTIPLIER: number = 3;
+
   private velocity: number = 5;
 
   constructor(health: number) {
@@ -50,24 +51,18 @@ export default class Enemy extends Entity {
   }
 
   public shoot(): void {
-    const directions: Direction[] = [
-      Direction.SOUTH,
-      Direction.SOUTH_EAST,
-      Direction.SOUTH_WEST
-    ];
-
     const { x, y } = this.position;
-    store.bullets.splice(
-      0,
-      0,
-      ...directions.map(
-        direction =>
-          new EnemyBullet(
-            randomIntegerBetween(x, x + this.sprite.naturalWidth),
-            y + this.sprite.naturalHeight + this.healthBarHeight,
-            direction
-          )
-      )
-    );
+    const ySpawn = y + this.sprite.naturalHeight + this.healthBarHeight;
+
+    for (let i = 0; i < this.BULLETS_MULTIPLIER; i++) {
+      store.bullets.splice(
+        0,
+        0,
+        new EnemyBullet(
+          randomIntegerBetween(x, x + this.sprite.naturalWidth),
+          ySpawn
+        )
+      );
+    }
   }
 }

@@ -1,6 +1,7 @@
 import Entity from "./abstracts/entity";
 import PlayerBullet from "./player-bullet";
 import store from "@/store";
+import Game from "./game";
 
 export default class Player extends Entity {
   public static readonly SIZE = 50;
@@ -97,6 +98,7 @@ export default class Player extends Entity {
     ctx.drawImage(this.sprite, x - width / 2, y - height / 2, width, height);
 
     if (process.env.NODE_ENV === "development") {
+      console.log("hm");
       ctx.fillStyle = "red";
       ctx.beginPath();
       ctx.arc(x, y, this.HITBOX_SIZE, 0, Math.PI * 2);
@@ -116,14 +118,28 @@ export default class Player extends Entity {
 
   public shoot(): void {
     if (Date.now() >= this.nextTimeToAttack) {
+      const nX: number[] = [-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5];
+      const nY: number[] = [5, 4, 3, 2, 1, 0, 1, 2, 3, 4, 5];
+      const len: number = nX.length;
+
       const { naturalHeight, naturalWidth } = this.sprite;
       const { x, y } = this.position;
-      store.bullets.splice(
-        0,
-        0,
-        new PlayerBullet(x, y - (Player.SIZE * naturalWidth) / naturalHeight)
-      );
-      this.nextTimeToAttack = Date.now() + 250;
+
+      for (let i = 0; i < len; i++) {
+        const xOffset: number = nX[i] * 10;
+        const yOffset: number = nY[i] * 10;
+
+        store.bullets.splice(
+          0,
+          0,
+          new PlayerBullet(
+            x + xOffset,
+            y + yOffset - (Player.SIZE * naturalWidth) / naturalHeight
+          )
+        );
+      }
+
+      this.nextTimeToAttack = Date.now() + 75;
     }
   }
 }

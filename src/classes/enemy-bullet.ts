@@ -1,30 +1,27 @@
 import Bullet from "./abstracts/bullet";
-import Direction from "./enums/direction";
 import Player from "./player";
 import store from "@/store";
+import { randomIntegerBetween } from "./core/utilities";
 
 export default class EnemyBullet extends Bullet {
-  protected readonly VELOCITY: number = 7;
-  protected readonly RADIUS: number = 10;
-
   public readonly sprite: HTMLImageElement;
 
-  constructor(x: number, y: number, direction: Direction) {
-    super(x, y, direction);
+  constructor(x: number, y: number) {
+    super(x, y, randomIntegerBetween(-7, 7), 7, 10, 10);
     this.sprite = store.assets.enemyBullet;
   }
 
   public draw(ctx: CanvasRenderingContext2D): void {
     const { x, y } = this.position;
-    ctx.drawImage(this.sprite, x, y, this.RADIUS, this.RADIUS);
+    ctx.drawImage(this.sprite, x, y, this.WIDTH, this.HEIGHT);
   }
 
   public checkCollision(): void {
     const player: Player = store.player as Player;
     if (player !== null) {
       const { x: left, y: top } = this.position;
-      const right = left + this.RADIUS;
-      const bottom = top + this.RADIUS;
+      const right = left + this.WIDTH;
+      const bottom = top + this.HEIGHT;
 
       const hitboxOffset = player.HITBOX_SIZE;
       const xMin = player.position.x - hitboxOffset;
@@ -48,6 +45,15 @@ export default class EnemyBullet extends Bullet {
       this.position.x = innerWidth;
     } else if (x >= innerWidth) {
       this.position.x = 0;
+    }
+  }
+
+  public wrapVertical(): void {
+    const { y } = this.position;
+    if (y <= 0) {
+      this.position.y = innerHeight;
+    } else if (y >= innerHeight) {
+      this.position.y = 0;
     }
   }
 }

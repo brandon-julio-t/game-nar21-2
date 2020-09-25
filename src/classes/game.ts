@@ -5,6 +5,7 @@ import router from "@/router";
 import store from "@/store";
 import Bullet from "./abstracts/bullet";
 import Meteor from "./meteor";
+import InputSystem from "./input-system";
 
 export default class Game {
   private static readonly FPS: number = 60;
@@ -27,13 +28,14 @@ export default class Game {
     store.isGaming = true;
     this.cleanUp();
 
-    this.chooseInputSystem();
+    this.prepareCanvas(canvas);
     this.ctx = ctx;
+
     this.enemy = store.enemy = this.prepareEnemy();
     this.meteor = new Meteor();
     this.player = store.player = this.preparePlayer();
-    this.prepareCanvas(canvas);
 
+    this.chooseInputSystem();
     this.play();
   }
 
@@ -70,61 +72,8 @@ export default class Game {
 
   private static chooseInputSystem(): void {
     confirm("Use keyboard as input? Yes: [ENTER] or No: [ESC]")
-      ? this.prepareKeyboardInputListener()
-      : this.prepareMouseInputListener();
-  }
-
-  private static prepareKeyboardInputListener(): void {
-    onkeydown = e => this.keyboardInputListener(e, true);
-    onkeyup = e => this.keyboardInputListener(e, false);
-    onmousemove = null;
-  }
-
-  private static keyboardInputListener(
-    e: KeyboardEvent,
-    keyDown: boolean
-  ): void {
-    switch (e.code) {
-      case "ArrowUp":
-      case "KeyW":
-        this.player.isMovingUp = keyDown;
-        break;
-
-      case "ArrowDown":
-      case "KeyS":
-        this.player.isMovingDown = keyDown;
-        break;
-
-      case "ArrowLeft":
-      case "KeyA":
-        this.player.isMovingLeft = keyDown;
-        break;
-
-      case "ArrowRight":
-      case "KeyD":
-        this.player.isMovingRight = keyDown;
-        break;
-
-      case "ShiftLeft":
-        this.player.isSlowingDown = keyDown;
-        break;
-
-      case "Escape":
-        if (process.env.NODE_ENV === "development") {
-          router.push("/");
-        }
-        break;
-    }
-  }
-
-  private static prepareMouseInputListener(): void {
-    onkeydown = null;
-    onkeyup = null;
-    onmousemove = (e: MouseEvent) => {
-      const { clientX, clientY } = e;
-      this.player.position.x = clientX;
-      this.player.position.y = clientY;
-    };
+      ? InputSystem.useKeyboard()
+      : InputSystem.useMouse();
   }
 
   private static play(): void {
@@ -196,9 +145,6 @@ export default class Game {
     bullet.move();
     bullet.draw(this.ctx);
     bullet.checkCollision();
-    if (bullet instanceof EnemyBullet) {
-      bullet.wrapHorizontal();
-    }
 
     return true;
   }

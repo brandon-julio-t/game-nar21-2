@@ -19,6 +19,16 @@ export default class Meteor {
     this.resetPositionToSpawnPosition();
   }
 
+  private get height(): number {
+    const { naturalHeight, naturalWidth } = this.sprite;
+    return (this.SIZE * naturalHeight) / naturalWidth;
+  }
+
+  private get width(): number {
+    const { naturalHeight, naturalWidth } = this.sprite;
+    return (this.SIZE * naturalWidth) / naturalHeight;
+  }
+
   public spawnAgainLater(): void {
     if (this.timeoutId === null) {
       this.timeoutId = setTimeout(() => {
@@ -51,9 +61,8 @@ export default class Meteor {
 
   public get isOutOfBounds(): boolean {
     const { x, y } = this.position;
-    const { naturalHeight, naturalWidth } = this.sprite;
     return (
-      x + this.SIZE * (naturalWidth / naturalHeight) < 0 ||
+      x + this.width < 0 ||
       y < 0 ||
       x > innerWidth ||
       y > innerHeight
@@ -62,13 +71,12 @@ export default class Meteor {
 
   public drawSelf(ctx: CanvasRenderingContext2D): void {
     const { x, y } = this.position;
-    const { naturalHeight, naturalWidth } = this.sprite;
     ctx.drawImage(
       this.sprite,
       x,
       y,
-      this.SIZE * (naturalWidth / naturalHeight),
-      this.SIZE * (naturalHeight / naturalWidth)
+      this.width,
+      this.height
     );
   }
 
@@ -77,8 +85,8 @@ export default class Meteor {
     if (player !== null) {
       const { naturalHeight, naturalWidth } = this.sprite;
       const { x: xMin, y: yMin } = this.position;
-      const xMax = xMin + this.SIZE * (naturalWidth / naturalHeight);
-      const yMax = yMin + this.SIZE * (naturalHeight / naturalWidth);
+      const xMax = xMin + this.width;
+      const yMax = yMin + this.height;
 
       const hitboxOffset = player.HITBOX_SIZE;
       const left = player.position.x - hitboxOffset;
