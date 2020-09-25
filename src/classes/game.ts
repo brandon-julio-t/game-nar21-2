@@ -7,6 +7,8 @@ import Bullet from "./abstracts/bullet";
 import Meteor from "./meteor";
 
 export default class Game {
+  private static readonly FPS: number = 60;
+
   public static readonly TOTAL_ASSETS_COUNT: number = 5;
 
   private static bgImg: HTMLImageElement;
@@ -132,6 +134,9 @@ export default class Game {
   }
 
   private static play(): void {
+    const fpsInterval = 1000 / this.FPS;
+    let prev = Date.now();
+
     const loop = () => {
       if (this.loading) {
         return;
@@ -151,6 +156,12 @@ export default class Game {
       this.handlePlayer();
       this.handleEnemy();
       this.handleBullets();
+
+      let now = Date.now();
+      let delta = prev - now;
+      while (delta > fpsInterval) {
+        prev = now - (delta % fpsInterval);
+      }
 
       this.animationId = requestAnimationFrame(loop);
     };
