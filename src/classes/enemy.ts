@@ -1,36 +1,20 @@
 import Direction from "./enums/direction";
 import EnemyBullet from "./enemy-bullet";
 import Entity from "./abstracts/entity";
-import Vector2 from "./core/vector2";
 import store from "@/store";
 import { randomIntegerBetween } from "./core/utilities";
 
 export default class Enemy extends Entity {
-  public position: Vector2;
-  public sprite: HTMLImageElement;
-
-  private currentHealth: number;
-  private healthbarHeight: number;
-  private maxHealth: number;
   private velocity: number = 5;
 
   constructor(health: number) {
-    super();
-    this.currentHealth = this.maxHealth = health;
-    this.sprite = store.assets.enemy;
-    this.healthbarHeight = this.sprite.naturalHeight / 4;
-    this.position = new Vector2(
-      innerWidth / 2 - this.sprite.naturalWidth / 2,
-      0
+    super(
+      innerWidth / 2 - store.assets.enemy.naturalWidth / 2,
+      0,
+      health,
+      store.assets.enemy,
+      store.assets.enemy.naturalHeight / 4
     );
-  }
-
-  public get isDead(): boolean {
-    return this.currentHealth <= 0;
-  }
-
-  public reduceHealth(points: number): void {
-    this.currentHealth -= points;
   }
 
   public move(): void {
@@ -42,31 +26,26 @@ export default class Enemy extends Entity {
     this.position.x += this.velocity;
   }
 
-  public drawSelfAndHealthBar(ctx: CanvasRenderingContext2D): void {
-    this.drawSelf(ctx);
-    this.drawHealthBar(ctx);
-  }
-
-  private drawSelf(ctx: CanvasRenderingContext2D): void {
+  protected drawSelf(ctx: CanvasRenderingContext2D): void {
     const { x, y } = this.position;
     const { naturalHeight, naturalWidth } = this.sprite;
     ctx.fillStyle = store.color;
     ctx.drawImage(
       this.sprite,
       x,
-      y + this.healthbarHeight,
+      y + this.healthBarHeight,
       naturalWidth,
       naturalHeight
     );
   }
 
-  private drawHealthBar(ctx: CanvasRenderingContext2D): void {
+  protected drawHealthBar(ctx: CanvasRenderingContext2D): void {
     ctx.fillStyle = "red";
     ctx.fillRect(
       this.position.x,
       0,
       this.sprite.naturalWidth * (this.currentHealth / this.maxHealth),
-      this.healthbarHeight
+      this.healthBarHeight
     );
   }
 
@@ -85,7 +64,7 @@ export default class Enemy extends Entity {
         direction =>
           new EnemyBullet(
             randomIntegerBetween(x, x + this.sprite.naturalWidth),
-            y + this.sprite.naturalHeight + this.healthbarHeight,
+            y + this.sprite.naturalHeight + this.healthBarHeight,
             direction
           )
       )

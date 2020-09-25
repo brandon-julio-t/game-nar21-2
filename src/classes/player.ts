@@ -1,37 +1,32 @@
 import Entity from "./abstracts/entity";
 import PlayerBullet from "./player-bullet";
-import Vector2 from "./core/vector2";
 import store from "@/store";
 
 export default class Player extends Entity {
-  public readonly SIZE = 50;
-  public readonly HITBOX_SIZE = this.SIZE / 4;
+  public static readonly SIZE = 50;
+
+  public readonly HITBOX_SIZE = Player.SIZE / 4;
 
   private _velocity: number;
   private nextTimeToAttack: number = Date.now();
 
-  public _isDead: boolean = false;
   public isMovingDown: boolean = false;
   public isMovingLeft: boolean = false;
   public isMovingRight: boolean = false;
   public isMovingUp: boolean = false;
   public isSlowingDown: boolean = false;
-  public position: Vector2;
-  public sprite: HTMLImageElement;
 
-  constructor(x: number, y: number, velocity: number) {
-    super();
+  constructor(x: number, y: number, velocity: number, health: number) {
+    super(
+      x,
+      y,
+      health,
+      store.assets.player,
+      (Player.SIZE * store.assets.player.naturalHeight) /
+        store.assets.player.naturalWidth /
+        8
+    );
     this._velocity = velocity;
-    this.position = new Vector2(x, y);
-    this.sprite = store.assets.player;
-  }
-
-  public get isDead(): boolean {
-    return this._isDead;
-  }
-
-  public set isDead(isDead: boolean) {
-    this._isDead = isDead;
   }
 
   private get velocity(): number {
@@ -40,10 +35,10 @@ export default class Player extends Entity {
 
   public moveAndDraw(ctx: CanvasRenderingContext2D): void {
     this.move();
-    this.draw(ctx);
+    this.drawSelf(ctx);
   }
 
-  private move(): void {
+  public move(): void {
     this.moveUp();
     this.moveLeft();
     this.moveDown();
@@ -56,7 +51,7 @@ export default class Player extends Entity {
     }
 
     const afterMoveLeft = this.position.x - this.velocity;
-    if (afterMoveLeft >= this.SIZE) {
+    if (afterMoveLeft >= Player.SIZE) {
       this.position.x = afterMoveLeft;
     }
   }
@@ -67,7 +62,7 @@ export default class Player extends Entity {
     }
 
     const afterMoveRight = this.position.x + this.velocity;
-    if (afterMoveRight <= innerWidth - this.SIZE) {
+    if (afterMoveRight <= innerWidth - Player.SIZE) {
       this.position.x = afterMoveRight;
     }
   }
@@ -78,7 +73,7 @@ export default class Player extends Entity {
     }
 
     const afterMoveUp = this.position.y - this.velocity;
-    if (afterMoveUp >= this.SIZE) {
+    if (afterMoveUp >= Player.SIZE) {
       this.position.y = afterMoveUp;
     }
   }
@@ -89,16 +84,16 @@ export default class Player extends Entity {
     }
 
     const afterMoveDown = this.position.y + this.velocity;
-    if (afterMoveDown <= innerHeight - this.SIZE) {
+    if (afterMoveDown <= innerHeight - Player.SIZE) {
       this.position.y = afterMoveDown;
     }
   }
 
-  private draw(ctx: CanvasRenderingContext2D): void {
+  protected drawSelf(ctx: CanvasRenderingContext2D): void {
     const { x, y } = this.position;
     const { naturalWidth, naturalHeight } = this.sprite;
-    const width = (this.SIZE * naturalWidth) / naturalHeight + 10;
-    const height = (this.SIZE * naturalHeight) / naturalWidth;
+    const width = (Player.SIZE * naturalWidth) / naturalHeight + 10;
+    const height = (Player.SIZE * naturalHeight) / naturalWidth;
     ctx.drawImage(this.sprite, x - width / 2, y - height / 2, width, height);
 
     if (process.env.NODE_ENV === "development") {
@@ -109,6 +104,16 @@ export default class Player extends Entity {
     }
   }
 
+  protected drawHealthBar(ctx: CanvasRenderingContext2D): void {
+    ctx.fillStyle = "red";
+    ctx.fillRect(
+      this.position.x - Player.SIZE / 2,
+      this.position.y + Player.SIZE,
+      Player.SIZE * (this.currentHealth / this.maxHealth),
+      this.healthBarHeight
+    );
+  }
+
   public shoot(): void {
     if (Date.now() >= this.nextTimeToAttack) {
       const { naturalHeight, naturalWidth } = this.sprite;
@@ -116,7 +121,7 @@ export default class Player extends Entity {
       store.bullets.splice(
         0,
         0,
-        new PlayerBullet(x, y - (this.SIZE * naturalWidth) / naturalHeight)
+        new PlayerBullet(x, y - (Player.SIZE * naturalWidth) / naturalHeight)
       );
       this.nextTimeToAttack = Date.now() + 250;
     }

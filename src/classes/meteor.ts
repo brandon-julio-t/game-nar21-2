@@ -90,7 +90,7 @@ export default class Meteor {
         left >= xMin && top >= yMin && right <= xMax && bottom <= yMax;
 
       if (hasCollision) {
-        player.isDead = true;
+        player.reduceHealth(player.currentHealth);
       }
     }
   }

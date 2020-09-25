@@ -11,7 +11,6 @@ export default class Game {
 
   public static readonly TOTAL_ASSETS_COUNT: number = 5;
 
-  private static bgImg: HTMLImageElement;
   private static ctx: CanvasRenderingContext2D;
   private static enemy: Enemy;
   private static player: Player;
@@ -28,7 +27,6 @@ export default class Game {
     store.isGaming = true;
     this.cleanUp();
 
-    this.bgImg = store.assets.backgroundImage;
     this.chooseInputSystem();
     this.ctx = ctx;
     this.enemy = store.enemy = this.prepareEnemy();
@@ -61,11 +59,12 @@ export default class Game {
   }
 
   private static preparePlayer(): Player {
+    const health: number = 12;
+    const velocity: number = 10;
     const x: number = innerWidth / 2;
     const y: number = (innerHeight * 3) / 4;
-    const velocity: number = 10;
 
-    const player: Player = new Player(x, y, velocity);
+    const player: Player = new Player(x, y, velocity, health);
     return player;
   }
 
@@ -134,7 +133,7 @@ export default class Game {
   }
 
   private static play(): void {
-    const FPSInterval = 1000 / Game.FPS;
+    const FPSInterval: number = 1000 / Game.FPS;
     let lastFrameTime: number = Date.now();
 
     const loop = () => {
@@ -150,14 +149,12 @@ export default class Game {
 
       this.animationId = requestAnimationFrame(loop);
 
-      let now = Date.now();
-      let delta = now - lastFrameTime;
+      const now: number = Date.now();
+      const delta: number = now - lastFrameTime;
       if (delta > FPSInterval) {
         lastFrameTime = now - (delta % FPSInterval);
 
         this.ctx.clearRect(0, 0, innerWidth, innerHeight);
-
-        this.ctx.drawImage(this.bgImg, 0, 0, innerWidth, innerHeight);
 
         this.handleMeteor();
         this.handlePlayer();
@@ -179,7 +176,8 @@ export default class Game {
   }
 
   private static handlePlayer(): void {
-    this.player.moveAndDraw(this.ctx);
+    this.player.move();
+    this.player.drawSelfAndHealthBar(this.ctx);
     this.player.shoot();
   }
 

@@ -4,17 +4,10 @@ import Bullet from "@/classes/abstracts/bullet";
 import Enemy from "@/classes/enemy";
 import Player from "@/classes/player";
 
-import {
-  loadBackgroundImage,
-  loadEnemy,
-  loadEnemyBullet,
-  loadMeteor,
-  loadPlayer
-} from "./assets";
+import { loadEnemy, loadEnemyBullet, loadMeteor, loadPlayer } from "./assets";
 
 const initialState: Store = {
   assets: {
-    backgroundImage: loadBackgroundImage(),
     enemy: loadEnemy(),
     enemyBullet: loadEnemyBullet(),
     meteor: loadMeteor(),
@@ -41,7 +34,6 @@ interface Store {
 }
 
 interface Assets {
-  backgroundImage: HTMLImageElement;
   enemy: HTMLImageElement;
   enemyBullet: HTMLImageElement;
   meteor: HTMLImageElement;

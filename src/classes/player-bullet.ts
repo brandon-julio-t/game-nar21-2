@@ -5,7 +5,7 @@ import store from "@/store";
 
 export default class PlayerBullet extends Bullet {
   protected readonly HEIGHT: number = 20;
-  protected readonly VELOCITY: number = 10;
+  protected readonly VELOCITY: number = 25;
   protected readonly WIDTH: number = 5;
 
   constructor(x: number, y: number) {
@@ -23,8 +23,8 @@ export default class PlayerBullet extends Bullet {
         this.position.y <= enemy.position.y + naturalHeight;
 
       if (hasCollision) {
-        enemy.reduceHealth(1);
         this.isEnded = true;
+        enemy.reduceHealth(1);
       }
     }
   }

@@ -36,7 +36,8 @@ export default class EnemyBullet extends Bullet {
         left >= xMin && top >= yMin && right <= xMax && bottom <= yMax;
 
       if (hasCollision) {
-        this.isEnded = player.isDead = true;
+        this.isEnded = true;
+        player.reduceHealth(1);
       }
     }
   }

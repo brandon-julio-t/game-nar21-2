@@ -3,7 +3,10 @@
     <h1>Loading...</h1>
     <h2>{{ store.loadedAssetsCount }} / {{ Game.TOTAL_ASSETS_COUNT }}</h2>
   </div>
-  <canvas v-else id="game" ref="gameCanvas"></canvas>
+  <div v-else class="relative">
+    <img src="@/assets/background.jpg" class="absolute h-screen w-screen" />
+    <canvas id="game" class="absolute" ref="gameCanvas"></canvas>
+  </div>
 </template>
 
 <script lang="ts">
