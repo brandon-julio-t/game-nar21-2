@@ -7,7 +7,7 @@ import Bullet from "./abstracts/bullet";
 import Meteor from "./meteor";
 
 export default class Game {
-  private static readonly FPS: number = 60;
+  private static readonly FPS: number = 5;
 
   public static readonly TOTAL_ASSETS_COUNT: number = 5;
 
@@ -134,8 +134,8 @@ export default class Game {
   }
 
   private static play(): void {
-    const fpsInterval = 1000 / this.FPS;
-    let prev = Date.now();
+    const FPSInterval = 1000 / Game.FPS;
+    let lastFrameTime: number = Date.now();
 
     const loop = () => {
       if (this.loading) {
@@ -148,22 +148,24 @@ export default class Game {
         return;
       }
 
-      this.ctx.clearRect(0, 0, innerWidth, innerHeight);
-
-      this.ctx.drawImage(this.bgImg, 0, 0, innerWidth, innerHeight);
-
-      this.handleMeteor();
-      this.handlePlayer();
-      this.handleEnemy();
-      this.handleBullets();
+      this.animationId = requestAnimationFrame(loop);
 
       let now = Date.now();
-      let delta = prev - now;
-      while (delta > fpsInterval) {
-        prev = now - (delta % fpsInterval);
-      }
+      let delta = now - lastFrameTime;
+      console.log({ delta, interval: FPSInterval });
+      if (delta > FPSInterval) {
+        console.log("hm");
+        lastFrameTime = now - (delta % FPSInterval);
 
-      this.animationId = requestAnimationFrame(loop);
+        this.ctx.clearRect(0, 0, innerWidth, innerHeight);
+
+        this.ctx.drawImage(this.bgImg, 0, 0, innerWidth, innerHeight);
+
+        this.handleMeteor();
+        this.handlePlayer();
+        this.handleEnemy();
+        this.handleBullets();
+      }
     };
 
     this.animationId = requestAnimationFrame(loop);
