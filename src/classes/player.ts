@@ -1,6 +1,8 @@
 import PlayerBullet from "./player-bullet";
 import Vector2 from "./vector2";
 import store from "@/store";
+import Globals from './globals';
+import Game from './game';
 
 export default class Player {
   public readonly WIDTH = 25;
@@ -92,15 +94,18 @@ export default class Player {
 
   private draw(ctx: CanvasRenderingContext2D): void {
     const { x, y } = this.position;
-    const offsetX = this.WIDTH / 2;
-    const offsetY = this.HEIGHT / 2;
+    // const offsetX = this.WIDTH / 2;
+    // const offsetY = this.HEIGHT / 2;
 
-    ctx.fillStyle = store.color;
-    ctx.beginPath();
-    ctx.moveTo(x - offsetX, y + offsetY);
-    ctx.lineTo(x, y - offsetY);
-    ctx.lineTo(x + offsetX, y + offsetY);
-    ctx.fill();
+    // ctx.fillStyle = store.color;
+    // ctx.beginPath();
+    // ctx.moveTo(x - offsetX, y + offsetY);
+    // ctx.lineTo(x, y - offsetY);
+    // ctx.lineTo(x + offsetX, y + offsetY);
+    // ctx.fill();
+
+    const img: HTMLImageElement = Game.preparePlaneSprite();
+    ctx.drawImage(img, x,y, 50, 50);
   }
 
   public shoot(): void {

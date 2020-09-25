@@ -42,6 +42,14 @@ export default class Game {
     canvas.height = innerHeight;
   }
 
+  public static preparePlaneSprite() : HTMLImageElement {
+    const imgSrc: string = "https://i.ibb.co/xYD2NkC/plane.png";
+
+    const img:HTMLImageElement = new Image();
+    img.src = imgSrc;
+    return img;
+  }
+
   private static prepareBackgroundImage(): HTMLImageElement {
     const imgSrc: string = "https://i.ibb.co/7RHgNhL/galaxy.jpg";
 
