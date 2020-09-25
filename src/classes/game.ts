@@ -52,7 +52,7 @@ export default class Game {
   }
 
   private static prepareEnemy(): Enemy {
-    const health: number = 100;
+    const health: number = 1000;
 
     const enemy: Enemy = new Enemy(health);
     return enemy;
@@ -109,15 +109,10 @@ export default class Game {
         this.player.isSlowingDown = keyDown;
         break;
 
-      // Reserved for future in case RecSel wants manual shooting.
-      // case "Space":
-      //   if (keyDown) {
-      //     this.player.shoot();
-      //   }
-      //   break;
-
       case "Escape":
-        router.push("/");
+        if (process.env.NODE_ENV === "development") {
+          router.push("/");
+        }
         break;
     }
   }
@@ -157,8 +152,7 @@ export default class Game {
         this.ctx.clearRect(0, 0, innerWidth, innerHeight);
 
         this.handleMeteor();
-        this.handlePlayer();
-        this.handleEnemy();
+        this.handlePlayerAndEnemy();
         this.handleBullets();
       }
     };
@@ -175,16 +169,12 @@ export default class Game {
     }
   }
 
-  private static handlePlayer(): void {
-    this.player.move();
-    this.player.drawSelfAndHealthBar(this.ctx);
-    this.player.shoot();
-  }
-
-  private static handleEnemy(): void {
-    this.enemy.move();
-    this.enemy.drawSelfAndHealthBar(this.ctx);
-    this.enemy.shoot();
+  private static handlePlayerAndEnemy(): void {
+    [this.player, this.enemy].forEach(entity => {
+      entity.move();
+      entity.drawSelfAndHealthBar(this.ctx);
+      entity.shoot();
+    });
   }
 
   private static handleBullets(): void {
@@ -206,7 +196,6 @@ export default class Game {
     bullet.move();
     bullet.draw(this.ctx);
     bullet.checkCollision();
-
     if (bullet instanceof EnemyBullet) {
       bullet.wrapHorizontal();
     }
