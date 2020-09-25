@@ -7,16 +7,24 @@ export default class EnemyBullet extends Bullet {
   protected readonly HEIGHT: number = 5;
   protected readonly VELOCITY: number = 7;
   protected readonly WIDTH: number = 5;
-  protected readonly RADIUS: number = 5;
+  protected readonly RADIUS: number = /* 5 */ 10;
 
   constructor(x: number, y: number, direction: Direction) {
     super(x, y, direction);
   }
 
+  private prepareBulletSprite(): HTMLImageElement {
+    const imgSrc: string = "https://i.ibb.co/khLvB4G/shootbomb.png";
+    const img: HTMLImageElement = new Image();
+    img.src = imgSrc;
+    return img;
+  }
+
   public draw(ctx: CanvasRenderingContext2D): void {
     const { x, y } = this.position;
     ctx.moveTo(x, y);
-    ctx.arc(x, y, this.RADIUS, 0, Math.PI * 2, true);
+    // ctx.arc(x, y, this.RADIUS, 0, Math.PI * 2, true);
+    ctx.drawImage(this.prepareBulletSprite(), x, y, this.RADIUS, this.RADIUS);
   }
 
   public checkCollision(): void {

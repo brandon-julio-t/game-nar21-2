@@ -6,8 +6,8 @@ import store from "@/store";
 import utility from "./core/utilities";
 
 export default class Enemy extends Entity {
-  public readonly HEIGHT: number = innerHeight / 4;
-  public readonly WIDTH: number = innerWidth / 2;
+  public readonly HEIGHT: number = /* innerHeight / 4 */ innerHeight / 3;
+  public readonly WIDTH: number = /* innerWidth / 2 */ innerWidth / 3;
 
   private readonly HEALTHBAR_HEIGHT = this.HEIGHT / 4;
 
@@ -47,7 +47,16 @@ export default class Enemy extends Entity {
   private drawSelf(ctx: CanvasRenderingContext2D): void {
     const { x, y } = this.position;
     ctx.fillStyle = store.color;
-    ctx.fillRect(x, y, this.WIDTH, this.HEIGHT);
+    // ctx.fillRect(x, y, this.WIDTH, this.HEIGHT);
+    ctx.drawImage(this.prepareEnemySprite(), x, y, this.WIDTH, this.HEIGHT);
+  }
+
+  private prepareEnemySprite(): HTMLImageElement {
+    const imgSrc:string = "https://i.ibb.co/1Xchfmh/Ship5.png";
+
+    const img:HTMLImageElement = new Image();
+    img.src = imgSrc;
+    return img;
   }
 
   private drawHealthBar(ctx: CanvasRenderingContext2D): void {
