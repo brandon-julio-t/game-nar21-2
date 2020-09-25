@@ -1,5 +1,5 @@
-import Direction from "./direction";
-import Vector2 from "./vector2";
+import Direction from "../enums/direction";
+import Vector2 from "../core/vector2";
 
 export default abstract class Bullet {
   protected readonly HEIGHT: number = 0;
@@ -15,7 +15,7 @@ export default abstract class Bullet {
     this.direction = direction;
   }
 
-  public get isOutOfBounds() {
+  public get isOutOfBounds(): boolean {
     const { x, y } = this.position;
     return x < 0 || y < 0 || x > innerWidth || y > innerHeight;
   }
@@ -82,5 +82,5 @@ export default abstract class Bullet {
     ctx.rect(x - this.WIDTH / 2, y, this.WIDTH, this.HEIGHT);
   }
 
-  public checkCollision(): void {}
+  public abstract checkCollision(): void;
 }

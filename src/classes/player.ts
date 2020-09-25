@@ -1,8 +1,9 @@
+import Entity from './abstracts/entity';
 import PlayerBullet from "./player-bullet";
-import Vector2 from "./vector2";
+import Vector2 from "./core/vector2";
 import store from "@/store";
 
-export default class Player {
+export default class Player extends Entity {
   public readonly SIZE = 50;
   public readonly HITBOX_SIZE = this.SIZE / 4;
 
@@ -19,6 +20,7 @@ export default class Player {
   public position: Vector2;
 
   constructor(x: number, y: number, velocity: number) {
+    super();
     this.position = new Vector2(x, y);
     this._velocity = velocity;
 
