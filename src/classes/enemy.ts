@@ -24,6 +24,12 @@ export default class Enemy extends Entity {
       this.velocity *= -1;
     }
 
+    if(this.velocity < 0) {
+      this.sprite = store.assets.reversedEnemy;
+    }else{
+      this.sprite = store.assets.enemy;
+    }
+
     this.position.x += this.velocity;
   }
 

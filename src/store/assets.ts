@@ -17,6 +17,14 @@ export function loadEnemy(): HTMLImageElement {
   return img;
 }
 
+export function loadReversedEnemy(): HTMLImageElement {
+  const img: HTMLImageElement = new Image();
+  img.src = asset("sprite-enemy-reversed.png");
+  img.onload = () => store.loadedAssetsCount++;
+  img.onerror = e => console.error(e);
+  return img;
+}
+
 export function loadMeteor(): HTMLImageElement {
   const img: HTMLImageElement = new Image();
   img.src = asset("meteor.svg");
