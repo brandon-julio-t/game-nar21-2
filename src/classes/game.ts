@@ -1,5 +1,4 @@
 import Enemy from "./enemy";
-import EnemyBullet from "./enemy-bullet";
 import Player from "./player";
 import router from "@/router";
 import store from "@/store";
@@ -10,8 +9,6 @@ import InputSystem from "./input-system";
 export default class Game {
   private static readonly FPS: number = 60;
 
-  public static readonly TOTAL_ASSETS_COUNT: number = 5;
-
   private static ctx: CanvasRenderingContext2D;
   private static enemy: Enemy;
   private static player: Player;
@@ -19,10 +16,17 @@ export default class Game {
 
   private static animationId: number | null = null;
 
-  public static start(canvas: HTMLCanvasElement | null): void {
+  public static start(
+    canvas: HTMLCanvasElement | null,
+    backgroundImage: HTMLImageElement | null
+  ): void {
     let ctx = null;
     if (canvas === null || (ctx = canvas.getContext("2d")) === null) {
       return;
+    }
+
+    if (backgroundImage !== null) {
+      backgroundImage.src = store.assets.backgroundImage.src;
     }
 
     store.isGaming = true;
@@ -78,6 +82,8 @@ export default class Game {
     let lastFrameTime: number = Date.now();
 
     const loop = () => {
+      this.animationId = requestAnimationFrame(loop);
+
       if (this.loading) {
         return;
       }
@@ -87,8 +93,6 @@ export default class Game {
         router.push("/about");
         return;
       }
-
-      this.animationId = requestAnimationFrame(loop);
 
       const now: number = Date.now();
       const delta: number = now - lastFrameTime;
