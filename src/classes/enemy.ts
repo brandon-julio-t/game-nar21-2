@@ -6,9 +6,9 @@ import { randomIntegerBetween } from "./core/utilities";
 export default class Enemy extends Entity {
   private readonly BULLETS_MULTIPLIER: number = 3;
 
-  private velocity: number = 5;
+  private velocity: number;
 
-  constructor(health: number) {
+  constructor(health: number, velocity: number) {
     super(
       innerWidth / 2 - store.assets.enemy.naturalWidth / 2,
       0,
@@ -16,20 +16,19 @@ export default class Enemy extends Entity {
       store.assets.enemy,
       store.assets.enemy.naturalHeight / 4
     );
+
+    this.velocity = velocity;
   }
 
   public move(): void {
     const { x } = this.position;
+    const { enemy, reversedEnemy } = store.assets;
+
     if (x + this.sprite.naturalWidth >= innerWidth || x <= 0) {
       this.velocity *= -1;
     }
 
-    if(this.velocity < 0) {
-      this.sprite = store.assets.reversedEnemy;
-    }else{
-      this.sprite = store.assets.enemy;
-    }
-
+    this.sprite = this.velocity < 0 ? reversedEnemy : enemy;
     this.position.x += this.velocity;
   }
 
@@ -58,7 +57,10 @@ export default class Enemy extends Entity {
 
   public shoot(): void {
     const { x, y } = this.position;
-    const ySpawn = y + this.sprite.naturalHeight + this.healthBarHeight;
+    const ySpawn =
+      y +
+      this.healthBarHeight +
+      randomIntegerBetween(0, this.sprite.naturalHeight);
 
     for (let i = 0; i < this.BULLETS_MULTIPLIER; i++) {
       store.bullets.splice(

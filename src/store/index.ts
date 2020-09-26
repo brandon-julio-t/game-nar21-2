@@ -4,7 +4,13 @@ import Bullet from "@/classes/abstracts/bullet";
 import Enemy from "@/classes/enemy";
 import Player from "@/classes/player";
 
-import { loadEnemy, loadEnemyBullet, loadMeteor, loadPlayer, loadReversedEnemy } from "./assets";
+import {
+  loadEnemy,
+  loadEnemyBullet,
+  loadMeteor,
+  loadPlayer,
+  loadReversedEnemy
+} from "./assets";
 
 const initialState: Store = {
   assets: {

@@ -54,10 +54,9 @@ export default class Game {
   }
 
   private static prepareEnemy(): Enemy {
-    const health: number = 1000;
-
-    const enemy: Enemy = new Enemy(health);
-    return enemy;
+    const health: number = 1500;
+    const velocity: number = 2;
+    return new Enemy(health, velocity);
   }
 
   private static preparePlayer(): Player {
@@ -65,9 +64,7 @@ export default class Game {
     const velocity: number = 10;
     const x: number = innerWidth / 2;
     const y: number = (innerHeight * 3) / 4;
-
-    const player: Player = new Player(x, y, velocity, health);
-    return player;
+    return new Player(x, y, velocity, health);
   }
 
   private static chooseInputSystem(): void {
