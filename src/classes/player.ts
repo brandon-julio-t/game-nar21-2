@@ -95,7 +95,11 @@ export default class Player extends Entity {
     const { naturalWidth, naturalHeight } = this.sprite;
     const width = (Player.SIZE * naturalWidth) / naturalHeight + 10;
     const height = (Player.SIZE * naturalHeight) / naturalWidth;
-    ctx.drawImage(this.sprite, x - width / 2, y - height / 2, width, height);
+
+    if(!this.isGetHit || Math.floor(Date.now() / this.FREQUENCY) % 2) {
+      ctx.drawImage(this.sprite, x - width / 2, y - height / 2, width, height);
+      this.isGetHit = false;
+    }
 
     if (process.env.NODE_ENV === "development") {
       ctx.fillStyle = "red";

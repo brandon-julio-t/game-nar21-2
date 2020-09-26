@@ -7,12 +7,16 @@ export default abstract class Entity {
   public currentHealth: number;
   public position: Vector2;
   public sprite: HTMLImageElement;
+  
+  public isGetHit : boolean;
+  public FREQUENCY: number = 50;
 
   constructor(x: number, y: number, health: number, sprite: HTMLImageElement, healthBarHeight: number) {
     this.maxHealth = this.currentHealth = health;
     this.position = new Vector2(x, y);
     this.sprite = sprite;
     this.healthBarHeight = healthBarHeight;
+    this.isGetHit = false;
   }
 
   public get isDead(): boolean {
@@ -20,6 +24,7 @@ export default abstract class Entity {
   }
 
   public reduceHealth(points: number): void {
+    this.isGetHit = true;
     this.currentHealth -= points;
   }
 

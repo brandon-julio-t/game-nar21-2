@@ -36,13 +36,18 @@ export default class Enemy extends Entity {
     const { x, y } = this.position;
     const { naturalHeight, naturalWidth } = this.sprite;
     ctx.fillStyle = store.color;
-    ctx.drawImage(
-      this.sprite,
-      x,
-      y + this.healthBarHeight,
-      naturalWidth,
-      naturalHeight
-    );
+
+    if(!this.isGetHit || Math.floor(Date.now() / this.FREQUENCY) % 2) {
+      ctx.drawImage(
+        this.sprite,
+        x,
+        y + this.healthBarHeight,
+        naturalWidth,
+        naturalHeight
+      );
+
+      this.isGetHit = false;
+    }
   }
 
   protected drawHealthBar(ctx: CanvasRenderingContext2D): void {
