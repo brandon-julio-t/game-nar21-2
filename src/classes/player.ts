@@ -1,6 +1,7 @@
 import Entity from "./abstracts/entity";
 import PlayerBullet from "./player-bullet";
 import store from "@/store";
+import SoundManager from './sound-manager';
 
 export default class Player extends Entity {
   public static readonly SIZE = 50;
@@ -118,7 +119,7 @@ export default class Player extends Entity {
       this.blinkingTimeoutId = setTimeout(() => {
         this.isInvulnerable = false;
         this.blinkingTimeoutId = null;
-      }, 3000);
+      }, 1000);
     }
 
     if (process.env.NODE_ENV === "development") {
@@ -141,6 +142,7 @@ export default class Player extends Entity {
 
   public shoot(): void {
     if (Date.now() >= this.nextTimeToAttack) {
+      SoundManager.getInstance().playBulletSound();
       const nX: number[] = [-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5];
       const nY: number[] = [5, 4, 3, 2, 1, 0, 1, 2, 3, 4, 5];
       const len: number = nX.length;

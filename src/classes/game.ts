@@ -5,6 +5,7 @@ import store from "@/store";
 import Bullet from "./abstracts/bullet";
 import Meteor from "./meteor";
 import InputSystem from "./input-system";
+import SoundManager from "./sound-manager";
 
 export default class Game {
   private static readonly FPS: number = 60;
@@ -37,6 +38,9 @@ export default class Game {
 
     this.chooseInputSystem();
     this.play();
+
+    const soundManager:SoundManager = SoundManager.getInstance();
+    soundManager.playBackgroundMusic();
   }
 
   public static get loading(): boolean {
@@ -98,6 +102,8 @@ export default class Game {
 
       if (this.enemy.isDead || this.player.isDead) {
         alert("Game Over. Thank you for playing.");
+        const soundManager:SoundManager = SoundManager.getInstance();
+        soundManager.stopBackgroundMusic();
         router.push("/about");
         return;
       }
