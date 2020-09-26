@@ -5,6 +5,7 @@ import Enemy from "@/classes/enemy";
 import Player from "@/classes/player";
 
 import {
+  loadBackgroundImage,
   loadEnemy,
   loadEnemyBullet,
   loadMeteor,
@@ -14,6 +15,7 @@ import {
 
 const initialState: Store = {
   assets: {
+    backgroundImage: loadBackgroundImage(),
     enemy: loadEnemy(),
     reversedEnemy: loadReversedEnemy(),
     enemyBullet: loadEnemyBullet(),
@@ -41,6 +43,7 @@ interface Store {
 }
 
 interface Assets {
+  backgroundImage: HTMLImageElement;
   enemy: HTMLImageElement;
   reversedEnemy: HTMLImageElement;
   enemyBullet: HTMLImageElement;
