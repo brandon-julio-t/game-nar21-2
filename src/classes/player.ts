@@ -1,7 +1,6 @@
 import Entity from "./abstracts/entity";
 import PlayerBullet from "./player-bullet";
 import store from "@/store";
-import Game from "./game";
 
 export default class Player extends Entity {
   public static readonly SIZE = 50;
@@ -27,6 +26,7 @@ export default class Player extends Entity {
         store.assets.player.naturalWidth /
         8
     );
+
     this._velocity = velocity;
   }
 
@@ -98,7 +98,6 @@ export default class Player extends Entity {
     ctx.drawImage(this.sprite, x - width / 2, y - height / 2, width, height);
 
     if (process.env.NODE_ENV === "development") {
-      console.log("hm");
       ctx.fillStyle = "red";
       ctx.beginPath();
       ctx.arc(x, y, this.HITBOX_SIZE, 0, Math.PI * 2);
@@ -111,7 +110,7 @@ export default class Player extends Entity {
     ctx.fillRect(
       this.position.x - Player.SIZE / 2,
       this.position.y + Player.SIZE,
-      Player.SIZE * (this.currentHealth / this.maxHealth),
+      (Player.SIZE * this.currentHealth) / this.maxHealth,
       this.healthBarHeight
     );
   }

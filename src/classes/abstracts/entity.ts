@@ -1,9 +1,6 @@
 import Vector2 from "../core/vector2";
 
 export default abstract class Entity {
-  public readonly HEIGHT: number | null = null;
-  public readonly WIDTH: number | null = null;
-
   protected healthBarHeight: number;
   protected maxHealth: number;
 

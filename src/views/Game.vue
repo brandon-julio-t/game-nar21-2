@@ -4,7 +4,7 @@
     <h2>{{ store.loadedAssetsCount }} / {{ Game.TOTAL_ASSETS_COUNT }}</h2>
   </div>
   <div v-else class="relative">
-    <img src="@/assets/background.jpg" class="absolute h-screen w-screen" />
+    <img class="absolute h-screen w-screen" ref="backgroundImage" />
     <canvas id="game" class="absolute" ref="gameCanvas"></canvas>
   </div>
 </template>
@@ -17,12 +17,19 @@ import store from "@/store";
 
 export default defineComponent({
   setup() {
-    const gameCanvas = ref(null); // Don't give type, TypeScript will yell.
+    const gameCanvas = ref<HTMLCanvasElement | null>(null); // Don't give type, TypeScript will yell.
+    const backgroundImage = ref<HTMLImageElement | null>(null);
 
-    onMounted(() => Game.start(gameCanvas.value)); // Entry point A.K.A. main
+    onMounted(() => {
+      Game.start(gameCanvas.value);
+
+      if (backgroundImage.value !== null) {
+        backgroundImage.value.src = store.assets.backgroundImage.src;
+      }
+    }); // Entry point A.K.A. main
     onUnmounted(() => Game.end());
 
-    return { gameCanvas, Game, store };
+    return { backgroundImage, gameCanvas, Game, store };
   }
 });
 </script>

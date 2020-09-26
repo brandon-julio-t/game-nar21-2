@@ -38,22 +38,4 @@ export default class EnemyBullet extends Bullet {
       }
     }
   }
-
-  public wrapHorizontal(): void {
-    const { x } = this.position;
-    if (x <= 0) {
-      this.position.x = innerWidth;
-    } else if (x >= innerWidth) {
-      this.position.x = 0;
-    }
-  }
-
-  public wrapVertical(): void {
-    const { y } = this.position;
-    if (y <= 0) {
-      this.position.y = innerHeight;
-    } else if (y >= innerHeight) {
-      this.position.y = 0;
-    }
-  }
 }
