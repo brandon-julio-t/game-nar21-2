@@ -35,19 +35,15 @@ export default class Enemy extends Entity {
   protected drawSelf(ctx: CanvasRenderingContext2D): void {
     const { x, y } = this.position;
     const { naturalHeight, naturalWidth } = this.sprite;
+
     ctx.fillStyle = store.color;
-
-    if(!this.isGetHit || Math.floor(Date.now() / this.FREQUENCY) % 2) {
-      ctx.drawImage(
-        this.sprite,
-        x,
-        y + this.healthBarHeight,
-        naturalWidth,
-        naturalHeight
-      );
-
-      this.isGetHit = false;
-    }
+    ctx.drawImage(
+      this.sprite,
+      x,
+      y + this.healthBarHeight,
+      naturalWidth,
+      naturalHeight
+    );
   }
 
   protected drawHealthBar(ctx: CanvasRenderingContext2D): void {

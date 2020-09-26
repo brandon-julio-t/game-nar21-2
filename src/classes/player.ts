@@ -5,11 +5,16 @@ import store from "@/store";
 export default class Player extends Entity {
   public static readonly SIZE = 50;
 
+  protected readonly FREQUENCY: number = 50;
+
   public readonly HITBOX_SIZE = Player.SIZE / 4;
 
   private _velocity: number;
   private nextTimeToAttack: number = Date.now();
 
+  protected blinkingTimeoutId: number | null = null;
+
+  public isInvulnerable: boolean;
   public isMovingDown: boolean = false;
   public isMovingLeft: boolean = false;
   public isMovingRight: boolean = false;
@@ -28,10 +33,19 @@ export default class Player extends Entity {
     );
 
     this._velocity = velocity;
+    this.isInvulnerable = false;
   }
 
   private get velocity(): number {
     return this._velocity / (this.isSlowingDown ? 1.75 : 1);
+  }
+
+  public reduceHealth(points: number): void {
+    if (!this.isInvulnerable) {
+      super.reduceHealth(points);
+    }
+
+    this.isInvulnerable = true;
   }
 
   public moveAndDraw(ctx: CanvasRenderingContext2D): void {
@@ -96,9 +110,15 @@ export default class Player extends Entity {
     const width = (Player.SIZE * naturalWidth) / naturalHeight + 10;
     const height = (Player.SIZE * naturalHeight) / naturalWidth;
 
-    if(!this.isGetHit || Math.floor(Date.now() / this.FREQUENCY) % 2) {
+    if (!this.isInvulnerable || Math.floor(Date.now() / this.FREQUENCY) % 2) {
       ctx.drawImage(this.sprite, x - width / 2, y - height / 2, width, height);
-      this.isGetHit = false;
+    }
+
+    if (this.blinkingTimeoutId === null) {
+      this.blinkingTimeoutId = setTimeout(() => {
+        this.isInvulnerable = false;
+        this.blinkingTimeoutId = null;
+      }, 3000);
     }
 
     if (process.env.NODE_ENV === "development") {
