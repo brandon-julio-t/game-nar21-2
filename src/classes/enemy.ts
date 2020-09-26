@@ -35,6 +35,7 @@ export default class Enemy extends Entity {
   protected drawSelf(ctx: CanvasRenderingContext2D): void {
     const { x, y } = this.position;
     const { naturalHeight, naturalWidth } = this.sprite;
+
     ctx.fillStyle = store.color;
     ctx.drawImage(
       this.sprite,

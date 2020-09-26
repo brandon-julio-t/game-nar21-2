@@ -61,29 +61,17 @@ export default class Meteor {
 
   public get isOutOfBounds(): boolean {
     const { x, y } = this.position;
-    return (
-      x + this.width < 0 ||
-      y < 0 ||
-      x > innerWidth ||
-      y > innerHeight
-    );
+    return x + this.width < 0 || y < 0 || x > innerWidth || y > innerHeight;
   }
 
   public drawSelf(ctx: CanvasRenderingContext2D): void {
     const { x, y } = this.position;
-    ctx.drawImage(
-      this.sprite,
-      x,
-      y,
-      this.width,
-      this.height
-    );
+    ctx.drawImage(this.sprite, x, y, this.width, this.height);
   }
 
   public checkCollision(): void {
     const player: Player = store.player as Player;
-    if (player !== null) {
-      const { naturalHeight, naturalWidth } = this.sprite;
+    if (player !== null && !player.isInvulnerable) {
       const { x: xMin, y: yMin } = this.position;
       const xMax = xMin + this.width;
       const yMax = yMin + this.height;

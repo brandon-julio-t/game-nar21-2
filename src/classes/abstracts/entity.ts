@@ -15,10 +15,10 @@ export default abstract class Entity {
     sprite: HTMLImageElement,
     healthBarHeight: number
   ) {
+    this.healthBarHeight = healthBarHeight;
     this.maxHealth = this.currentHealth = health;
     this.position = new Vector2(x, y);
     this.sprite = sprite;
-    this.healthBarHeight = healthBarHeight;
   }
 
   public get isDead(): boolean {
