@@ -10,9 +10,9 @@ export default class Game {
   private static readonly FPS: number = 60;
 
   private static ctx: CanvasRenderingContext2D;
-  private static enemy: Enemy;
-  private static player: Player;
-  private static meteor: Meteor;
+  private static enemy: Enemy | null = null;
+  private static player: Player | null = null;
+  private static meteor: Meteor | null = null;
 
   private static animationId: number | null = null;
 
@@ -34,10 +34,6 @@ export default class Game {
 
     this.prepareCanvas(canvas);
     this.ctx = ctx;
-
-    this.enemy = store.enemy = this.prepareEnemy();
-    this.meteor = new Meteor();
-    this.player = store.player = this.preparePlayer();
 
     this.chooseInputSystem();
     this.play();
@@ -88,6 +84,18 @@ export default class Game {
         return;
       }
 
+      if (this.enemy === null) {
+        this.enemy = store.enemy = this.prepareEnemy();
+      }
+
+      if (this.meteor === null) {
+        this.meteor = new Meteor();
+      }
+
+      if (this.player === null) {
+        this.player = store.player = this.preparePlayer();
+      }
+
       if (this.enemy.isDead || this.player.isDead) {
         alert("Game Over. Thank you for playing.");
         router.push("/about");
@@ -111,6 +119,10 @@ export default class Game {
   }
 
   private static handleMeteor(): void {
+    if (this.meteor === null) {
+      return;
+    }
+
     this.meteor.move();
     this.meteor.drawSelf(this.ctx);
     this.meteor.checkCollision();
@@ -121,6 +133,10 @@ export default class Game {
 
   private static handlePlayerAndEnemy(): void {
     [this.player, this.enemy].forEach(entity => {
+      if (entity === null) {
+        return;
+      }
+
       entity.move();
       entity.drawSelfAndHealthBar(this.ctx);
       entity.shoot();
@@ -152,6 +168,10 @@ export default class Game {
 
   private static cleanUp(): void {
     store.bullets.splice(0);
+
+    this.enemy = store.enemy = null;
+    this.meteor = null;
+    this.player = store.player = null;
 
     if (this.animationId !== null) {
       cancelAnimationFrame(this.animationId);

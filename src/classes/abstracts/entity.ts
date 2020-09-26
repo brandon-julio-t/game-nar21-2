@@ -8,7 +8,13 @@ export default abstract class Entity {
   public position: Vector2;
   public sprite: HTMLImageElement;
 
-  constructor(x: number, y: number, health: number, sprite: HTMLImageElement, healthBarHeight: number) {
+  constructor(
+    x: number,
+    y: number,
+    health: number,
+    sprite: HTMLImageElement,
+    healthBarHeight: number
+  ) {
     this.maxHealth = this.currentHealth = health;
     this.position = new Vector2(x, y);
     this.sprite = sprite;
