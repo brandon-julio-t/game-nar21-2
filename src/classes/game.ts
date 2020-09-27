@@ -21,12 +21,12 @@ export default class Game {
     backgroundImage: HTMLImageElement | null
   ): void {
     let ctx = null;
-    if (canvas === null || (ctx = canvas.getContext("2d")) === null) {
+    if (
+      canvas === null ||
+      backgroundImage === null ||
+      (ctx = canvas.getContext("2d")) === null
+    ) {
       return;
-    }
-
-    if (backgroundImage !== null) {
-      backgroundImage.src = store.assets.backgroundImage.src;
     }
 
     store.isGaming = true;
@@ -36,10 +36,17 @@ export default class Game {
     this.ctx = ctx;
 
     this.chooseInputSystem();
+
+    backgroundImage.src = store.assets.backgroundImage.src;
+    store.assets.backgroundMusic.play();
+
     this.play();
   }
 
   public static get loading(): boolean {
+    console.log(
+      `${store.loadedAssetsCount}/${Object.keys(store.assets).length}`
+    );
     return store.loadedAssetsCount < Object.keys(store.assets).length;
   }
 
@@ -51,20 +58,6 @@ export default class Game {
   private static prepareCanvas(canvas: HTMLCanvasElement): void {
     canvas.width = innerWidth;
     canvas.height = innerHeight;
-  }
-
-  private static prepareEnemy(): Enemy {
-    const health: number = 1500;
-    const velocity: number = 2;
-    return new Enemy(health, velocity);
-  }
-
-  private static preparePlayer(): Player {
-    const health: number = 12;
-    const velocity: number = 10;
-    const x: number = innerWidth / 2;
-    const y: number = (innerHeight * 3) / 4;
-    return new Player(x, y, velocity, health);
   }
 
   private static chooseInputSystem(): void {
@@ -81,6 +74,7 @@ export default class Game {
       this.animationId = requestAnimationFrame(loop);
 
       if (this.loading) {
+        console.log("HMM");
         return;
       }
 
@@ -116,6 +110,20 @@ export default class Game {
     };
 
     this.animationId = requestAnimationFrame(loop);
+  }
+
+  private static prepareEnemy(): Enemy {
+    const health: number = 1500;
+    const velocity: number = 2;
+    return new Enemy(health, velocity);
+  }
+
+  private static preparePlayer(): Player {
+    const health: number = 12;
+    const velocity: number = 10;
+    const x: number = innerWidth / 2;
+    const y: number = (innerHeight * 3) / 4;
+    return new Player(x, y, velocity, health);
   }
 
   private static handleMeteor(): void {
@@ -172,6 +180,9 @@ export default class Game {
     this.enemy = store.enemy = null;
     this.meteor = null;
     this.player = store.player = null;
+
+    store.assets.backgroundMusic.currentTime = 0;
+    store.assets.backgroundMusic.pause();
 
     if (this.animationId !== null) {
       cancelAnimationFrame(this.animationId);

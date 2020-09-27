@@ -8,7 +8,7 @@ export default abstract class Entity {
   public position: Vector2;
   public sprite: HTMLImageElement;
 
-  constructor(
+  public constructor(
     x: number,
     y: number,
     health: number,

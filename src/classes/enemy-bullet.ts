@@ -6,7 +6,7 @@ import { randomIntegerBetween } from "./core/utilities";
 export default class EnemyBullet extends Bullet {
   public readonly sprite: HTMLImageElement;
 
-  constructor(x: number, y: number) {
+  public constructor(x: number, y: number) {
     super(x, y, randomIntegerBetween(-7, 7), 7, 10, 10);
     this.sprite = store.assets.enemyBullet;
   }

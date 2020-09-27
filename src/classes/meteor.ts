@@ -12,7 +12,7 @@ export default class Meteor {
 
   public sprite: HTMLImageElement;
 
-  constructor() {
+  public constructor() {
     this.sprite = store.assets.meteor;
 
     this.position = new Vector2(0, 0);

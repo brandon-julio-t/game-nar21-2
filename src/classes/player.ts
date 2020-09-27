@@ -21,7 +21,7 @@ export default class Player extends Entity {
   public isMovingUp: boolean = false;
   public isSlowingDown: boolean = false;
 
-  constructor(x: number, y: number, velocity: number, health: number) {
+  public constructor(x: number, y: number, velocity: number, health: number) {
     super(
       x,
       y,
@@ -118,7 +118,7 @@ export default class Player extends Entity {
       this.blinkingTimeoutId = setTimeout(() => {
         this.isInvulnerable = false;
         this.blinkingTimeoutId = null;
-      }, 3000);
+      }, 1000);
     }
 
     if (process.env.NODE_ENV === "development") {
@@ -163,6 +163,9 @@ export default class Player extends Entity {
       }
 
       this.nextTimeToAttack = Date.now() + 75;
+
+      store.assets.shootingAudio.currentTime = 0;
+      store.assets.shootingAudio.play();
     }
   }
 }
