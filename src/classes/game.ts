@@ -21,12 +21,12 @@ export default class Game {
     backgroundImage: HTMLImageElement | null
   ): void {
     let ctx = null;
-    if (canvas === null || (ctx = canvas.getContext("2d")) === null) {
+    if (
+      canvas === null ||
+      backgroundImage === null ||
+      (ctx = canvas.getContext("2d")) === null
+    ) {
       return;
-    }
-
-    if (backgroundImage !== null) {
-      backgroundImage.src = store.assets.backgroundImage.src;
     }
 
     store.isGaming = true;
@@ -36,12 +36,17 @@ export default class Game {
     this.ctx = ctx;
 
     this.chooseInputSystem();
-    this.play();
 
+    backgroundImage.src = store.assets.backgroundImage.src;
     store.assets.backgroundMusic.play();
+
+    this.play();
   }
 
   public static get loading(): boolean {
+    console.log(
+      `${store.loadedAssetsCount}/${Object.keys(store.assets).length}`
+    );
     return store.loadedAssetsCount < Object.keys(store.assets).length;
   }
 
@@ -87,7 +92,6 @@ export default class Game {
 
       if (this.enemy.isDead || this.player.isDead) {
         alert("Game Over. Thank you for playing.");
-        // AudioManager.instance.stopBackgroundMusic();
         router.push("/about");
         return;
       }
