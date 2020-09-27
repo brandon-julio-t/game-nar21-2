@@ -5,7 +5,6 @@ import store from "@/store";
 import Bullet from "./abstracts/bullet";
 import Meteor from "./meteor";
 import InputSystem from "./input-system";
-import SoundManager from "./sound-manager";
 
 export default class Game {
   private static readonly FPS: number = 60;
@@ -39,8 +38,7 @@ export default class Game {
     this.chooseInputSystem();
     this.play();
 
-    const soundManager:SoundManager = SoundManager.getInstance();
-    soundManager.playBackgroundMusic();
+    store.assets.backgroundMusic.play();
   }
 
   public static get loading(): boolean {
@@ -57,20 +55,6 @@ export default class Game {
     canvas.height = innerHeight;
   }
 
-  private static prepareEnemy(): Enemy {
-    const health: number = 1500;
-    const velocity: number = 2;
-    return new Enemy(health, velocity);
-  }
-
-  private static preparePlayer(): Player {
-    const health: number = 12;
-    const velocity: number = 10;
-    const x: number = innerWidth / 2;
-    const y: number = (innerHeight * 3) / 4;
-    return new Player(x, y, velocity, health);
-  }
-
   private static chooseInputSystem(): void {
     confirm("Use keyboard as input? Yes: [ENTER] or No: [ESC]")
       ? InputSystem.useKeyboard()
@@ -85,6 +69,7 @@ export default class Game {
       this.animationId = requestAnimationFrame(loop);
 
       if (this.loading) {
+        console.log("HMM");
         return;
       }
 
@@ -102,8 +87,7 @@ export default class Game {
 
       if (this.enemy.isDead || this.player.isDead) {
         alert("Game Over. Thank you for playing.");
-        const soundManager:SoundManager = SoundManager.getInstance();
-        soundManager.stopBackgroundMusic();
+        // AudioManager.instance.stopBackgroundMusic();
         router.push("/about");
         return;
       }
@@ -122,6 +106,20 @@ export default class Game {
     };
 
     this.animationId = requestAnimationFrame(loop);
+  }
+
+  private static prepareEnemy(): Enemy {
+    const health: number = 1500;
+    const velocity: number = 2;
+    return new Enemy(health, velocity);
+  }
+
+  private static preparePlayer(): Player {
+    const health: number = 12;
+    const velocity: number = 10;
+    const x: number = innerWidth / 2;
+    const y: number = (innerHeight * 3) / 4;
+    return new Player(x, y, velocity, health);
   }
 
   private static handleMeteor(): void {
@@ -178,6 +176,9 @@ export default class Game {
     this.enemy = store.enemy = null;
     this.meteor = null;
     this.player = store.player = null;
+
+    store.assets.backgroundMusic.currentTime = 0;
+    store.assets.backgroundMusic.pause();
 
     if (this.animationId !== null) {
       cancelAnimationFrame(this.animationId);
