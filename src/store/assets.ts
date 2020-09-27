@@ -12,7 +12,7 @@ export function loadBackgroundImage(): HTMLImageElement {
 export function loadBackgroundMusic(): HTMLAudioElement {
   const audio: HTMLAudioElement = new Audio();
   audio.src = asset("backsound.mp3");
-  audio.oncanplaythrough = () => store.loadedAssetsCount++;
+  audio.onloadeddata = () => store.loadedAssetsCount++;
   audio.onerror = e => console.error(e);
   return audio;
 }
@@ -60,7 +60,7 @@ export function loadReversedEnemy(): HTMLImageElement {
 export function loadShootingAudio(): HTMLAudioElement {
   const audio: HTMLAudioElement = new Audio();
   audio.src = asset("player-shoot.wav");
-  audio.oncanplaythrough = () => store.loadedAssetsCount++;
+  audio.onloadeddata = () => store.loadedAssetsCount++;
   audio.onerror = e => console.error(e);
   return audio;
 }
