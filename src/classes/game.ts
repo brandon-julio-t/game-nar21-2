@@ -10,9 +10,9 @@ export default class Game {
   private static readonly FPS: number = 60;
 
   private static ctx: CanvasRenderingContext2D;
-  private static enemy: Enemy | null = null;
-  private static player: Player | null = null;
-  private static meteor: Meteor | null = null;
+  private static enemy: Enemy;
+  private static player: Player;
+  private static meteor: Meteor;
 
   private static animationId: number | null = null;
 
@@ -34,6 +34,10 @@ export default class Game {
 
     this.prepareCanvas(canvas);
     this.ctx = ctx;
+
+    this.enemy = store.enemy = this.prepareEnemy();
+    this.meteor = new Meteor();
+    this.player = store.player = this.preparePlayer();
 
     this.chooseInputSystem();
     this.play();
@@ -82,18 +86,6 @@ export default class Game {
 
       if (this.loading) {
         return;
-      }
-
-      if (this.enemy === null) {
-        this.enemy = store.enemy = this.prepareEnemy();
-      }
-
-      if (this.meteor === null) {
-        this.meteor = new Meteor();
-      }
-
-      if (this.player === null) {
-        this.player = store.player = this.preparePlayer();
       }
 
       if (this.enemy.isDead || this.player.isDead) {
@@ -169,9 +161,8 @@ export default class Game {
   private static cleanUp(): void {
     store.bullets.splice(0);
 
-    this.enemy = store.enemy = null;
-    this.meteor = null;
-    this.player = store.player = null;
+    store.enemy = null;
+    store.player = null;
 
     if (this.animationId !== null) {
       cancelAnimationFrame(this.animationId);
