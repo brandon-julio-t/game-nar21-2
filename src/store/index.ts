@@ -6,21 +6,25 @@ import Player from "@/classes/player";
 
 import {
   loadBackgroundImage,
+  loadBackgroundMusic,
   loadEnemy,
   loadEnemyBullet,
   loadMeteor,
   loadPlayer,
-  loadReversedEnemy
+  loadReversedEnemy,
+  loadShootingAudio
 } from "./assets";
 
 const initialState: Store = {
   assets: {
     backgroundImage: loadBackgroundImage(),
+    backgroundMusic: loadBackgroundMusic(),
     enemy: loadEnemy(),
     reversedEnemy: loadReversedEnemy(),
     enemyBullet: loadEnemyBullet(),
     meteor: loadMeteor(),
-    player: loadPlayer()
+    player: loadPlayer(),
+    shootingAudio: loadShootingAudio()
   },
   bullets: [],
   color: "white",
@@ -44,9 +48,11 @@ interface Store {
 
 interface Assets {
   backgroundImage: HTMLImageElement;
+  backgroundMusic: HTMLAudioElement;
   enemy: HTMLImageElement;
-  reversedEnemy: HTMLImageElement;
   enemyBullet: HTMLImageElement;
   meteor: HTMLImageElement;
   player: HTMLImageElement;
+  reversedEnemy: HTMLImageElement;
+  shootingAudio: HTMLAudioElement;
 }

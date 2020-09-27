@@ -8,7 +8,7 @@ export default abstract class Bullet {
   protected position: Vector2;
   public isEnded: boolean = false;
 
-  constructor(
+  public constructor(
     x: number,
     y: number,
     xVelocity: number,

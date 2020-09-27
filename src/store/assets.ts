@@ -9,6 +9,14 @@ export function loadBackgroundImage(): HTMLImageElement {
   return img;
 }
 
+export function loadBackgroundMusic(): HTMLAudioElement {
+  const audio: HTMLAudioElement = new Audio();
+  audio.src = asset("backsound.mp3");
+  audio.onloadeddata = () => store.loadedAssetsCount++;
+  audio.onerror = e => console.error(e);
+  return audio;
+}
+
 export function loadEnemyBullet(): HTMLImageElement {
   const img: HTMLImageElement = new Image();
   img.src = asset("sprite-enemy-bullet.png");
@@ -47,4 +55,12 @@ export function loadReversedEnemy(): HTMLImageElement {
   img.onload = () => store.loadedAssetsCount++;
   img.onerror = e => console.error(e);
   return img;
+}
+
+export function loadShootingAudio(): HTMLAudioElement {
+  const audio: HTMLAudioElement = new Audio();
+  audio.src = asset("player-shoot.wav");
+  audio.onloadeddata = () => store.loadedAssetsCount++;
+  audio.onerror = e => console.error(e);
+  return audio;
 }
