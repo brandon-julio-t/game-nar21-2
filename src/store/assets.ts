@@ -30,7 +30,7 @@ export function loadReversedEnemy(): HTMLImageElement {
 }
 
 export function loadShootingAudio(): HTMLAudioElement {
-  return loadAudio("player-shoot.wav");
+  return loadAudio("player-shoot.ogg");
 }
 
 function loadImage(assetName: string): HTMLImageElement {

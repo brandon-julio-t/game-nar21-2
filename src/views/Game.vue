@@ -1,9 +1,13 @@
 <template>
-  <section v-if="!store.isGaming">
+  <section
+    v-if="!store.isGaming"
+    class="flex justify-center items-center w-screen h-screen"
+  >
     <div v-if="!isLoadingFinished">
       <h1>Loading...</h1>
       <h2>{{ store.loadedAssetsCount }} / {{ totalAssetsCount }}</h2>
     </div>
+
     <div v-else>
       <img
         @click="playGame()"
@@ -29,9 +33,10 @@
     </div>
   </section>
 
-  <section class="relative">
+  <div class="w-screen h-screen relative overflow-hidden">
+    <div id="game-background" ref="backgroundImage" />
     <canvas id="game" class="absolute" ref="gameCanvas"></canvas>
-  </section>
+  </div>
 </template>
 
 <script lang="ts">
@@ -58,7 +63,7 @@ export default defineComponent({
       gameCanvas,
       isLoadingFinished,
       playGame() {
-        Game.start(gameCanvas.value); // Entry point A.K.A. main
+        Game.start(gameCanvas.value, backgroundImage.value); // Entry point A.K.A. main
       },
       store,
       totalAssetsCount
@@ -68,17 +73,23 @@ export default defineComponent({
 </script>
 
 <style scoped>
-canvas {
-  animation: backgroundScroll 10s linear infinite;
+#game-background {
+  animation: backgroundScroll 15s linear infinite;
   background-size: contain;
+  background-repeat: repeat;
+  height: 9000px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  z-index: -1;
 }
 
 @keyframes backgroundScroll {
   0% {
-    background-position: 0 0;
+    transform: translate3d(0, 0, 0);
   }
   100% {
-    background-position: 0 4500px;
+    transform: translate3d(0, 4500px, 0);
   }
 }
 </style>

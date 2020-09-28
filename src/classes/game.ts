@@ -6,6 +6,7 @@ import Bullet from "./abstracts/bullet";
 import Meteor from "./meteor";
 import InputSystem from "./input-system";
 import EnemyBullet from "./enemy-bullet";
+import { asset } from "./core/utilities";
 
 export default class Game {
   private static readonly FPS: number = 60;
@@ -17,9 +18,12 @@ export default class Game {
 
   private static animationId: number | null = null;
 
-  public static start(canvas: HTMLCanvasElement | null): void {
+  public static start(
+    canvas: HTMLCanvasElement | null,
+    backgroundImage: HTMLImageElement | null
+  ): void {
     let ctx = canvas?.getContext("2d") as CanvasRenderingContext2D;
-    if (canvas === null || ctx === null) {
+    if (canvas === null || backgroundImage === null || ctx === null) {
       return;
     }
 
@@ -28,6 +32,8 @@ export default class Game {
 
     this.prepareCanvas(canvas);
     this.ctx = ctx;
+
+    backgroundImage.style.backgroundImage = `url("${store.assets.backgroundImage.src}")`;
 
     this.enemy = store.enemy = this.prepareEnemy();
     this.meteor = new Meteor();
@@ -52,7 +58,7 @@ export default class Game {
   private static prepareCanvas(canvas: HTMLCanvasElement): void {
     canvas.width = innerWidth;
     canvas.height = innerHeight;
-    canvas.style.backgroundImage = `url("${store.assets.backgroundImage.src}")`;
+    // canvas.style.backgroundImage = `url("${store.assets.backgroundImage.src}")`;
   }
 
   private static chooseInputSystem(): void {
