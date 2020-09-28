@@ -16,16 +16,9 @@ export default class Game {
 
   private static animationId: number | null = null;
 
-  public static start(
-    canvas: HTMLCanvasElement | null
-    // backgroundImage: HTMLImageElement | null
-  ): void {
+  public static start(canvas: HTMLCanvasElement | null): void {
     let ctx = null;
-    if (
-      canvas === null ||
-      /* backgroundImage === null || */
-      (ctx = canvas.getContext("2d")) === null
-    ) {
+    if (canvas === null || (ctx = canvas.getContext("2d")) === null) {
       return;
     }
 
@@ -41,7 +34,6 @@ export default class Game {
 
     this.chooseInputSystem();
 
-    // backgroundImage.src = store.assets.backgroundImage.src; 
     store.assets.backgroundMusic.play();
 
     this.play();
@@ -62,6 +54,7 @@ export default class Game {
   private static prepareCanvas(canvas: HTMLCanvasElement): void {
     canvas.width = innerWidth;
     canvas.height = innerHeight;
+    canvas.className += " background";
   }
 
   private static chooseInputSystem(): void {

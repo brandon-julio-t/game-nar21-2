@@ -1,14 +1,6 @@
 import store from ".";
 import { asset } from "@/classes/core/utilities";
 
-export function loadBackgroundImage(): HTMLImageElement {
-  const img: HTMLImageElement = new Image();
-  img.src = asset("background.jpg");
-  img.onload = () => store.loadedAssetsCount++;
-  img.onerror = e => console.error(e);
-  return img;
-}
-
 export function loadBackgroundMusic(): HTMLAudioElement {
   const audio: HTMLAudioElement = new Audio();
   audio.src = asset("backsound.mp3");

@@ -15,32 +15,9 @@
   </section>
 
   <section class="relative">
-    <!-- <img
-      class="absolute h-screen w-screen"
-      :class="{ hidden: !store.isGaming }"
-      ref="backgroundImage"
-    /> -->
-    <canvas id="game" class="absolute background" ref="gameCanvas"></canvas>
+    <canvas id="game" class="absolute" ref="gameCanvas"></canvas>
   </section>
 </template>
-
-<style scoped>
-.background {
-  background-image: url('../assets/final-bg.jpg');
-  width: 100vw;
-  height: 100vh;
-  /* background-size: cover; */
-  /* background-repeat: repeat-y; */
-  /* background-attachment: scroll; */
-  animation: backgroundScroll 10s linear infinite;
-  animation-fill-mode: forwards;
-}
-
-@keyframes backgroundScroll {
-    0% {background-position: 0 0;}
-    100% {background-position: 0 4500px;}
-}
-</style>
 
 <script lang="ts">
 import { computed, defineComponent, onUnmounted, ref } from "vue";
@@ -74,3 +51,22 @@ export default defineComponent({
   }
 });
 </script>
+
+<style scoped>
+.background {
+  animation-fill-mode: forwards;
+  animation: backgroundScroll 10s linear infinite;
+  background-image: url("~@/assets/background.jpg");
+  height: 100vh;
+  width: 100vw;
+}
+
+@keyframes backgroundScroll {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 4500px;
+  }
+}
+</style>

@@ -14,12 +14,6 @@
   </div>
 </template>
 
-<style scoped>
-body{
-  background-color: #333;
-}
-</style>
-
 <script lang="ts">
 import { defineComponent } from "vue";
 
@@ -32,9 +26,7 @@ export default defineComponent({
   },
 
   data() {
-    return {
-      store
-    };
+    return { store };
   }
 });
 </script>

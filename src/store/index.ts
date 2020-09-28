@@ -5,7 +5,6 @@ import Enemy from "@/classes/enemy";
 import Player from "@/classes/player";
 
 import {
-  loadBackgroundImage,
   loadBackgroundMusic,
   loadEnemy,
   loadEnemyBullet,
@@ -17,7 +16,6 @@ import {
 
 const initialState: Store = {
   assets: {
-    backgroundImage: loadBackgroundImage(),
     backgroundMusic: loadBackgroundMusic(),
     enemy: loadEnemy(),
     reversedEnemy: loadReversedEnemy(),
@@ -47,7 +45,6 @@ interface Store {
 }
 
 interface Assets {
-  backgroundImage: HTMLImageElement;
   backgroundMusic: HTMLAudioElement;
   enemy: HTMLImageElement;
   enemyBullet: HTMLImageElement;
