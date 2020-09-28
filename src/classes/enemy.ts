@@ -14,7 +14,9 @@ export default class Enemy extends Entity {
       0,
       health,
       store.assets.enemy,
-      store.assets.enemy.naturalHeight / 4
+      store.assets.enemy.naturalHeight / 4,
+      store.assets.enemy.naturalHeight,
+      store.assets.enemy.naturalWidth
     );
 
     this.velocity = velocity;

@@ -29,7 +29,9 @@ export default class Player extends Entity {
       store.assets.player,
       (Player.SIZE * store.assets.player.naturalHeight) /
         store.assets.player.naturalWidth /
-        8
+        8,
+      Player.SIZE,
+      Player.SIZE
     );
 
     this._velocity = velocity;

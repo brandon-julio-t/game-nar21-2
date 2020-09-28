@@ -50,14 +50,10 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 
-import Button from "./Button.vue";
-
 import InputSystem from "@/classes/core/input-system";
 import store from "@/store";
 
 export default defineComponent({
-  components: { Button },
-
   emits: ["play-game", "close-dialog"],
 
   setup() {

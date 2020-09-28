@@ -4,6 +4,7 @@ import Meteor from "./meteor";
 import Player from "./player";
 import router from "@/router";
 import store from "@/store";
+import Entity from "./abstracts/entity";
 
 export default class Game {
   private static readonly FPS: number = 60;
@@ -67,11 +68,11 @@ export default class Game {
       }
 
       if (this.enemy.isDead || this.player.isDead) {
-        // TODO: fade to white
-        setTimeout(() => {
+        const entity: Entity = this.enemy.isDead ? this.enemy : this.player;
+
+        if (entity.hasFinishedExploding) {
           router.push("/about");
-        }, 3000);
-        return;
+        }
       }
 
       const now: number = Date.now();

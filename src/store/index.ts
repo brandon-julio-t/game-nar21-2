@@ -9,6 +9,7 @@ import {
   loadBackgroundMusic,
   loadEnemy,
   loadEnemyBullet,
+  loadExplodeAnimation,
   loadMeteor,
   loadPlayer,
   loadReversedEnemy,
@@ -22,6 +23,7 @@ const initialState: Store = {
     enemy: loadEnemy(),
     reversedEnemy: loadReversedEnemy(),
     enemyBullet: loadEnemyBullet(),
+    explodeAnimation: loadExplodeAnimation(),
     meteor: loadMeteor(),
     player: loadPlayer(),
     shootingAudio: loadShootingAudio()
@@ -53,6 +55,7 @@ interface Assets {
   backgroundMusic: HTMLAudioElement;
   enemy: HTMLImageElement;
   enemyBullet: HTMLImageElement;
+  explodeAnimation: HTMLImageElement;
   meteor: HTMLImageElement;
   player: HTMLImageElement;
   reversedEnemy: HTMLImageElement;

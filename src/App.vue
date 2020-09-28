@@ -6,12 +6,16 @@
   >
     <div v-if="!store.isGaming" id="main-background"></div>
     <main>
+      <!-- <transition name="fade"> -->
       <router-view />
+      <!-- </transition> -->
     </main>
   </div>
 </template>
 
 <script lang="ts">
+import "./assets/styles.css";
+
 import { defineComponent } from "vue";
 
 import store from "./store";
