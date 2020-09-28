@@ -17,13 +17,13 @@ export default class Game {
   private static animationId: number | null = null;
 
   public static start(
-    canvas: HTMLCanvasElement | null,
-    backgroundImage: HTMLImageElement | null
+    canvas: HTMLCanvasElement | null
+    // backgroundImage: HTMLImageElement | null
   ): void {
     let ctx = null;
     if (
       canvas === null ||
-      backgroundImage === null ||
+      /* backgroundImage === null || */
       (ctx = canvas.getContext("2d")) === null
     ) {
       return;
@@ -41,7 +41,7 @@ export default class Game {
 
     this.chooseInputSystem();
 
-    backgroundImage.src = store.assets.backgroundImage.src;
+    // backgroundImage.src = store.assets.backgroundImage.src; 
     store.assets.backgroundMusic.play();
 
     this.play();
