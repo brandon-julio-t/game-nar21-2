@@ -141,8 +141,8 @@ export default class Player extends Entity {
 
   public shoot(): void {
     if (Date.now() >= this.nextTimeToAttack) {
-      const nX: number[] = [-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5];
-      const nY: number[] = [5, 4, 3, 2, 1, 0, 1, 2, 3, 4, 5];
+      const nX: number[] = [-3, -2, -1, 0, 1, 2, 3];
+      const nY: number[] = [3, 2, 1, 0, 1, 2, 3];
       const len: number = nX.length;
 
       const { naturalHeight, naturalWidth } = this.sprite;

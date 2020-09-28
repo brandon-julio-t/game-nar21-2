@@ -1,57 +1,49 @@
 import store from ".";
 import { asset } from "@/classes/core/utilities";
 
+export function loadBackgroundImage(): HTMLImageElement {
+  return loadImage("background.jpg");
+}
+
 export function loadBackgroundMusic(): HTMLAudioElement {
-  const audio: HTMLAudioElement = new Audio();
-  audio.src = asset("backsound.mp3");
-  audio.onloadeddata = () => store.loadedAssetsCount++;
-  audio.onerror = e => console.error(e);
-  return audio;
+  return loadAudio("backsound.mp3");
 }
 
 export function loadEnemyBullet(): HTMLImageElement {
-  const img: HTMLImageElement = new Image();
-  img.src = asset("sprite-enemy-bullet.png");
-  img.onload = () => store.loadedAssetsCount++;
-  img.onerror = e => console.error(e);
-  return img;
+  return loadImage("sprite-enemy-bullet.png");
 }
 
 export function loadEnemy(): HTMLImageElement {
-  const img: HTMLImageElement = new Image();
-  img.src = asset("sprite-enemy.png");
-  img.onload = () => store.loadedAssetsCount++;
-  img.onerror = e => console.error(e);
-  return img;
+  return loadImage("sprite-enemy.png");
 }
 
 export function loadMeteor(): HTMLImageElement {
-  const img: HTMLImageElement = new Image();
-  img.src = asset("meteor.svg");
-  img.onload = () => store.loadedAssetsCount++;
-  img.onerror = e => console.error(e);
-  return img;
+  return loadImage("meteor.svg");
 }
 
 export function loadPlayer(): HTMLImageElement {
-  const img: HTMLImageElement = new Image();
-  img.src = asset("sprite-player.png");
-  img.onload = () => store.loadedAssetsCount++;
-  img.onerror = e => console.error(e);
-  return img;
+  return loadImage("sprite-player.png");
 }
 
 export function loadReversedEnemy(): HTMLImageElement {
-  const img: HTMLImageElement = new Image();
-  img.src = asset("sprite-enemy-reversed.png");
-  img.onload = () => store.loadedAssetsCount++;
-  img.onerror = e => console.error(e);
-  return img;
+  return loadImage("sprite-enemy-reversed.png");
 }
 
 export function loadShootingAudio(): HTMLAudioElement {
+  return loadAudio("player-shoot.wav");
+}
+
+function loadImage(assetName: string): HTMLImageElement {
+  const image: HTMLImageElement = new Image();
+  image.src = asset(assetName);
+  image.onload = () => store.loadedAssetsCount++;
+  image.onerror = e => console.error(e);
+  return image;
+}
+
+function loadAudio(assetName: string): HTMLAudioElement {
   const audio: HTMLAudioElement = new Audio();
-  audio.src = asset("player-shoot.wav");
+  audio.src = asset(assetName);
   audio.onloadeddata = () => store.loadedAssetsCount++;
   audio.onerror = e => console.error(e);
   return audio;

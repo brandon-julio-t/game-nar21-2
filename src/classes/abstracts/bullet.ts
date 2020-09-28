@@ -23,8 +23,17 @@ export default abstract class Bullet {
   }
 
   public get isOutOfBounds(): boolean {
-    const { x, y } = this.position;
-    return x < 0 || y < 0 || x > innerWidth || y > innerHeight;
+    return this.isOutOfHorizontalBounds || this.isOutOfVerticalBounds;
+  }
+
+  public get isOutOfHorizontalBounds(): boolean {
+    const { x } = this.position;
+    return x < 0 || x > innerWidth;
+  }
+
+  public get isOutOfVerticalBounds(): boolean {
+    const { y } = this.position;
+    return y < 0 || y > innerHeight;
   }
 
   public move(): void {

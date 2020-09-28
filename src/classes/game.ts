@@ -5,6 +5,7 @@ import store from "@/store";
 import Bullet from "./abstracts/bullet";
 import Meteor from "./meteor";
 import InputSystem from "./input-system";
+import EnemyBullet from "./enemy-bullet";
 
 export default class Game {
   private static readonly FPS: number = 60;
@@ -17,8 +18,8 @@ export default class Game {
   private static animationId: number | null = null;
 
   public static start(canvas: HTMLCanvasElement | null): void {
-    let ctx = null;
-    if (canvas === null || (ctx = canvas.getContext("2d")) === null) {
+    let ctx = canvas?.getContext("2d") as CanvasRenderingContext2D;
+    if (canvas === null || ctx === null) {
       return;
     }
 
@@ -40,9 +41,6 @@ export default class Game {
   }
 
   public static get loading(): boolean {
-    console.log(
-      `${store.loadedAssetsCount}/${Object.keys(store.assets).length}`
-    );
     return store.loadedAssetsCount < Object.keys(store.assets).length;
   }
 
@@ -54,7 +52,7 @@ export default class Game {
   private static prepareCanvas(canvas: HTMLCanvasElement): void {
     canvas.width = innerWidth;
     canvas.height = innerHeight;
-    canvas.className += " background";
+    canvas.style.backgroundImage = `url("${store.assets.backgroundImage.src}")`;
   }
 
   private static chooseInputSystem(): void {
@@ -71,7 +69,6 @@ export default class Game {
       this.animationId = requestAnimationFrame(loop);
 
       if (this.loading) {
-        console.log("HMM");
         return;
       }
 
@@ -148,7 +145,7 @@ export default class Game {
   }
 
   private static filterWhileDrawing(bullet: Bullet): boolean {
-    if (bullet.isEnded || bullet.isOutOfBounds) {
+    if (bullet.isEnded || bullet.isOutOfVerticalBounds) {
       return false;
     }
 

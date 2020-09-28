@@ -11,6 +11,21 @@
         class="transition duration-500 ease-in-out transform hover:scale-125 cursor-pointer"
         src="@/assets/logo-nar21-2.jpg"
       />
+
+      <div class="bg-black mt-8 p-8 rounded text-white flex justify-center">
+        <div>
+          <h1 class="text-xl font-bold">Instructions</h1>
+          <ul class="list-disc">
+            <li>W/A/S/D/Arrow Keys (← → ↑ ↓): move</li>
+            <li>SHIFT: slow down</li>
+          </ul>
+
+          <h1 class="text-xl font-bold">Notes</h1>
+          <ul class="list-disc">
+            <li>Don't get hit by meteor</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -53,12 +68,9 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.background {
-  animation-fill-mode: forwards;
+canvas {
   animation: backgroundScroll 10s linear infinite;
-  background-image: url("~@/assets/background.jpg");
-  height: 100vh;
-  width: 100vw;
+  background-size: contain;
 }
 
 @keyframes backgroundScroll {
