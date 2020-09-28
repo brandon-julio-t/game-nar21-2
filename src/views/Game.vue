@@ -5,12 +5,12 @@
   >
     <div v-if="!isLoadingFinished">
       <h1>Loading...</h1>
-      <h2>{{ store.loadedAssetsCount }} / {{ totalAssetsCount }}</h2>
+      <h2>{{ (store.loadedAssetsCount / totalAssetsCount) * 100 }}%</h2>
     </div>
 
     <div v-else>
       <img
-        @click="playGame()"
+        @click="openChooseInputSystemModal = true"
         alt="Vue logo"
         class="transition duration-500 ease-in-out transform hover:scale-125 cursor-pointer"
         src="@/assets/logo-nar21-2.jpg"
@@ -31,6 +31,12 @@
         </div>
       </div>
     </div>
+
+    <choose-input-system-dialog
+      v-if="openChooseInputSystemModal"
+      @close-dialog="openChooseInputSystemModal = false"
+      @play-game="playGame()"
+    />
   </section>
 
   <div class="w-screen h-screen relative overflow-hidden">
@@ -40,30 +46,42 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onUnmounted, ref } from "vue";
+import { computed, defineComponent, onMounted, onUnmounted, ref } from "vue";
+
+import ChooseInputSystemDialog from "@/components/ChooseInputSystemDialog.vue";
 
 import Game from "@/classes/game";
+import InputSystem from "@/classes/core/input-system";
 import store from "@/store";
 
 export default defineComponent({
+  components: { ChooseInputSystemDialog },
+
   setup() {
     const gameCanvas = ref<HTMLCanvasElement | null>(null); // Don't give type, TypeScript will yell.
     const backgroundImage = ref<HTMLImageElement | null>(null);
+    const openChooseInputSystemModal = ref(false);
 
     const totalAssetsCount = computed(() => Object.keys(store.assets).length);
     const isLoadingFinished = computed(
       () => store.loadedAssetsCount === totalAssetsCount.value
     );
 
+    onMounted(() => {
+      store.useKeyboard ? InputSystem.useKeyboard() : InputSystem.useMouse();
+    });
     onUnmounted(() => Game.end());
 
     return {
       Game,
+      InputSystem,
       backgroundImage,
       gameCanvas,
       isLoadingFinished,
+      openChooseInputSystemModal,
       playGame() {
-        Game.start(gameCanvas.value, backgroundImage.value); // Entry point A.K.A. main
+        // Entry point A.K.A. main
+        Game.start(gameCanvas.value, backgroundImage.value);
       },
       store,
       totalAssetsCount

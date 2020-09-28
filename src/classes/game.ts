@@ -1,12 +1,9 @@
+import Bullet from "./abstracts/bullet";
 import Enemy from "./enemy";
+import Meteor from "./meteor";
 import Player from "./player";
 import router from "@/router";
 import store from "@/store";
-import Bullet from "./abstracts/bullet";
-import Meteor from "./meteor";
-import InputSystem from "./input-system";
-import EnemyBullet from "./enemy-bullet";
-import { asset } from "./core/utilities";
 
 export default class Game {
   private static readonly FPS: number = 60;
@@ -39,8 +36,6 @@ export default class Game {
     this.meteor = new Meteor();
     this.player = store.player = this.preparePlayer();
 
-    this.chooseInputSystem();
-
     store.assets.backgroundMusic.play();
 
     this.play();
@@ -58,13 +53,6 @@ export default class Game {
   private static prepareCanvas(canvas: HTMLCanvasElement): void {
     canvas.width = innerWidth;
     canvas.height = innerHeight;
-    // canvas.style.backgroundImage = `url("${store.assets.backgroundImage.src}")`;
-  }
-
-  private static chooseInputSystem(): void {
-    confirm("Use keyboard as input? Yes: [ENTER] or No: [ESC]")
-      ? InputSystem.useKeyboard()
-      : InputSystem.useMouse();
   }
 
   private static play(): void {
@@ -79,8 +67,10 @@ export default class Game {
       }
 
       if (this.enemy.isDead || this.player.isDead) {
-        alert("Game Over. Thank you for playing.");
-        router.push("/about");
+        // TODO: fade to white
+        setTimeout(() => {
+          router.push("/about");
+        }, 3000);
         return;
       }
 

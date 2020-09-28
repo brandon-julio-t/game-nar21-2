@@ -1,4 +1,4 @@
-import Player from "./player";
+import Player from "../player";
 import router from "@/router";
 import store from "@/store";
 

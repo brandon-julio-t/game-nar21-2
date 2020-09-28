@@ -29,9 +29,10 @@ const initialState: Store = {
   bullets: [],
   color: "white",
   enemy: null,
-  loadedAssetsCount: 0,
   isGaming: false,
-  player: null
+  loadedAssetsCount: 0,
+  player: null,
+  useKeyboard: true
 };
 
 export default reactive(initialState);
@@ -44,6 +45,7 @@ interface Store {
   isGaming: boolean;
   loadedAssetsCount: number;
   player: Player | null;
+  useKeyboard: boolean;
 }
 
 interface Assets {
