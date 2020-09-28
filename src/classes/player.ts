@@ -42,6 +42,10 @@ export default class Player extends Entity {
     return this._velocity / (this.isSlowingDown ? 1.75 : 1);
   }
 
+  public stopMoving(): void {
+    this.isMovingDown = this.isMovingLeft = this.isMovingRight = this.isMovingUp = false;
+  }
+
   public reduceHealth(points: number): void {
     if (!this.isInvulnerable) {
       super.reduceHealth(points);

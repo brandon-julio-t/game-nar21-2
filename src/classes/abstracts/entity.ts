@@ -1,5 +1,5 @@
-import store from "@/store";
 import Vector2 from "../core/vector2";
+import store from "@/store";
 
 export default abstract class Entity {
   public readonly HEIGHT: number;
