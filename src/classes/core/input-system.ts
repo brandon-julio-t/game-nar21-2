@@ -1,4 +1,4 @@
-import Player from "./player";
+import Player from "../player";
 import router from "@/router";
 import store from "@/store";
 
@@ -7,9 +7,15 @@ export default class InputSystem {
     return store.player as Player | null;
   }
 
-  public static useMouse(): void {
+  public static disable(): void {
     onkeydown = null;
     onkeyup = null;
+    onmousemove = null;
+  }
+
+  public static useMouse(): void {
+    this.disable();
+
     onmousemove = (e: MouseEvent) => {
       if (this.player === null) {
         return;
@@ -22,9 +28,10 @@ export default class InputSystem {
   }
 
   public static useKeyboard(): void {
+    this.disable();
+
     onkeydown = e => this.keyboardInputListener(e, true);
     onkeyup = e => this.keyboardInputListener(e, false);
-    onmousemove = null;
   }
 
   private static keyboardInputListener(

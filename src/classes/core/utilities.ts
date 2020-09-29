@@ -5,3 +5,7 @@ export function randomIntegerBetween(min: number, max: number): number {
 export function asset(filename: string) {
   return `${process.env.BASE_URL}${filename}`;
 }
+
+export function getContext(canvas: HTMLCanvasElement | null) {
+  return canvas?.getContext("2d") as CanvasRenderingContext2D;
+}

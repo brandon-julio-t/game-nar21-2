@@ -1,19 +1,19 @@
+import AssetsLoaders from "./assets-loaders";
+import Store from "@/classes/interfaces/store";
 import { reactive } from "vue";
 
-import Bullet from "@/classes/abstracts/bullet";
-import Enemy from "@/classes/enemy";
-import Player from "@/classes/player";
-
-import {
+const {
   loadBackgroundImage,
   loadBackgroundMusic,
   loadEnemy,
   loadEnemyBullet,
+  loadExplodeSprite,
   loadMeteor,
+  loadMiniEnemy,
   loadPlayer,
   loadReversedEnemy,
   loadShootingAudio
-} from "./assets";
+} = AssetsLoaders;
 
 const initialState: Store = {
   assets: {
@@ -22,37 +22,20 @@ const initialState: Store = {
     enemy: loadEnemy(),
     reversedEnemy: loadReversedEnemy(),
     enemyBullet: loadEnemyBullet(),
+    explodeSprite: loadExplodeSprite(),
     meteor: loadMeteor(),
+    miniEnemy: loadMiniEnemy(),
     player: loadPlayer(),
     shootingAudio: loadShootingAudio()
   },
   bullets: [],
   color: "white",
   enemy: null,
-  loadedAssetsCount: 0,
   isGaming: false,
-  player: null
+  loadedAssetsCount: 0,
+  miniEnemies: [],
+  player: null,
+  useKeyboard: true
 };
 
 export default reactive(initialState);
-
-interface Store {
-  assets: Assets;
-  bullets: Bullet[];
-  color: string;
-  enemy: Enemy | null;
-  isGaming: boolean;
-  loadedAssetsCount: number;
-  player: Player | null;
-}
-
-interface Assets {
-  backgroundImage: HTMLImageElement;
-  backgroundMusic: HTMLAudioElement;
-  enemy: HTMLImageElement;
-  enemyBullet: HTMLImageElement;
-  meteor: HTMLImageElement;
-  player: HTMLImageElement;
-  reversedEnemy: HTMLImageElement;
-  shootingAudio: HTMLAudioElement;
-}

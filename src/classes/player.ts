@@ -9,7 +9,6 @@ export default class Player extends Entity {
 
   public readonly HITBOX_SIZE = Player.SIZE / 4;
 
-  private _velocity: number;
   private nextTimeToAttack: number = Date.now();
 
   protected blinkingTimeoutId: number | null = null;
@@ -29,15 +28,21 @@ export default class Player extends Entity {
       store.assets.player,
       (Player.SIZE * store.assets.player.naturalHeight) /
         store.assets.player.naturalWidth /
-        8
+        8,
+      Player.SIZE,
+      Player.SIZE,
+      velocity
     );
 
-    this._velocity = velocity;
     this.isInvulnerable = false;
   }
 
-  private get velocity(): number {
+  protected get velocity(): number {
     return this._velocity / (this.isSlowingDown ? 1.75 : 1);
+  }
+
+  public stopMoving(): void {
+    this.isMovingDown = this.isMovingLeft = this.isMovingRight = this.isMovingUp = false;
   }
 
   public reduceHealth(points: number): void {
@@ -137,12 +142,20 @@ export default class Player extends Entity {
       (Player.SIZE * this.currentHealth) / this.maxHealth,
       this.healthBarHeight
     );
+
+    ctx.strokeStyle = "black";
+    ctx.strokeRect(
+      this.position.x - Player.SIZE / 2,
+      this.position.y + Player.SIZE,
+      (Player.SIZE * this.currentHealth) / this.maxHealth,
+      this.healthBarHeight
+    );
   }
 
   public shoot(): void {
-    if (Date.now() >= this.nextTimeToAttack) {
-      const nX: number[] = [-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5];
-      const nY: number[] = [5, 4, 3, 2, 1, 0, 1, 2, 3, 4, 5];
+    if (Date.now() >= this.nextTimeToAttack && !this.isDead) {
+      const nX: number[] = [-3, -2, -1, 0, 1, 2, 3];
+      const nY: number[] = [3, 2, 1, 0, 1, 2, 3];
       const len: number = nX.length;
 
       const { naturalHeight, naturalWidth } = this.sprite;

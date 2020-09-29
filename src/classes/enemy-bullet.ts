@@ -7,7 +7,14 @@ export default class EnemyBullet extends Bullet {
   public readonly sprite: HTMLImageElement;
 
   public constructor(x: number, y: number) {
-    super(x, y, randomIntegerBetween(-7, 7), 7, 10, 10);
+    super(
+      x,
+      y,
+      randomIntegerBetween(-7, 7),
+      randomIntegerBetween(3, 7),
+      10,
+      10
+    );
     this.sprite = store.assets.enemyBullet;
   }
 
@@ -20,14 +27,14 @@ export default class EnemyBullet extends Bullet {
     const player: Player = store.player as Player;
     if (player !== null) {
       const { x: left, y: top } = this.position;
-      const right = left + this.WIDTH;
-      const bottom = top + this.HEIGHT;
+      const right: number = left + this.WIDTH;
+      const bottom: number = top + this.HEIGHT;
 
-      const hitboxOffset = player.HITBOX_SIZE;
-      const xMin = player.position.x - hitboxOffset;
-      const yMin = player.position.y - hitboxOffset;
-      const xMax = player.position.x + hitboxOffset;
-      const yMax = player.position.y + hitboxOffset;
+      const hitboxOffset: number = player.HITBOX_SIZE;
+      const xMin: number = player.position.x - hitboxOffset;
+      const yMin: number = player.position.y - hitboxOffset;
+      const xMax: number = player.position.x + hitboxOffset;
+      const yMax: number = player.position.y + hitboxOffset;
 
       const hasCollision: boolean =
         left >= xMin && top >= yMin && right <= xMax && bottom <= yMax;

@@ -1,30 +1,41 @@
+import Bullet from "./abstracts/bullet";
 import Enemy from "./enemy";
+import Entity from "./abstracts/entity";
+import InputSystem from "./core/input-system";
+import Meteor from "./meteor";
 import Player from "./player";
 import router from "@/router";
 import store from "@/store";
-import Bullet from "./abstracts/bullet";
-import Meteor from "./meteor";
-import InputSystem from "./input-system";
+import { getContext } from "./core/utilities";
+import CanvasesGroup from "./interfaces/canvases-group";
+import ContextsGroup from "./interfaces/contexts-group";
+import MiniEnemy from "./mini-enemy";
 
 export default class Game {
   private static readonly FPS: number = 60;
+  private static readonly MINI_ENEMY_SPAWN_TIME = 1000; // 1 enemy per x miliseconds
 
-  private static ctx: CanvasRenderingContext2D;
+  private static contextsGroup: ContextsGroup;
   private static enemy: Enemy;
-  private static player: Player;
   private static meteor: Meteor;
+  private static nextTimeToSpawnMiniEnemy: number = Date.now();
+  private static player: Player;
 
   private static animationId: number | null = null;
 
   public static start(
-    canvas: HTMLCanvasElement | null
-    // backgroundImage: HTMLImageElement | null
+    canvasesGroup: CanvasesGroup,
+    backgroundImage: HTMLImageElement | null
   ): void {
-    let ctx = null;
+    let contexts: ContextsGroup = {
+      bulletsCtx: getContext(canvasesGroup.bulletsCanvas),
+      enemiesCtx: getContext(canvasesGroup.enemiesCanvas),
+      playerCtx: getContext(canvasesGroup.playerCanvas)
+    };
+
     if (
-      canvas === null ||
-      /* backgroundImage === null || */
-      (ctx = canvas.getContext("2d")) === null
+      Object.values({ ...canvasesGroup, ...contexts }).some(c => c === null) ||
+      backgroundImage === null
     ) {
       return;
     }
@@ -32,25 +43,24 @@ export default class Game {
     store.isGaming = true;
     this.cleanUp();
 
-    this.prepareCanvas(canvas);
-    this.ctx = ctx;
+    Object.values(canvasesGroup).forEach(canvas =>
+      this.prepareCanvas(canvas as HTMLCanvasElement)
+    );
+
+    this.contextsGroup = contexts;
+
+    backgroundImage.style.backgroundImage = `url("${store.assets.backgroundImage.src}")`;
 
     this.enemy = store.enemy = this.prepareEnemy();
     this.meteor = new Meteor();
     this.player = store.player = this.preparePlayer();
 
-    this.chooseInputSystem();
-
-    // backgroundImage.src = store.assets.backgroundImage.src; 
     store.assets.backgroundMusic.play();
 
     this.play();
   }
 
   public static get loading(): boolean {
-    console.log(
-      `${store.loadedAssetsCount}/${Object.keys(store.assets).length}`
-    );
     return store.loadedAssetsCount < Object.keys(store.assets).length;
   }
 
@@ -64,12 +74,6 @@ export default class Game {
     canvas.height = innerHeight;
   }
 
-  private static chooseInputSystem(): void {
-    confirm("Use keyboard as input? Yes: [ENTER] or No: [ESC]")
-      ? InputSystem.useKeyboard()
-      : InputSystem.useMouse();
-  }
-
   private static play(): void {
     const FPSInterval: number = 1000 / Game.FPS;
     let lastFrameTime: number = Date.now();
@@ -78,14 +82,20 @@ export default class Game {
       this.animationId = requestAnimationFrame(loop);
 
       if (this.loading) {
-        console.log("HMM");
         return;
       }
 
       if (this.enemy.isDead || this.player.isDead) {
-        alert("Game Over. Thank you for playing.");
-        router.push("/about");
-        return;
+        const entity: Entity = this.enemy.isDead ? this.enemy : this.player;
+
+        if (entity instanceof Player) {
+          InputSystem.disable();
+          entity.stopMoving();
+        }
+
+        if (entity.hasFinishedExploding) {
+          router.push("/about");
+        }
       }
 
       const now: number = Date.now();
@@ -93,11 +103,14 @@ export default class Game {
       if (delta > FPSInterval) {
         lastFrameTime = now - (delta % FPSInterval);
 
-        this.ctx.clearRect(0, 0, innerWidth, innerHeight);
+        Object.values(this.contextsGroup).forEach(ctx =>
+          ctx.clearRect(0, 0, innerWidth, innerHeight)
+        );
 
-        this.handleMeteor();
-        this.handlePlayerAndEnemy();
         this.handleBullets();
+        this.handleMeteor();
+        this.handleMiniEnemy();
+        this.handlePlayerAndEnemy();
       }
     };
 
@@ -118,17 +131,41 @@ export default class Game {
     return new Player(x, y, velocity, health);
   }
 
+  private static handleBullets(): void {
+    this.contextsGroup.bulletsCtx.beginPath();
+    this.contextsGroup.bulletsCtx.fillStyle = store.color;
+
+    store.bullets = store.bullets.filter(bullet =>
+      this.filterWhileDrawing(bullet as Bullet)
+    );
+
+    this.contextsGroup.bulletsCtx.fill();
+  }
+
   private static handleMeteor(): void {
     if (this.meteor === null) {
       return;
     }
 
     this.meteor.move();
-    this.meteor.drawSelf(this.ctx);
+    this.meteor.drawSelf(this.contextsGroup.bulletsCtx);
     this.meteor.checkCollision();
     if (this.meteor.isOutOfBounds) {
       this.meteor.spawnAgainLater();
     }
+  }
+
+  private static handleMiniEnemy(): void {
+    if (Date.now() >= this.nextTimeToSpawnMiniEnemy) {
+      store.miniEnemies.push(new MiniEnemy());
+      this.nextTimeToSpawnMiniEnemy = Date.now() + this.MINI_ENEMY_SPAWN_TIME;
+    }
+
+    store.miniEnemies.forEach(miniEnemy => {
+      miniEnemy.move();
+      miniEnemy.drawSelfAndHealthBar(this.contextsGroup.enemiesCtx);
+      miniEnemy.shoot();
+    });
   }
 
   private static handlePlayerAndEnemy(): void {
@@ -137,30 +174,24 @@ export default class Game {
         return;
       }
 
+      const ctx: CanvasRenderingContext2D =
+        entity instanceof Player
+          ? this.contextsGroup.playerCtx
+          : this.contextsGroup.enemiesCtx;
+
       entity.move();
-      entity.drawSelfAndHealthBar(this.ctx);
+      entity.drawSelfAndHealthBar(ctx);
       entity.shoot();
     });
   }
 
-  private static handleBullets(): void {
-    this.ctx.beginPath();
-    this.ctx.fillStyle = store.color;
-
-    store.bullets = store.bullets.filter(bullet =>
-      this.filterWhileDrawing(bullet as Bullet)
-    );
-
-    this.ctx.fill();
-  }
-
   private static filterWhileDrawing(bullet: Bullet): boolean {
-    if (bullet.isEnded || bullet.isOutOfBounds) {
+    if (bullet.isEnded || bullet.isOutOfVerticalBounds) {
       return false;
     }
 
     bullet.move();
-    bullet.draw(this.ctx);
+    bullet.draw(this.contextsGroup.bulletsCtx);
     bullet.checkCollision();
 
     return true;
@@ -168,6 +199,7 @@ export default class Game {
 
   private static cleanUp(): void {
     store.bullets.splice(0);
+    store.miniEnemies.splice(0);
 
     store.enemy = null;
     store.player = null;
