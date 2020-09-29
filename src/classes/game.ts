@@ -7,8 +7,8 @@ import Player from "./player";
 import router from "@/router";
 import store from "@/store";
 import { getContext } from "./core/utilities";
-import CanvasesGroup from './interfaces/canvases-group';
-import ContextsGroup from './interfaces/contexts-group';
+import CanvasesGroup from "./interfaces/canvases-group";
+import ContextsGroup from "./interfaces/contexts-group";
 
 export default class Game {
   private static readonly FPS: number = 60;
