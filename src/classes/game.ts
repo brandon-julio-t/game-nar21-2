@@ -7,16 +7,13 @@ import Player from "./player";
 import router from "@/router";
 import store from "@/store";
 import { getContext } from "./core/utilities";
+import CanvasesGroup from './interfaces/canvases-group';
+import ContextsGroup from './interfaces/contexts-group';
 
 export default class Game {
   private static readonly FPS: number = 60;
 
-  private static contexts: {
-    bulletsCtx: CanvasRenderingContext2D;
-    enemiesCtx: CanvasRenderingContext2D;
-    playerCtx: CanvasRenderingContext2D;
-  };
-
+  private static contextsGroup: ContextsGroup;
   private static enemy: Enemy;
   private static meteor: Meteor;
   private static player: Player;
@@ -24,21 +21,17 @@ export default class Game {
   private static animationId: number | null = null;
 
   public static start(
-    canvases: {
-      bulletsCanvas: HTMLCanvasElement | null;
-      enemiesCanvas: HTMLCanvasElement | null;
-      playerCanvas: HTMLCanvasElement | null;
-    },
+    canvasesGroup: CanvasesGroup,
     backgroundImage: HTMLImageElement | null
   ): void {
-    let contexts = {
-      bulletsCtx: getContext(canvases.bulletsCanvas),
-      enemiesCtx: getContext(canvases.enemiesCanvas),
-      playerCtx: getContext(canvases.playerCanvas)
+    let contexts: ContextsGroup = {
+      bulletsCtx: getContext(canvasesGroup.bulletsCanvas),
+      enemiesCtx: getContext(canvasesGroup.enemiesCanvas),
+      playerCtx: getContext(canvasesGroup.playerCanvas)
     };
 
     if (
-      Object.values({ ...canvases, ...contexts }).some(c => c === null) ||
+      Object.values({ ...canvasesGroup, ...contexts }).some(c => c === null) ||
       backgroundImage === null
     ) {
       return;
@@ -47,11 +40,11 @@ export default class Game {
     store.isGaming = true;
     this.cleanUp();
 
-    Object.values(canvases).forEach(canvas =>
+    Object.values(canvasesGroup).forEach(canvas =>
       this.prepareCanvas(canvas as HTMLCanvasElement)
     );
 
-    this.contexts = contexts;
+    this.contextsGroup = contexts;
 
     backgroundImage.style.backgroundImage = `url("${store.assets.backgroundImage.src}")`;
 
@@ -107,7 +100,7 @@ export default class Game {
       if (delta > FPSInterval) {
         lastFrameTime = now - (delta % FPSInterval);
 
-        Object.values(this.contexts).forEach(ctx =>
+        Object.values(this.contextsGroup).forEach(ctx =>
           ctx.clearRect(0, 0, innerWidth, innerHeight)
         );
 
@@ -140,7 +133,7 @@ export default class Game {
     }
 
     this.meteor.move();
-    this.meteor.drawSelf(this.contexts.bulletsCtx);
+    this.meteor.drawSelf(this.contextsGroup.bulletsCtx);
     this.meteor.checkCollision();
     if (this.meteor.isOutOfBounds) {
       this.meteor.spawnAgainLater();
@@ -153,25 +146,26 @@ export default class Game {
         return;
       }
 
-      entity.move();
-      entity.drawSelfAndHealthBar(
+      const ctx: CanvasRenderingContext2D =
         entity instanceof Player
-          ? this.contexts.playerCtx
-          : this.contexts.enemiesCtx
-      );
+          ? this.contextsGroup.playerCtx
+          : this.contextsGroup.enemiesCtx;
+
+      entity.move();
+      entity.drawSelfAndHealthBar(ctx);
       entity.shoot();
     });
   }
 
   private static handleBullets(): void {
-    this.contexts.bulletsCtx.beginPath();
-    this.contexts.bulletsCtx.fillStyle = store.color;
+    this.contextsGroup.bulletsCtx.beginPath();
+    this.contextsGroup.bulletsCtx.fillStyle = store.color;
 
     store.bullets = store.bullets.filter(bullet =>
       this.filterWhileDrawing(bullet as Bullet)
     );
 
-    this.contexts.bulletsCtx.fill();
+    this.contextsGroup.bulletsCtx.fill();
   }
 
   private static filterWhileDrawing(bullet: Bullet): boolean {
@@ -180,7 +174,7 @@ export default class Game {
     }
 
     bullet.move();
-    bullet.draw(this.contexts.bulletsCtx);
+    bullet.draw(this.contextsGroup.bulletsCtx);
     bullet.checkCollision();
 
     return true;
