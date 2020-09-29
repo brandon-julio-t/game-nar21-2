@@ -2,17 +2,20 @@ import Vector2 from "../core/vector2";
 import store from "@/store";
 
 export default abstract class Entity {
+  private readonly EXPLODING_SPRITE_COLS: number = 6
+  private readonly EXPLODING_SPRITE_ROWS: number = 7
+
   public readonly HEIGHT: number;
   public readonly WIDTH: number;
 
-  private rowIdx: number = 0;
-  private colIdx: number = 0;
+  private explodingSpriteRowIdx: number = 0;
+  private explodingSpriteColIdx: number = 0;
 
   protected healthBarHeight: number;
   protected maxHealth: number;
 
   public currentHealth: number;
-  public explodeAnimation: HTMLImageElement;
+  public explodeSprite: HTMLImageElement;
   public hasFinishedExploding: boolean = false;
   public position: Vector2;
   public sprite: HTMLImageElement;
@@ -30,7 +33,7 @@ export default abstract class Entity {
     this.maxHealth = this.currentHealth = health;
     this.position = new Vector2(x, y);
     this.sprite = sprite;
-    this.explodeAnimation = store.assets.explodeAnimation;
+    this.explodeSprite = store.assets.explodeSprite;
     this.HEIGHT = height;
     this.WIDTH = width;
   }
@@ -53,21 +56,17 @@ export default abstract class Entity {
   }
 
   public drawExplodeSprite(ctx: CanvasRenderingContext2D): void {
-    const cols: number = 6;
-    const rows: number = 7;
+    const { naturalHeight, naturalWidth } = this.explodeSprite;
 
-    const imgWidth: number = this.explodeAnimation.naturalWidth;
-    const imgHeight: number = this.explodeAnimation.naturalHeight;
-
-    const spriteWidth: number = imgWidth / cols;
-    const spriteHeight: number = imgHeight / rows;
+    const spriteHeight: number = naturalHeight / this.EXPLODING_SPRITE_ROWS;
+    const spriteWidth: number = naturalWidth / this.EXPLODING_SPRITE_COLS;
 
     const { x, y } = this.position;
 
     ctx.drawImage(
-      this.explodeAnimation,
-      this.colIdx * spriteWidth,
-      this.rowIdx * spriteHeight,
+      this.explodeSprite,
+      this.explodingSpriteColIdx * spriteWidth,
+      this.explodingSpriteRowIdx * spriteHeight,
       spriteWidth,
       spriteHeight,
       x,
@@ -76,14 +75,14 @@ export default abstract class Entity {
       spriteHeight
     );
 
-    this.colIdx++;
+    this.explodingSpriteColIdx++;
 
-    if (this.colIdx >= cols) {
-      this.colIdx = 0;
-      this.rowIdx++;
+    if (this.explodingSpriteColIdx >= this.EXPLODING_SPRITE_COLS) {
+      this.explodingSpriteColIdx = 0;
+      this.explodingSpriteRowIdx++;
     }
 
-    if (this.rowIdx >= rows) {
+    if (this.explodingSpriteRowIdx >= this.EXPLODING_SPRITE_ROWS) {
       this.hasFinishedExploding = true;
     }
   }

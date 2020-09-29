@@ -3,7 +3,7 @@
     <div
       class="h-screen w-screen flex justify-center items-center absolute inset-0 bg-black bg-opacity-25 text-black"
     >
-      <div class="border px-16 py-8 bg-white rounded-lg">
+      <div class="border p-16 bg-white rounded-lg">
         <h1 class="text-xl font-bold">Choose Input System</h1>
 
         <div class="grid grid-cols-2 my-4">

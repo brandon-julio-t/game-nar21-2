@@ -13,7 +13,7 @@ export function loadEnemyBullet(): HTMLImageElement {
   return loadImage("sprite-enemy-bullet.png");
 }
 
-export function loadExplodeAnimation(): HTMLImageElement {
+export function loadExplodeSprite(): HTMLImageElement {
   return loadImage("explode-sprite.png");
 }
 

@@ -16,7 +16,7 @@
         src="@/assets/logo-nar21-2.jpg"
       />
 
-      <div class="bg-black mt-8 p-8 rounded text-white flex justify-center">
+      <div class="bg-black mt-8 p-16 rounded text-white flex justify-center">
         <div>
           <h1 class="text-xl font-bold">Instructions</h1>
           <ul class="list-disc">
@@ -41,7 +41,9 @@
 
   <div class="w-screen h-screen relative overflow-hidden">
     <div id="game-background" ref="backgroundImage" />
-    <canvas id="game" class="absolute" ref="gameCanvas"></canvas>
+    <canvas id="game" class="absolute" ref="bulletsCanvas"></canvas>
+    <canvas id="game" class="absolute" ref="enemiesCanvas"></canvas>
+    <canvas id="game" class="absolute" ref="playerCanvas"></canvas>
   </div>
 </template>
 
@@ -58,30 +60,41 @@ export default defineComponent({
   components: { ChooseInputSystemDialog },
 
   setup() {
-    const gameCanvas = ref<HTMLCanvasElement | null>(null); // Don't give type, TypeScript will yell.
     const backgroundImage = ref<HTMLImageElement | null>(null);
+    const bulletsCanvas = ref<HTMLCanvasElement | null>(null);
+    const enemiesCanvas = ref<HTMLCanvasElement | null>(null);
     const openChooseInputSystemModal = ref(false);
+    const playerCanvas = ref<HTMLCanvasElement | null>(null);
 
     const totalAssetsCount = computed(() => Object.keys(store.assets).length);
     const isLoadingFinished = computed(
       () => store.loadedAssetsCount === totalAssetsCount.value
     );
 
-    onMounted(() => {
-      store.useKeyboard ? InputSystem.useKeyboard() : InputSystem.useMouse();
-    });
+    onMounted(() =>
+      store.useKeyboard ? InputSystem.useKeyboard() : InputSystem.useMouse()
+    );
     onUnmounted(() => Game.end());
 
     return {
       Game,
       InputSystem,
       backgroundImage,
-      gameCanvas,
+      bulletsCanvas,
+      enemiesCanvas,
+      playerCanvas,
       isLoadingFinished,
       openChooseInputSystemModal,
       playGame() {
         // Entry point A.K.A. main
-        Game.start(gameCanvas.value, backgroundImage.value);
+        Game.start(
+          {
+            bulletsCanvas: bulletsCanvas.value,
+            enemiesCanvas: enemiesCanvas.value,
+            playerCanvas: playerCanvas.value
+          },
+          backgroundImage.value
+        );
       },
       store,
       totalAssetsCount

@@ -6,31 +6,52 @@ import Meteor from "./meteor";
 import Player from "./player";
 import router from "@/router";
 import store from "@/store";
+import { getContext } from "./core/utilities";
 
 export default class Game {
   private static readonly FPS: number = 60;
 
-  private static ctx: CanvasRenderingContext2D;
+  private static contexts: {
+    bulletsCtx: CanvasRenderingContext2D;
+    enemiesCtx: CanvasRenderingContext2D;
+    playerCtx: CanvasRenderingContext2D;
+  };
+
   private static enemy: Enemy;
-  private static player: Player;
   private static meteor: Meteor;
+  private static player: Player;
 
   private static animationId: number | null = null;
 
   public static start(
-    canvas: HTMLCanvasElement | null,
+    canvases: {
+      bulletsCanvas: HTMLCanvasElement | null;
+      enemiesCanvas: HTMLCanvasElement | null;
+      playerCanvas: HTMLCanvasElement | null;
+    },
     backgroundImage: HTMLImageElement | null
   ): void {
-    let ctx = canvas?.getContext("2d") as CanvasRenderingContext2D;
-    if (canvas === null || backgroundImage === null || ctx === null) {
+    let contexts = {
+      bulletsCtx: getContext(canvases.bulletsCanvas),
+      enemiesCtx: getContext(canvases.enemiesCanvas),
+      playerCtx: getContext(canvases.playerCanvas)
+    };
+
+    if (
+      Object.values({ ...canvases, ...contexts }).some(c => c === null) ||
+      backgroundImage === null
+    ) {
       return;
     }
 
     store.isGaming = true;
     this.cleanUp();
 
-    this.prepareCanvas(canvas);
-    this.ctx = ctx;
+    Object.values(canvases).forEach(canvas =>
+      this.prepareCanvas(canvas as HTMLCanvasElement)
+    );
+
+    this.contexts = contexts;
 
     backgroundImage.style.backgroundImage = `url("${store.assets.backgroundImage.src}")`;
 
@@ -86,7 +107,9 @@ export default class Game {
       if (delta > FPSInterval) {
         lastFrameTime = now - (delta % FPSInterval);
 
-        this.ctx.clearRect(0, 0, innerWidth, innerHeight);
+        Object.values(this.contexts).forEach(ctx =>
+          ctx.clearRect(0, 0, innerWidth, innerHeight)
+        );
 
         this.handleMeteor();
         this.handlePlayerAndEnemy();
@@ -117,7 +140,7 @@ export default class Game {
     }
 
     this.meteor.move();
-    this.meteor.drawSelf(this.ctx);
+    this.meteor.drawSelf(this.contexts.bulletsCtx);
     this.meteor.checkCollision();
     if (this.meteor.isOutOfBounds) {
       this.meteor.spawnAgainLater();
@@ -131,20 +154,24 @@ export default class Game {
       }
 
       entity.move();
-      entity.drawSelfAndHealthBar(this.ctx);
+      entity.drawSelfAndHealthBar(
+        entity instanceof Player
+          ? this.contexts.playerCtx
+          : this.contexts.enemiesCtx
+      );
       entity.shoot();
     });
   }
 
   private static handleBullets(): void {
-    this.ctx.beginPath();
-    this.ctx.fillStyle = store.color;
+    this.contexts.bulletsCtx.beginPath();
+    this.contexts.bulletsCtx.fillStyle = store.color;
 
     store.bullets = store.bullets.filter(bullet =>
       this.filterWhileDrawing(bullet as Bullet)
     );
 
-    this.ctx.fill();
+    this.contexts.bulletsCtx.fill();
   }
 
   private static filterWhileDrawing(bullet: Bullet): boolean {
@@ -153,7 +180,7 @@ export default class Game {
     }
 
     bullet.move();
-    bullet.draw(this.ctx);
+    bullet.draw(this.contexts.bulletsCtx);
     bullet.checkCollision();
 
     return true;
