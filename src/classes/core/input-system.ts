@@ -28,21 +28,16 @@ export default class InputSystem {
       this.player.position.y = clientY;
     };
 
-    onmousedown = () => {
-      if (this.player === null) {
-        return;
-      }
+    onmousedown = () => this.mouseUpDownListener(true);
+    onmouseup = () => this.mouseUpDownListener(false);
+  }
 
-      this.player.isShooting = true;
-    };
+  private static mouseUpDownListener(mouseDown: boolean) {
+    if (this.player === null) {
+      return;
+    }
 
-    onmouseup = () => {
-      if (this.player === null) {
-        return;
-      }
-
-      this.player.isShooting = false;
-    };
+    this.player.isShooting = mouseDown;
   }
 
   public static useKeyboard(): void {
