@@ -142,6 +142,14 @@ export default class Player extends Entity {
       (Player.SIZE * this.currentHealth) / this.maxHealth,
       this.healthBarHeight
     );
+
+    ctx.strokeStyle = "black";
+    ctx.strokeRect(
+      this.position.x - Player.SIZE / 2,
+      this.position.y + Player.SIZE,
+      (Player.SIZE * this.currentHealth) / this.maxHealth,
+      this.healthBarHeight
+    );
   }
 
   public shoot(): void {

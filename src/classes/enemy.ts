@@ -4,8 +4,6 @@ import store from "@/store";
 import { randomIntegerBetween } from "./core/utilities";
 
 export default class Enemy extends Entity {
-  private readonly BULLETS_MULTIPLIER: number = 2;
-
   public constructor(health: number, velocity: number) {
     super(
       innerWidth / 2 - store.assets.enemy.naturalWidth / 2,
@@ -53,6 +51,14 @@ export default class Enemy extends Entity {
       this.sprite.naturalWidth * (this.currentHealth / this.maxHealth),
       this.healthBarHeight
     );
+
+    ctx.strokeStyle = "black";
+    ctx.strokeRect(
+      this.position.x,
+      0,
+      this.sprite.naturalWidth * (this.currentHealth / this.maxHealth),
+      this.healthBarHeight
+    );
   }
 
   public shoot(): void {
@@ -62,15 +68,13 @@ export default class Enemy extends Entity {
       this.healthBarHeight +
       randomIntegerBetween(0, this.sprite.naturalHeight);
 
-    for (let i = 0; i < this.BULLETS_MULTIPLIER; i++) {
-      store.bullets.splice(
-        0,
-        0,
-        new EnemyBullet(
-          randomIntegerBetween(x, x + this.sprite.naturalWidth),
-          ySpawn
-        )
-      );
-    }
+    store.bullets.splice(
+      0,
+      0,
+      new EnemyBullet(
+        randomIntegerBetween(x, x + this.sprite.naturalWidth),
+        ySpawn
+      )
+    );
   }
 }

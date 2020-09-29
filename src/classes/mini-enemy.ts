@@ -28,23 +28,18 @@ export default class MiniEnemy extends Entity {
   }
 
   protected drawSelf(ctx: CanvasRenderingContext2D): void {
-    const { naturalHeight, naturalWidth } = this.sprite;
-
-    const spriteHeight: number = naturalHeight / MiniEnemy.ENEMY_SPRITE_ROWS;
-    const spriteWidth: number = naturalWidth / MiniEnemy.ENEMY_SPRITE_COLS;
-
     const { x, y } = this.position;
 
     ctx.drawImage(
       this.sprite,
-      this.spriteColIdx * spriteWidth,
+      this.spriteColIdx * this.WIDTH,
       0, // Only using the first row of the sprite
-      spriteWidth,
-      spriteHeight,
+      this.WIDTH,
+      this.HEIGHT,
       x,
       y,
-      spriteWidth,
-      spriteHeight
+      this.WIDTH,
+      this.HEIGHT
     );
 
     if (Date.now() >= this.nextTimeToChangeSpriteCol) {
@@ -55,6 +50,9 @@ export default class MiniEnemy extends Entity {
     }
   }
 
+  /**
+   * No health bar.
+   */
   protected drawHealthBar(_: CanvasRenderingContext2D): void {}
 
   public move(): void {
@@ -69,10 +67,13 @@ export default class MiniEnemy extends Entity {
   }
 
   public shoot(): void {
-    const { x, y } = this.position;
-
     if (Date.now() >= this.nextTimeToShoot && !this.isDead) {
-      store.bullets.splice(0, 0, new EnemyBullet(x, y));
+      const { x, y } = this.position;
+
+      const xSpawn = x + this.WIDTH / 2;
+      const ySpawn = y + this.HEIGHT / 2;
+
+      store.bullets.splice(0, 0, new EnemyBullet(xSpawn, ySpawn));
 
       this.nextTimeToShoot = Date.now() + 1000;
     }
