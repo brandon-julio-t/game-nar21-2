@@ -13,6 +13,7 @@ import MiniEnemy from "./mini-enemy";
 
 export default class Game {
   private static readonly FPS: number = 60;
+  private static readonly MINI_ENEMY_SPAWN_TIME = 1000; // 1 enemy per x miliseconds
 
   private static contextsGroup: ContextsGroup;
   private static enemy: Enemy;
@@ -157,7 +158,7 @@ export default class Game {
   private static handleMiniEnemy(): void {
     if (Date.now() >= this.nextTimeToSpawnMiniEnemy) {
       store.miniEnemies.push(new MiniEnemy());
-      this.nextTimeToSpawnMiniEnemy = Date.now() + 1000;
+      this.nextTimeToSpawnMiniEnemy = Date.now() + this.MINI_ENEMY_SPAWN_TIME;
     }
 
     store.miniEnemies.forEach(miniEnemy => {
@@ -198,6 +199,7 @@ export default class Game {
 
   private static cleanUp(): void {
     store.bullets.splice(0);
+    store.miniEnemies.splice(0);
 
     store.enemy = null;
     store.player = null;

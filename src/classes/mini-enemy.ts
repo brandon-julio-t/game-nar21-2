@@ -7,6 +7,8 @@ export default class MiniEnemy extends Entity {
   private static readonly ENEMY_SPRITE_COLS: number = 4;
   private static readonly ENEMY_SPRITE_ROWS: number = 4;
 
+  private readonly SPRITE_COL_CHANGE_TIME = 500; // ENEMY_SPRITE_COLS + 1 every x miliseconds
+
   private moveTimeoutId: number | null = null;
   private nextTimeToChangeSpriteCol: number = Date.now();
   private nextTimeToShoot: number = Date.now();
@@ -49,7 +51,7 @@ export default class MiniEnemy extends Entity {
       this.spriteColIdx++;
       this.spriteColIdx %= MiniEnemy.ENEMY_SPRITE_COLS;
 
-      this.nextTimeToChangeSpriteCol = Date.now() + 500;
+      this.nextTimeToChangeSpriteCol = Date.now() + this.SPRITE_COL_CHANGE_TIME;
     }
   }
 
