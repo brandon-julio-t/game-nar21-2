@@ -2,8 +2,8 @@ import Vector2 from "../core/vector2";
 import store from "@/store";
 
 export default abstract class Entity {
-  private readonly EXPLODING_SPRITE_COLS: number = 6
-  private readonly EXPLODING_SPRITE_ROWS: number = 7
+  private readonly EXPLODING_SPRITE_COLS: number = 6;
+  private readonly EXPLODING_SPRITE_ROWS: number = 7;
 
   public readonly HEIGHT: number;
   public readonly WIDTH: number;
@@ -11,6 +11,7 @@ export default abstract class Entity {
   private explodingSpriteRowIdx: number = 0;
   private explodingSpriteColIdx: number = 0;
 
+  protected _velocity: number;
   protected healthBarHeight: number;
   protected maxHealth: number;
 
@@ -27,7 +28,8 @@ export default abstract class Entity {
     sprite: HTMLImageElement,
     healthBarHeight: number,
     height: number,
-    width: number
+    width: number,
+    velocity: number
   ) {
     this.healthBarHeight = healthBarHeight;
     this.maxHealth = this.currentHealth = health;
@@ -36,10 +38,15 @@ export default abstract class Entity {
     this.explodeSprite = store.assets.explodeSprite;
     this.HEIGHT = height;
     this.WIDTH = width;
+    this._velocity = velocity;
   }
 
   public get isDead(): boolean {
     return this.currentHealth <= 0;
+  }
+
+  protected get velocity(): number {
+    return this._velocity;
   }
 
   public reduceHealth(points: number): void {

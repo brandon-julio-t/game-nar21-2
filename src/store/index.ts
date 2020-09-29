@@ -6,11 +6,12 @@ const {
   loadBackgroundImage,
   loadBackgroundMusic,
   loadEnemy,
-  loadReversedEnemy,
   loadEnemyBullet,
   loadExplodeSprite,
   loadMeteor,
+  loadMiniEnemy,
   loadPlayer,
+  loadReversedEnemy,
   loadShootingAudio
 } = AssetsLoaders;
 
@@ -23,6 +24,7 @@ const initialState: Store = {
     enemyBullet: loadEnemyBullet(),
     explodeSprite: loadExplodeSprite(),
     meteor: loadMeteor(),
+    miniEnemy: loadMiniEnemy(),
     player: loadPlayer(),
     shootingAudio: loadShootingAudio()
   },
@@ -31,6 +33,7 @@ const initialState: Store = {
   enemy: null,
   isGaming: false,
   loadedAssetsCount: 0,
+  miniEnemies: [],
   player: null,
   useKeyboard: true
 };

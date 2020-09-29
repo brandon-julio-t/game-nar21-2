@@ -9,7 +9,6 @@ export default class Player extends Entity {
 
   public readonly HITBOX_SIZE = Player.SIZE / 4;
 
-  private _velocity: number;
   private nextTimeToAttack: number = Date.now();
 
   protected blinkingTimeoutId: number | null = null;
@@ -31,14 +30,14 @@ export default class Player extends Entity {
         store.assets.player.naturalWidth /
         8,
       Player.SIZE,
-      Player.SIZE
+      Player.SIZE,
+      velocity
     );
 
-    this._velocity = velocity;
     this.isInvulnerable = false;
   }
 
-  private get velocity(): number {
+  protected get velocity(): number {
     return this._velocity / (this.isSlowingDown ? 1.75 : 1);
   }
 

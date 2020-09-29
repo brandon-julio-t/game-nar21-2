@@ -10,6 +10,7 @@ enum Assets {
   SPRITE_ENEMY = "sprite-enemy.png",
   SPRITE_ENEMY_BULLET = "sprite-enemy-bullet.png",
   SPRITE_ENEMY_REVERSED = "sprite-enemy-reversed.png",
+  SPRITE_MINI_ENEMY = "sprite-mini-enemy.png",
   SPRITE_PLAYER = "sprite-player.png"
 }
 
@@ -22,19 +23,21 @@ const {
   SPRITE_ENEMY,
   SPRITE_ENEMY_BULLET,
   SPRITE_ENEMY_REVERSED,
+  SPRITE_MINI_ENEMY,
   SPRITE_PLAYER
 } = Assets;
 
 export default {
   loadBackgroundImage: (): HTMLImageElement => loadImage(BACKGROUND),
   loadBackgroundMusic: (): HTMLAudioElement => loadAudio(BACKSOUND),
+  loadEnemy: (): HTMLImageElement => loadImage(SPRITE_ENEMY),
   loadEnemyBullet: (): HTMLImageElement => loadImage(SPRITE_ENEMY_BULLET),
   loadExplodeSprite: (): HTMLImageElement => loadImage(EXPLODE_SPRITE),
-  loadEnemy: (): HTMLImageElement => loadImage(SPRITE_ENEMY),
   loadMeteor: (): HTMLImageElement => loadImage(METEOR),
+  loadMiniEnemy: (): HTMLImageElement => loadImage(SPRITE_MINI_ENEMY),
   loadPlayer: (): HTMLImageElement => loadImage(SPRITE_PLAYER),
   loadReversedEnemy: (): HTMLImageElement => loadImage(SPRITE_ENEMY_REVERSED),
-  loadShootingAudio: (): HTMLAudioElement => loadAudio(PLAYER_SHOOT)
+  loadShootingAudio: (): HTMLAudioElement => loadAudio(PLAYER_SHOOT),
 };
 
 function loadImage(assetName: string): HTMLImageElement {

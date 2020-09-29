@@ -9,6 +9,7 @@ import store from "@/store";
 import { getContext } from "./core/utilities";
 import CanvasesGroup from "./interfaces/canvases-group";
 import ContextsGroup from "./interfaces/contexts-group";
+import MiniEnemy from "./mini-enemy";
 
 export default class Game {
   private static readonly FPS: number = 60;
@@ -16,6 +17,7 @@ export default class Game {
   private static contextsGroup: ContextsGroup;
   private static enemy: Enemy;
   private static meteor: Meteor;
+  private static nextTimeToSpawnMiniEnemy: number = Date.now();
   private static player: Player;
 
   private static animationId: number | null = null;
@@ -104,9 +106,10 @@ export default class Game {
           ctx.clearRect(0, 0, innerWidth, innerHeight)
         );
 
-        this.handleMeteor();
-        this.handlePlayerAndEnemy();
         this.handleBullets();
+        this.handleMeteor();
+        this.handleMiniEnemy();
+        this.handlePlayerAndEnemy();
       }
     };
 
@@ -127,6 +130,17 @@ export default class Game {
     return new Player(x, y, velocity, health);
   }
 
+  private static handleBullets(): void {
+    this.contextsGroup.bulletsCtx.beginPath();
+    this.contextsGroup.bulletsCtx.fillStyle = store.color;
+
+    store.bullets = store.bullets.filter(bullet =>
+      this.filterWhileDrawing(bullet as Bullet)
+    );
+
+    this.contextsGroup.bulletsCtx.fill();
+  }
+
   private static handleMeteor(): void {
     if (this.meteor === null) {
       return;
@@ -138,6 +152,19 @@ export default class Game {
     if (this.meteor.isOutOfBounds) {
       this.meteor.spawnAgainLater();
     }
+  }
+
+  private static handleMiniEnemy(): void {
+    if (Date.now() >= this.nextTimeToSpawnMiniEnemy) {
+      store.miniEnemies.push(new MiniEnemy());
+      this.nextTimeToSpawnMiniEnemy = Date.now() + 1000;
+    }
+
+    store.miniEnemies.forEach(miniEnemy => {
+      miniEnemy.move();
+      miniEnemy.drawSelfAndHealthBar(this.contextsGroup.enemiesCtx);
+      miniEnemy.shoot();
+    });
   }
 
   private static handlePlayerAndEnemy(): void {
@@ -155,17 +182,6 @@ export default class Game {
       entity.drawSelfAndHealthBar(ctx);
       entity.shoot();
     });
-  }
-
-  private static handleBullets(): void {
-    this.contextsGroup.bulletsCtx.beginPath();
-    this.contextsGroup.bulletsCtx.fillStyle = store.color;
-
-    store.bullets = store.bullets.filter(bullet =>
-      this.filterWhileDrawing(bullet as Bullet)
-    );
-
-    this.contextsGroup.bulletsCtx.fill();
   }
 
   private static filterWhileDrawing(bullet: Bullet): boolean {
