@@ -13,11 +13,12 @@ export default class Player extends Entity {
 
   protected blinkingTimeoutId: number | null = null;
 
-  public isInvulnerable: boolean;
+  public isInvulnerable: boolean = false;
   public isMovingDown: boolean = false;
   public isMovingLeft: boolean = false;
   public isMovingRight: boolean = false;
   public isMovingUp: boolean = false;
+  public isShooting: boolean = false;
   public isSlowingDown: boolean = false;
 
   public constructor(x: number, y: number, velocity: number, health: number) {
@@ -33,8 +34,6 @@ export default class Player extends Entity {
       Player.SIZE,
       velocity
     );
-
-    this.isInvulnerable = false;
   }
 
   protected get velocity(): number {
@@ -153,7 +152,11 @@ export default class Player extends Entity {
   }
 
   public shoot(): void {
-    if (Date.now() >= this.nextTimeToAttack && !this.isDead) {
+    if (
+      !this.isDead &&
+      this.isShooting &&
+      Date.now() >= this.nextTimeToAttack
+    ) {
       const nX: number[] = [-3, -2, -1, 0, 1, 2, 3];
       const nY: number[] = [3, 2, 1, 0, 1, 2, 3];
       const len: number = nX.length;

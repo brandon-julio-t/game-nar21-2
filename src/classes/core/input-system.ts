@@ -10,7 +10,9 @@ export default class InputSystem {
   public static disable(): void {
     onkeydown = null;
     onkeyup = null;
+    onmousedown = null;
     onmousemove = null;
+    onmouseup = null;
   }
 
   public static useMouse(): void {
@@ -24,6 +26,22 @@ export default class InputSystem {
       const { clientX, clientY } = e;
       this.player.position.x = clientX;
       this.player.position.y = clientY;
+    };
+
+    onmousedown = () => {
+      if (this.player === null) {
+        return;
+      }
+
+      this.player.isShooting = true;
+    };
+
+    onmouseup = () => {
+      if (this.player === null) {
+        return;
+      }
+
+      this.player.isShooting = false;
     };
   }
 
@@ -65,6 +83,10 @@ export default class InputSystem {
 
       case "ShiftLeft":
         this.player.isSlowingDown = keyDown;
+        break;
+
+      case "Space":
+        this.player.isShooting = keyDown;
         break;
 
       case "Escape":

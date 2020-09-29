@@ -17,12 +17,12 @@
       <img
         @click="openChooseInputSystemModal = true"
         alt="Vue logo"
-        class="transition duration-500 ease-in-out transform hover:scale-125 cursor-pointer"
-        src="@/assets/logo-nar21-2.jpg"
+        class="transition duration-300 ease-in-out transform hover:scale-125 cursor-pointer w-64 h-64 mx-auto"
+        src="@/assets/logo-nar21-2.png"
       />
 
       <div
-        class="flex justify-center items-center mt-8 p-16 rounded bg-black text-white"
+        class="flex justify-center items-center mt-16 p-16 rounded bg-black text-white"
       >
         <div>
           <h1 class="text-xl font-bold">Instructions</h1>

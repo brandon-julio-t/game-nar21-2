@@ -32,9 +32,10 @@ export default defineComponent({
   animation: scrollDown 30s linear infinite;
   background-image: url("~@/assets/main-menu-background.jpg");
   background-repeat: repeat;
+  background-size: contain;
+  bottom: 0;
   height: 5712px;
   position: absolute;
-  bottom: 0;
   width: 100%;
   z-index: -1;
 }
