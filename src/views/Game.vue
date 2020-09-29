@@ -3,9 +3,14 @@
     v-if="!store.isGaming"
     class="flex justify-center items-center w-screen h-screen"
   >
-    <div v-if="!isLoadingFinished">
-      <h1>Loading...</h1>
-      <h2>{{ (store.loadedAssetsCount / totalAssetsCount) * 100 }}%</h2>
+    <div
+      v-if="!isLoadingFinished"
+      class="mt-8 p-16 rounded bg-black text-white text-center"
+    >
+      <h1 class="text-xl">Loading...</h1>
+      <h2 class="text-lg">
+        {{ (store.loadedAssetsCount / totalAssetsCount) * 100 }}%
+      </h2>
     </div>
 
     <div v-else>
@@ -16,7 +21,9 @@
         src="@/assets/logo-nar21-2.jpg"
       />
 
-      <div class="bg-black mt-8 p-16 rounded text-white flex justify-center">
+      <div
+        class="flex justify-center items-center mt-8 p-16 rounded bg-black text-white"
+      >
         <div>
           <h1 class="text-xl font-bold">Instructions</h1>
           <ul class="list-disc">
@@ -40,10 +47,10 @@
   </section>
 
   <div class="w-screen h-screen relative overflow-hidden">
+    <canvas id="game" class="absolute" ref="bulletsCanvas" />
+    <canvas id="game" class="absolute" ref="enemiesCanvas" />
+    <canvas id="game" class="absolute" ref="playerCanvas" />
     <div id="game-background" ref="backgroundImage" />
-    <canvas id="game" class="absolute" ref="bulletsCanvas"></canvas>
-    <canvas id="game" class="absolute" ref="enemiesCanvas"></canvas>
-    <canvas id="game" class="absolute" ref="playerCanvas"></canvas>
   </div>
 </template>
 
