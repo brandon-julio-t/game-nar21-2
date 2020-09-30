@@ -2,7 +2,9 @@
   <article
     class="flex justify-center items-center w-screen h-screen text-white"
   >
-    <div class="bg-black bg-opacity-75 p-16 rounded-lg">
+
+    <section>
+      <div class="bg-black bg-opacity-75 p-16 rounded-lg">
       <h1 class="text-6xl text-center">Benefits</h1>
 
       <ul class="grid grid-cols-3 my-8">
@@ -15,5 +17,8 @@
         >Home</router-link
       >
     </div>
+    </section>
+
+    
   </article>
 </template>

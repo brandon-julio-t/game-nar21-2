@@ -1,4 +1,3 @@
-import Bullet from "./abstracts/bullet";
 import Enemy from "./enemy";
 import Entity from "./abstracts/entity";
 import InputSystem from "./core/input-system";
@@ -13,7 +12,7 @@ import MiniEnemy from "./mini-enemy";
 
 export default class Game {
   private static readonly FPS: number = 60;
-  private static readonly MINI_ENEMY_SPAWN_TIME = 1000; // 1 enemy per x miliseconds
+  private static readonly MINI_ENEMY_SPAWN_TIME = 3000; // 1 enemy per 3 seconds
 
   private static contextsGroup: ContextsGroup;
   private static enemy: Enemy;
@@ -74,6 +73,20 @@ export default class Game {
     canvas.height = innerHeight;
   }
 
+  private static prepareEnemy(): Enemy {
+    const health: number = 1500;
+    const velocity: number = 2;
+    return new Enemy(health, velocity);
+  }
+
+  private static preparePlayer(): Player {
+    const health: number = 12;
+    const velocity: number = 10;
+    const x: number = innerWidth / 2;
+    const y: number = (innerHeight * 3) / 4;
+    return new Player(x, y, velocity, health);
+  }
+
   private static play(): void {
     const FPSInterval: number = 1000 / Game.FPS;
     let lastFrameTime: number = Date.now();
@@ -117,27 +130,21 @@ export default class Game {
     this.animationId = requestAnimationFrame(loop);
   }
 
-  private static prepareEnemy(): Enemy {
-    const health: number = 1500;
-    const velocity: number = 2;
-    return new Enemy(health, velocity);
-  }
-
-  private static preparePlayer(): Player {
-    const health: number = 12;
-    const velocity: number = 10;
-    const x: number = innerWidth / 2;
-    const y: number = (innerHeight * 3) / 4;
-    return new Player(x, y, velocity, health);
-  }
-
   private static handleBullets(): void {
     this.contextsGroup.bulletsCtx.beginPath();
     this.contextsGroup.bulletsCtx.fillStyle = store.color;
 
-    store.bullets = store.bullets.filter(bullet =>
-      this.filterWhileDrawing(bullet as Bullet)
-    );
+    store.bullets = store.bullets.filter(bullet => {
+      if (bullet.isEnded || bullet.isOutOfVerticalBounds) {
+        return false;
+      }
+
+      bullet.move();
+      bullet.draw(this.contextsGroup.bulletsCtx);
+      bullet.checkCollision();
+
+      return true;
+    });
 
     this.contextsGroup.bulletsCtx.fill();
   }
@@ -150,26 +157,28 @@ export default class Game {
     this.meteor.move();
     this.meteor.drawSelf(this.contextsGroup.bulletsCtx);
     this.meteor.checkCollision();
+
     if (this.meteor.isOutOfBounds) {
       this.meteor.spawnAgainLater();
     }
   }
 
   private static handleMiniEnemy(): void {
-    if (Date.now() >= this.nextTimeToSpawnMiniEnemy) {
+    if (
+      Date.now() >= this.nextTimeToSpawnMiniEnemy &&
+      store.miniEnemies.length < 7
+    ) {
       store.miniEnemies.push(new MiniEnemy());
       this.nextTimeToSpawnMiniEnemy = Date.now() + this.MINI_ENEMY_SPAWN_TIME;
     }
 
-    store.miniEnemies.forEach(miniEnemy => {
-      miniEnemy.move();
-      miniEnemy.drawSelfAndHealthBar(this.contextsGroup.enemiesCtx);
-      miniEnemy.shoot();
-    });
+    store.miniEnemies = store.miniEnemies.filter(
+      enemy => !(enemy.isDead && enemy.hasFinishedExploding)
+    );
   }
 
   private static handlePlayerAndEnemy(): void {
-    [this.player, this.enemy].forEach(entity => {
+    [this.player, this.enemy, ...store.miniEnemies].forEach(entity => {
       if (entity === null) {
         return;
       }
@@ -183,18 +192,6 @@ export default class Game {
       entity.drawSelfAndHealthBar(ctx);
       entity.shoot();
     });
-  }
-
-  private static filterWhileDrawing(bullet: Bullet): boolean {
-    if (bullet.isEnded || bullet.isOutOfVerticalBounds) {
-      return false;
-    }
-
-    bullet.move();
-    bullet.draw(this.contextsGroup.bulletsCtx);
-    bullet.checkCollision();
-
-    return true;
   }
 
   private static cleanUp(): void {

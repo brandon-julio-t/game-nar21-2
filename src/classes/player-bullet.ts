@@ -13,36 +13,25 @@ export default class PlayerBullet extends Bullet {
     const enemy: Enemy = store.enemy as Enemy;
     const miniEnemies: MiniEnemy[] = store.miniEnemies as MiniEnemy[];
 
-    if (enemy !== null) {
-      const hasCollision: boolean = this.checkCollisionWith(enemy);
-      if (hasCollision) {
-        this.isEnded = true;
-        enemy.reduceHealth(1);
-      }
-    }
-
-    if (miniEnemies !== null) {
-      miniEnemies.forEach(miniEnemy => {
-        const hasCollision: boolean = this.checkCollisionWith(miniEnemy);
+    if (enemy !== null && miniEnemies !== null) {
+      [enemy, ...miniEnemies].forEach(e => {
+        const hasCollision: boolean = this.checkCollisionWith(e);
         if (hasCollision) {
           this.isEnded = true;
-          miniEnemy.reduceHealth(1);
+          e.reduceHealth(1);
         }
       });
     }
   }
 
   private checkCollisionWith(entity: Entity): boolean {
-    if (entity !== null) {
-      const { HEIGHT, WIDTH } = entity;
-      return (
-        this.position.x >= entity.position.x &&
-        this.position.y >= entity.position.y &&
-        this.position.x <= entity.position.x + WIDTH &&
-        this.position.y <= entity.position.y + HEIGHT
-      );
-    }
-
-    return false;
+    const { HEIGHT, WIDTH } = entity;
+    return (
+      entity !== null &&
+      this.position.x >= entity.position.x &&
+      this.position.y >= entity.position.y &&
+      this.position.x <= entity.position.x + WIDTH &&
+      this.position.y <= entity.position.y + HEIGHT
+    );
   }
 }
