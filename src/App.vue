@@ -1,14 +1,14 @@
 <template>
   <div
     :class="{
-      'w-screen h-screen relative overflow-hidden': !store.isGaming
+      'w-screen h-screen relative overflow-hidden': !store.isGaming,
     }"
   >
     <div v-if="!store.isGaming" id="main-background"></div>
     <main>
-      <!-- <transition name="fade"> -->
-      <router-view />
-      <!-- </transition> -->
+      <transition name="fade">
+        <router-view />
+      </transition>
     </main>
   </div>
 </template>
@@ -23,7 +23,7 @@ import store from "./store";
 export default defineComponent({
   data() {
     return { store };
-  }
+  },
 });
 </script>
 
