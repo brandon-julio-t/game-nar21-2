@@ -1,4 +1,4 @@
-import EnemyBullet from "./enemy-bullet";
+import EnemyBulletCircle from "./enemy-bullet-circle";
 import Entity from "./abstracts/entity";
 import store from "@/store";
 import { randomIntegerBetween } from "./core/utilities";
@@ -71,7 +71,7 @@ export default class Enemy extends Entity {
     store.bullets.splice(
       0,
       0,
-      new EnemyBullet(
+      new EnemyBulletCircle(
         randomIntegerBetween(x, x + this.sprite.naturalWidth),
         ySpawn
       )

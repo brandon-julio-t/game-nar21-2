@@ -135,7 +135,12 @@ export default class Player extends Entity {
     if (process.env.NODE_ENV === "development") {
       ctx.fillStyle = "red";
       ctx.beginPath();
-      ctx.arc(x, y, this.HITBOX_SIZE, 0, Math.PI * 2);
+      ctx.rect(
+        x - this.HITBOX_SIZE,
+        y - this.HITBOX_SIZE,
+        this.HITBOX_SIZE * 2,
+        this.HITBOX_SIZE * 2
+      );
       ctx.fill();
     }
   }

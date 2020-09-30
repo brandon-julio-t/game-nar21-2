@@ -76,8 +76,8 @@ export default abstract class Entity {
       this.explodingSpriteRowIdx * spriteHeight,
       spriteWidth,
       spriteHeight,
-      x,
-      y,
+      x - spriteWidth / 2,
+      y - spriteHeight / 2,
       spriteWidth,
       spriteHeight
     );

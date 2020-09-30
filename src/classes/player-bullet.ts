@@ -17,6 +17,11 @@ export default class PlayerBullet extends Bullet {
     );
   }
 
+  public draw(ctx: CanvasRenderingContext2D): void {
+    const { x, y } = this.position;
+    ctx.drawImage(this.SPRITE, x - this.SPRITE.naturalWidth / 2, y);
+  }
+
   public checkCollision(): void {
     const enemy: Enemy = store.enemy as Enemy;
     const miniEnemies: MiniEnemy[] = store.miniEnemies as MiniEnemy[];

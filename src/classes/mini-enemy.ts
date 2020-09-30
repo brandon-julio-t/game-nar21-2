@@ -1,7 +1,7 @@
 import store from "@/store";
 import Entity from "./abstracts/entity";
 import { randomIntegerBetween } from "./core/utilities";
-import EnemyBullet from "./enemy-bullet";
+import EnemyBulletLaser from "./enemy-bullet-laser";
 
 export default class MiniEnemy extends Entity {
   private static readonly ENEMY_SPRITE_COLS: number = 4;
@@ -73,7 +73,7 @@ export default class MiniEnemy extends Entity {
       const xSpawn = x + this.WIDTH / 2;
       const ySpawn = y + this.HEIGHT / 2;
 
-      store.bullets.splice(0, 0, new EnemyBullet(xSpawn, ySpawn));
+      store.bullets.splice(0, 0, new EnemyBulletLaser(xSpawn, ySpawn, this));
 
       this.nextTimeToShoot = Date.now() + 1000;
     }

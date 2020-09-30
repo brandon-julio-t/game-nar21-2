@@ -45,10 +45,6 @@ export default abstract class Bullet {
     this.position.y += this.VELOCITY.y;
   }
 
-  public draw(ctx: CanvasRenderingContext2D): void {
-    const { x, y } = this.position;
-    ctx.drawImage(this.SPRITE, x, y, this.WIDTH, this.HEIGHT);
-  }
-
   public abstract checkCollision(): void;
+  public abstract draw(ctx: CanvasRenderingContext2D): void;
 }

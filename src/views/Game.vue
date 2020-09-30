@@ -13,7 +13,9 @@
     </div>
 
     <div v-if="logoClicked">
-      <the-dialog-game-instruction />
+      <the-dialog-game-instruction
+        @open-choose-input-system-modal="openChooseInputSystemModal = true"
+      />
 
       <div
         v-if="!isLoadingFinished"
@@ -23,9 +25,6 @@
         <h2 class="text-lg">
           {{ (store.loadedAssetsCount / totalAssetsCount) * 100 }}%
         </h2>
-      </div>
-      <div v-else class="mt-8 p-16 rounded bg-black text-white text-center">
-        <button @click="openChooseInputSystemModal = true">Button</button>
       </div>
     </div>
 
@@ -91,15 +90,15 @@ export default defineComponent({
           {
             bulletsCanvas: bulletsCanvas.value,
             enemiesCanvas: enemiesCanvas.value,
-            playerCanvas: playerCanvas.value,
+            playerCanvas: playerCanvas.value
           },
           backgroundImage.value
         );
       },
       store,
-      totalAssetsCount,
+      totalAssetsCount
     };
-  },
+  }
 });
 </script>
 

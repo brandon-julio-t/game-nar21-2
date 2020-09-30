@@ -1,24 +1,18 @@
 <template>
   <teleport to="body">
     <div
-      class="h-screen w-screen flex justify-center items-center absolute inset-0 bg-black bg-opacity-25 text-black"
+      class="h-screen w-screen flex justify-center items-center absolute inset-0 bg-black bg-opacity-25 text-black text-2xl"
     >
       <div class="border p-16 bg-white rounded-lg relative">
-        <h1 class="text-xl font-bold text-center mb-8">Choose Input System</h1>
+        <h1 class="font-bold text-center mb-8">Choose Input System</h1>
 
         <div class="grid grid-cols-2 gap-8">
-          <button
-            @click="playWithKeyboard()"
-            class="transition duration-300 ease-in-out border border-black px-4 py-2 rounded hover:bg-black hover:text-white hover:border-white"
-          >
+          <the-button @click="playWithKeyboard()" :dark="false">
             Keyboard
-          </button>
-          <button
-            @click="playWithMouse()"
-            class="transition duration-300 ease-in-out border border-black px-4 py-2 rounded hover:bg-black hover:text-white hover:border-white"
-          >
+          </the-button>
+          <the-button @click="playWithMouse()" :dark="false">
             Mouse
-          </button>
+          </the-button>
         </div>
 
         <button @click="$emit('close-dialog')" class="absolute" id="close-btn">
@@ -51,10 +45,13 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 
+import TheButton from "./TheButton.vue";
 import InputSystem from "@/classes/core/input-system";
 import store from "@/store";
 
 export default defineComponent({
+  components: { TheButton },
+
   emits: ["play-game", "close-dialog"],
 
   setup(props, { emit }) {
