@@ -21,10 +21,10 @@
         src="@/assets/logo-nar21-2.png"
       />
 
-      <dialog-game-instruction />
+      <the-dialog-game-instruction />
     </div>
 
-    <dialog-choose-input-system
+    <the-dialog-choose-input-system
       v-if="openChooseInputSystemModal"
       @close-dialog="openChooseInputSystemModal = false"
       @play-game="playGame()"
@@ -42,15 +42,15 @@
 <script lang="ts">
 import { computed, defineComponent, onMounted, onUnmounted, ref } from "vue";
 
-import DialogChooseInputSystem from "@/components/DialogChooseInputSystem.vue";
-import DialogGameInstruction from "@/components/DialogGameInstruction.vue";
+import TheDialogChooseInputSystem from "@/components/TheDialogChooseInputSystem.vue";
+import TheDialogGameInstruction from "@/components/TheDialogGameInstruction.vue";
 
 import Game from "@/classes/game";
 import InputSystem from "@/classes/core/input-system";
 import store from "@/store";
 
 export default defineComponent({
-  components: { DialogChooseInputSystem, DialogGameInstruction },
+  components: { TheDialogChooseInputSystem, TheDialogGameInstruction },
 
   setup() {
     const backgroundImage = ref<HTMLImageElement | null>(null);
