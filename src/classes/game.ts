@@ -56,6 +56,8 @@ export default class Game {
 
     store.assets.backgroundMusic.play();
     store.assets.backgroundMusic.loop = true;
+    store.assets.backgroundMusic.volume =
+      process.env.NODE_ENV === "development" ? 0.1 : 1;
 
     this.play();
   }
