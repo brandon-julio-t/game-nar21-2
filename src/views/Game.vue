@@ -3,25 +3,30 @@
     v-if="!store.isGaming"
     class="flex justify-center items-center w-screen h-screen"
   >
-    <div
-      v-if="!isLoadingFinished"
-      class="mt-8 p-16 rounded bg-black text-white text-center"
-    >
-      <h1 class="text-xl">Loading...</h1>
-      <h2 class="text-lg">
-        {{ (store.loadedAssetsCount / totalAssetsCount) * 100 }}%
-      </h2>
-    </div>
-
-    <div v-else>
+    <div v-if="!logoClicked">
       <img
-        @click="openChooseInputSystemModal = true"
+        @click="logoClicked = true"
         alt="Vue logo"
         class="transition duration-300 ease-in-out transform hover:scale-125 cursor-pointer w-64 h-64 mx-auto"
         src="@/assets/logo-nar21-2.png"
       />
+    </div>
 
+    <div v-if="logoClicked">
       <dialog-game-instruction />
+
+      <div
+        v-if="!isLoadingFinished"
+        class="mt-8 p-16 rounded bg-black text-white text-center"
+      >
+        <h1 class="text-xl">Loading...</h1>
+        <h2 class="text-lg">
+          {{ (store.loadedAssetsCount / totalAssetsCount) * 100 }}%
+        </h2>
+      </div>
+      <div v-else class="mt-8 p-16 rounded bg-black text-white text-center">
+        <button @click="openChooseInputSystemModal = true">Button</button>
+      </div>
     </div>
 
     <dialog-choose-input-system
@@ -58,6 +63,7 @@ export default defineComponent({
     const enemiesCanvas = ref<HTMLCanvasElement | null>(null);
     const openChooseInputSystemModal = ref(false);
     const playerCanvas = ref<HTMLCanvasElement | null>(null);
+    const logoClicked = ref(false);
 
     const totalAssetsCount = computed(() => Object.keys(store.assets).length);
     const isLoadingFinished = computed(
@@ -78,21 +84,22 @@ export default defineComponent({
       playerCanvas,
       isLoadingFinished,
       openChooseInputSystemModal,
+      logoClicked,
       playGame() {
         // Entry point A.K.A. main
         Game.start(
           {
             bulletsCanvas: bulletsCanvas.value,
             enemiesCanvas: enemiesCanvas.value,
-            playerCanvas: playerCanvas.value
+            playerCanvas: playerCanvas.value,
           },
           backgroundImage.value
         );
       },
       store,
-      totalAssetsCount
+      totalAssetsCount,
     };
-  }
+  },
 });
 </script>
 
