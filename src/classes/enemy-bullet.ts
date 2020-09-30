@@ -1,10 +1,10 @@
 import Bullet from "./abstracts/bullet";
 import Player from "./player";
 import store from "@/store";
-import { randomIntegerBetween } from "./core/utilities";
+import { degreeToRadian, randomIntegerBetween } from "./core/utilities";
 
 export default class EnemyBullet extends Bullet {
-  private rotationDeg: number = 0;
+  private rotationDegree: number = 0;
 
   public constructor(x: number, y: number) {
     super(
@@ -23,7 +23,7 @@ export default class EnemyBullet extends Bullet {
 
     ctx.save();
     ctx.translate(x + this.WIDTH / 2, y + this.HEIGHT / 2);
-    ctx.rotate((Math.PI / 180) * this.rotationDeg);
+    ctx.rotate(degreeToRadian(this.rotationDegree));
     ctx.drawImage(
       this.SPRITE,
       -this.WIDTH / 2,
@@ -33,7 +33,9 @@ export default class EnemyBullet extends Bullet {
     );
     ctx.restore();
 
-    this.rotationDeg += this.VELOCITY.y;
+    this.rotationDegree += Math.sqrt(
+      this.VELOCITY.y ** 2 + this.VELOCITY.x ** 2
+    );
   }
 
   public checkCollision(): void {

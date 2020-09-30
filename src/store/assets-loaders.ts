@@ -1,11 +1,12 @@
-import store from ".";
-import { asset } from "@/classes/core/utilities";
+import { loadAudio, loadImage } from "@/classes/core/utilities";
 
 enum Assets {
   BACKGROUND = "background.png",
-  BACKSOUND = "backsound.mp3",
+  BACKGROUND_MUSIC = "background-music.mp3",
   EXPLODE_SPRITE = "explode-sprite.png",
   METEOR = "meteor.svg",
+  PLAYER_GET_HIT = "player-get-hit.ogg",
+  PLAYER_LOSE = "player-lose.ogg",
   PLAYER_SHOOT = "player-shoot.ogg",
   SPRITE_ENEMY = "sprite-enemy.png",
   SPRITE_ENEMY_BULLET = "sprite-enemy-bullet.png",
@@ -17,9 +18,11 @@ enum Assets {
 
 const {
   BACKGROUND,
-  BACKSOUND,
+  BACKGROUND_MUSIC,
   EXPLODE_SPRITE,
   METEOR,
+  PLAYER_GET_HIT,
+  PLAYER_LOSE,
   PLAYER_SHOOT,
   SPRITE_ENEMY,
   SPRITE_ENEMY_BULLET,
@@ -31,7 +34,7 @@ const {
 
 export default {
   loadBackgroundImage: (): HTMLImageElement => loadImage(BACKGROUND),
-  loadBackgroundMusic: (): HTMLAudioElement => loadAudio(BACKSOUND),
+  loadBackgroundMusic: (): HTMLAudioElement => loadAudio(BACKGROUND_MUSIC),
   loadEnemy: (): HTMLImageElement => loadImage(SPRITE_ENEMY),
   loadEnemyBullet: (): HTMLImageElement => loadImage(SPRITE_ENEMY_BULLET),
   loadExplodeSprite: (): HTMLImageElement => loadImage(EXPLODE_SPRITE),
@@ -39,22 +42,8 @@ export default {
   loadMiniEnemy: (): HTMLImageElement => loadImage(SPRITE_MINI_ENEMY),
   loadPlayer: (): HTMLImageElement => loadImage(SPRITE_PLAYER),
   loadPlayerBullet: (): HTMLImageElement => loadImage(SPRITE_PLAYER_BULLET),
+  loadPlayerGetHitAudio: (): HTMLAudioElement => loadAudio(PLAYER_GET_HIT),
+  loadPlayerLoseAudio:() : HTMLAudioElement => loadAudio(PLAYER_LOSE),
   loadReversedEnemy: (): HTMLImageElement => loadImage(SPRITE_ENEMY_REVERSED),
   loadShootingAudio: (): HTMLAudioElement => loadAudio(PLAYER_SHOOT)
 };
-
-function loadImage(assetName: string): HTMLImageElement {
-  const image: HTMLImageElement = new Image();
-  image.src = asset(assetName);
-  image.onload = () => store.loadedAssetsCount++;
-  image.onerror = e => console.error(e);
-  return image;
-}
-
-function loadAudio(assetName: string): HTMLAudioElement {
-  const audio: HTMLAudioElement = new Audio();
-  audio.src = asset(assetName);
-  audio.onloadeddata = () => store.loadedAssetsCount++;
-  audio.onerror = e => console.error(e);
-  return audio;
-}

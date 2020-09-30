@@ -29,7 +29,7 @@ export default defineComponent({
 
 <style scoped>
 #main-background {
-  animation: scrollDown 30s linear infinite;
+  animation: scrollDown 60s linear infinite;
   background-image: url("~@/assets/main-menu-background.png");
   background-repeat: repeat;
   bottom: 0;

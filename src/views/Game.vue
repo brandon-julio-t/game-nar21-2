@@ -98,7 +98,7 @@ export default defineComponent({
 
 <style scoped>
 #game-background {
-  animation: backgroundScroll 15s linear infinite;
+  animation: backgroundScroll 7s linear infinite;
   background-repeat: repeat;
   height: 2048px;
   position: absolute;
