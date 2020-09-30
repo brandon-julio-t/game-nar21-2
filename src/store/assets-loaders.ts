@@ -2,7 +2,7 @@ import store from ".";
 import { asset } from "@/classes/core/utilities";
 
 enum Assets {
-  BACKGROUND = "background.jpg",
+  BACKGROUND = "background.png",
   BACKSOUND = "backsound.mp3",
   EXPLODE_SPRITE = "explode-sprite.png",
   METEOR = "meteor.svg",
@@ -11,7 +11,8 @@ enum Assets {
   SPRITE_ENEMY_BULLET = "sprite-enemy-bullet.png",
   SPRITE_ENEMY_REVERSED = "sprite-enemy-reversed.png",
   SPRITE_MINI_ENEMY = "sprite-mini-enemy.png",
-  SPRITE_PLAYER = "sprite-player.png"
+  SPRITE_PLAYER = "sprite-player.png",
+  SPRITE_PLAYER_BULLET = "sprite-player-bullet.png"
 }
 
 const {
@@ -24,7 +25,8 @@ const {
   SPRITE_ENEMY_BULLET,
   SPRITE_ENEMY_REVERSED,
   SPRITE_MINI_ENEMY,
-  SPRITE_PLAYER
+  SPRITE_PLAYER,
+  SPRITE_PLAYER_BULLET
 } = Assets;
 
 export default {
@@ -36,8 +38,9 @@ export default {
   loadMeteor: (): HTMLImageElement => loadImage(METEOR),
   loadMiniEnemy: (): HTMLImageElement => loadImage(SPRITE_MINI_ENEMY),
   loadPlayer: (): HTMLImageElement => loadImage(SPRITE_PLAYER),
+  loadPlayerBullet: (): HTMLImageElement => loadImage(SPRITE_PLAYER_BULLET),
   loadReversedEnemy: (): HTMLImageElement => loadImage(SPRITE_ENEMY_REVERSED),
-  loadShootingAudio: (): HTMLAudioElement => loadAudio(PLAYER_SHOOT),
+  loadShootingAudio: (): HTMLAudioElement => loadAudio(PLAYER_SHOOT)
 };
 
 function loadImage(assetName: string): HTMLImageElement {

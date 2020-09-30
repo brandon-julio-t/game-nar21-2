@@ -7,6 +7,7 @@ export default interface Assets {
   meteor: HTMLImageElement;
   miniEnemy: HTMLImageElement;
   player: HTMLImageElement;
+  playerBullet: HTMLImageElement;
   reversedEnemy: HTMLImageElement;
   shootingAudio: HTMLAudioElement;
 }

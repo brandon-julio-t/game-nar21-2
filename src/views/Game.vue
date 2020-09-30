@@ -99,9 +99,8 @@ export default defineComponent({
 <style scoped>
 #game-background {
   animation: backgroundScroll 15s linear infinite;
-  background-size: contain;
   background-repeat: repeat;
-  height: 9000px;
+  height: 2048px;
   position: absolute;
   bottom: 0;
   width: 100%;
@@ -113,7 +112,7 @@ export default defineComponent({
     transform: translate3d(0, 0, 0);
   }
   100% {
-    transform: translate3d(0, 4500px, 0);
+    transform: translate3d(0, 1024px, 0);
   }
 }
 </style>

@@ -4,8 +4,6 @@ import store from "@/store";
 import { randomIntegerBetween } from "./core/utilities";
 
 export default class EnemyBullet extends Bullet {
-  public readonly sprite: HTMLImageElement;
-
   public constructor(x: number, y: number) {
     super(
       x,
@@ -13,14 +11,9 @@ export default class EnemyBullet extends Bullet {
       randomIntegerBetween(-7, 7),
       randomIntegerBetween(3, 7),
       10,
-      10
+      10,
+      store.assets.enemyBullet
     );
-    this.sprite = store.assets.enemyBullet;
-  }
-
-  public draw(ctx: CanvasRenderingContext2D): void {
-    const { x, y } = this.position;
-    ctx.drawImage(this.sprite, x, y, this.WIDTH, this.HEIGHT);
   }
 
   public checkCollision(): void {

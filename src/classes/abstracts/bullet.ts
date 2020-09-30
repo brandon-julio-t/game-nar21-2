@@ -4,8 +4,10 @@ export default abstract class Bullet {
   protected readonly HEIGHT: number;
   protected readonly VELOCITY: Vector2;
   protected readonly WIDTH: number;
+  protected readonly SPRITE: HTMLImageElement;
 
   protected position: Vector2;
+
   public isEnded: boolean = false;
 
   public constructor(
@@ -14,12 +16,14 @@ export default abstract class Bullet {
     xVelocity: number,
     yVelocity: number,
     height: number,
-    width: number
+    width: number,
+    sprite: HTMLImageElement
   ) {
     this.HEIGHT = height;
     this.VELOCITY = new Vector2(xVelocity, yVelocity);
     this.WIDTH = width;
     this.position = new Vector2(x, y);
+    this.SPRITE = sprite;
   }
 
   public get isOutOfBounds(): boolean {
@@ -43,8 +47,7 @@ export default abstract class Bullet {
 
   public draw(ctx: CanvasRenderingContext2D): void {
     const { x, y } = this.position;
-    ctx.moveTo(x, y);
-    ctx.rect(x - this.WIDTH / 2, y, this.WIDTH, this.HEIGHT);
+    ctx.drawImage(this.SPRITE, x, y, this.WIDTH, this.HEIGHT);
   }
 
   public abstract checkCollision(): void;
