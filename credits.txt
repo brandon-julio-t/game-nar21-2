@@ -8,11 +8,6 @@ Icons: https://icons.getbootstrap.com/
 Meteor: https://www.downloadclipart.net/download/14749/meteor-svg
 Sound: attribution to http://creativecommons.org/licenses/by/3.0/
 Spaceship: https://www.pinclipart.com/pindetail/obJhJJ_svg-royalty-free-library-fighter-clipart-spaceship-spaceship/
-<<<<<<< HEAD
-<<<<<<< HEAD
 Star Background : <a href="https://www.vecteezy.com/free-vector/galaxy-seamless">Galaxy Seamless Vectors by Vecteezy</a>
-=======
 Explode Sprite: https://toppng.com/show_download/213951/attached-are-various-explosion-sprites-created-with-2d-explosion-sprite-sheet/large
->>>>>>> 39ea2d6b284a979e5d1671a7d06b6d2b6c229c56
-=======
->>>>>>> 2871c867b22a3acfe290903073ee2d1124ff6d6d
+Fonts : https://www.fontsquirrel.com/license/Distant-Galaxy
