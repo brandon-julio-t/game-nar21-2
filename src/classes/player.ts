@@ -1,6 +1,7 @@
 import Entity from "./abstracts/entity";
 import PlayerBullet from "./player-bullet";
 import store from "@/store";
+import { playAudio } from "./core/utilities";
 
 export default class Player extends Entity {
   public static readonly SIZE = 50;
@@ -47,6 +48,12 @@ export default class Player extends Entity {
   public reduceHealth(points: number): void {
     if (!this.isInvulnerable) {
       super.reduceHealth(points);
+
+      playAudio(
+        this.isDead
+          ? store.assets.playerLoseAudio
+          : store.assets.playerGetHitAudio
+      );
     }
 
     this.isInvulnerable = true;
@@ -178,10 +185,8 @@ export default class Player extends Entity {
         );
       }
 
+      playAudio(store.assets.shootingAudio);
       this.nextTimeToAttack = Date.now() + 75;
-
-      store.assets.shootingAudio.currentTime = 0;
-      store.assets.shootingAudio.play();
     }
   }
 }

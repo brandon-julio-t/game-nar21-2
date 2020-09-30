@@ -2,43 +2,51 @@
   <article
     class="flex justify-center items-center w-screen h-screen text-white"
   >
-    <div class="bg-black bg-opacity-75 p-16 w-3/4 rounded-lg flex">
-      <div class="w-1/4">
-        <tabs @changetab="changeTab" />
-      </div>
-      <section class="w-3/4 ml-4">
-        <component v-bind:is="currentTabComponent"></component>
+    <div
+      class="grid lg:grid-cols-4 gap-8 bg-black bg-opacity-75 p-16 rounded-lg"
+    >
+      <section class="lg:col-span-1">
+        <the-tabs @change-tab="changeTab" />
+      </section>
+
+      <section class="lg:col-span-3">
+        <component :is="currentTab"></component>
       </section>
     </div>
   </article>
 </template>
 
-<script>
-import Tabs from "../components/info/Tabs";
-import Benefits from "../components/info/Benefits";
-import Requirements from "../components/info/Requirements";
-import Test from "../components/info/Test";
-import Registration from "../components/info/Registration";
-import Contact from "../components/info/Contact";
+<script lang="ts">
+import { defineComponent, ref } from "vue";
 
-export default {
-  data() {
+import TheBenefits from "@/components/about/TheBenefits.vue";
+import TheContact from "@/components/about/TheContact.vue";
+import TheRegistration from "@/components/about/TheRegistration.vue";
+import TheRequirements from "@/components/about/TheRequirements.vue";
+import TheTabs from "@/components/about/TheTabs.vue";
+import TheTest from "@/components/about/TheInitialTest.vue";
+
+export default defineComponent({
+  components: {
+    TheBenefits,
+    TheContact,
+    TheRegistration,
+    TheRequirements,
+    TheTabs,
+    TheTest
+  },
+
+  setup() {
+    const currentTab = ref("TheBenefits");
+
+    function changeTab(tabName: string) {
+      currentTab.value = tabName;
+    }
+
     return {
-      currentStep: 1,
-      totalSteps: 5,
-      currentTab: "Benefits",
+      changeTab,
+      currentTab
     };
-  },
-  components: { Tabs, Benefits, Requirements, Test, Registration, Contact },
-  methods: {
-    changeTab(tabName) {
-      this.currentTab = tabName;
-    },
-  },
-  computed: {
-    currentTabComponent() {
-      return this.currentTab;
-    },
-  },
-};
+  }
+});
 </script>

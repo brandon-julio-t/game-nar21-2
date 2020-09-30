@@ -6,7 +6,15 @@ import Entity from "./abstracts/entity";
 
 export default class PlayerBullet extends Bullet {
   public constructor(x: number, y: number) {
-    super(x, y, 0, -25, 20, 5);
+    super(
+      x,
+      y,
+      0,
+      -25,
+      store.assets.playerBullet.naturalHeight,
+      store.assets.playerBullet.naturalWidth,
+      store.assets.playerBullet
+    );
   }
 
   public checkCollision(): void {

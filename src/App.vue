@@ -29,12 +29,11 @@ export default defineComponent({
 
 <style scoped>
 #main-background {
-  animation: scrollDown 30s linear infinite;
-  background-image: url("~@/assets/main-menu-background.jpg");
+  animation: scrollDown 60s linear infinite;
+  background-image: url("~@/assets/main-menu-background.png");
   background-repeat: repeat;
-  background-size: contain;
   bottom: 0;
-  height: 5712px;
+  height: 2048px;
   position: absolute;
   width: 100%;
   z-index: -1;
@@ -45,7 +44,7 @@ export default defineComponent({
     transform: translate3d(0, 0, 0);
   }
   100% {
-    transform: translate3d(0, 2856px, 0);
+    transform: translate3d(0, 1024px, 0);
   }
 }
 </style>

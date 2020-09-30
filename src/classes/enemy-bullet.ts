@@ -1,10 +1,10 @@
 import Bullet from "./abstracts/bullet";
 import Player from "./player";
 import store from "@/store";
-import { randomIntegerBetween } from "./core/utilities";
+import { degreeToRadian, randomIntegerBetween } from "./core/utilities";
 
 export default class EnemyBullet extends Bullet {
-  public readonly sprite: HTMLImageElement;
+  private rotationDegree: number = 0;
 
   public constructor(x: number, y: number) {
     super(
@@ -12,15 +12,30 @@ export default class EnemyBullet extends Bullet {
       y,
       randomIntegerBetween(-7, 7),
       randomIntegerBetween(3, 7),
-      10,
-      10
+      15,
+      15,
+      store.assets.enemyBullet
     );
-    this.sprite = store.assets.enemyBullet;
   }
 
   public draw(ctx: CanvasRenderingContext2D): void {
     const { x, y } = this.position;
-    ctx.drawImage(this.sprite, x, y, this.WIDTH, this.HEIGHT);
+
+    ctx.save();
+    ctx.translate(x + this.WIDTH / 2, y + this.HEIGHT / 2);
+    ctx.rotate(degreeToRadian(this.rotationDegree));
+    ctx.drawImage(
+      this.SPRITE,
+      -this.WIDTH / 2,
+      -this.HEIGHT / 2,
+      this.WIDTH,
+      this.HEIGHT
+    );
+    ctx.restore();
+
+    this.rotationDegree += Math.sqrt(
+      this.VELOCITY.y ** 2 + this.VELOCITY.x ** 2
+    );
   }
 
   public checkCollision(): void {
