@@ -55,6 +55,7 @@ export default class Game {
     this.player = store.player = this.preparePlayer();
 
     store.assets.backgroundMusic.play();
+    store.assets.backgroundMusic.loop = true;
 
     this.play();
   }
