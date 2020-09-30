@@ -1,7 +1,7 @@
 import EnemyBulletCircle from "./enemy-bullet-circle";
 import Entity from "./abstracts/entity";
 import store from "@/store";
-import { randomIntegerBetween } from "./core/utilities";
+import { playAudio, randomIntegerBetween } from "./core/utilities";
 
 export default class Enemy extends Entity {
   public constructor(health: number, velocity: number) {
@@ -15,6 +15,13 @@ export default class Enemy extends Entity {
       store.assets.enemy.naturalWidth,
       velocity
     );
+  }
+
+  public reduceHealth(points: number): void {
+    super.reduceHealth(points);
+    if (this.isDead) {
+      playAudio(store.assets.enemyExplodeAudio);
+    }
   }
 
   public move(): void {

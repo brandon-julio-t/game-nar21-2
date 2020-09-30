@@ -1,10 +1,12 @@
 Background Music by: https://www.youtube.com/channel/UCg4w2hQ-Bqn9Z4VhqrV8X9Q
-Background, Shooting SFX: https://opengameart.org/content/seamless-space-stars
+Background: https://opengameart.org/content/seamless-space-stars
 Bullets (new): https://opengameart.org/content/spaceship-shoting
 Bullets: Just a link to www.amon.co would be appreciated. https://opengameart.org/content/various-place-holder-gfx
 Enemy Spaceship: https://craftpix.net/freebies/free-pixel-art-enemy-spaceship-2d-sprites/
-Explode Sprite: https://toppng.com/show_download/213951/attached-are-various-explosion-sprites-created-with-2d-explosion-sprite-sheet/large
+Explode Audio: https://opengameart.org/content/9-explosion-sounds
+Explode Sprite: https://opengameart.org/content/2d-explosion-animations-frame-by-frame
 Fonts : https://www.fontsquirrel.com/license/Distant-Galaxy
 Icons: https://icons.getbootstrap.com/
 Meteor: https://www.downloadclipart.net/download/14749/meteor-svg
+Shooting SFX: https://opengameart.org/content/space-shooter-redux
 Spaceship: https://www.pinclipart.com/pindetail/obJhJJ_svg-royalty-free-library-fighter-clipart-spaceship-spaceship/

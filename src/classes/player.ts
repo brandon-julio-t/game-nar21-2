@@ -51,7 +51,7 @@ export default class Player extends Entity {
 
       playAudio(
         this.isDead
-          ? store.assets.playerLoseAudio
+          ? store.assets.playerExplodeAudio
           : store.assets.playerGetHitAudio
       );
     }

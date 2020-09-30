@@ -1,7 +1,7 @@
-import store from "@/store";
-import Entity from "./abstracts/entity";
-import { randomIntegerBetween } from "./core/utilities";
 import EnemyBulletLaser from "./enemy-bullet-laser";
+import Entity from "./abstracts/entity";
+import store from "@/store";
+import { playAudio, randomIntegerBetween } from "./core/utilities";
 
 export default class MiniEnemy extends Entity {
   private static readonly ENEMY_SPRITE_COLS: number = 4;
@@ -25,6 +25,13 @@ export default class MiniEnemy extends Entity {
       store.assets.miniEnemy.naturalWidth / MiniEnemy.ENEMY_SPRITE_COLS,
       randomIntegerBetween(1, 3)
     );
+  }
+
+  public reduceHealth(points: number): void {
+    super.reduceHealth(points);
+    if (this.isDead) {
+      playAudio(store.assets.enemyMiniExplodeAudio);
+    }
   }
 
   protected drawSelf(ctx: CanvasRenderingContext2D): void {

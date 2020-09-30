@@ -8,6 +8,7 @@ export default interface Store {
   assets: Assets;
   bullets: Bullet[];
   color: string;
+  enemiesKilledCount: number;
   enemy: Enemy | null;
   isGaming: boolean;
   loadedAssetsCount: number;

@@ -1,9 +1,13 @@
 import Vector2 from "../core/vector2";
 import store from "@/store";
+import { playAudio } from "../core/utilities";
+import Player from "../player";
+import Enemy from "../enemy";
+import MiniEnemy from "../mini-enemy";
 
 export default abstract class Entity {
-  private readonly EXPLODING_SPRITE_COLS: number = 6;
-  private readonly EXPLODING_SPRITE_ROWS: number = 7;
+  private readonly EXPLODING_SPRITE_COLS: number = 8;
+  private readonly EXPLODING_SPRITE_ROWS: number = 8;
 
   public readonly HEIGHT: number;
   public readonly WIDTH: number;
@@ -51,6 +55,9 @@ export default abstract class Entity {
 
   public reduceHealth(points: number): void {
     this.currentHealth -= points;
+    if (this.isDead) {
+      store.enemiesKilledCount++;
+    }
   }
 
   public drawSelfAndHealthBar(ctx: CanvasRenderingContext2D): void {
