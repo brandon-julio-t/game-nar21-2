@@ -19,10 +19,10 @@ export default abstract class Bullet {
     width: number,
     sprite: HTMLImageElement
   ) {
-    this.HEIGHT = height;
-    this.VELOCITY = new Vector2(xVelocity, yVelocity);
-    this.WIDTH = width;
     this.position = new Vector2(x, y);
+    this.VELOCITY = new Vector2(xVelocity, yVelocity);
+    this.HEIGHT = height;
+    this.WIDTH = width;
     this.SPRITE = sprite;
   }
 

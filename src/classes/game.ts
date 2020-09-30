@@ -131,9 +131,6 @@ export default class Game {
   }
 
   private static handleBullets(): void {
-    this.contextsGroup.bulletsCtx.beginPath();
-    this.contextsGroup.bulletsCtx.fillStyle = store.color;
-
     store.bullets = store.bullets.filter(bullet => {
       if (bullet.isEnded || bullet.isOutOfVerticalBounds) {
         return false;
@@ -145,8 +142,6 @@ export default class Game {
 
       return true;
     });
-
-    this.contextsGroup.bulletsCtx.fill();
   }
 
   private static handleMeteor(): void {
