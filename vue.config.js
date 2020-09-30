@@ -4,5 +4,6 @@ module.exports = {
     themeColor: "#4D78BA"
   },
 
-  productionSourceMap: false
+  productionSourceMap: false,
+  lintOnSave: false
 };

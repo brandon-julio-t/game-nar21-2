@@ -25,8 +25,8 @@
           v-if="!isLoadingFinished"
           class="mt-8 p-16 rounded bg-black text-white text-center"
         >
-          <h1 class="text-xl">Loading...</h1>
-          <h2 class="text-lg">
+          <h1 class="text-xl text-black">Loading...</h1>
+          <h2 class="text-lg text-black">
             {{
               Number(
                 (store.loadedAssetsCount / totalAssetsCount) * 100
@@ -95,7 +95,6 @@ import TheDialogGameInstruction from "@/components/TheDialogGameInstruction.vue"
 import Game from "@/classes/game";
 import InputSystem from "@/classes/core/input-system";
 import store from "@/store";
-import Player from "@/classes/player";
 
 export default defineComponent({
   components: {
@@ -108,9 +107,9 @@ export default defineComponent({
     const backgroundImage = ref<HTMLImageElement | null>(null);
     const bulletsCanvas = ref<HTMLCanvasElement | null>(null);
     const enemiesCanvas = ref<HTMLCanvasElement | null>(null);
-    const openChooseInputSystemModal = ref(false);
+    const logoClicked = ref<boolean>(true);
+    const openChooseInputSystemModal = ref<boolean>(false);
     const playerCanvas = ref<HTMLCanvasElement | null>(null);
-    const logoClicked = ref(false);
 
     const isLoadingFinished = computed(
       () => store.loadedAssetsCount === totalAssetsCount.value
