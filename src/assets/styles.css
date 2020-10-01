@@ -8,6 +8,22 @@ body {
   font-family: "Distant Galaxy";
 }
 
+.bg-primary {
+  background-color: #1676eb;
+}
+
+.bg-primary-light {
+  background-color: #228dfd;
+}
+
+.text-primary {
+  color: #1676eb;
+}
+
+.text-primary-light {
+  color: #228dfd;
+}
+
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.5s ease;
