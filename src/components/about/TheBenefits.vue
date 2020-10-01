@@ -7,16 +7,21 @@
       </div>
     </div>
 
-  <h2 class="text-2xl mt-6 mb-2">Soft Skill</h2>
-  <div>
-    <div class="grid grid-cols-5">
-      <div v-for="(softSkill, idx) in softSkills" :key="idx">
-        <img :src="softSkill.img" :alt="softSkill.name" class="mx-auto w-1/2" />
-        <!-- <h3 class="mt-2 text-center">{{ softSkill.name }}</h3> -->
+    <h2 class="text-2xl mt-6 mb-2">Soft Skill</h2>
+    <div>
+      <div class="grid grid-cols-5">
+        <div v-for="(softSkill, idx) in softSkills" :key="idx">
+          <img
+            :src="softSkill.img"
+            :alt="softSkill.name"
+            class="mx-auto w-1/2"
+          />
+          <!-- <h3 class="mt-2 text-center">{{ softSkill.name }}</h3> -->
+        </div>
       </div>
-    </div>
 
-    <h2 class="text-2xl mt-6">Job Experiences</h2>
+      <h2 class="text-2xl mt-6">Job Experiences</h2>
+    </div>
   </div>
 </template>
 

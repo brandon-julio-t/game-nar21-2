@@ -2,9 +2,13 @@
   <div>
     <h1 class="text-4xl text-center">Requirements</h1>
     <section class="grid grid-cols-2 gap-y-16 mt-10">
-      <div class="flex" v-for="(requirement, idx) in requirements" :key="idx">
-        <img :src="requirement.img" :alt="requirement.desc" />
-        <p class="ml-3">{{ requirement.desc }}</p>
+      <div
+        class="flex items-center"
+        v-for="(requirement, idx) in requirements"
+        :key="idx"
+      >
+        <img :src="requirement.img" :alt="requirement.desc" class="w-1/3" />
+        <p class="ml-8">{{ requirement.desc }}</p>
       </div>
     </section>
   </div>
