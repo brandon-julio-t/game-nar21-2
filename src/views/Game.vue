@@ -17,9 +17,7 @@
       class="flex justify-center items-center mt-16 p-16 rounded bg-black text-white text-2xl"
     >
       <div>
-        <the-dialog-game-instruction
-          @open-choose-input-system-modal="openChooseInputSystemModal = true"
-        />
+        <the-dialog-game-instruction />
 
         <div
           v-if="!isLoadingFinished"
