@@ -129,8 +129,8 @@ export default class Player extends Entity {
   protected drawSelf(ctx: CanvasRenderingContext2D): void {
     const { x, y } = this.position;
     const { naturalWidth, naturalHeight } = this.sprite;
-    const width = (Player.SIZE * naturalWidth) / naturalHeight + 10;
-    const height = (Player.SIZE * naturalHeight) / naturalWidth;
+    const width = Player.SIZE * Math.round(naturalWidth / naturalHeight);
+    const height = Player.SIZE * Math.round(naturalHeight / naturalWidth);
 
     if (!this.isInvulnerable || Math.floor(Date.now() / this.FREQUENCY) % 2) {
       ctx.drawImage(this.sprite, x - width / 2, y - height / 2, width, height);
@@ -156,36 +156,39 @@ export default class Player extends Entity {
     }
 
     if (this.isPlayingHitAnimation) {
-      console.log("drawing");
-      const width = this.HIT_SPRITE.naturalWidth / this.HIT_SPRITE_COLS;
-      const height = this.HIT_SPRITE.naturalHeight / this.HIT_SPRITE_ROWS;
+      this.drawHitAnimation(ctx);
+    }
+  }
 
-      const scaledWidth = (width * 25) / 100;
-      const scaledHeight = (height * 25) / 100;
+  private drawHitAnimation(ctx: CanvasRenderingContext2D): void {
+    const width = this.HIT_SPRITE.naturalWidth / this.HIT_SPRITE_COLS;
+    const height = this.HIT_SPRITE.naturalHeight / this.HIT_SPRITE_ROWS;
 
-      ctx.drawImage(
-        this.HIT_SPRITE,
-        this.hitSpriteColIdx * width,
-        this.hitSpriteRowIdx * height,
-        width,
-        height,
-        this.position.x - scaledWidth / 2,
-        this.position.y - scaledHeight / 2,
-        scaledWidth,
-        scaledHeight
-      );
+    const scaledWidth = (width * 25) / 100;
+    const scaledHeight = (height * 25) / 100;
 
-      this.hitSpriteColIdx++;
+    ctx.drawImage(
+      this.HIT_SPRITE,
+      this.hitSpriteColIdx * width,
+      this.hitSpriteRowIdx * height,
+      width,
+      height,
+      this.position.x - scaledWidth / 2,
+      this.position.y - scaledHeight / 2,
+      scaledWidth,
+      scaledHeight
+    );
 
-      if (this.hitSpriteColIdx >= this.HIT_SPRITE_COLS) {
-        this.hitSpriteColIdx = 0;
-        this.hitSpriteRowIdx++;
-      }
+    this.hitSpriteColIdx++;
 
-      if (this.hitSpriteRowIdx >= this.HIT_SPRITE_ROWS) {
-        this.hitSpriteRowIdx = 0;
-        this.isPlayingHitAnimation = false;
-      }
+    if (this.hitSpriteColIdx >= this.HIT_SPRITE_COLS) {
+      this.hitSpriteColIdx = 0;
+      this.hitSpriteRowIdx++;
+    }
+
+    if (this.hitSpriteRowIdx >= this.HIT_SPRITE_ROWS) {
+      this.hitSpriteRowIdx = 0;
+      this.isPlayingHitAnimation = false;
     }
   }
 
