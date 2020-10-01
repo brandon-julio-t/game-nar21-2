@@ -170,7 +170,7 @@ export default class Player extends Entity {
     const width: number = this.HIT_SPRITE.naturalWidth / this.HIT_SPRITE_COLS;
     const height: number = this.HIT_SPRITE.naturalHeight / this.HIT_SPRITE_ROWS;
 
-    const scaleDownRatio: number = 0.5;
+    const scaleDownRatio: number = 0.25;
     const scaledWidth: number = width * scaleDownRatio;
     const scaledHeight: number = height * scaleDownRatio;
 

@@ -4,7 +4,7 @@ import store from "@/store";
 import { randomIntegerBetween } from "./core/utilities";
 
 export default class EnemyBoss extends Enemy {
-  private static readonly HEALTH: number = 1;
+  private static readonly HEALTH: number = 1500;
   private static readonly HEALTH_BAR_HEIGHT: number = 20;
   private static readonly SCALE_DOWN_RATIO: number = 0.7;
   private static readonly VELOCITY: number = 2;
