@@ -1,28 +1,27 @@
 import EnemyBulletLaser from "./enemy-bullet-laser";
 import Entity from "./abstracts/entity";
 import store from "@/store";
-import { playAudio, randomIntegerBetween } from "./core/utilities";
+import {
+  playAudio,
+  randomIntegerBetween,
+  randomMiniEnemySprite
+} from "./core/utilities";
 
 export default class MiniEnemy extends Entity {
-  private static readonly ENEMY_SPRITE_COLS: number = 4;
-  private static readonly ENEMY_SPRITE_ROWS: number = 4;
-
-  private readonly SPRITE_COL_CHANGE_TIME = 500; // ENEMY_SPRITE_COLS + 1 every x miliseconds
+  private readonly SIZE: number = 50;
 
   private moveTimeoutId: number | null = null;
-  private nextTimeToChangeSpriteCol: number = Date.now();
   private nextTimeToShoot: number = Date.now();
-  private spriteColIdx: number = 0;
 
   public constructor() {
     super(
       randomIntegerBetween(0, innerWidth),
       0,
       1,
-      store.assets.miniEnemy,
+      randomMiniEnemySprite(),
       0,
-      store.assets.miniEnemy.naturalHeight / MiniEnemy.ENEMY_SPRITE_ROWS,
-      store.assets.miniEnemy.naturalWidth / MiniEnemy.ENEMY_SPRITE_COLS,
+      store.assets.miniEnemy1.naturalHeight,
+      store.assets.miniEnemy1.naturalWidth,
       randomIntegerBetween(1, 3)
     );
   }
@@ -36,25 +35,8 @@ export default class MiniEnemy extends Entity {
 
   protected drawSelf(ctx: CanvasRenderingContext2D): void {
     const { x, y } = this.position;
-
-    ctx.drawImage(
-      this.sprite,
-      this.spriteColIdx * this.WIDTH,
-      0, // Only using the first row of the sprite
-      this.WIDTH,
-      this.HEIGHT,
-      x,
-      y,
-      this.WIDTH,
-      this.HEIGHT
-    );
-
-    if (Date.now() >= this.nextTimeToChangeSpriteCol) {
-      this.spriteColIdx++;
-      this.spriteColIdx %= MiniEnemy.ENEMY_SPRITE_COLS;
-
-      this.nextTimeToChangeSpriteCol = Date.now() + this.SPRITE_COL_CHANGE_TIME;
-    }
+    const offset = this.SIZE / 2;
+    ctx.drawImage(this.sprite, x - offset, y - offset, this.SIZE, this.SIZE);
   }
 
   /**

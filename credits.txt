@@ -5,8 +5,9 @@ Bullets: Just a link to www.amon.co would be appreciated. https://opengameart.or
 Enemy Spaceship: https://craftpix.net/freebies/free-pixel-art-enemy-spaceship-2d-sprites/
 Explode Audio: https://opengameart.org/content/9-explosion-sounds
 Explode Sprite: https://opengameart.org/content/2d-explosion-animations-frame-by-frame
-Fonts : https://www.fontsquirrel.com/license/Distant-Galaxy
+Fonts: https://www.fontsquirrel.com/license/Distant-Galaxy
 Icons: https://icons.getbootstrap.com/
 Meteor: https://www.downloadclipart.net/download/14749/meteor-svg
+Mini Enemy: https://opengameart.org/content/alien-ufo-pack
 Shooting SFX: https://opengameart.org/content/space-shooter-redux
 Spaceship: https://www.pinclipart.com/pindetail/obJhJJ_svg-royalty-free-library-fighter-clipart-spaceship-spaceship/
