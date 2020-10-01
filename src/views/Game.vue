@@ -115,7 +115,6 @@ export default defineComponent({
       score: computed(() =>
         Number(store.enemiesKilledCount * 100).toLocaleString()
       ),
-      totalAssetsCount: computed(() => Object.keys(store.assets).length),
       isLoadingFinished: computed(
         () => store.loadedAssetsCount === Object.keys(store.assets).length
       )
