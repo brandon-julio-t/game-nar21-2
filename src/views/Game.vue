@@ -25,8 +25,8 @@
           v-if="!isLoadingFinished"
           class="mt-8 p-16 rounded bg-black text-white text-center"
         >
-          <h1 class="text-xl text-black">Loading...</h1>
-          <h2 class="text-lg text-black">
+          <h1 class="text-xl">Loading...</h1>
+          <h2 class="text-lg">
             {{
               Number(
                 (store.loadedAssetsCount / totalAssetsCount) * 100
@@ -107,7 +107,7 @@ export default defineComponent({
     const backgroundImage = ref<HTMLImageElement | null>(null);
     const bulletsCanvas = ref<HTMLCanvasElement | null>(null);
     const enemiesCanvas = ref<HTMLCanvasElement | null>(null);
-    const logoClicked = ref<boolean>(true);
+    const logoClicked = ref<boolean>(false);
     const openChooseInputSystemModal = ref<boolean>(false);
     const playerCanvas = ref<HTMLCanvasElement | null>(null);
 
