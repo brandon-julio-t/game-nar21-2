@@ -30,15 +30,14 @@
             {{
               Number(
                 (store.loadedAssetsCount / totalAssetsCount) * 100
-              ).toFixed(2)
+              ).toFixed(1)
             }}%
           </h2>
         </div>
-        <the-button
+        <the-button-dark
           v-else
           @click="openChooseInputSystemModal = true"
           class="flex justify-center items-center py-8 mt-4 w-full"
-          :dark="true"
         >
           <svg
             width="1em"
@@ -63,7 +62,7 @@
           <span class="ml-2">
             Play
           </span>
-        </the-button>
+        </the-button-dark>
       </div>
     </div>
 
@@ -88,7 +87,7 @@
 <script lang="ts">
 import { computed, defineComponent, onMounted, onUnmounted, ref } from "vue";
 
-import TheButton from "@/components/TheButton.vue";
+import TheButtonDark from "@/components/TheButtonDark.vue";
 import TheDialogChooseInputSystem from "@/components/TheDialogChooseInputSystem.vue";
 import TheDialogGameInstruction from "@/components/TheDialogGameInstruction.vue";
 
@@ -98,7 +97,7 @@ import store from "@/store";
 
 export default defineComponent({
   components: {
-    TheButton,
+    TheButtonDark,
     TheDialogChooseInputSystem,
     TheDialogGameInstruction
   },

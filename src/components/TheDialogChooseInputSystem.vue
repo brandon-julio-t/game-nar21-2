@@ -7,12 +7,12 @@
         <h1 class="font-bold text-center mb-8">Choose Input System</h1>
 
         <div class="grid grid-cols-2 gap-8">
-          <the-button @click="playWithKeyboard()" :dark="false">
+          <the-button-light @click="playWithKeyboard()">
             Keyboard
-          </the-button>
-          <the-button @click="playWithMouse()" :dark="false">
+          </the-button-light>
+          <the-button-light @click="playWithMouse()">
             Mouse
-          </the-button>
+          </the-button-light>
         </div>
 
         <button @click="$emit('close-dialog')" class="absolute" id="close-btn">
@@ -45,12 +45,12 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 
-import TheButton from "./TheButton.vue";
+import TheButtonLight from "./TheButtonLight.vue";
 import InputSystem from "@/classes/core/input-system";
 import store from "@/store";
 
 export default defineComponent({
-  components: { TheButton },
+  components: { TheButtonLight },
 
   emits: ["play-game", "close-dialog"],
 
