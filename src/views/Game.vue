@@ -32,14 +32,14 @@
             }}%
           </h2>
         </div>
-        <the-button-dark
+        <app-button-dark
           v-else
           @click="openChooseInputSystemModal = true"
           class="flex justify-center items-center py-8 mt-4 w-full"
         >
           <icon-controller class="mr-2" />
           Play
-        </the-button-dark>
+        </app-button-dark>
       </div>
     </div>
 
@@ -73,7 +73,7 @@ import {
 } from "vue";
 
 import IconController from "@/components/icons/IconController.vue";
-import TheButtonDark from "@/components/TheButtonDark.vue";
+import AppButtonDark from "@/components/AppButtonDark.vue";
 import TheDialogChooseInputSystem from "@/components/TheDialogChooseInputSystem.vue";
 import TheDialogGameInstruction from "@/components/TheDialogGameInstruction.vue";
 
@@ -84,7 +84,7 @@ import store from "@/store";
 export default defineComponent({
   components: {
     IconController,
-    TheButtonDark,
+    AppButtonDark,
     TheDialogChooseInputSystem,
     TheDialogGameInstruction
   },

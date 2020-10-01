@@ -1,9 +1,9 @@
 <template>
-  <ul class="flex flex-col list-none">
+  <ul class="flex flex-col list-none m-auto">
     <li v-for="(tab, idx) in tabs" :key="idx">
       <button
         @click="onButtonClick(tab.name)"
-        class="py-2 px-4 w-full my-2 text-lg rounded truncate bg-primary"
+        class="py-2 px-4 w-full my-2 text-lg rounded truncate transition duration-150 bg-primary"
       >
         {{ tab.label }}
       </button>
@@ -18,23 +18,21 @@ export default defineComponent({
   emits: ["change-tab"],
 
   setup(props, { emit }) {
-    const tabs = [
-      { name: "TheBenefits", label: "Benefits" },
-      { name: "TheRequirements", label: "Req." },
-      { name: "TheTest", label: "Initial Test" },
-      { name: "TheRegistration", label: "Registration" },
-      { name: "TheContact", label: "Contact" },
-    ];
-
     function onButtonClick(tabName: string) {
       emit("change-tab", tabName);
     }
 
     return {
       onButtonClick,
-      tabs,
+      tabs: [
+        { name: "TheBenefits", label: "Benefits" },
+        { name: "TheRequirements", label: "Req." },
+        { name: "TheTest", label: "Initial Test" },
+        { name: "TheRegistration", label: "Registration" },
+        { name: "TheContact", label: "Contact" }
+      ]
     };
-  },
+  }
 });
 </script>
 

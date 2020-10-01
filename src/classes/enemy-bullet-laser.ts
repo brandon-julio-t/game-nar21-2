@@ -2,6 +2,7 @@ import EnemyBullet from "./abstracts/enemy-bullet";
 import MiniEnemy from "./mini-enemy";
 import Player from "./player";
 import store from "@/store";
+import { radianToVector, vectorToRadian } from './core/utilities';
 
 export default class EnemyBulletLaser extends EnemyBullet {
   private readonly SHOOTER: MiniEnemy;
@@ -28,7 +29,7 @@ export default class EnemyBulletLaser extends EnemyBullet {
       this.VELOCITY.x = (xPlayer - this.SHOOTER.position.x) * 0.01;
       this.VELOCITY.y = (yPlayer - this.SHOOTER.position.y) * 0.01;
 
-      this.ANGLE = Math.atan2(this.VELOCITY.y, this.VELOCITY.x) + Math.PI / 2;
+      this.ANGLE = vectorToRadian(this.VELOCITY);
     }
   }
 
@@ -44,14 +45,16 @@ export default class EnemyBulletLaser extends EnemyBullet {
   public checkCollision(): void {
     const player: Player = store.player as Player;
     if (player !== null) {
-      const x: number = this.position.x + Math.cos(this.ANGLE);
-      const y: number = this.position.y + Math.sin(this.ANGLE);
+      const { x, y } = radianToVector(this.ANGLE);
+
+      const xPos: number = this.position.x + x;
+      const yPos: number = this.position.y + y;
 
       const hasCollision: boolean =
-        x >= player.position.x &&
-        x <= player.position.x + player.HITBOX_SIZE &&
-        y >= player.position.y &&
-        y <= player.position.y + player.HITBOX_SIZE;
+        xPos >= player.position.x &&
+        xPos <= player.position.x + player.HITBOX_SIZE &&
+        yPos >= player.position.y &&
+        yPos <= player.position.y + player.HITBOX_SIZE;
 
       if (hasCollision) {
         this.isEnded = true;

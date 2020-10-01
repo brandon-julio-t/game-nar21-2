@@ -7,14 +7,14 @@
         <h1 class="font-bold text-center mb-8">Choose Input System</h1>
 
         <div class="grid grid-cols-2 gap-8">
-          <the-button-light @click="playWithKeyboard()">
+          <app-button-light @click="playWithKeyboard()">
             <icon-keyboard class="w-full text-6xl" />
             Keyboard
-          </the-button-light>
-          <the-button-light @click="playWithMouse()">
+          </app-button-light>
+          <app-button-light @click="playWithMouse()">
             <icon-mouse class="w-full text-6xl" />
             Mouse
-          </the-button-light>
+          </app-button-light>
         </div>
 
         <button
@@ -35,11 +35,11 @@ import IconKeyboard from "@/components/icons/IconKeyboard.vue";
 import IconMouse from "@/components/icons/IconMouse.vue";
 import IconX from "@/components/icons/IconX.vue";
 import InputSystem from "@/classes/core/input-system";
-import TheButtonLight from "./TheButtonLight.vue";
+import AppButtonLight from "./AppButtonLight.vue";
 import store from "@/store";
 
 export default defineComponent({
-  components: { IconKeyboard, IconMouse, IconX, TheButtonLight },
+  components: { IconKeyboard, IconMouse, IconX, AppButtonLight },
 
   emits: ["play-game", "close-dialog"],
 

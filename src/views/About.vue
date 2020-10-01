@@ -33,7 +33,7 @@ export default defineComponent({
     TheRegistration,
     TheRequirements,
     TheTabs,
-    TheTest,
+    TheTest
   },
 
   setup() {
@@ -45,9 +45,9 @@ export default defineComponent({
 
     return {
       changeTab,
-      currentTab,
+      currentTab
     };
-  },
+  }
 });
 </script>
 

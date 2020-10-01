@@ -8,7 +8,7 @@ import {
 } from "./core/utilities";
 
 export default class MiniEnemy extends Entity {
-  private readonly SIZE: number = 50;
+  private static readonly SIZE: number = 50;
 
   private moveTimeoutId: number | null = null;
   private nextTimeToShoot: number = Date.now();
@@ -20,8 +20,8 @@ export default class MiniEnemy extends Entity {
       1,
       randomMiniEnemySprite(),
       0,
-      store.assets.miniEnemy1.naturalHeight,
-      store.assets.miniEnemy1.naturalWidth,
+      MiniEnemy.SIZE,
+      MiniEnemy.SIZE,
       randomIntegerBetween(1, 3)
     );
   }
@@ -35,8 +35,13 @@ export default class MiniEnemy extends Entity {
 
   protected drawSelf(ctx: CanvasRenderingContext2D): void {
     const { x, y } = this.position;
-    const offset = this.SIZE / 2;
-    ctx.drawImage(this.sprite, x - offset, y - offset, this.SIZE, this.SIZE);
+    ctx.drawImage(
+      this.sprite,
+      x - this.WIDTH / 2,
+      y - this.HEIGHT / 2,
+      this.WIDTH,
+      this.HEIGHT
+    );
   }
 
   /**
@@ -58,12 +63,11 @@ export default class MiniEnemy extends Entity {
   public shoot(): void {
     if (Date.now() >= this.nextTimeToShoot && !this.isDead) {
       const { x, y } = this.position;
-
-      const xSpawn = x + this.WIDTH / 2;
-      const ySpawn = y + this.HEIGHT / 2;
-
-      store.bullets.splice(0, 0, new EnemyBulletLaser(xSpawn, ySpawn, this));
-
+      store.bullets.splice(
+        0,
+        0,
+        new EnemyBulletLaser(x, y + this.HEIGHT, this)
+      );
       this.nextTimeToShoot = Date.now() + 1000;
     }
   }
