@@ -3,9 +3,9 @@
     class="flex justify-center items-center w-screen h-screen text-white"
   >
     <div
-      class="grid lg:grid-cols-4 gap-8 bg-black bg-opacity-75 p-16 rounded-lg"
+      class="container grid lg:grid-cols-4 gap-8 border-2 bg-black bg-opacity-75 p-16 rounded-lg"
     >
-      <section class="lg:col-span-1">
+      <section class="lg:col-span-1 flex items-center">
         <the-tabs @change-tab="changeTab" />
       </section>
 
@@ -33,7 +33,7 @@ export default defineComponent({
     TheRegistration,
     TheRequirements,
     TheTabs,
-    TheTest
+    TheTest,
   },
 
   setup() {
@@ -45,8 +45,16 @@ export default defineComponent({
 
     return {
       changeTab,
-      currentTab
+      currentTab,
     };
-  }
+  },
 });
 </script>
+
+<style scoped>
+.container {
+  max-width: 80%;
+  min-height: 75%;
+  border-color: #1676eb;
+}
+</style>

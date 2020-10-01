@@ -3,7 +3,7 @@
     <li v-for="(tab, idx) in tabs" :key="idx">
       <button
         @click="onButtonClick(tab.name)"
-        class="py-2 px-4 w-full my-2 text-lg bg-orange-900 rounded truncate"
+        class="py-2 px-4 w-full my-2 text-lg rounded truncate bg-primary"
       >
         {{ tab.label }}
       </button>
@@ -23,7 +23,7 @@ export default defineComponent({
       { name: "TheRequirements", label: "Req." },
       { name: "TheTest", label: "Initial Test" },
       { name: "TheRegistration", label: "Registration" },
-      { name: "TheContact", label: "Contact" }
+      { name: "TheContact", label: "Contact" },
     ];
 
     function onButtonClick(tabName: string) {
@@ -32,8 +32,14 @@ export default defineComponent({
 
     return {
       onButtonClick,
-      tabs
+      tabs,
     };
-  }
+  },
 });
 </script>
+
+<style scoped>
+button:hover {
+  background-color: #228dfd;
+}
+</style>
