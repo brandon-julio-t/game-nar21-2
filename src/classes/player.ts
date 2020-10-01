@@ -6,10 +6,17 @@ import { playAudio } from "./core/utilities";
 export default class Player extends Entity {
   public static readonly SIZE = 50;
 
+  private readonly HIT_SPRITE: HTMLImageElement;
+  private readonly HIT_SPRITE_COLS: number = 4;
+  private readonly HIT_SPRITE_ROWS: number = 4;
+
   protected readonly FREQUENCY: number = 50;
 
   public readonly HITBOX_SIZE = Player.SIZE / 4;
 
+  private hitSpriteColIdx: number = 0;
+  private hitSpriteRowIdx: number = 0;
+  private isPlayingHitAnimation: boolean = false;
   private nextTimeToAttack: number = Date.now();
 
   protected blinkingTimeoutId: number | null = null;
@@ -35,6 +42,8 @@ export default class Player extends Entity {
       Player.SIZE,
       velocity
     );
+
+    this.HIT_SPRITE = store.assets.playerHitSprite;
   }
 
   protected get velocity(): number {
@@ -52,8 +61,10 @@ export default class Player extends Entity {
       playAudio(
         this.isDead
           ? store.assets.playerExplodeAudio
-          : store.assets.playerGetHitAudio
+          : store.assets.playerHitAudio
       );
+
+      this.isPlayingHitAnimation = true;
     }
 
     this.isInvulnerable = true;
@@ -142,6 +153,39 @@ export default class Player extends Entity {
         this.HITBOX_SIZE * 2
       );
       ctx.fill();
+    }
+
+    if (this.isPlayingHitAnimation) {
+      console.log("drawing");
+      const width = this.HIT_SPRITE.naturalWidth / this.HIT_SPRITE_COLS;
+      const height = this.HIT_SPRITE.naturalHeight / this.HIT_SPRITE_ROWS;
+
+      const scaledWidth = (width * 25) / 100;
+      const scaledHeight = (height * 25) / 100;
+
+      ctx.drawImage(
+        this.HIT_SPRITE,
+        this.hitSpriteColIdx * width,
+        this.hitSpriteRowIdx * height,
+        width,
+        height,
+        this.position.x - scaledWidth / 2,
+        this.position.y - scaledHeight / 2,
+        scaledWidth,
+        scaledHeight
+      );
+
+      this.hitSpriteColIdx++;
+
+      if (this.hitSpriteColIdx >= this.HIT_SPRITE_COLS) {
+        this.hitSpriteColIdx = 0;
+        this.hitSpriteRowIdx++;
+      }
+
+      if (this.hitSpriteRowIdx >= this.HIT_SPRITE_ROWS) {
+        this.hitSpriteRowIdx = 0;
+        this.isPlayingHitAnimation = false;
+      }
     }
   }
 

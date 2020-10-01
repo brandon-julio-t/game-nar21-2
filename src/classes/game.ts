@@ -124,7 +124,7 @@ export default class Game {
         );
 
         this.handleBullets();
-        this.handleMeteor();
+        // this.handleMeteor();
         this.handleMiniEnemy();
         this.handlePlayerAndEnemy();
       }
@@ -188,7 +188,7 @@ export default class Game {
 
       entity.move();
       entity.drawSelfAndHealthBar(ctx);
-      entity.shoot();
+      if (!(entity instanceof Enemy)) entity.shoot();
     });
   }
 

@@ -21,6 +21,7 @@ const {
   loadPlayerBullet,
   loadPlayerExplodeAudio,
   loadPlayerGetHitAudio,
+  loadPlayerHitSprite,
   loadReversedEnemy,
   loadShootingAudio
 } = AssetsLoaders;
@@ -44,7 +45,8 @@ const initialState: Store = {
     player: loadPlayer(),
     playerBullet: loadPlayerBullet(),
     playerExplodeAudio: loadPlayerExplodeAudio(),
-    playerGetHitAudio: loadPlayerGetHitAudio(),
+    playerHitAudio: loadPlayerGetHitAudio(),
+    playerHitSprite: loadPlayerHitSprite(),
     reversedEnemy: loadReversedEnemy(),
     shootingAudio: loadShootingAudio()
   },
