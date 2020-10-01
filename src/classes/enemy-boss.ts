@@ -1,52 +1,42 @@
+import Enemy from "./abstracts/enemy";
 import EnemyBulletCircle from "./enemy-bullet-circle";
-import Entity from "./abstracts/entity";
 import store from "@/store";
-import { playAudio, randomIntegerBetween } from "./core/utilities";
+import { randomIntegerBetween } from "./core/utilities";
 
-export default class Enemy extends Entity {
+export default class EnemyBoss extends Enemy {
   public constructor(health: number, velocity: number) {
     super(
       innerWidth / 2 - store.assets.enemy.naturalWidth / 2,
-      store.assets.enemy.naturalHeight,
+      store.assets.enemy.naturalHeight * 0.7,
       health,
       store.assets.enemy,
-      store.assets.enemy.naturalHeight / 4,
-      store.assets.enemy.naturalHeight,
-      store.assets.enemy.naturalWidth,
+      20,
+      store.assets.enemy.naturalHeight * 0.7,
+      store.assets.enemy.naturalWidth * 0.7,
       velocity
     );
   }
 
-  public reduceHealth(points: number): void {
-    super.reduceHealth(points);
-    if (this.isDead) {
-      playAudio(store.assets.enemyExplodeAudio);
-    }
-  }
-
   public move(): void {
     const { x } = this.position;
-    const { enemy, reversedEnemy } = store.assets;
 
     if (x + this.sprite.naturalWidth >= innerWidth || x <= 0) {
       this._velocity *= -1;
     }
 
-    this.sprite = this.velocity < 0 ? reversedEnemy : enemy;
     this.position.x += this.velocity;
   }
 
   protected drawSelf(ctx: CanvasRenderingContext2D): void {
     const { x, y } = this.position;
-    const { naturalHeight, naturalWidth } = this.sprite;
 
     ctx.fillStyle = store.color;
     ctx.drawImage(
       this.sprite,
       x - this.WIDTH / 2,
-      y - (this.HEIGHT / 2 + this.healthBarHeight),
-      naturalWidth,
-      naturalHeight
+      y - this.HEIGHT / 2,
+      this.WIDTH,
+      this.HEIGHT
     );
   }
 
@@ -55,7 +45,7 @@ export default class Enemy extends Entity {
     ctx.fillRect(
       this.position.x - this.WIDTH / 2,
       0,
-      this.sprite.naturalWidth * (this.currentHealth / this.maxHealth),
+      this.WIDTH * (this.currentHealth / this.maxHealth),
       this.healthBarHeight
     );
 
@@ -63,7 +53,7 @@ export default class Enemy extends Entity {
     ctx.strokeRect(
       this.position.x - this.WIDTH / 2,
       0,
-      this.sprite.naturalWidth * (this.currentHealth / this.maxHealth),
+      this.WIDTH * (this.currentHealth / this.maxHealth),
       this.healthBarHeight
     );
   }
@@ -71,9 +61,7 @@ export default class Enemy extends Entity {
   public shoot(): void {
     const { x, y } = this.position;
     const ySpawn =
-      y +
-      this.healthBarHeight +
-      randomIntegerBetween(0, this.sprite.naturalHeight);
+      y + this.healthBarHeight + randomIntegerBetween(0, this.HEIGHT);
 
     store.bullets.splice(
       0,

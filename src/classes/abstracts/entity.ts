@@ -1,9 +1,6 @@
 import Vector2 from "../core/vector2";
 import store from "@/store";
-import { playAudio } from "../core/utilities";
-import Player from "../player";
-import Enemy from "../enemy";
-import MiniEnemy from "../mini-enemy";
+import { playAudio } from '../core/utilities';
 
 export default abstract class Entity {
   private readonly EXPLODING_SPRITE_COLS: number = 8;
@@ -14,9 +11,11 @@ export default abstract class Entity {
 
   private explodingSpriteRowIdx: number = 0;
   private explodingSpriteColIdx: number = 0;
+  private explodingAudio: HTMLAudioElement;
 
   protected _velocity: number;
   protected healthBarHeight: number;
+  protected isPlayingExplodingAudio: boolean = false;
   protected maxHealth: number;
 
   public currentHealth: number;
@@ -33,7 +32,8 @@ export default abstract class Entity {
     healthBarHeight: number,
     height: number,
     width: number,
-    velocity: number
+    velocity: number,
+    explodingAudio: HTMLAudioElement
   ) {
     this.healthBarHeight = healthBarHeight;
     this.maxHealth = this.currentHealth = health;
@@ -43,6 +43,7 @@ export default abstract class Entity {
     this.HEIGHT = height;
     this.WIDTH = width;
     this._velocity = velocity;
+    this.explodingAudio = explodingAudio;
   }
 
   public get isDead(): boolean {
@@ -55,8 +56,10 @@ export default abstract class Entity {
 
   public reduceHealth(points: number): void {
     this.currentHealth -= points;
-    if (this.isDead) {
+    if (this.isDead && !this.isPlayingExplodingAudio) {
       store.enemiesKilledCount++;
+      playAudio(this.explodingAudio);
+      this.isPlayingExplodingAudio = true
     }
   }
 

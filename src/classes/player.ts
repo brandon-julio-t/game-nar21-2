@@ -4,15 +4,13 @@ import store from "@/store";
 import { playAudio } from "./core/utilities";
 
 export default class Player extends Entity {
-  public static readonly SIZE = 50;
-
   private readonly HIT_SPRITE: HTMLImageElement;
   private readonly HIT_SPRITE_COLS: number = 4;
   private readonly HIT_SPRITE_ROWS: number = 4;
 
   protected readonly FREQUENCY: number = 50;
 
-  public readonly HITBOX_SIZE = Player.SIZE / 4;
+  public readonly HITBOX_SIZE = 10;
 
   private hitSpriteColIdx: number = 0;
   private hitSpriteRowIdx: number = 0;
@@ -35,12 +33,11 @@ export default class Player extends Entity {
       y,
       health,
       store.assets.player,
-      (Player.SIZE * store.assets.player.naturalHeight) /
-        store.assets.player.naturalWidth /
-        8,
-      Player.SIZE,
-      Player.SIZE,
-      velocity
+      10,
+      store.assets.player.naturalHeight * 0.5,
+      store.assets.player.naturalWidth * 0.5,
+      velocity,
+      store.assets.playerExplodeAudio
     );
 
     this.HIT_SPRITE = store.assets.playerHitSprite;
@@ -58,11 +55,9 @@ export default class Player extends Entity {
     if (!this.isInvulnerable) {
       super.reduceHealth(points);
 
-      playAudio(
-        this.isDead
-          ? store.assets.playerExplodeAudio
-          : store.assets.playerHitAudio
-      );
+      if (!this.isDead) {
+        playAudio(store.assets.playerHitAudio);
+      }
 
       this.isPlayingHitAnimation = true;
     }
@@ -88,7 +83,7 @@ export default class Player extends Entity {
     }
 
     const afterMoveLeft = this.position.x - this.velocity;
-    if (afterMoveLeft >= Player.SIZE) {
+    if (afterMoveLeft >= this.WIDTH / 2) {
       this.position.x = afterMoveLeft;
     }
   }
@@ -99,7 +94,7 @@ export default class Player extends Entity {
     }
 
     const afterMoveRight = this.position.x + this.velocity;
-    if (afterMoveRight <= innerWidth - Player.SIZE) {
+    if (afterMoveRight <= innerWidth - this.WIDTH / 2) {
       this.position.x = afterMoveRight;
     }
   }
@@ -110,7 +105,7 @@ export default class Player extends Entity {
     }
 
     const afterMoveUp = this.position.y - this.velocity;
-    if (afterMoveUp >= Player.SIZE) {
+    if (afterMoveUp >= this.HEIGHT / 2) {
       this.position.y = afterMoveUp;
     }
   }
@@ -121,19 +116,17 @@ export default class Player extends Entity {
     }
 
     const afterMoveDown = this.position.y + this.velocity;
-    if (afterMoveDown <= innerHeight - Player.SIZE) {
+    if (afterMoveDown <= innerHeight - this.HEIGHT / 2) {
       this.position.y = afterMoveDown;
     }
   }
 
   protected drawSelf(ctx: CanvasRenderingContext2D): void {
+    const { WIDTH, HEIGHT } = this;
     const { x, y } = this.position;
-    const { naturalWidth, naturalHeight } = this.sprite;
-    const width = Player.SIZE * Math.round(naturalWidth / naturalHeight);
-    const height = Player.SIZE * Math.round(naturalHeight / naturalWidth);
 
     if (!this.isInvulnerable || Math.floor(Date.now() / this.FREQUENCY) % 2) {
-      ctx.drawImage(this.sprite, x - width / 2, y - height / 2, width, height);
+      ctx.drawImage(this.sprite, x - WIDTH / 2, y - HEIGHT / 2, WIDTH, HEIGHT);
     }
 
     if (this.blinkingTimeoutId === null) {
@@ -195,17 +188,17 @@ export default class Player extends Entity {
   protected drawHealthBar(ctx: CanvasRenderingContext2D): void {
     ctx.fillStyle = "red";
     ctx.fillRect(
-      this.position.x - Player.SIZE / 2,
-      this.position.y + Player.SIZE,
-      (Player.SIZE * this.currentHealth) / this.maxHealth,
+      this.position.x - this.WIDTH / 2,
+      this.position.y + this.HEIGHT / 2,
+      (this.WIDTH * this.currentHealth) / this.maxHealth,
       this.healthBarHeight
     );
 
     ctx.strokeStyle = "black";
     ctx.strokeRect(
-      this.position.x - Player.SIZE / 2,
-      this.position.y + Player.SIZE,
-      (Player.SIZE * this.currentHealth) / this.maxHealth,
+      this.position.x - this.WIDTH / 2,
+      this.position.y + this.HEIGHT / 2,
+      (this.WIDTH * this.currentHealth) / this.maxHealth,
       this.healthBarHeight
     );
   }
@@ -220,7 +213,6 @@ export default class Player extends Entity {
       const nY: number[] = [3, 2, 1, 0, 1, 2, 3];
       const len: number = nX.length;
 
-      const { naturalHeight, naturalWidth } = this.sprite;
       const { x, y } = this.position;
 
       for (let i = 0; i < len; i++) {
@@ -230,10 +222,7 @@ export default class Player extends Entity {
         store.bullets.splice(
           0,
           0,
-          new PlayerBullet(
-            x + xOffset,
-            y + yOffset - (Player.SIZE * naturalWidth) / naturalHeight
-          )
+          new PlayerBullet(x + xOffset, y + yOffset - this.WIDTH)
         );
       }
 

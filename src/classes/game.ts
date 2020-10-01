@@ -1,4 +1,4 @@
-import Enemy from "./enemy";
+import EnemyBoss from "./enemy-boss";
 import Entity from "./abstracts/entity";
 import InputSystem from "./core/input-system";
 import Meteor from "./meteor";
@@ -8,14 +8,14 @@ import store from "@/store";
 import { getContext } from "./core/utilities";
 import CanvasesGroup from "./interfaces/canvases-group";
 import ContextsGroup from "./interfaces/contexts-group";
-import MiniEnemy from "./mini-enemy";
+import EnemyMini from "./enemy-mini";
 
 export default class Game {
   private static readonly FPS: number = 60;
   private static readonly MINI_ENEMY_SPAWN_TIME = 3000; // 1 enemy per 3 seconds
 
   private static contextsGroup: ContextsGroup;
-  private static enemy: Enemy;
+  private static enemy: EnemyBoss;
   private static meteor: Meteor;
   private static nextTimeToSpawnMiniEnemy: number = Date.now();
   private static player: Player;
@@ -76,10 +76,10 @@ export default class Game {
     canvas.height = innerHeight;
   }
 
-  private static prepareEnemy(): Enemy {
+  private static prepareEnemy(): EnemyBoss {
     const health: number = 1500;
     const velocity: number = 2;
-    return new Enemy(health, velocity);
+    return new EnemyBoss(health, velocity);
   }
 
   private static preparePlayer(): Player {
@@ -166,7 +166,7 @@ export default class Game {
       Date.now() >= this.nextTimeToSpawnMiniEnemy &&
       store.miniEnemies.length < 7
     ) {
-      store.miniEnemies.push(new MiniEnemy());
+      store.miniEnemies.push(new EnemyMini());
       this.nextTimeToSpawnMiniEnemy = Date.now() + this.MINI_ENEMY_SPAWN_TIME;
     }
 

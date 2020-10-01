@@ -1,5 +1,5 @@
+import Enemy from "./abstracts/enemy";
 import EnemyBulletLaser from "./enemy-bullet-laser";
-import Entity from "./abstracts/entity";
 import store from "@/store";
 import {
   playAudio,
@@ -7,7 +7,7 @@ import {
   randomMiniEnemySprite
 } from "./core/utilities";
 
-export default class MiniEnemy extends Entity {
+export default class EnemyMini extends Enemy {
   private static readonly SIZE: number = 50;
 
   private moveTimeoutId: number | null = null;
@@ -16,21 +16,14 @@ export default class MiniEnemy extends Entity {
   public constructor() {
     super(
       randomIntegerBetween(0, innerWidth),
-      -MiniEnemy.SIZE,
+      -EnemyMini.SIZE,
       1,
       randomMiniEnemySprite(),
       0,
-      MiniEnemy.SIZE,
-      MiniEnemy.SIZE,
+      EnemyMini.SIZE,
+      EnemyMini.SIZE,
       randomIntegerBetween(1, 3)
     );
-  }
-
-  public reduceHealth(points: number): void {
-    super.reduceHealth(points);
-    if (this.isDead) {
-      playAudio(store.assets.enemyMiniExplodeAudio);
-    }
   }
 
   protected drawSelf(ctx: CanvasRenderingContext2D): void {

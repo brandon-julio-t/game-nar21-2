@@ -1,7 +1,7 @@
 import Bullet from "./abstracts/bullet";
-import Enemy from "./enemy";
+import EnemyBoss from "./enemy-boss";
 import store from "@/store";
-import MiniEnemy from "./mini-enemy";
+import EnemyMini from "./enemy-mini";
 import Entity from "./abstracts/entity";
 
 export default class PlayerBullet extends Bullet {
@@ -23,8 +23,8 @@ export default class PlayerBullet extends Bullet {
   }
 
   public checkCollision(): void {
-    const enemy: Enemy = store.enemy as Enemy;
-    const miniEnemies: MiniEnemy[] = store.miniEnemies as MiniEnemy[];
+    const enemy: EnemyBoss = store.enemy as EnemyBoss;
+    const miniEnemies: EnemyMini[] = store.miniEnemies as EnemyMini[];
 
     if (enemy !== null && miniEnemies !== null) {
       [enemy, ...miniEnemies].forEach(e => {

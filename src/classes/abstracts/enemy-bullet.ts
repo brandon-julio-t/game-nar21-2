@@ -18,9 +18,10 @@ export default abstract class EnemyBullet extends Bullet {
   public checkCollision(): void {
     const player: Player = store.player as Player;
     if (player !== null) {
-      const { x: left, y: top } = this.position;
-      const right: number = left + this.WIDTH;
-      const bottom: number = top + this.HEIGHT;
+      const { x, y } = this.position;
+
+      const xMid = x - this.WIDTH / 2;
+      const yMid = y - this.HEIGHT / 2;
 
       const xMin: number = player.position.x - player.HITBOX_SIZE;
       const yMin: number = player.position.y - player.HITBOX_SIZE;
@@ -28,7 +29,7 @@ export default abstract class EnemyBullet extends Bullet {
       const yMax: number = player.position.y + player.HITBOX_SIZE;
 
       const hasCollision: boolean =
-        left >= xMin && right <= xMax && top >= yMin && bottom <= yMax;
+        xMid >= xMin && xMid <= xMax && yMid >= yMin && yMid <= yMax;
 
       if (hasCollision) {
         this.isEnded = true;

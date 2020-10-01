@@ -1,14 +1,14 @@
 import EnemyBullet from "./abstracts/enemy-bullet";
-import MiniEnemy from "./mini-enemy";
+import EnemyMini from "./enemy-mini";
 import Player from "./player";
 import store from "@/store";
 import { radianToVector, vectorToRadian } from "./core/utilities";
 
 export default class EnemyBulletLaser extends EnemyBullet {
-  private readonly SHOOTER: MiniEnemy;
+  private readonly SHOOTER: EnemyMini;
   private readonly ANGLE: number = 0;
 
-  public constructor(x: number, y: number, shooter: MiniEnemy) {
+  public constructor(x: number, y: number, shooter: EnemyMini) {
     super(
       x,
       y,

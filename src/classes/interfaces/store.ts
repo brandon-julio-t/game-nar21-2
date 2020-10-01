@@ -1,18 +1,18 @@
 import Assets from './assets';
 import Bullet from '../abstracts/bullet';
-import Enemy from '../enemy';
+import EnemyBoss from '../enemy-boss';
 import Player from '../player';
-import MiniEnemy from '../mini-enemy';
+import EnemyMini from '../enemy-mini';
 
 export default interface Store {
   assets: Assets;
   bullets: Bullet[];
   color: string;
   enemiesKilledCount: number;
-  enemy: Enemy | null;
+  enemy: EnemyBoss | null;
   isGaming: boolean;
   loadedAssetsCount: number;
-  miniEnemies: MiniEnemy[];
+  miniEnemies: EnemyMini[];
   player: Player | null;
   useKeyboard: boolean;
 }
