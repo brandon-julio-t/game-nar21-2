@@ -41,10 +41,10 @@ export default class PlayerBullet extends Bullet {
     const { HEIGHT, WIDTH } = entity;
     return (
       entity !== null &&
-      this.position.x >= entity.position.x &&
-      this.position.y >= entity.position.y &&
-      this.position.x <= entity.position.x + WIDTH &&
-      this.position.y <= entity.position.y + HEIGHT
+      this.position.x >= entity.position.x - WIDTH / 2 &&
+      this.position.y >= entity.position.y - HEIGHT / 2 &&
+      this.position.x <= entity.position.x + WIDTH / 2 &&
+      this.position.y <= entity.position.y + HEIGHT / 2
     );
   }
 }

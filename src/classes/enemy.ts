@@ -7,7 +7,7 @@ export default class Enemy extends Entity {
   public constructor(health: number, velocity: number) {
     super(
       innerWidth / 2 - store.assets.enemy.naturalWidth / 2,
-      0,
+      store.assets.enemy.naturalHeight,
       health,
       store.assets.enemy,
       store.assets.enemy.naturalHeight / 4,
@@ -43,8 +43,8 @@ export default class Enemy extends Entity {
     ctx.fillStyle = store.color;
     ctx.drawImage(
       this.sprite,
-      x,
-      y + this.healthBarHeight,
+      x - this.WIDTH / 2,
+      y - (this.HEIGHT / 2 + this.healthBarHeight),
       naturalWidth,
       naturalHeight
     );
@@ -53,7 +53,7 @@ export default class Enemy extends Entity {
   protected drawHealthBar(ctx: CanvasRenderingContext2D): void {
     ctx.fillStyle = "red";
     ctx.fillRect(
-      this.position.x,
+      this.position.x - this.WIDTH / 2,
       0,
       this.sprite.naturalWidth * (this.currentHealth / this.maxHealth),
       this.healthBarHeight
@@ -61,7 +61,7 @@ export default class Enemy extends Entity {
 
     ctx.strokeStyle = "black";
     ctx.strokeRect(
-      this.position.x,
+      this.position.x - this.WIDTH / 2,
       0,
       this.sprite.naturalWidth * (this.currentHealth / this.maxHealth),
       this.healthBarHeight
@@ -79,7 +79,7 @@ export default class Enemy extends Entity {
       0,
       0,
       new EnemyBulletCircle(
-        randomIntegerBetween(x, x + this.sprite.naturalWidth),
+        randomIntegerBetween(x - this.WIDTH / 2, x + this.WIDTH / 2),
         ySpawn
       )
     );
