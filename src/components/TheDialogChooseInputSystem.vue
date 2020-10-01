@@ -8,9 +8,11 @@
 
         <div class="grid grid-cols-2 gap-8">
           <the-button-light @click="playWithKeyboard()">
+            <icon-keyboard class="w-full text-6xl" />
             Keyboard
           </the-button-light>
           <the-button-light @click="playWithMouse()">
+            <icon-mouse class="w-full text-6xl" />
             Mouse
           </the-button-light>
         </div>
@@ -19,19 +21,7 @@
           @click="$emit('close-dialog')"
           class="absolute top-0 right-0 p-4"
         >
-          <svg
-            width="1em"
-            height="1em"
-            viewBox="0 0 16 16"
-            class="bi bi-x w-8 h-8"
-            fill="currentColor"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"
-            />
-          </svg>
+          <icon-x />
         </button>
       </div>
     </div>
@@ -41,12 +31,15 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 
-import TheButtonLight from "./TheButtonLight.vue";
+import IconKeyboard from "@/components/icons/IconKeyboard.vue";
+import IconMouse from "@/components/icons/IconMouse.vue";
+import IconX from "@/components/icons/IconX.vue";
 import InputSystem from "@/classes/core/input-system";
+import TheButtonLight from "./TheButtonLight.vue";
 import store from "@/store";
 
 export default defineComponent({
-  components: { TheButtonLight },
+  components: { IconKeyboard, IconMouse, IconX, TheButtonLight },
 
   emits: ["play-game", "close-dialog"],
 
