@@ -1,6 +1,4 @@
 <template>
-  <h1 class="text-4xl text-center">Benefits</h1>
-  <h2 class="text-2xl mb-2">Hard Skill</h2>
   <div>
     <div class="grid grid-cols-5">
       <div v-for="(hardSkill, idx) in hardSkills" :key="idx">
@@ -8,7 +6,6 @@
         <!-- <h3 class="mt-2 text-center">{{ hardSkill.name }}</h3> -->
       </div>
     </div>
-  </div>
 
   <h2 class="text-2xl mt-6 mb-2">Soft Skill</h2>
   <div>
@@ -18,9 +15,9 @@
         <!-- <h3 class="mt-2 text-center">{{ softSkill.name }}</h3> -->
       </div>
     </div>
-  </div>
 
-  <h2 class="text-2xl mt-6">Job Experiences</h2>
+    <h2 class="text-2xl mt-6">Job Experiences</h2>
+  </div>
 </template>
 
 <script lang="ts">

@@ -9,7 +9,7 @@
         <the-tabs @change-tab="changeTab" />
       </section>
 
-      <section class="lg:col-span-3">
+      <section class="lg:col-span-3 flex items-center justify-center">
         <component :is="currentTab"></component>
       </section>
     </div>
