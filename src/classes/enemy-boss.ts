@@ -4,18 +4,20 @@ import store from "@/store";
 import { randomIntegerBetween } from "./core/utilities";
 
 export default class EnemyBoss extends Enemy {
-  private static readonly HEALTH: number = 1500;
+  private static readonly HEALTH: number = 1;
+  private static readonly HEALTH_BAR_HEIGHT: number = 20;
+  private static readonly SCALE_DOWN_RATIO: number = 0.7;
   private static readonly VELOCITY: number = 2;
 
   public constructor() {
     super(
       innerWidth / 2 - store.assets.enemy.naturalWidth / 2,
-      store.assets.enemy.naturalHeight * 0.7,
+      store.assets.enemy.naturalHeight * EnemyBoss.SCALE_DOWN_RATIO,
       EnemyBoss.HEALTH,
       store.assets.enemy,
-      20,
-      store.assets.enemy.naturalHeight * 0.7,
-      store.assets.enemy.naturalWidth * 0.7,
+      EnemyBoss.HEALTH_BAR_HEIGHT,
+      store.assets.enemy.naturalHeight * EnemyBoss.SCALE_DOWN_RATIO,
+      store.assets.enemy.naturalWidth * EnemyBoss.SCALE_DOWN_RATIO,
       EnemyBoss.VELOCITY
     );
   }
@@ -44,21 +46,16 @@ export default class EnemyBoss extends Enemy {
   }
 
   protected drawHealthBar(ctx: CanvasRenderingContext2D): void {
+    const x = this.position.x - this.WIDTH / 2;
+    const y = 0;
+    const w = this.WIDTH * (this.currentHealth / this.maxHealth);
+    const h = this.healthBarHeight;
+
     ctx.fillStyle = "red";
-    ctx.fillRect(
-      this.position.x - this.WIDTH / 2,
-      0,
-      this.WIDTH * (this.currentHealth / this.maxHealth),
-      this.healthBarHeight
-    );
+    ctx.fillRect(x, y, w, h);
 
     ctx.strokeStyle = "black";
-    ctx.strokeRect(
-      this.position.x - this.WIDTH / 2,
-      0,
-      this.WIDTH * (this.currentHealth / this.maxHealth),
-      this.healthBarHeight
-    );
+    ctx.strokeRect(x, y, w, h);
   }
 
   public shoot(): void {

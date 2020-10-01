@@ -25,6 +25,14 @@ export default abstract class Enemy extends Entity {
     );
   }
 
+  public reduceHealth(points: number): void {
+    super.reduceHealth(points);
+
+    if (this.isDead) {
+      store.enemiesKilledCount++;
+    }
+  }
+
   public stopMoving(): void {
     this._velocity = 0;
   }

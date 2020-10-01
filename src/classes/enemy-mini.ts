@@ -46,11 +46,7 @@ export default class EnemyMini extends Enemy {
   public shoot(): void {
     if (Date.now() >= this.nextTimeToShoot && !this.isDead) {
       const { x, y } = this.position;
-      store.bullets.splice(
-        0,
-        0,
-        new EnemyBulletLaser(x, y + this.HEIGHT, this)
-      );
+      store.bullets.splice(0, 0, new EnemyBulletLaser(x, y + this.HEIGHT));
 
       this.nextTimeToShoot = Date.now() + 1000;
     }

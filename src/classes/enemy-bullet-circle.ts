@@ -1,18 +1,27 @@
-import EnemyBullet from './abstracts/enemy-bullet';
+import EnemyBullet from "./abstracts/enemy-bullet";
 import store from "@/store";
 import { degreeToRadian, randomIntegerBetween } from "./core/utilities";
+import Vector2 from "./core/vector2";
 
 export default class EnemyBulletCircle extends EnemyBullet {
+  private static readonly VELOCITY: Vector2 = new Vector2(
+    randomIntegerBetween(-7, 7),
+    randomIntegerBetween(3, 7)
+  );
+
+  private static readonly WIDTH: number = 15;
+  private static readonly HEIGHT: number = 15;
+
   private rotationDegree: number = 0;
 
   public constructor(x: number, y: number) {
     super(
       x,
       y,
-      randomIntegerBetween(-7, 7),
-      randomIntegerBetween(3, 7),
-      15,
-      15,
+      EnemyBulletCircle.VELOCITY.x,
+      EnemyBulletCircle.VELOCITY.y,
+      EnemyBulletCircle.HEIGHT,
+      EnemyBulletCircle.WIDTH,
       store.assets.enemyBulletCircle
     );
   }

@@ -4,14 +4,17 @@ import store from "@/store";
 import { playAudio } from "./core/utilities";
 
 export default class Player extends Entity {
+  private static readonly SCALE_DOWN_RATIO: number = 0.5;
   private static readonly HEALTH: number = 12;
+  private static readonly HEALTH_BAR_HEIGTH: number = 10;
+  private static readonly SLOW_DOWN_RATIO: number = 0.5;
   private static readonly VELOCITY: number = 10;
 
   private readonly HIT_SPRITE: HTMLImageElement;
   private readonly HIT_SPRITE_COLS: number = 4;
   private readonly HIT_SPRITE_ROWS: number = 4;
 
-  protected readonly FREQUENCY: number = 50;
+  protected readonly BLINKING_FREQUENCY: number = 50;
 
   public readonly HITBOX_SIZE = 10;
 
@@ -36,9 +39,9 @@ export default class Player extends Entity {
       y,
       Player.HEALTH,
       store.assets.player,
-      10,
-      store.assets.player.naturalHeight * 0.5,
-      store.assets.player.naturalWidth * 0.5,
+      Player.HEALTH_BAR_HEIGTH,
+      store.assets.player.naturalHeight * Player.SCALE_DOWN_RATIO,
+      store.assets.player.naturalWidth * Player.SCALE_DOWN_RATIO,
       Player.VELOCITY,
       store.assets.playerExplodeAudio
     );
@@ -47,7 +50,7 @@ export default class Player extends Entity {
   }
 
   protected get velocity(): number {
-    return this._velocity / (this.isSlowingDown ? 1.75 : 1);
+    return this._velocity * (this.isSlowingDown ? Player.SLOW_DOWN_RATIO : 1);
   }
 
   public stopMoving(): void {
@@ -128,7 +131,10 @@ export default class Player extends Entity {
     const { WIDTH, HEIGHT } = this;
     const { x, y } = this.position;
 
-    if (!this.isInvulnerable || Math.floor(Date.now() / this.FREQUENCY) % 2) {
+    if (
+      !this.isInvulnerable ||
+      Math.floor(Date.now() / this.BLINKING_FREQUENCY) % 2
+    ) {
       ctx.drawImage(this.sprite, x - WIDTH / 2, y - HEIGHT / 2, WIDTH, HEIGHT);
     }
 
@@ -140,15 +146,7 @@ export default class Player extends Entity {
     }
 
     if (process.env.NODE_ENV === "development") {
-      ctx.fillStyle = "red";
-      ctx.beginPath();
-      ctx.rect(
-        x - this.HITBOX_SIZE,
-        y - this.HITBOX_SIZE,
-        this.HITBOX_SIZE * 2,
-        this.HITBOX_SIZE * 2
-      );
-      ctx.fill();
+      this.drawHitBox(ctx);
     }
 
     if (this.isPlayingHitAnimation) {
@@ -156,12 +154,25 @@ export default class Player extends Entity {
     }
   }
 
-  private drawHitAnimation(ctx: CanvasRenderingContext2D): void {
-    const width = this.HIT_SPRITE.naturalWidth / this.HIT_SPRITE_COLS;
-    const height = this.HIT_SPRITE.naturalHeight / this.HIT_SPRITE_ROWS;
+  private drawHitBox(ctx: CanvasRenderingContext2D): void {
+    const { HITBOX_SIZE, position } = this;
+    const { x, y } = position;
 
-    const scaledWidth = (width * 25) / 100;
-    const scaledHeight = (height * 25) / 100;
+    const size: number = HITBOX_SIZE * 2;
+
+    ctx.fillStyle = "red";
+    ctx.beginPath();
+    ctx.rect(x - HITBOX_SIZE, y - HITBOX_SIZE, size, size);
+    ctx.fill();
+  }
+
+  private drawHitAnimation(ctx: CanvasRenderingContext2D): void {
+    const width: number = this.HIT_SPRITE.naturalWidth / this.HIT_SPRITE_COLS;
+    const height: number = this.HIT_SPRITE.naturalHeight / this.HIT_SPRITE_ROWS;
+
+    const scaleDownRatio: number = 0.5;
+    const scaledWidth: number = width * scaleDownRatio;
+    const scaledHeight: number = height * scaleDownRatio;
 
     ctx.drawImage(
       this.HIT_SPRITE,
@@ -189,21 +200,26 @@ export default class Player extends Entity {
   }
 
   protected drawHealthBar(ctx: CanvasRenderingContext2D): void {
+    const {
+      HEIGHT,
+      WIDTH,
+      currentHealth,
+      healthBarHeight,
+      maxHealth,
+      position
+    } = this;
+    const { x, y } = position;
+
+    const xPos: number = x - WIDTH / 2;
+    const yPos: number = y + HEIGHT / 2;
+    const width: number = (WIDTH * currentHealth) / maxHealth;
+    const height: number = healthBarHeight;
+
     ctx.fillStyle = "red";
-    ctx.fillRect(
-      this.position.x - this.WIDTH / 2,
-      this.position.y + this.HEIGHT / 2,
-      (this.WIDTH * this.currentHealth) / this.maxHealth,
-      this.healthBarHeight
-    );
+    ctx.fillRect(xPos, yPos, width, height);
 
     ctx.strokeStyle = "black";
-    ctx.strokeRect(
-      this.position.x - this.WIDTH / 2,
-      this.position.y + this.HEIGHT / 2,
-      (this.WIDTH * this.currentHealth) / this.maxHealth,
-      this.healthBarHeight
-    );
+    ctx.strokeRect(xPos, yPos, width, height);
   }
 
   public shoot(): void {
@@ -214,13 +230,15 @@ export default class Player extends Entity {
     ) {
       const nX: number[] = [-3, -2, -1, 0, 1, 2, 3];
       const nY: number[] = [3, 2, 1, 0, 1, 2, 3];
+
       const len: number = nX.length;
+      const nMultiplier: number = 10;
 
       const { x, y } = this.position;
 
       for (let i = 0; i < len; i++) {
-        const xOffset: number = nX[i] * 10;
-        const yOffset: number = nY[i] * 10;
+        const xOffset: number = nX[i] * nMultiplier;
+        const yOffset: number = nY[i] * nMultiplier;
 
         store.bullets.splice(
           0,

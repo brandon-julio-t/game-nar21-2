@@ -1,16 +1,19 @@
 import Bullet from "./abstracts/bullet";
 import EnemyBoss from "./enemy-boss";
-import store from "@/store";
 import EnemyMini from "./enemy-mini";
 import Entity from "./abstracts/entity";
+import Vector2 from "./core/vector2";
+import store from "@/store";
 
 export default class PlayerBullet extends Bullet {
+  private static readonly VELOCITY: Vector2 = new Vector2(0, -25);
+
   public constructor(x: number, y: number) {
     super(
       x,
       y,
-      0,
-      -25,
+      PlayerBullet.VELOCITY.x,
+      PlayerBullet.VELOCITY.y,
       store.assets.playerBullet.naturalHeight,
       store.assets.playerBullet.naturalWidth,
       store.assets.playerBullet
@@ -19,7 +22,7 @@ export default class PlayerBullet extends Bullet {
 
   public draw(ctx: CanvasRenderingContext2D): void {
     const { x, y } = this.position;
-    ctx.drawImage(this.SPRITE, x - this.SPRITE.naturalWidth / 2, y);
+    ctx.drawImage(this.SPRITE, x - this.WIDTH / 2, y);
   }
 
   public checkCollision(): void {

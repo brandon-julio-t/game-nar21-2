@@ -56,5 +56,7 @@ export function vectorToRadian(vector: Vector2) {
 }
 
 export function radianToVector(angle: number) {
-  return { x: Math.cos(angle), y: Math.sin(angle) };
+  const x = Math.cos(angle);
+  const y = Math.sin(angle);
+  return { x, y };
 }

@@ -5,10 +5,9 @@ import store from "@/store";
 import { radianToVector, vectorToRadian } from "./core/utilities";
 
 export default class EnemyBulletLaser extends EnemyBullet {
-  private readonly SHOOTER: EnemyMini;
   private readonly ANGLE: number = 0;
 
-  public constructor(x: number, y: number, shooter: EnemyMini) {
+  public constructor(x: number, y: number) {
     super(
       x,
       y,
@@ -18,9 +17,6 @@ export default class EnemyBulletLaser extends EnemyBullet {
       store.assets.enemyBulletLaser.naturalWidth,
       store.assets.enemyBulletLaser
     );
-
-    this.SHOOTER = shooter;
-
     const { player } = store;
     if (player !== null) {
       this.VELOCITY.x = (player.position.x - this.position.x) * 0.01;

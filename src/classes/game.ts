@@ -113,6 +113,7 @@ export default class Game {
 
       const now: number = Date.now();
       const delta: number = now - lastFrameTime;
+
       if (delta > FPSInterval) {
         if (this.enemy.isDead || this.player.isDead) {
           this.gameOver();
@@ -174,10 +175,10 @@ export default class Game {
   }
 
   private static handleMiniEnemy(): void {
-    if (
-      Date.now() >= this.nextTimeToSpawnMiniEnemy &&
-      store.miniEnemies.length < 7
-    ) {
+    const timeToSpawn = Date.now() >= this.nextTimeToSpawnMiniEnemy;
+    const spawnedEnemiesAreLessThanSeven = store.miniEnemies.length < 7;
+
+    if (spawnedEnemiesAreLessThanSeven && timeToSpawn) {
       store.miniEnemies.push(new EnemyMini());
       this.nextTimeToSpawnMiniEnemy = Date.now() + this.MINI_ENEMY_SPAWN_TIME;
     }

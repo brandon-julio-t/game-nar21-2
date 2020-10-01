@@ -1,6 +1,7 @@
 import Vector2 from "../core/vector2";
 import store from "@/store";
 import { playAudio } from "../core/utilities";
+import Player from "../player";
 
 export default abstract class Entity {
   private readonly EXPLODING_SPRITE_COLS: number = 8;
@@ -56,8 +57,8 @@ export default abstract class Entity {
 
   public reduceHealth(points: number): void {
     this.currentHealth -= points;
+
     if (this.isDead && !this.isPlayingExplodingAudio) {
-      store.enemiesKilledCount++;
       playAudio(this.explodingAudio);
       this.isPlayingExplodingAudio = true;
     }
@@ -78,7 +79,12 @@ export default abstract class Entity {
     const spriteHeight: number = naturalHeight / this.EXPLODING_SPRITE_ROWS;
     const spriteWidth: number = naturalWidth / this.EXPLODING_SPRITE_COLS;
 
-    const { x, y } = this.position;
+    const { WIDTH, position } = this;
+    const { x, y } = position;
+
+    const scaleDownRatio: number = 0.025;
+    const scaledHeight: number = spriteHeight * WIDTH * scaleDownRatio;
+    const scaledWidth: number = spriteWidth * WIDTH * scaleDownRatio;
 
     ctx.drawImage(
       this.explodeSprite,
@@ -86,10 +92,10 @@ export default abstract class Entity {
       this.explodingSpriteRowIdx * spriteHeight,
       spriteWidth,
       spriteHeight,
-      x - spriteWidth / 2,
-      y - spriteHeight / 2,
-      spriteWidth,
-      spriteHeight
+      x - scaledWidth / 2,
+      y - scaledHeight / 2,
+      scaledWidth,
+      scaledHeight
     );
 
     this.explodingSpriteColIdx++;
