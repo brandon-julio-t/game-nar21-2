@@ -16,7 +16,7 @@ export default class MiniEnemy extends Entity {
   public constructor() {
     super(
       randomIntegerBetween(0, innerWidth),
-      0,
+      -MiniEnemy.SIZE,
       1,
       randomMiniEnemySprite(),
       0,
