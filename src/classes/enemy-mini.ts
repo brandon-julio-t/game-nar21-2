@@ -1,16 +1,11 @@
 import Enemy from "./abstracts/enemy";
 import EnemyBulletLaser from "./enemy-bullet-laser";
 import store from "@/store";
-import {
-  playAudio,
-  randomIntegerBetween,
-  randomMiniEnemySprite
-} from "./core/utilities";
+import { randomIntegerBetween, randomMiniEnemySprite } from "./core/utilities";
 
 export default class EnemyMini extends Enemy {
   private static readonly SIZE: number = 50;
 
-  private moveTimeoutId: number | null = null;
   private nextTimeToShoot: number = Date.now();
 
   public constructor() {
@@ -24,6 +19,8 @@ export default class EnemyMini extends Enemy {
       EnemyMini.SIZE,
       randomIntegerBetween(1, 3)
     );
+
+    setTimeout(() => this.stopMoving(), 3000);
   }
 
   protected drawSelf(ctx: CanvasRenderingContext2D): void {
@@ -44,13 +41,6 @@ export default class EnemyMini extends Enemy {
 
   public move(): void {
     this.position.y += this.velocity;
-
-    if (this.moveTimeoutId === null) {
-      this.moveTimeoutId = setTimeout(() => {
-        this._velocity = 0;
-        this.moveTimeoutId = null;
-      }, 3000);
-    }
   }
 
   public shoot(): void {
@@ -61,6 +51,7 @@ export default class EnemyMini extends Enemy {
         0,
         new EnemyBulletLaser(x, y + this.HEIGHT, this)
       );
+
       this.nextTimeToShoot = Date.now() + 1000;
     }
   }

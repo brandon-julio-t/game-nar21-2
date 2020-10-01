@@ -4,6 +4,9 @@ import store from "@/store";
 import { playAudio } from "./core/utilities";
 
 export default class Player extends Entity {
+  private static readonly HEALTH: number = 12;
+  private static readonly VELOCITY: number = 10;
+
   private readonly HIT_SPRITE: HTMLImageElement;
   private readonly HIT_SPRITE_COLS: number = 4;
   private readonly HIT_SPRITE_ROWS: number = 4;
@@ -27,16 +30,16 @@ export default class Player extends Entity {
   public isShooting: boolean = false;
   public isSlowingDown: boolean = false;
 
-  public constructor(x: number, y: number, velocity: number, health: number) {
+  public constructor(x: number, y: number) {
     super(
       x,
       y,
-      health,
+      Player.HEALTH,
       store.assets.player,
       10,
       store.assets.player.naturalHeight * 0.5,
       store.assets.player.naturalWidth * 0.5,
-      velocity,
+      Player.VELOCITY,
       store.assets.playerExplodeAudio
     );
 

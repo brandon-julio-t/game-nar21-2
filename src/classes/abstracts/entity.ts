@@ -1,6 +1,6 @@
 import Vector2 from "../core/vector2";
 import store from "@/store";
-import { playAudio } from '../core/utilities';
+import { playAudio } from "../core/utilities";
 
 export default abstract class Entity {
   private readonly EXPLODING_SPRITE_COLS: number = 8;
@@ -59,7 +59,7 @@ export default abstract class Entity {
     if (this.isDead && !this.isPlayingExplodingAudio) {
       store.enemiesKilledCount++;
       playAudio(this.explodingAudio);
-      this.isPlayingExplodingAudio = true
+      this.isPlayingExplodingAudio = true;
     }
   }
 
@@ -109,4 +109,5 @@ export default abstract class Entity {
 
   public abstract move(): void;
   public abstract shoot(): void;
+  public abstract stopMoving(): void;
 }

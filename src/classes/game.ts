@@ -50,14 +50,11 @@ export default class Game {
 
     backgroundImage.style.backgroundImage = `url("${store.assets.backgroundImage.src}")`;
 
-    this.enemy = store.enemy = this.prepareEnemy();
+    this.enemy = store.enemy = new EnemyBoss();
     this.meteor = new Meteor();
     this.player = store.player = this.preparePlayer();
 
-    store.assets.backgroundMusic.play();
-    store.assets.backgroundMusic.loop = true;
-    store.assets.backgroundMusic.volume =
-      process.env.NODE_ENV === "development" ? 0.1 : 1;
+    this.prepareBackgroundMusic();
 
     this.play();
   }
@@ -71,23 +68,36 @@ export default class Game {
     this.cleanUp();
   }
 
+  private static cleanUp(): void {
+    [store.bullets, store.miniEnemies].forEach(e => e.splice(0));
+
+    store.player = store.enemy = null;
+
+    store.assets.backgroundMusic.currentTime = 0;
+    store.assets.backgroundMusic.pause();
+
+    if (this.animationId !== null) {
+      cancelAnimationFrame(this.animationId);
+      this.animationId = null;
+    }
+  }
+
   private static prepareCanvas(canvas: HTMLCanvasElement): void {
     canvas.width = innerWidth;
     canvas.height = innerHeight;
   }
 
-  private static prepareEnemy(): EnemyBoss {
-    const health: number = 1500;
-    const velocity: number = 2;
-    return new EnemyBoss(health, velocity);
-  }
-
   private static preparePlayer(): Player {
-    const health: number = 12;
-    const velocity: number = 10;
     const x: number = innerWidth / 2;
     const y: number = (innerHeight * 3) / 4;
-    return new Player(x, y, velocity, health);
+    return new Player(x, y);
+  }
+
+  private static prepareBackgroundMusic(): void {
+    const { backgroundMusic } = store.assets;
+    backgroundMusic.play();
+    backgroundMusic.loop = true;
+    backgroundMusic.volume = process.env.NODE_ENV === "development" ? 0.1 : 1;
   }
 
   private static play(): void {
@@ -101,22 +111,13 @@ export default class Game {
         return;
       }
 
-      if (this.enemy.isDead || this.player.isDead) {
-        const entity: Entity = this.enemy.isDead ? this.enemy : this.player;
-
-        if (entity instanceof Player) {
-          InputSystem.disable();
-          entity.stopMoving();
-        }
-
-        if (entity.hasFinishedExploding) {
-          router.push("/about");
-        }
-      }
-
       const now: number = Date.now();
       const delta: number = now - lastFrameTime;
       if (delta > FPSInterval) {
+        if (this.enemy.isDead || this.player.isDead) {
+          this.gameOver();
+        }
+
         lastFrameTime = now - (delta % FPSInterval);
 
         Object.values(this.contextsGroup).forEach(ctx =>
@@ -131,6 +132,17 @@ export default class Game {
     };
 
     this.animationId = requestAnimationFrame(loop);
+  }
+
+  private static gameOver(): void {
+    const entity: Entity = this.enemy.isDead ? this.enemy : this.player;
+
+    InputSystem.disable();
+    entity.stopMoving();
+
+    if (entity.hasFinishedExploding) {
+      router.push("/about");
+    }
   }
 
   private static handleBullets(): void {
@@ -190,21 +202,5 @@ export default class Game {
       entity.drawSelfAndHealthBar(ctx);
       entity.shoot();
     });
-  }
-
-  private static cleanUp(): void {
-    store.bullets.splice(0);
-    store.miniEnemies.splice(0);
-
-    store.enemy = null;
-    store.player = null;
-
-    store.assets.backgroundMusic.currentTime = 0;
-    store.assets.backgroundMusic.pause();
-
-    if (this.animationId !== null) {
-      cancelAnimationFrame(this.animationId);
-      this.animationId = null;
-    }
   }
 }

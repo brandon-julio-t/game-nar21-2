@@ -24,4 +24,8 @@ export default abstract class Enemy extends Entity {
       store.assets.enemyExplodeAudio
     );
   }
+
+  public stopMoving(): void {
+    this._velocity = 0;
+  }
 }

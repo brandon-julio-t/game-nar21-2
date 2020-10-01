@@ -4,16 +4,19 @@ import store from "@/store";
 import { randomIntegerBetween } from "./core/utilities";
 
 export default class EnemyBoss extends Enemy {
-  public constructor(health: number, velocity: number) {
+  private static readonly HEALTH: number = 1500;
+  private static readonly VELOCITY: number = 2;
+
+  public constructor() {
     super(
       innerWidth / 2 - store.assets.enemy.naturalWidth / 2,
       store.assets.enemy.naturalHeight * 0.7,
-      health,
+      EnemyBoss.HEALTH,
       store.assets.enemy,
       20,
       store.assets.enemy.naturalHeight * 0.7,
       store.assets.enemy.naturalWidth * 0.7,
-      velocity
+      EnemyBoss.VELOCITY
     );
   }
 
