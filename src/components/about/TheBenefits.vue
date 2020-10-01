@@ -1,5 +1,8 @@
 <template>
   <div>
+    <h1 class="text-4xl text-center">Benefits</h1>
+
+    <h2 class="text-2xl mb-2">Hard Skill</h2>
     <div class="grid grid-cols-5">
       <div v-for="(hardSkill, idx) in hardSkills" :key="idx">
         <img :src="hardSkill.img" :alt="hardSkill.name" class="mx-auto w-1/2" />
