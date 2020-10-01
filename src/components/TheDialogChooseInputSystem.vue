@@ -15,7 +15,10 @@
           </the-button-light>
         </div>
 
-        <button @click="$emit('close-dialog')" class="absolute" id="close-btn">
+        <button
+          @click="$emit('close-dialog')"
+          class="absolute top-0 right-0 p-4"
+        >
           <svg
             width="1em"
             height="1em"
@@ -34,13 +37,6 @@
     </div>
   </teleport>
 </template>
-
-<style scoped>
-#close-btn {
-  top: 10px;
-  right: 10px;
-}
-</style>
 
 <script lang="ts">
 import { defineComponent } from "vue";

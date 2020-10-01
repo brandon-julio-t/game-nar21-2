@@ -13,7 +13,7 @@
     </div>
 
     <div
-      v-if="logoClicked"
+      v-else
       class="flex justify-center items-center mt-16 p-16 rounded bg-black text-white text-2xl"
     >
       <div>
@@ -72,7 +72,7 @@
   </section>
 
   <div class="w-screen h-screen relative overflow-hidden">
-    <p class="absolute top-0 left-0 text-white text-2xl p-4">
+    <p class="absolute bottom-0 left-0 text-white text-2xl p-4">
       Score: {{ score }}
     </p>
     <canvas class="absolute" ref="bulletsCanvas" />
@@ -83,7 +83,15 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, onUnmounted, ref } from "vue";
+import {
+  computed,
+  defineComponent,
+  onMounted,
+  onUnmounted,
+  reactive,
+  ref,
+  toRefs
+} from "vue";
 
 import TheButtonDark from "@/components/TheButtonDark.vue";
 import TheDialogChooseInputSystem from "@/components/TheDialogChooseInputSystem.vue";
@@ -101,20 +109,22 @@ export default defineComponent({
   },
 
   setup() {
+    const state = reactive({
+      logoClicked: false,
+      openChooseInputSystemModal: false,
+      score: computed(() =>
+        Number(store.enemiesKilledCount * 100).toLocaleString()
+      ),
+      totalAssetsCount: computed(() => Object.keys(store.assets).length),
+      isLoadingFinished: computed(
+        () => store.loadedAssetsCount === Object.keys(store.assets).length
+      )
+    });
+
     const backgroundImage = ref<HTMLImageElement | null>(null);
     const bulletsCanvas = ref<HTMLCanvasElement | null>(null);
     const enemiesCanvas = ref<HTMLCanvasElement | null>(null);
-    const logoClicked = ref<boolean>(false);
-    const openChooseInputSystemModal = ref<boolean>(false);
     const playerCanvas = ref<HTMLCanvasElement | null>(null);
-
-    const isLoadingFinished = computed(
-      () => store.loadedAssetsCount === totalAssetsCount.value
-    );
-    const score = computed(() =>
-      Number(store.enemiesKilledCount * 100).toLocaleString()
-    );
-    const totalAssetsCount = computed(() => Object.keys(store.assets).length);
 
     onMounted(() =>
       store.useKeyboard ? InputSystem.useKeyboard() : InputSystem.useMouse()
@@ -122,15 +132,13 @@ export default defineComponent({
     onUnmounted(() => Game.end());
 
     return {
+      ...toRefs(state),
       Game,
       InputSystem,
       backgroundImage,
       bulletsCanvas,
       enemiesCanvas,
-      isLoadingFinished,
-      openChooseInputSystemModal,
       playerCanvas,
-      logoClicked,
       playGame() {
         // Entry point A.K.A. main
         Game.start(
@@ -142,9 +150,7 @@ export default defineComponent({
           backgroundImage.value
         );
       },
-      score,
-      store,
-      totalAssetsCount
+      store
     };
   }
 });
