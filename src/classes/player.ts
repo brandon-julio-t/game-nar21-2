@@ -245,7 +245,7 @@ export default class Player extends Entity {
       const nY: number[] = [3, 2, 1, 0, 1, 2, 3];
 
       const len: number = nX.length;
-      const nMultiplier: number = 10;
+      const nMultiplier: number = 15;
 
       const { x, y } = this.position;
 
@@ -256,7 +256,7 @@ export default class Player extends Entity {
         store.bullets.splice(
           0,
           0,
-          new PlayerBullet(x + xOffset, y + yOffset - this.WIDTH)
+          new PlayerBullet(x + xOffset, y + yOffset - this.HEIGHT / 2)
         );
       }
 
