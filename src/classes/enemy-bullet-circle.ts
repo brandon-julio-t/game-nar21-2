@@ -26,7 +26,13 @@ export default class EnemyBulletCircle extends EnemyBullet {
     ctx.save();
     ctx.translate(x + this.WIDTH / 2, y + this.HEIGHT / 2);
     ctx.rotate(degreeToRadian(this.rotationDegree));
-    ctx.drawImage(this.SPRITE, 0, 0, this.WIDTH, this.HEIGHT);
+    ctx.drawImage(
+      this.SPRITE,
+      -this.WIDTH / 2,
+      -this.HEIGHT / 2,
+      this.WIDTH,
+      this.HEIGHT
+    );
     ctx.restore();
 
     this.rotationDegree += Math.sqrt(

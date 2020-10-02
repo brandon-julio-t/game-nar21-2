@@ -18,13 +18,21 @@
 <script lang="ts">
 import "./assets/styles.css";
 
-import { defineComponent } from "vue";
+import { defineComponent, onMounted } from "vue";
 
 import store from "./store";
+import InputSystem from "./classes/core/input-system";
 
 export default defineComponent({
-  data() {
-    return { store };
+  setup() {
+    onMounted(() => {
+      document.oncontextmenu = e => e.preventDefault();
+      InputSystem.disableInspectElement();
+    });
+
+    return {
+      store
+    };
   }
 });
 </script>

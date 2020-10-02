@@ -138,7 +138,7 @@ export default class Game {
   private static gameOver(): void {
     const entity: Entity = this.enemy.isDead ? this.enemy : this.player;
 
-    InputSystem.disable();
+    InputSystem.reset();
     entity.stopMoving();
 
     if (entity.hasFinishedExploding) {

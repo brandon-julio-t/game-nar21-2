@@ -4,10 +4,10 @@ import store from "@/store";
 import { randomIntegerBetween } from "./core/utilities";
 
 export default class EnemyBoss extends Enemy {
-  private static readonly HEALTH: number = 1500;
+  private static readonly HEALTH: number = 500;
   private static readonly HEALTH_BAR_HEIGHT: number = 20;
   private static readonly SCALE_DOWN_RATIO: number = 0.35;
-  private static readonly VELOCITY: number = 2;
+  private static readonly VELOCITY: number = 5;
 
   private readonly ANIMATED_SPRITE: HTMLImageElement[];
 
@@ -54,7 +54,7 @@ export default class EnemyBoss extends Enemy {
   public move(): void {
     const { x } = this.position;
 
-    if (x + this.sprite.naturalWidth >= innerWidth || x <= 0) {
+    if (x + this.WIDTH >= innerWidth || x <= this.WIDTH) {
       this._velocity *= -1;
     }
 

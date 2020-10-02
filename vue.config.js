@@ -2,13 +2,6 @@ const ImageminPlugin = require("imagemin-webpack-plugin").default;
 const glob = require("glob");
 
 module.exports = {
-  pages: {
-    index: {
-      entry: "src/main.ts",
-      title: "NAR21-2"
-    }
-  },
-
   pwa: {
     name: "NAR21-2",
     themeColor: "#4D78BA"
@@ -23,7 +16,7 @@ module.exports = {
         optipng: null,
         pngquant: {
           speed: () => (process.env.NODE_ENV === "development" ? 11 : 1),
-          quality: "50-100"
+          quality: "70-90"
         },
         svgo: { plugins: [{ removeViewBox: false }] },
         externalImages: {

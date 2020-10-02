@@ -7,7 +7,7 @@ export default class InputSystem {
     return store.player as Player | null;
   }
 
-  public static disable(): void {
+  public static reset(): void {
     onkeydown = null;
     onkeyup = null;
     onmousedown = null;
@@ -17,10 +17,35 @@ export default class InputSystem {
     if (this.player !== null) {
       this.player.isShooting = false;
     }
+
+    this.disableInspectElement();
+  }
+
+  public static disableInspectElement(): void {
+    document.removeEventListener("keydown", this.disableInspectElementListener);
+    document.addEventListener("keydown", this.disableInspectElementListener);
+  }
+
+  private static disableInspectElementListener(e: KeyboardEvent): boolean {
+    const { ctrlKey, shiftKey, code } = e;
+
+    const preventEvent: boolean =
+      code === "F12" ||
+      (ctrlKey && shiftKey && code === "KeyI") ||
+      (ctrlKey && shiftKey && code === "KeyC") ||
+      (ctrlKey && shiftKey && code === "KeyJ") ||
+      (ctrlKey && code === "KeyU");
+
+    if (preventEvent) {
+      e.preventDefault();
+      return false;
+    }
+
+    return true;
   }
 
   public static useMouse(): void {
-    this.disable();
+    this.reset();
 
     onmousemove = (e: MouseEvent) => {
       if (this.player === null) {
@@ -45,7 +70,7 @@ export default class InputSystem {
   }
 
   public static useKeyboard(): void {
-    this.disable();
+    this.reset();
 
     onkeydown = e => this.keyboardInputListener(e, true);
     onkeyup = e => this.keyboardInputListener(e, false);

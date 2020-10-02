@@ -20,4 +20,9 @@ const router = createRouter({
   routes
 });
 
+router.beforeEach((to, __, next) => {
+  document.title = `NAR21-2 | ${to.name?.toString()}`;
+  next();
+});
+
 export default router;
