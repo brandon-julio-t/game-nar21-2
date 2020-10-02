@@ -8,7 +8,7 @@
         @click="logoClicked = true"
         alt="Vue logo"
         class="transition duration-300 ease-in-out transform hover:scale-125 cursor-pointer w-64 h-64 mx-auto"
-        src="@/assets/logo-nar21-2.png"
+        src="/images/logo-nar21-2.webp"
       />
     </div>
 
@@ -51,12 +51,12 @@
   </section>
 
   <div class="w-screen h-screen relative overflow-hidden">
+    <canvas class="absolute" ref="enemiesCanvas" />
+    <canvas class="absolute" ref="playerCanvas" />
+    <canvas class="absolute" ref="bulletsCanvas" />
     <p class="absolute bottom-0 left-0 text-white text-2xl p-4">
       Score: {{ score }}
     </p>
-    <canvas class="absolute" ref="bulletsCanvas" />
-    <canvas class="absolute" ref="enemiesCanvas" />
-    <canvas class="absolute" ref="playerCanvas" />
     <div id="game-background" ref="backgroundImage" />
   </div>
 </template>

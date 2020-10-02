@@ -35,11 +35,11 @@ export default defineComponent({
   data() {
     return {
       hardSkills: [
-        { name: "Angular", img: require("../../assets/benefits/vue.png") },
-        { name: "Java", img: require("../../assets/benefits/vue.png") },
-        { name: "Javascript", img: require("../../assets/benefits/vue.png") },
-        { name: "Python", img: require("../../assets/benefits/vue.png") },
-        { name: "Android", img: require("../../assets/benefits/vue.png") }
+        { name: "Angular", img: "/images/benefits/vue.webp"},
+        { name: "Java", img: "/images/benefits/vue.webp"},
+        { name: "Javascript", img: "/images/benefits/vue.webp"},
+        { name: "Python", img: "/images/benefits/vue.webp"},
+        { name: "Android", img: "/images/benefits/vue.webp" }
       ],
 
       softSkills: [

@@ -18,6 +18,5 @@ export default interface Assets {
   playerExplodeAudio: HTMLAudioElement;
   playerHitAudio: HTMLAudioElement;
   playerHitSprite: HTMLImageElement;
-  reversedEnemy: HTMLImageElement;
   shootingAudio: HTMLAudioElement;
 }

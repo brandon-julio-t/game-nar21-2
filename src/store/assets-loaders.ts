@@ -1,27 +1,26 @@
 import { loadAudio, loadImage } from "@/classes/core/utilities";
 
 enum Assets {
-  BACKGROUND = "background.png",
+  BACKGROUND = "background.webp",
   BACKGROUND_MUSIC = "background-music.mp3",
   ENEMY_EXPLODE_AUDIO = "enemy-explode.wav",
   ENEMY_MINI_EXPLODE_AUDIO = "enemy-mini-explode.wav",
-  EXPLODE_SPRITE = "explode-sprite.png",
+  EXPLODE_SPRITE = "explode-sprite.webp",
   METEOR = "meteor.svg",
   PLAYER_EXPLODE = "player-explode.wav",
   PLAYER_HIT_AUDIO = "player-get-hit.ogg",
-  PLAYER_HIT_SPRITE = "sprite-player-hit.png",
+  PLAYER_HIT_SPRITE = "sprite-player-hit.webp",
   PLAYER_SHOOT = "player-shoot.ogg",
-  SPRITE_ENEMY = "sprite-enemy.png",
-  SPRITE_ENEMY_BULLET_CIRCLE = "sprite-enemy-bullet-circle.png",
-  SPRITE_ENEMY_BULLET_LASER = "sprite-enemy-bullet-laser.png",
-  SPRITE_ENEMY_MINI_1 = "sprite-enemy-mini-1.png",
-  SPRITE_ENEMY_MINI_2 = "sprite-enemy-mini-2.png",
-  SPRITE_ENEMY_MINI_3 = "sprite-enemy-mini-3.png",
-  SPRITE_ENEMY_MINI_4 = "sprite-enemy-mini-4.png",
-  SPRITE_ENEMY_MINI_5 = "sprite-enemy-mini-5.png",
-  SPRITE_ENEMY_REVERSED = "sprite-enemy-reversed.png",
-  SPRITE_PLAYER = "sprite-player.png",
-  SPRITE_PLAYER_BULLET = "sprite-player-bullet.png"
+  SPRITE_ENEMY = "sprite-enemy.webp",
+  SPRITE_ENEMY_BULLET_CIRCLE = "sprite-enemy-bullet-circle.webp",
+  SPRITE_ENEMY_BULLET_LASER = "sprite-enemy-bullet-laser.webp",
+  SPRITE_ENEMY_MINI_1 = "sprite-enemy-mini-1.webp",
+  SPRITE_ENEMY_MINI_2 = "sprite-enemy-mini-2.webp",
+  SPRITE_ENEMY_MINI_3 = "sprite-enemy-mini-3.webp",
+  SPRITE_ENEMY_MINI_4 = "sprite-enemy-mini-4.webp",
+  SPRITE_ENEMY_MINI_5 = "sprite-enemy-mini-5.webp",
+  SPRITE_PLAYER = "sprite-player.webp",
+  SPRITE_PLAYER_BULLET = "sprite-player-bullet.webp"
 }
 
 const {
@@ -43,7 +42,6 @@ const {
   SPRITE_ENEMY_MINI_3,
   SPRITE_ENEMY_MINI_4,
   SPRITE_ENEMY_MINI_5,
-  SPRITE_ENEMY_REVERSED,
   SPRITE_PLAYER,
   SPRITE_PLAYER_BULLET
 } = Assets;
@@ -71,6 +69,5 @@ export default {
   loadPlayerExplodeAudio: (): HTMLAudioElement => loadAudio(PLAYER_EXPLODE),
   loadPlayerGetHitAudio: (): HTMLAudioElement => loadAudio(PLAYER_HIT_AUDIO),
   loadPlayerHitSprite: (): HTMLImageElement => loadImage(PLAYER_HIT_SPRITE),
-  loadReversedEnemy: (): HTMLImageElement => loadImage(SPRITE_ENEMY_REVERSED),
   loadShootingAudio: (): HTMLAudioElement => loadAudio(PLAYER_SHOOT)
 };

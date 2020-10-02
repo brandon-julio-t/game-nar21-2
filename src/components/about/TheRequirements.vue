@@ -22,19 +22,19 @@ export default defineComponent({
     return {
       requirements: [
         {
-          img: require("../../assets/benefits/vue.png"),
+          img: "/images/benefits/vue.webp",
           desc: "Must be a binusian"
         },
         {
-          img: require("../../assets/benefits/vue.png"),
+          img: "/images/benefits/vue.webp",
           desc: "Willing to sign a 2 years contract"
         },
         {
-          img: require("../../assets/benefits/vue.png"),
+          img: "/images/benefits/vue.webp",
           desc: "Min B in Algorithm and Programming or Intro to Programming"
         },
         {
-          img: require("../../assets/benefits/vue.png"),
+          img: "/images/benefits/vue.webp",
           desc:
             "Binusian of the following program or faculty : Socs, SIS, FoE, DP, MTP"
         }

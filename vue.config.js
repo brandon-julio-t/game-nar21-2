@@ -21,13 +21,16 @@ module.exports = {
     plugins: [
       new ImageminPlugin({
         disable: process.env.NODE_ENV !== "production",
-        // optipng: { optimizationLevel: 7 },
-        pngquant: { speed: 1, verbose: true },
+        optipng: null,
+        pngquant: {
+          speed: 1,
+          quality: "0-1"
+        },
+        svgo: { plugins: [{ removeViewBox: false }] },
         externalImages: {
-          sources: [
-            ...glob.sync("src/**/*.png"),
-            ...glob.sync("public/**/*.png")
-          ],
+          context: "src/assets",
+          sources: glob.sync("src/assets/**/*.{png,svg}"),
+          destination: "public/images",
           fileName: filePath => filePath.replace("png", "webp")
         }
       })

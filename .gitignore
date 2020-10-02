@@ -24,3 +24,6 @@ pnpm-debug.log*
 
 # Local Netlify folder
 .netlify
+
+# Images are build from src/assets by imagemin-webpack-plugin
+public/images

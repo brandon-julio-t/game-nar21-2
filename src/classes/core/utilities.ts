@@ -19,17 +19,23 @@ export function degreeToRadian(degree: number) {
 
 export function loadImage(assetName: string): HTMLImageElement {
   const image: HTMLImageElement = new Image();
-  image.src = asset(assetName);
+  image.src = asset(`images/${assetName}`);
   image.onload = () => store.loadedAssetsCount++;
-  image.onerror = e => console.error(e);
+  image.onerror = e => {
+    console.error(assetName);
+    console.error(e);
+  };
   return image;
 }
 
 export function loadAudio(assetName: string): HTMLAudioElement {
   const audio: HTMLAudioElement = new Audio();
-  audio.src = asset(assetName);
+  audio.src = asset(`audio/${assetName}`);
   audio.onloadeddata = () => store.loadedAssetsCount++;
-  audio.onerror = e => console.error(e);
+  audio.onerror = e => {
+    console.error(assetName);
+    console.error(e);
+  };
   return audio;
 }
 
