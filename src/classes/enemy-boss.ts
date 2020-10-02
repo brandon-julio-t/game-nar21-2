@@ -6,20 +6,49 @@ import { randomIntegerBetween } from "./core/utilities";
 export default class EnemyBoss extends Enemy {
   private static readonly HEALTH: number = 1500;
   private static readonly HEALTH_BAR_HEIGHT: number = 20;
-  private static readonly SCALE_DOWN_RATIO: number = 0.7;
+  private static readonly SCALE_DOWN_RATIO: number = 0.35;
   private static readonly VELOCITY: number = 2;
+
+  private readonly ANIMATED_SPRITE: HTMLImageElement[];
+
+  private animatedSpriteIdx: number = 0;
 
   public constructor() {
     super(
-      innerWidth / 2 - store.assets.enemy.naturalWidth / 2,
-      store.assets.enemy.naturalHeight * EnemyBoss.SCALE_DOWN_RATIO,
+      innerWidth / 2 - store.assets.enemy1.naturalWidth / 2,
+      EnemyBoss.HEALTH_BAR_HEIGHT +
+        (store.assets.enemy1.naturalHeight * EnemyBoss.SCALE_DOWN_RATIO) / 2,
       EnemyBoss.HEALTH,
-      store.assets.enemy,
+      store.assets.enemy1,
       EnemyBoss.HEALTH_BAR_HEIGHT,
-      store.assets.enemy.naturalHeight * EnemyBoss.SCALE_DOWN_RATIO,
-      store.assets.enemy.naturalWidth * EnemyBoss.SCALE_DOWN_RATIO,
+      store.assets.enemy1.naturalHeight * EnemyBoss.SCALE_DOWN_RATIO,
+      store.assets.enemy1.naturalWidth * EnemyBoss.SCALE_DOWN_RATIO,
       EnemyBoss.VELOCITY
     );
+
+    const {
+      enemy1,
+      enemy2,
+      enemy3,
+      enemy4,
+      enemy5,
+      enemy6,
+      enemy7,
+      enemy8,
+      enemy9
+    } = store.assets;
+
+    this.ANIMATED_SPRITE = [
+      enemy1,
+      enemy2,
+      enemy3,
+      enemy4,
+      enemy5,
+      enemy6,
+      enemy7,
+      enemy8,
+      enemy9
+    ];
   }
 
   public move(): void {
@@ -37,12 +66,15 @@ export default class EnemyBoss extends Enemy {
 
     ctx.fillStyle = store.color;
     ctx.drawImage(
-      this.sprite,
+      this.ANIMATED_SPRITE[this.animatedSpriteIdx],
       x - this.WIDTH / 2,
       y - this.HEIGHT / 2,
       this.WIDTH,
       this.HEIGHT
     );
+
+    this.animatedSpriteIdx++;
+    this.animatedSpriteIdx %= this.ANIMATED_SPRITE.length;
   }
 
   protected drawHealthBar(ctx: CanvasRenderingContext2D): void {

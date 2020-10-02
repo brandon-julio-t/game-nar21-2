@@ -1,7 +1,15 @@
 export default interface Assets {
   backgroundImage: HTMLImageElement;
   backgroundMusic: HTMLAudioElement;
-  enemy: HTMLImageElement;
+  enemy1: HTMLImageElement;
+  enemy2: HTMLImageElement;
+  enemy3: HTMLImageElement;
+  enemy4: HTMLImageElement;
+  enemy5: HTMLImageElement;
+  enemy6: HTMLImageElement;
+  enemy7: HTMLImageElement;
+  enemy8: HTMLImageElement;
+  enemy9: HTMLImageElement;
   enemyBulletCircle: HTMLImageElement;
   enemyBulletLaser: HTMLImageElement;
   enemyExplodeAudio: HTMLAudioElement;
