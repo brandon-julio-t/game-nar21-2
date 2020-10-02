@@ -22,7 +22,7 @@ module.exports = {
       new ImageminPlugin({
         optipng: null,
         pngquant: {
-          speed: 1,
+          speed: process.env.NODE_ENV === "development" ? 11 : 1,
           quality: "0-1"
         },
         svgo: { plugins: [{ removeViewBox: false }] },

@@ -13,7 +13,11 @@ export default interface Assets {
   miniEnemy3: HTMLImageElement;
   miniEnemy4: HTMLImageElement;
   miniEnemy5: HTMLImageElement;
-  player: HTMLImageElement;
+  player1: HTMLImageElement;
+  player2: HTMLImageElement;
+  player3: HTMLImageElement;
+  player4: HTMLImageElement;
+  player5: HTMLImageElement;
   playerBullet: HTMLImageElement;
   playerExplodeAudio: HTMLAudioElement;
   playerHitAudio: HTMLAudioElement;

@@ -4,12 +4,13 @@ import store from "@/store";
 import { playAudio } from "./core/utilities";
 
 export default class Player extends Entity {
-  private static readonly SCALE_DOWN_RATIO: number = 0.5;
+  private static readonly SCALE_DOWN_RATIO: number = 0.15;
   private static readonly HEALTH: number = 12;
   private static readonly HEALTH_BAR_HEIGTH: number = 10;
   private static readonly SLOW_DOWN_RATIO: number = 0.5;
   private static readonly VELOCITY: number = 10;
 
+  private readonly ANIMATED_SPRITE: HTMLImageElement[];
   private readonly HIT_SPRITE: HTMLImageElement;
   private readonly HIT_SPRITE_COLS: number = 4;
   private readonly HIT_SPRITE_ROWS: number = 4;
@@ -18,6 +19,7 @@ export default class Player extends Entity {
 
   public readonly HITBOX_SIZE = 10;
 
+  private animatedSpriteIdx: number = 0;
   private hitSpriteColIdx: number = 0;
   private hitSpriteRowIdx: number = 0;
   private isPlayingHitAnimation: boolean = false;
@@ -38,14 +40,16 @@ export default class Player extends Entity {
       x,
       y,
       Player.HEALTH,
-      store.assets.player,
+      store.assets.player1,
       Player.HEALTH_BAR_HEIGTH,
-      store.assets.player.naturalHeight * Player.SCALE_DOWN_RATIO,
-      store.assets.player.naturalWidth * Player.SCALE_DOWN_RATIO,
+      store.assets.player1.naturalHeight * Player.SCALE_DOWN_RATIO,
+      store.assets.player1.naturalWidth * Player.SCALE_DOWN_RATIO,
       Player.VELOCITY,
       store.assets.playerExplodeAudio
     );
 
+    const { player1, player2, player3, player4, player5 } = store.assets;
+    this.ANIMATED_SPRITE = [player1, player2, player3, player4, player5];
     this.HIT_SPRITE = store.assets.playerHitSprite;
   }
 
@@ -135,7 +139,16 @@ export default class Player extends Entity {
       !this.isInvulnerable ||
       Math.floor(Date.now() / this.BLINKING_FREQUENCY) % 2
     ) {
-      ctx.drawImage(this.sprite, x - WIDTH / 2, y - HEIGHT / 2, WIDTH, HEIGHT);
+      ctx.drawImage(
+        this.ANIMATED_SPRITE[this.animatedSpriteIdx],
+        x - WIDTH / 2,
+        y - HEIGHT / 2,
+        WIDTH,
+        HEIGHT
+      );
+
+      this.animatedSpriteIdx++;
+      this.animatedSpriteIdx %= this.ANIMATED_SPRITE.length;
     }
 
     if (this.blinkingTimeoutId === null) {

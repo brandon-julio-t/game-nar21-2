@@ -19,7 +19,11 @@ enum Assets {
   SPRITE_ENEMY_MINI_3 = "sprite-enemy-mini-3.webp",
   SPRITE_ENEMY_MINI_4 = "sprite-enemy-mini-4.webp",
   SPRITE_ENEMY_MINI_5 = "sprite-enemy-mini-5.webp",
-  SPRITE_PLAYER = "sprite-player.webp",
+  SPRITE_PLAYER_1 = "sprite-player-1.webp",
+  SPRITE_PLAYER_2 = "sprite-player-2.webp",
+  SPRITE_PLAYER_3 = "sprite-player-3.webp",
+  SPRITE_PLAYER_4 = "sprite-player-4.webp",
+  SPRITE_PLAYER_5 = "sprite-player-5.webp",
   SPRITE_PLAYER_BULLET = "sprite-player-bullet.webp"
 }
 
@@ -42,7 +46,11 @@ const {
   SPRITE_ENEMY_MINI_3,
   SPRITE_ENEMY_MINI_4,
   SPRITE_ENEMY_MINI_5,
-  SPRITE_PLAYER,
+  SPRITE_PLAYER_1,
+  SPRITE_PLAYER_2,
+  SPRITE_PLAYER_3,
+  SPRITE_PLAYER_4,
+  SPRITE_PLAYER_5,
   SPRITE_PLAYER_BULLET
 } = Assets;
 
@@ -64,7 +72,11 @@ export default {
   loadMiniEnemy3: (): HTMLImageElement => loadImage(SPRITE_ENEMY_MINI_3),
   loadMiniEnemy4: (): HTMLImageElement => loadImage(SPRITE_ENEMY_MINI_4),
   loadMiniEnemy5: (): HTMLImageElement => loadImage(SPRITE_ENEMY_MINI_5),
-  loadPlayer: (): HTMLImageElement => loadImage(SPRITE_PLAYER),
+  loadPlayer1: (): HTMLImageElement => loadImage(SPRITE_PLAYER_1),
+  loadPlayer2: (): HTMLImageElement => loadImage(SPRITE_PLAYER_2),
+  loadPlayer3: (): HTMLImageElement => loadImage(SPRITE_PLAYER_3),
+  loadPlayer4: (): HTMLImageElement => loadImage(SPRITE_PLAYER_4),
+  loadPlayer5: (): HTMLImageElement => loadImage(SPRITE_PLAYER_5),
   loadPlayerBullet: (): HTMLImageElement => loadImage(SPRITE_PLAYER_BULLET),
   loadPlayerExplodeAudio: (): HTMLAudioElement => loadAudio(PLAYER_EXPLODE),
   loadPlayerGetHitAudio: (): HTMLAudioElement => loadAudio(PLAYER_HIT_AUDIO),
