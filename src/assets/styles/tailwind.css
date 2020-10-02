@@ -1,14 +1,14 @@
 @tailwind base;
 
 @layer base {
-  /* @font-face {
+  @font-face {
     font-display: swap;
-    font-family: "Gugi";
-    src: url("~@/assets/fonts/Gugi-Regular.ttf");
-  } */
+    font-family: "Orbitron";
+    src: url("~@/assets/fonts/Orbitron-VariableFont_wght.ttf");
+  }
 
   body {
-    /* font-family: "Gugi"; */
+    font-family: "Orbitron";
     @apply text-xl;
   }
 
