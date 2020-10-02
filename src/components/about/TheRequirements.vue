@@ -1,17 +1,16 @@
 <template>
-  <div>
-    <h1 class="text-4xl text-center">Requirements</h1>
-    <section class="grid grid-cols-2 gap-y-16 mt-10">
-      <div
-        class="flex items-center"
-        v-for="(requirement, idx) in requirements"
-        :key="idx"
-      >
-        <img :src="requirement.img" :alt="requirement.desc" class="w-1/3" />
-        <p class="ml-8">{{ requirement.desc }}</p>
-      </div>
-    </section>
-  </div>
+  <h1 class="text-center">Requirements</h1>
+
+  <section class="grid grid-cols-2 gap-8 mt-10">
+    <figure v-for="(requirement, idx) in requirements" :key="idx">
+      <img
+        :src="requirement.img"
+        :alt="requirement.desc"
+        class="w-32 mx-auto"
+      />
+      <figcaption class="text-center">{{ requirement.desc }}</figcaption>
+    </figure>
+  </section>
 </template>
 
 <script lang="ts">

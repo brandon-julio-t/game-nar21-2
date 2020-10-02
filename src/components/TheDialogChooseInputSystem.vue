@@ -1,20 +1,20 @@
 <template>
   <teleport to="main">
     <div
-      class="h-screen w-screen flex justify-center items-center absolute inset-0 bg-black bg-opacity-25 text-black"
+      class="h-screen w-screen flex justify-center items-center absolute inset-0 bg-black bg-opacity-50 text-white"
     >
-      <div class="border p-16 bg-white rounded-lg relative">
+      <div class="border-2 border-lionel p-16 bg-black rounded-lg relative">
         <h1 class="font-bold text-center mb-8">Choose Input System</h1>
 
         <div class="grid grid-cols-2 gap-2 md:gap-4 lg:gap-8">
-          <app-button-light @click="playWithKeyboard()" class="truncate">
+          <app-button @click="playWithKeyboard()" class="truncate">
             <icon-keyboard class="w-full text-6xl" />
             Keyboard
-          </app-button-light>
-          <app-button-light @click="playWithMouse()" class="truncate">
+          </app-button>
+          <app-button @click="playWithMouse()" class="truncate">
             <icon-mouse class="w-full text-6xl" />
             Mouse
-          </app-button-light>
+          </app-button>
         </div>
 
         <button
@@ -35,11 +35,11 @@ import IconKeyboard from "@/components/icons/IconKeyboard.vue";
 import IconMouse from "@/components/icons/IconMouse.vue";
 import IconX from "@/components/icons/IconX.vue";
 import InputSystem from "@/classes/core/input-system";
-import AppButtonLight from "./AppButtonLight.vue";
+import AppButton from "./AppButton.vue";
 import store from "@/store";
 
 export default defineComponent({
-  components: { IconKeyboard, IconMouse, IconX, AppButtonLight },
+  components: { IconKeyboard, IconMouse, IconX, AppButton },
 
   emits: ["play-game", "close-dialog"],
 

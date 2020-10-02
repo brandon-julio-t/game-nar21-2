@@ -5,7 +5,7 @@
     }"
   >
     <div v-if="!store.isGaming" id="main-background"></div>
-    <main>
+    <main class="overflow-scroll">
       <router-view v-slot="{ Component }">
         <transition name="fade">
           <component :is="Component" />
