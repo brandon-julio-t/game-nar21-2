@@ -125,10 +125,10 @@ export default class Game {
           ctx.clearRect(0, 0, innerWidth, innerHeight)
         );
 
+        this.handlePlayerAndEnemy();
+        this.handleMiniEnemy();
         this.handleBullets();
         this.handleMeteor();
-        this.handleMiniEnemy();
-        this.handlePlayerAndEnemy();
       }
     };
 
