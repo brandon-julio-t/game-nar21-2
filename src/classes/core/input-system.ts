@@ -13,6 +13,10 @@ export default class InputSystem {
     onmousedown = null;
     onmousemove = null;
     onmouseup = null;
+
+    if (this.player !== null) {
+      this.player.isShooting = false;
+    }
   }
 
   public static useMouse(): void {
