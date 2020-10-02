@@ -1,9 +1,5 @@
 @tailwind base;
 
-body {
-  @apply m-0;
-}
-
 h1 {
   @apply text-2xl;
 }
