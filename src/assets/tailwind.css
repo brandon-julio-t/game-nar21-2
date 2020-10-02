@@ -4,10 +4,3 @@
 
 @tailwind utilities;
 
-@layer base {
-  @font-face {
-    font-display: "swap";
-    font-family: "Distant Galaxy";
-    src: url("./DISTGRG_-webfont.woff") format("woff");
-  }
-}

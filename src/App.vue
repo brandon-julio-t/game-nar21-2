@@ -5,7 +5,7 @@
     }"
   >
     <div v-if="!store.isGaming" id="main-background"></div>
-    <main class="text-lg md:text-xl lg:text-3xl">
+    <main class="text-lg md:text-xl lg:text-3xl font-mono">
       <router-view v-slot="{ Component }">
         <transition name="fade">
           <component :is="Component" />
