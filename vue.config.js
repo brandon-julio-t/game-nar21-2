@@ -20,7 +20,6 @@ module.exports = {
   configureWebpack: {
     plugins: [
       new ImageminPlugin({
-        disable: process.env.NODE_ENV !== "production",
         optipng: null,
         pngquant: {
           speed: 1,
@@ -30,7 +29,10 @@ module.exports = {
         externalImages: {
           context: "src/assets",
           sources: glob.sync("src/assets/**/*.{png,svg}"),
-          destination: "dist/images",
+          destination: () =>
+            process.env.NODE_ENV !== "production"
+              ? "public/images"
+              : "dist/images",
           fileName: filePath => filePath.replace("png", "webp")
         }
       })

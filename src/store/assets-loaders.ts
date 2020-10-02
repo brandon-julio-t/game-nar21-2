@@ -5,7 +5,7 @@ enum Assets {
   BACKGROUND_MUSIC = "background-music.mp3",
   ENEMY_EXPLODE_AUDIO = "enemy-explode.wav",
   ENEMY_MINI_EXPLODE_AUDIO = "enemy-mini-explode.wav",
-  EXPLODE_SPRITE = "explode-sprite.webp",
+  EXPLODE_SPRITE = "sprite-explode.webp",
   METEOR = "meteor.svg",
   PLAYER_EXPLODE = "player-explode.wav",
   PLAYER_HIT_AUDIO = "player-get-hit.ogg",

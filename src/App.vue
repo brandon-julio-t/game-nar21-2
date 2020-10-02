@@ -32,7 +32,7 @@ export default defineComponent({
 <style scoped>
 #main-background {
   animation: scrollDown 60s linear infinite;
-  background-image: url("~@/assets/main-menu-background.png");
+  background-image: url("/images/background.webp");
   background-repeat: repeat;
   bottom: 0;
   height: 2048px;
