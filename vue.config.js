@@ -15,14 +15,14 @@ module.exports = {
       new ImageminPlugin({
         optipng: null,
         pngquant: {
-          speed: () => (process.env.NODE_ENV === "development" ? 11 : 1),
+          speed: process.env.NODE_ENV === "development" ? 11 : 1,
           quality: "70-90"
         },
         svgo: { plugins: [{ removeViewBox: false }] },
         externalImages: {
           context: "src/assets",
           sources: glob.sync("src/assets/**/*.{png,svg}"),
-          destination: () =>
+          destination:
             process.env.NODE_ENV !== "production"
               ? "public/images"
               : "dist/images",
