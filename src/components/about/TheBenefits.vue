@@ -45,16 +45,16 @@ export default defineComponent({
       softSkills: [
         {
           name: "Public Speaking",
-          img: require("/images/benefits/vue.webp")
+          img: "/images/benefits/vue.webp"
         },
         {
           name: "Social Networking",
-          img: require("/images/benefits/vue.webp")
+          img: "/images/benefits/vue.webp"
         },
-        { name: "Teamwork", img: require("/images/benefits/vue.webp") },
+        { name: "Teamwork", img: "/images/benefits/vue.webp" },
         {
           name: "Time Management",
-          img: require("/images/benefits/vue.webp")
+          img: "/images/benefits/vue.webp"
         }
       ]
     };
