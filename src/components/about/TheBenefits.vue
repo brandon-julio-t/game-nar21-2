@@ -35,26 +35,26 @@ export default defineComponent({
   data() {
     return {
       hardSkills: [
-        { name: "Angular", img: "/images/benefits/vue.webp"},
-        { name: "Java", img: "/images/benefits/vue.webp"},
-        { name: "Javascript", img: "/images/benefits/vue.webp"},
-        { name: "Python", img: "/images/benefits/vue.webp"},
+        { name: "Angular", img: "/images/benefits/vue.webp" },
+        { name: "Java", img: "/images/benefits/vue.webp" },
+        { name: "Javascript", img: "/images/benefits/vue.webp" },
+        { name: "Python", img: "/images/benefits/vue.webp" },
         { name: "Android", img: "/images/benefits/vue.webp" }
       ],
 
       softSkills: [
         {
           name: "Public Speaking",
-          img: require("../../assets/benefits/vue.png")
+          img: require("/images/benefits/vue.webp")
         },
         {
           name: "Social Networking",
-          img: require("../../assets/benefits/vue.png")
+          img: require("/images/benefits/vue.webp")
         },
-        { name: "Teamwork", img: require("../../assets/benefits/vue.png") },
+        { name: "Teamwork", img: require("/images/benefits/vue.webp") },
         {
           name: "Time Management",
-          img: require("../../assets/benefits/vue.png")
+          img: require("/images/benefits/vue.webp")
         }
       ]
     };
