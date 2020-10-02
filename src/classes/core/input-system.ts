@@ -22,8 +22,13 @@ export default class InputSystem {
   }
 
   public static disableInspectElement(): void {
-    document.removeEventListener("keydown", this.disableInspectElementListener);
-    document.addEventListener("keydown", this.disableInspectElementListener);
+    if (process.env.NODE_ENV === "production") {
+      document.removeEventListener(
+        "keydown",
+        this.disableInspectElementListener
+      );
+      document.addEventListener("keydown", this.disableInspectElementListener);
+    }
   }
 
   private static disableInspectElementListener(e: KeyboardEvent): boolean {

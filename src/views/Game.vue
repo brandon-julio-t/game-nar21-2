@@ -14,7 +14,7 @@
 
     <div
       v-else
-      class="flex justify-center items-center mt-16 p-16 rounded bg-black text-white text-3xl"
+      class="flex justify-center items-center mt-16 p-16 rounded bg-black text-white"
     >
       <div>
         <the-dialog-game-instruction />
@@ -35,7 +35,7 @@
         <app-button-dark
           v-else
           @click="openChooseInputSystemModal = true"
-          class="flex justify-center items-center py-8 mt-4 w-full"
+          class="flex justify-center items-center py-4 lg:py-8 mt-4 w-full"
         >
           <icon-controller class="mr-2" />
           Play

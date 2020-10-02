@@ -1,17 +1,17 @@
 <template>
-  <teleport to="body">
+  <teleport to="main">
     <div
-      class="h-screen w-screen flex justify-center items-center absolute inset-0 bg-black bg-opacity-25 text-black text-2xl"
+      class="h-screen w-screen flex justify-center items-center absolute inset-0 bg-black bg-opacity-25 text-black"
     >
       <div class="border p-16 bg-white rounded-lg relative">
         <h1 class="font-bold text-center mb-8">Choose Input System</h1>
 
-        <div class="grid grid-cols-2 gap-8">
-          <app-button-light @click="playWithKeyboard()">
+        <div class="grid grid-cols-2 gap-2 md:gap-4 lg:gap-8">
+          <app-button-light @click="playWithKeyboard()" class="truncate">
             <icon-keyboard class="w-full text-6xl" />
             Keyboard
           </app-button-light>
-          <app-button-light @click="playWithMouse()">
+          <app-button-light @click="playWithMouse()" class="truncate">
             <icon-mouse class="w-full text-6xl" />
             Mouse
           </app-button-light>

@@ -1,10 +1,11 @@
 import EnemyBullet from "./abstracts/enemy-bullet";
-import EnemyMini from "./enemy-mini";
 import Player from "./player";
 import store from "@/store";
-import { radianToVector, vectorToRadian } from "./core/utilities";
+import { normalize, radianToVector, vectorToRadian } from "./core/utilities";
+import Vector2 from "./core/vector2";
 
 export default class EnemyBulletLaser extends EnemyBullet {
+  private readonly SPEED: number = 7;
   private readonly ANGLE: number = 0;
 
   public constructor(x: number, y: number) {
@@ -19,8 +20,12 @@ export default class EnemyBulletLaser extends EnemyBullet {
     );
     const { player } = store;
     if (player !== null) {
-      this.VELOCITY.x = (player.position.x - this.position.x) * 0.01;
-      this.VELOCITY.y = (player.position.y - this.position.y) * 0.01;
+      const x: number = (player.position.x - this.position.x) * 0.01;
+      const y: number = (player.position.y - this.position.y) * 0.01;
+      const normalized = normalize(new Vector2(x, y));
+
+      this.VELOCITY.x = normalized.x * this.SPEED;
+      this.VELOCITY.y = normalized.y * this.SPEED;
 
       this.ANGLE = vectorToRadian(this.VELOCITY);
     }
