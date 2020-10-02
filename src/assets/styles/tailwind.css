@@ -1,0 +1,30 @@
+@tailwind base;
+
+@layer base {
+  /* @font-face {
+    font-display: swap;
+    font-family: "Gugi";
+    src: url("~@/assets/fonts/Gugi-Regular.ttf");
+  } */
+
+  body {
+    /* font-family: "Gugi"; */
+    @apply text-xl;
+  }
+
+  h1 {
+    @apply text-4xl;
+  }
+
+  h2 {
+    @apply text-3xl;
+  }
+
+  h3 {
+    @apply text-2xl;
+  }
+}
+
+@tailwind components;
+
+@tailwind utilities;

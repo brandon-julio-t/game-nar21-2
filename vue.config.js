@@ -20,8 +20,8 @@ module.exports = {
         },
         svgo: { plugins: [{ removeViewBox: false }] },
         externalImages: {
-          context: "src/assets",
-          sources: glob.sync("src/assets/**/*.{png,svg}"),
+          context: "src/assets/images",
+          sources: glob.sync("src/assets/images/**/*.{png,svg}"),
           destination:
             process.env.NODE_ENV !== "production"
               ? "public/images"

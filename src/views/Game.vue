@@ -23,8 +23,8 @@
           v-if="!isLoadingFinished"
           class="mt-8 p-16 rounded bg-black text-white text-center"
         >
-          <h1 class="text-xl">Loading...</h1>
-          <h2 class="text-lg">
+          <h1>Loading...</h1>
+          <h2>
             {{
               Number(
                 (store.loadedAssetsCount / totalAssetsCount) * 100
@@ -118,9 +118,10 @@ export default defineComponent({
     const enemiesCanvas = ref<HTMLCanvasElement | null>(null);
     const playerCanvas = ref<HTMLCanvasElement | null>(null);
 
-    onMounted(() =>
-      store.useKeyboard ? InputSystem.useKeyboard() : InputSystem.useMouse()
-    );
+    onMounted(() => {
+      store.loadedAssetsCount = 0;
+      store.useKeyboard ? InputSystem.useKeyboard() : InputSystem.useMouse();
+    });
     onUnmounted(() => Game.end());
 
     function onLogoClick() {
