@@ -1,8 +1,8 @@
-import Assets from './assets';
-import Bullet from '../abstracts/bullet';
-import EnemyBoss from '../enemy-boss';
-import Player from '../player';
-import EnemyMini from '../enemy-mini';
+import Assets from "./assets";
+import Bullet from "../abstracts/bullet";
+import EnemyBoss from "../enemy-boss";
+import Player from "../player";
+import EnemyMini from "../enemy-mini";
 
 export default interface Store {
   assets: Assets;

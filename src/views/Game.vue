@@ -5,7 +5,7 @@
   >
     <div v-if="!logoClicked">
       <img
-        @click="logoClicked = true"
+        @click="onLogoClick()"
         alt="Vue logo"
         class="transition duration-300 ease-in-out transform hover:scale-125 cursor-pointer w-64 h-64 mx-auto"
         src="/images/logo-nar21-2.webp"
@@ -80,6 +80,7 @@ import TheDialogGameInstruction from "@/components/TheDialogGameInstruction.vue"
 import Game from "@/classes/game";
 import InputSystem from "@/classes/core/input-system";
 import store from "@/store";
+import loadAssets from "@/store/assets";
 
 export default defineComponent({
   components: {
@@ -96,10 +97,20 @@ export default defineComponent({
       score: computed(() =>
         Number(store.enemiesKilledCount * 100).toLocaleString()
       ),
-      totalAssetsCount: computed(() => Object.keys(store.assets).length),
-      isLoadingFinished: computed(
-        () => store.loadedAssetsCount === Object.keys(store.assets).length
-      )
+      totalAssetsCount: computed(() => {
+        if (store.assets != null) {
+          return Object.keys(store.assets).length;
+        }
+
+        return -1;
+      }),
+      isLoadingFinished: computed(() => {
+        if (store.assets !== null) {
+          return store.loadedAssetsCount === Object.keys(store.assets).length;
+        }
+
+        return false;
+      })
     });
 
     const backgroundImage = ref<HTMLImageElement | null>(null);
@@ -112,6 +123,11 @@ export default defineComponent({
     );
     onUnmounted(() => Game.end());
 
+    function onLogoClick() {
+      state.logoClicked = true;
+      store.assets = loadAssets();
+    }
+
     return {
       ...toRefs(state),
       Game,
@@ -119,6 +135,7 @@ export default defineComponent({
       backgroundImage,
       bulletsCanvas,
       enemiesCanvas,
+      onLogoClick,
       playerCanvas,
       playGame() {
         // Entry point A.K.A. main
