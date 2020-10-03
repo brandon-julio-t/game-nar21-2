@@ -1,5 +1,5 @@
 <template>
-  <h1 class="text-center">Requirements</h1>
+  <h1 class="text-center font-bold tracking-widest">Requirements</h1>
 
   <section class="grid grid-cols-2 gap-8 mt-10">
     <figure v-for="(requirement, idx) in requirements" :key="idx">
@@ -12,6 +12,14 @@
     </figure>
   </section>
 </template>
+
+<style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Gugi&display=swap');
+
+h1{
+  font-family: 'Gugi', cursive;
+}
+</style>
 
 <script lang="ts">
 import { defineComponent } from "vue";

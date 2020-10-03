@@ -1,5 +1,5 @@
 <template>
-  <h1 class="text-center">Benefits</h1>
+  <h1 class="text-center font-bold tracking-widest">Benefits</h1>
 
   <section>
     <h2>Hard Skill</h2>
@@ -26,6 +26,14 @@
     <div></div>
   </section>
 </template>
+
+<style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Gugi&display=swap');
+
+h1{
+  font-family: 'Gugi', cursive;
+}
+</style>
 
 <script lang="ts">
 import { defineComponent } from "vue";

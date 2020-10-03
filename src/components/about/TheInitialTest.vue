@@ -1,9 +1,9 @@
 <template>
-  <h1 class="text-center">Initial Test</h1>
+  <h1 class="text-center font-bold tracking-widest">Initial Test</h1>
 
   <section class="text-center">
     <h2>
-      Sunday, <span class="text-lionel-light">03 March</span> 2021
+      Sunday, <span class="text-lionel-light font-semibold">03 March</span> 2021
       <br />
       07:30 - 12:00
     </h2>
@@ -25,3 +25,11 @@
     </ol>
   </section>
 </template>
+
+<style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Gugi&display=swap');
+
+h1{
+  font-family: 'Gugi', cursive;
+}
+</style>

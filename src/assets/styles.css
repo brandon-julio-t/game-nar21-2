@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gugi&display=swap');
 
 body {
   font-family: 'Orbitron', sans-serif;
@@ -18,6 +19,11 @@ body {
 
 .text-primary-light {
   color: #228dfd;
+}
+
+.heading {
+  font-family: 'Gugi', cursive !important;
+  color: red;
 }
 
 .fade-enter-active,
