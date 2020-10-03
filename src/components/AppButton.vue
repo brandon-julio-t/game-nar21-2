@@ -1,7 +1,7 @@
 <template>
   <button
     :class="classNames"
-    class="transition duration-150 ease-in-out px-4 py-2 rounded border border-white hover:bg-white hover:text-black hover:border-white"
+    class="transition duration-150 ease-in-out px-8 py-4 rounded bg-lionel hover:bg-lionel-light text-white"
   >
     <slot></slot>
   </button>

@@ -13,19 +13,17 @@ module.exports = {
   configureWebpack: {
     plugins: [
       new ImageminPlugin({
+        disable: process.env.NODE_ENV !== "production",
         optipng: null,
         pngquant: {
-          speed: () => (process.env.NODE_ENV === "development" ? 11 : 1),
+          speed: 11,
           quality: "70-90"
         },
         svgo: { plugins: [{ removeViewBox: false }] },
         externalImages: {
-          context: "src/assets",
-          sources: glob.sync("src/assets/**/*.{png,svg}"),
-          destination: () =>
-            process.env.NODE_ENV !== "production"
-              ? "public/images"
-              : "dist/images",
+          context: "src/assets/images",
+          sources: glob.sync("src/assets/images/**/*.{png,svg}"),
+          destination: "dist/images", // If build locally, change to "public/images"
           fileName: filePath => filePath.replace("png", "webp")
         }
       })

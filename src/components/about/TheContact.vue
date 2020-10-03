@@ -1,37 +1,49 @@
 <template>
-  <div>
-    <h1 class="text-4xl text-center">Contact</h1>
+  <h1 class="text-center">Contact</h1>
 
-    <section>
-      <h2 class="text-2xl text-center mt-3">For more information</h2>
+  <section>
+    <h2 class="text-center">For more information</h2>
 
-      <div class="ml-8 text-center">
-        <p>Contact us on :</p>
-        <p>- Kemanggisan -</p>
-        <h3 class="text-primary-light text-3xl">Christina / Hanni / Natasia</h3>
-        <p>
-          <span class="text-xl">021-5345830</span> ext
-          <span class="text-xl">1762</span> - Room
-          <span class="text-xl">724</span>
-        </p>
-      </div>
-
-      <div class="flex justify-between mt-8 text-sm">
-        <div class="flex">
-          <!-- fb -->
-          SoftwareLabCenter
-        </div>
-
-        <div class="flex">
-          <!-- ig -->
-          slcbinusuniv
-        </div>
-
-        <div class="flex">
-          <!-- yt -->
-          Software Lab Center
-        </div>
-      </div>
+    <section class="text-center">
+      <p>Contact us on :</p>
+      <p>- Kemanggisan -</p>
+      <h3 class="text-lionel-light">Christina / Hanni / Natasia</h3>
+      <p>021-5345830 ext 1762 - Room 724</p>
     </section>
-  </div>
+
+    <section class="flex flex-wrap justify-center items-center">
+      <figure class="text-center">
+        <img
+          src="@/assets/icons/facebook.svg"
+          alt="Facebook"
+          class="mx-auto w-16"
+        />
+        <figcaption>
+          SoftwareLabCenter
+        </figcaption>
+      </figure>
+
+      <figure class="text-center mx-8">
+        <img
+          src="@/assets/icons/instagram.svg"
+          alt="Instagram"
+          class="mx-auto w-16"
+        />
+        <figcaption>
+          slcbinusuniv
+        </figcaption>
+      </figure>
+
+      <figure class="text-center">
+        <img
+          src="@/assets/icons/youtube.svg"
+          alt="YouTube"
+          class="mx-auto w-16"
+        />
+        <figcaption>
+          Software Lab Center
+        </figcaption>
+      </figure>
+    </section>
+  </section>
 </template>

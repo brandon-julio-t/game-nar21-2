@@ -1,0 +1,65 @@
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;
+
+@layer base {
+  /* @font-face {
+    font-display: swap;
+    font-family: "Gugi";
+    src: url("~@/assets/fonts/Gugi-Regular.ttf");
+  } */
+
+  body {
+    /* font-family: "Gugi"; */
+    @apply text-xl;
+    @apply font-mono;
+  }
+
+  h1 {
+    @apply text-4xl;
+    @apply mb-8;
+  }
+
+  h2 {
+    @apply text-3xl;
+    @apply mb-4;
+  }
+
+  h3 {
+    @apply text-2xl;
+    @apply mb-2;
+  }
+
+  section {
+    @apply my-4;
+  }
+
+  kbd {
+    background-color: #eee;
+    border-radius: 3px;
+    border: 1px solid #b4b4b4;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2),
+      0 2px 0 0 rgba(255, 255, 255, 0.7) inset;
+    color: #333;
+    display: inline-block;
+    font-size: 0.85em;
+    font-weight: 700;
+    line-height: 1;
+    padding: 2px 4px;
+    white-space: nowrap;
+  }
+}
+
+@layer utilities {
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity 0.5s ease;
+  }
+
+  .fade-enter-from,
+  .fade-leave-to {
+    opacity: 0;
+  }
+}

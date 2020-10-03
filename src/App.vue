@@ -5,7 +5,7 @@
     }"
   >
     <div v-if="!store.isGaming" id="main-background"></div>
-    <main class="text-lg md:text-xl lg:text-3xl font-mono">
+    <main class="overflow-scroll">
       <router-view v-slot="{ Component }">
         <transition name="fade">
           <component :is="Component" />
@@ -16,8 +16,6 @@
 </template>
 
 <script lang="ts">
-import "./assets/styles.css";
-
 import { defineComponent, onMounted } from "vue";
 
 import store from "./store";

@@ -14,7 +14,7 @@
 
     <div
       v-else
-      class="flex justify-center items-center mt-16 p-16 rounded bg-black text-white"
+      class="flex justify-center items-center mt-16 p-16 rounded bg-black bg-opacity-75 border-2 border-lionel text-white"
     >
       <div>
         <the-dialog-game-instruction />
@@ -23,8 +23,8 @@
           v-if="!isLoadingFinished"
           class="mt-8 p-16 rounded bg-black text-white text-center"
         >
-          <h1 class="text-xl">Loading...</h1>
-          <h2 class="text-lg">
+          <h1>Loading...</h1>
+          <h2>
             {{
               Number(
                 (store.loadedAssetsCount / totalAssetsCount) * 100
@@ -32,14 +32,14 @@
             }}%
           </h2>
         </div>
-        <app-button-dark
+        <app-button
           v-else
           @click="openChooseInputSystemModal = true"
           class="flex justify-center items-center py-4 lg:py-8 mt-4 w-full"
         >
           <icon-controller class="mr-2" />
           Play
-        </app-button-dark>
+        </app-button>
       </div>
     </div>
 
@@ -73,7 +73,7 @@ import {
 } from "vue";
 
 import IconController from "@/components/icons/IconController.vue";
-import AppButtonDark from "@/components/AppButtonDark.vue";
+import AppButton from "@/components/AppButton.vue";
 import TheDialogChooseInputSystem from "@/components/TheDialogChooseInputSystem.vue";
 import TheDialogGameInstruction from "@/components/TheDialogGameInstruction.vue";
 
@@ -85,7 +85,7 @@ import loadAssets from "@/store/assets";
 export default defineComponent({
   components: {
     IconController,
-    AppButtonDark,
+    AppButton,
     TheDialogChooseInputSystem,
     TheDialogGameInstruction
   },
@@ -118,9 +118,10 @@ export default defineComponent({
     const enemiesCanvas = ref<HTMLCanvasElement | null>(null);
     const playerCanvas = ref<HTMLCanvasElement | null>(null);
 
-    onMounted(() =>
-      store.useKeyboard ? InputSystem.useKeyboard() : InputSystem.useMouse()
-    );
+    onMounted(() => {
+      store.loadedAssetsCount = 0;
+      store.useKeyboard ? InputSystem.useKeyboard() : InputSystem.useMouse();
+    });
     onUnmounted(() => Game.end());
 
     function onLogoClick() {
