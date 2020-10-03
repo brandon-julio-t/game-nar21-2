@@ -5,11 +5,11 @@
     <section class="px-12 py-4 text-center">
       <h2 class="text-xl">Open Registration</h2>
       <h3 class="text-3xl">
-        <span class="text-primary-light">27 Januari</span> 2021
+        <span class="text-primary-light font-bold">27 Januari</span> 2021
       </h3>
       <p>Until</p>
       <h3 class="text-3xl">
-        <span class="text-primary-light">12 February</span> 2021
+        <span class="text-primary-light font-bold">12 February</span> 2021
       </h3>
 
       <a href="https://bluejack.binus.ac.id/lab" target="_blank">
