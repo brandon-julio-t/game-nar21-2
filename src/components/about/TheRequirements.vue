@@ -13,14 +13,6 @@
   </section>
 </template>
 
-<style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Gugi&display=swap');
-
-h1{
-  font-family: 'Gugi', cursive;
-}
-</style>
-
 <script lang="ts">
 import { defineComponent } from "vue";
 

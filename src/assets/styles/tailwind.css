@@ -62,4 +62,9 @@
   .fade-leave-to {
     opacity: 0;
   }
+
+  .heading {
+    font-family: "Gugi", cursive !important;
+    color: red;
+  }
 }

@@ -26,15 +26,10 @@
 </template>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Gugi&display=swap");
 button:hover {
   background-color: #228dfd;
   box-shadow: 2px 2px 4px rgba(255, 255, 255, 0.9),
     -2px -2px 4px rgba(255, 255, 255, 0.9);
-}
-
-h1 {
-  font-family: "Gugi", cursive;
 }
 </style>
 
