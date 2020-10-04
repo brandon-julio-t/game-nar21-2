@@ -20,7 +20,7 @@ module.exports = {
         externalImages: {
           context: "src/assets/images",
           sources: glob.sync("src/assets/images/**/*.{png,svg}"),
-          destination: "public/images", // If build locally, change to "public/images"
+          destination: "dist/images", // If build locally, change to "public/images", else "dist/images"
           fileName: filePath => filePath.replace("png", "webp")
         }
       })
