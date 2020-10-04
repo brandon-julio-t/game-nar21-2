@@ -4,7 +4,7 @@ import store from "@/store";
 import { randomIntegerBetween } from "./core/utilities";
 
 export default class EnemyBoss extends Enemy {
-  private static readonly HEALTH: number = 500;
+  private static readonly HEALTH: number = 420;
   private static readonly HEALTH_BAR_HEIGHT: number = 20;
   private static readonly SCALE_DOWN_RATIO: number = 0.35;
   private static readonly VELOCITY: number = 3;
@@ -52,6 +52,8 @@ export default class EnemyBoss extends Enemy {
   }
 
   public move(): void {
+    super.move()
+    
     const { x } = this.position;
 
     if (x + this.WIDTH >= innerWidth || x <= this.WIDTH) {

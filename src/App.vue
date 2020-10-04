@@ -4,7 +4,7 @@
       'w-screen h-screen relative overflow-hidden': !store.isGaming
     }"
   >
-    <div v-if="!store.isGaming" id="main-background"></div>
+    <div v-if="!store.isGaming" id="main-background" />
     <main>
       <router-view v-slot="{ Component }">
         <transition name="fade">
@@ -23,10 +23,12 @@ import InputSystem from "./classes/core/input-system";
 
 export default defineComponent({
   setup() {
-    onMounted(() => {
-      document.oncontextmenu = e => e.preventDefault();
-      InputSystem.disableInspectElement();
-    });
+    if (process.env.NODE_ENV === "production") {
+      onMounted(() => {
+        document.oncontextmenu = e => e.preventDefault();
+        InputSystem.disableInspectElement();
+      });
+    }
 
     return {
       store
@@ -39,6 +41,7 @@ export default defineComponent({
 #main-background {
   animation: scrollDown 60s linear infinite;
   background-image: url("/images/background.webp");
+  background-size: contain;
   background-repeat: repeat;
   bottom: 0;
   height: 2048px;

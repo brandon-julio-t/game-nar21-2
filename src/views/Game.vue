@@ -97,20 +97,14 @@ export default defineComponent({
       score: computed(() =>
         Number(store.enemiesKilledCount * 100).toLocaleString()
       ),
-      totalAssetsCount: computed(() => {
-        if (store.assets != null) {
-          return Object.keys(store.assets).length;
-        }
-
-        return -1;
-      }),
-      isLoadingFinished: computed(() => {
-        if (store.assets !== null) {
-          return store.loadedAssetsCount === Object.keys(store.assets).length;
-        }
-
-        return false;
-      })
+      totalAssetsCount: computed(() =>
+        store.assets != null ? Object.keys(store.assets).length : -1
+      ),
+      isLoadingFinished: computed(() =>
+        store.assets !== null
+          ? store.loadedAssetsCount === Object.keys(store.assets).length
+          : false
+      )
     });
 
     const backgroundImage = ref<HTMLImageElement | null>(null);

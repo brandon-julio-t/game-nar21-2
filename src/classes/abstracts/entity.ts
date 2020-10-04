@@ -113,7 +113,15 @@ export default abstract class Entity {
   protected abstract drawSelf(ctx: CanvasRenderingContext2D): void;
   protected abstract drawHealthBar(ctx: CanvasRenderingContext2D): void;
 
-  public abstract move(): void;
+  public move(): void {
+    if (this.isDead) {
+      this.stopMoving();
+    }
+  }
+
+  protected stopMoving(): void {
+    this._velocity = 0;
+  }
+
   public abstract shoot(): void;
-  public abstract stopMoving(): void;
 }

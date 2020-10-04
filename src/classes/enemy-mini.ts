@@ -40,6 +40,8 @@ export default class EnemyMini extends Enemy {
   protected drawHealthBar(_: CanvasRenderingContext2D): void {}
 
   public move(): void {
+    super.move()
+    
     this.position.y += this.velocity;
   }
 
