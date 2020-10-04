@@ -4,7 +4,11 @@
       'w-screen h-screen relative overflow-hidden': !store.isGaming
     }"
   >
-    <div v-if="!store.isGaming" id="main-background" />
+    <div
+      v-if="!store.isGaming"
+      id="main-background"
+      class="scroll-down-background-60"
+    />
     <main>
       <router-view v-slot="{ Component }">
         <transition name="fade">
@@ -18,7 +22,7 @@
 <script lang="ts">
 import { defineComponent, onMounted } from "vue";
 
-import Environment from './classes/core/environment';
+import Environment from "./classes/core/environment";
 import InputSystem from "./classes/core/input-system";
 import store from "./store";
 
@@ -40,23 +44,6 @@ export default defineComponent({
 
 <style scoped>
 #main-background {
-  animation: scrollDown 60s linear infinite;
   background-image: url("/images/background.webp");
-  background-size: contain;
-  background-repeat: repeat;
-  bottom: 0;
-  height: 2048px;
-  position: absolute;
-  width: 100%;
-  z-index: -1;
-}
-
-@keyframes scrollDown {
-  0% {
-    transform: translate3d(0, 0, 0);
-  }
-  100% {
-    transform: translate3d(0, 1024px, 0);
-  }
 }
 </style>

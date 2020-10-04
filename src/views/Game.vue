@@ -57,7 +57,7 @@
     <p class="absolute bottom-0 left-0 text-white text-2xl p-4">
       Score: {{ score }}
     </p>
-    <div id="game-background" ref="backgroundImage" />
+    <div class="scroll-down-background-7" ref="backgroundImage" />
   </div>
 </template>
 
@@ -148,24 +148,3 @@ export default defineComponent({
   }
 });
 </script>
-
-<style scoped>
-#game-background {
-  animation: backgroundScroll 7s linear infinite;
-  background-repeat: repeat;
-  height: 2048px;
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  z-index: -1;
-}
-
-@keyframes backgroundScroll {
-  0% {
-    transform: translate3d(0, 0, 0);
-  }
-  100% {
-    transform: translate3d(0, 1024px, 0);
-  }
-}
-</style>

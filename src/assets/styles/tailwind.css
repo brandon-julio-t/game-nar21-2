@@ -67,4 +67,33 @@
     font-family: "Gugi", cursive !important;
     color: red;
   }
+
+  .scroll-down-background-7 {
+    @apply absolute;
+    @apply bg-repeat;
+    @apply bottom-0;
+    @apply w-full;
+    animation: scrollDown 7s linear infinite;
+    height: 200vh;
+    z-index: -1;
+  }
+
+  .scroll-down-background-60 {
+    @apply absolute;
+    @apply bg-repeat;
+    @apply bottom-0;
+    @apply w-full;
+    animation: scrollDown 60s linear infinite;
+    height: 200vh;
+    z-index: -1;
+  }
+
+  @keyframes scrollDown {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: 0 100vh;
+    }
+  }
 }
