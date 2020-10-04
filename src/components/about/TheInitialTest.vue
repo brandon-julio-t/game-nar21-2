@@ -1,5 +1,5 @@
 <template>
-  <h1 class="text-center font-bold tracking-widest">Initial Test</h1>
+  <h1 class="text-center font-bold heading tracking-widest">Initial Test</h1>
 
   <section class="text-center">
     <h2>

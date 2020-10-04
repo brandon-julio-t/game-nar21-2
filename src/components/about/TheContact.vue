@@ -1,5 +1,5 @@
 <template>
-  <h1 class="text-center font-bold tracking-widest">Contact</h1>
+  <h1 class="text-center font-bold heading tracking-widest">Contact</h1>
 
   <section>
     <h2 class="text-center">For more information</h2>
@@ -14,7 +14,7 @@
     </section>
 
     <section class="flex flex-wrap justify-center items-center">
-      <figure class="text-center flex items-center">
+      <figure class="text-center flex justify-center items-center">
         <img
           src="@/assets/icons/facebook.svg"
           alt="Facebook"
@@ -23,7 +23,7 @@
         <figcaption>SoftwareLabCenter</figcaption>
       </figure>
 
-      <figure class="text-center mx-8 flex items-center">
+      <figure class="text-center mx-8 flex justify-center items-center">
         <img
           src="@/assets/icons/instagram.svg"
           alt="Instagram"
@@ -32,7 +32,7 @@
         <figcaption>slcbinusuniv</figcaption>
       </figure>
 
-      <figure class="text-center flex items-center">
+      <figure class="text-center flex justify-center items-center">
         <img
           src="@/assets/icons/youtube.svg"
           alt="YouTube"

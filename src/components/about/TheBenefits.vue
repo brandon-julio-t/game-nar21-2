@@ -1,5 +1,5 @@
 <template>
-  <h1 class="text-center font-bold tracking-widest">Benefits</h1>
+  <h1 class="text-center font-bold heading tracking-widest">Benefits</h1>
 
   <section>
     <h2>Hard Skill</h2>

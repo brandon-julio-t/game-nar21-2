@@ -5,11 +5,11 @@
 @tailwind utilities;
 
 @layer base {
-  /* @font-face {
+  @font-face {
     font-display: swap;
     font-family: "Gugi";
     src: url("~@/assets/fonts/Gugi-Regular.ttf");
-  } */
+  }
 
   body {
     /* font-family: "Gugi"; */
