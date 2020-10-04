@@ -2,7 +2,7 @@ import { loadAudio, loadImage } from "@/classes/core/utilities";
 
 enum Assets {
   BACKGROUND = "background.webp",
-  BACKGROUND_MUSIC = "background-music.mp3",
+  BACKGROUND_MUSIC = "background-music.m4a",
   ENEMY_EXPLODE_AUDIO = "enemy-explode.wav",
   ENEMY_MINI_EXPLODE_AUDIO = "enemy-mini-explode.wav",
   EXPLODE_SPRITE = "sprite-explode.webp",

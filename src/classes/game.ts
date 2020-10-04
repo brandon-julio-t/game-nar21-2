@@ -97,7 +97,7 @@ export default class Game {
     const { backgroundMusic } = store.assets;
     backgroundMusic.play();
     backgroundMusic.loop = true;
-    backgroundMusic.volume = process.env.NODE_ENV === "development" ? 0.1 : 1;
+    backgroundMusic.volume = process.env.NODE_ENV === "development" ? 0.5 : 1;
   }
 
   private static play(): void {
