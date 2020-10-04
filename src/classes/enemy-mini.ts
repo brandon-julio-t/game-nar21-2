@@ -10,7 +10,7 @@ export default class EnemyMini extends Enemy {
 
   public constructor() {
     super(
-      randomIntegerBetween(0, innerWidth),
+      randomIntegerBetween(EnemyMini.SIZE, innerWidth),
       -EnemyMini.SIZE,
       1,
       randomMiniEnemySprite(),
@@ -40,8 +40,8 @@ export default class EnemyMini extends Enemy {
   protected drawHealthBar(_: CanvasRenderingContext2D): void {}
 
   public move(): void {
-    super.move()
-    
+    super.move();
+
     this.position.y += this.velocity;
   }
 
