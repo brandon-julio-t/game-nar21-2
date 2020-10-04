@@ -52,14 +52,10 @@ export default class EnemyBoss extends Enemy {
   }
 
   public move(): void {
-    super.move()
-    
+    super.move();
     const { x } = this.position;
-
-    if (x + this.WIDTH >= innerWidth || x <= this.WIDTH) {
-      this._velocity *= -1;
-    }
-
+    const isOnEdge = x + this.WIDTH >= innerWidth || x <= this.WIDTH;
+    this._velocity *= isOnEdge ? -1 : 1;
     this.position.x += this.velocity;
   }
 

@@ -1,7 +1,6 @@
 import Vector2 from "../core/vector2";
 import store from "@/store";
 import { playAudio } from "../core/utilities";
-import Player from "../player";
 
 export default abstract class Entity {
   private readonly EXPLODING_SPRITE_COLS: number = 8;

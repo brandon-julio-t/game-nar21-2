@@ -18,12 +18,13 @@
 <script lang="ts">
 import { defineComponent, onMounted } from "vue";
 
-import store from "./store";
+import Environment from './classes/core/environment';
 import InputSystem from "./classes/core/input-system";
+import store from "./store";
 
 export default defineComponent({
   setup() {
-    if (process.env.NODE_ENV === "production") {
+    if (Environment.isProduction) {
       onMounted(() => {
         document.oncontextmenu = e => e.preventDefault();
         InputSystem.disableInspectElement();
