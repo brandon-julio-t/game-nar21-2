@@ -1,13 +1,13 @@
 <template>
   <section
     v-if="!store.isGaming"
-    class="flex justify-center items-center w-screen h-screen"
+    class="flex justify-center items-center w-screen h-screen m-0"
   >
-    <div v-if="!logoClicked">
+    <div v-if="!logoClicked" class="w-1/4 m-0">
       <img
         @click="onLogoClick()"
         alt="Vue logo"
-        class="transition duration-300 ease-in-out transform hover:scale-125 cursor-pointer w-64 h-64 mx-auto"
+        class="transition duration-300 ease-in-out transform hover:scale-125 cursor-pointer h-full w-full mx-auto"
         src="/images/logo-nar21-2.webp"
       />
     </div>
