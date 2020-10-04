@@ -1,12 +1,14 @@
 <template>
-  <h1 class="text-center">Registration</h1>
+  <h1 class="text-center font-bold heading tracking-widest">Registration</h1>
 
   <section class="text-center">
     <h2>Open Registration</h2>
-    <h3><span class="text-lionel-light">27 Januari</span> 2021</h3>
+    <h3 class="text-3xl">
+      <span class="text-lionel-light font-bold">27 Januari</span> 2021
+    </h3>
     <p>Until</p>
     <h3 class="text-3xl">
-      <span class="text-lionel-light">12 February</span> 2021
+      <span class="text-lionel-light font-bold">12 February</span> 2021
     </h3>
 
     <a
@@ -36,6 +38,6 @@ import AppButton from "../AppButton.vue";
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  components: { AppButton }
+  components: { AppButton },
 });
 </script>
