@@ -3,7 +3,7 @@
     v-if="!store.isGaming"
     class="flex justify-center items-center w-screen h-screen m-0"
   >
-    <div v-if="!logoClicked" class="w-1/4 m-0">
+    <div v-if="!logoClicked" class="w-1/5 m-0">
       <img
         @click="onLogoClick()"
         alt="Vue logo"
