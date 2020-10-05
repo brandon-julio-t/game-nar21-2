@@ -26,10 +26,13 @@ const initialState: Store = {
     player3: new Image(),
     player4: new Image(),
     player5: new Image(),
-    playerBullet: new Image(),
+    playerBullet1: new Image(),
+    playerBullet2: new Image(),
     playerExplodeAudio: new Audio(),
     playerHitAudio: new Audio(),
     playerHitSprite: new Image(),
+    playerPowerUp: new Image(),
+    playerPowerUpAudio: new Audio(),
     shootingAudio: new Audio()
   },
   bullets: [],
@@ -40,6 +43,7 @@ const initialState: Store = {
   loadedAssetsCount: 0,
   miniEnemies: [],
   player: null,
+  powerUps: [],
   useKeyboard: true
 };
 

@@ -15,7 +15,7 @@ module.exports = {
       new ImageminPlugin({
         // disable: true,
         optipng: null,
-        pngquant: process.env.NODE_ENV !== "production" ? { speed: 11 } : null,
+        pngquant: process.env.NODE_ENV !== "production" ? null : { speed: 11 },
         svgo: { plugins: [{ removeViewBox: false }] },
         externalImages: {
           context: "src/assets/images",

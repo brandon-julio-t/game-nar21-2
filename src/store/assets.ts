@@ -1,5 +1,5 @@
 import Assets from "@/classes/interfaces/assets";
-import AssetsLoaders from './assets-loaders';
+import AssetsLoaders from "./assets-loaders";
 const {
   loadBackgroundImage,
   loadBackgroundMusic,
@@ -24,10 +24,13 @@ const {
   loadPlayer3,
   loadPlayer4,
   loadPlayer5,
-  loadPlayerBullet,
+  loadPlayerBullet1,
+  loadPlayerBullet2,
   loadPlayerExplodeAudio,
   loadPlayerGetHitAudio,
   loadPlayerHitSprite,
+  loadPowerUpAudio,
+  loadPowerUp,
   loadShootingAudio
 } = AssetsLoaders;
 
@@ -56,10 +59,13 @@ export default function loadAssets(): Assets {
     player3: loadPlayer3(),
     player4: loadPlayer4(),
     player5: loadPlayer5(),
-    playerBullet: loadPlayerBullet(),
+    playerBullet1: loadPlayerBullet1(),
+    playerBullet2: loadPlayerBullet2(),
     playerExplodeAudio: loadPlayerExplodeAudio(),
     playerHitAudio: loadPlayerGetHitAudio(),
     playerHitSprite: loadPlayerHitSprite(),
+    playerPowerUp: loadPowerUp(),
+    playerPowerUpAudio: loadPowerUpAudio(),
     shootingAudio: loadShootingAudio()
   };
 }

@@ -128,6 +128,7 @@ export default class Game {
 
         this.handlePlayerAndEnemy();
         this.handleMiniEnemy();
+        this.handlePowerUps();
         this.handleBullets();
         this.handleMeteor();
       }
@@ -141,9 +142,58 @@ export default class Game {
 
     InputSystem.reset();
 
-    if (entity.hasFinishedExploding) {
+    if (entity.hasFinishedDying) {
       router.push("/about");
     }
+  }
+
+  private static handlePlayerAndEnemy(): void {
+    [this.player, this.enemy, ...store.miniEnemies].forEach(entity => {
+      if (entity === null) {
+        return;
+      }
+
+      const ctx: CanvasRenderingContext2D =
+        entity instanceof Player
+          ? this.contextsGroup.playerCtx
+          : this.contextsGroup.enemiesCtx;
+
+      entity.move();
+      entity.drawSelfAndHealthBar(ctx);
+      entity.shoot();
+    });
+  }
+
+  private static handleMiniEnemy(): void {
+    const timeToSpawn = Date.now() >= this.nextTimeToSpawnMiniEnemy;
+    const spawnedEnemiesAreLessThanSeven = store.miniEnemies.length < 7;
+
+    if (
+      spawnedEnemiesAreLessThanSeven &&
+      timeToSpawn &&
+      !store.enemy?.isEntering
+    ) {
+      store.miniEnemies.push(new EnemyMini());
+      this.nextTimeToSpawnMiniEnemy = Date.now() + this.MINI_ENEMY_SPAWN_TIME;
+    }
+
+    store.miniEnemies = store.miniEnemies.filter(
+      enemy => !(enemy.isDead && enemy.hasFinishedDying)
+    );
+  }
+
+  private static handlePowerUps(): void {
+    store.powerUps.filter(powerUp => {
+      if (powerUp.isEnded || powerUp.isOutOfBounds) {
+        return false;
+      }
+
+      powerUp.move();
+      powerUp.draw(this.contextsGroup.bulletsCtx);
+      powerUp.checkCollision();
+
+      return true;
+    });
   }
 
   private static handleBullets(): void {
@@ -172,36 +222,5 @@ export default class Game {
     if (this.meteor.isOutOfBounds) {
       this.meteor.spawnAgainLater();
     }
-  }
-
-  private static handleMiniEnemy(): void {
-    const timeToSpawn = Date.now() >= this.nextTimeToSpawnMiniEnemy;
-    const spawnedEnemiesAreLessThanSeven = store.miniEnemies.length < 7;
-
-    if (spawnedEnemiesAreLessThanSeven && timeToSpawn) {
-      store.miniEnemies.push(new EnemyMini());
-      this.nextTimeToSpawnMiniEnemy = Date.now() + this.MINI_ENEMY_SPAWN_TIME;
-    }
-
-    store.miniEnemies = store.miniEnemies.filter(
-      enemy => !(enemy.isDead && enemy.hasFinishedExploding)
-    );
-  }
-
-  private static handlePlayerAndEnemy(): void {
-    [this.player, this.enemy, ...store.miniEnemies].forEach(entity => {
-      if (entity === null) {
-        return;
-      }
-
-      const ctx: CanvasRenderingContext2D =
-        entity instanceof Player
-          ? this.contextsGroup.playerCtx
-          : this.contextsGroup.enemiesCtx;
-
-      entity.move();
-      entity.drawSelfAndHealthBar(ctx);
-      entity.shoot();
-    });
   }
 }

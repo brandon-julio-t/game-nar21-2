@@ -8,16 +8,22 @@ import store from "@/store";
 export default class PlayerBullet extends Bullet {
   private static readonly VELOCITY: Vector2 = new Vector2(0, -25);
 
-  public constructor(x: number, y: number) {
+  private readonly LEVEL: number;
+
+  public constructor(x: number, y: number, level: number) {
     super(
       x,
       y,
       PlayerBullet.VELOCITY.x,
       PlayerBullet.VELOCITY.y,
-      store.assets.playerBullet.naturalHeight,
-      store.assets.playerBullet.naturalWidth,
-      store.assets.playerBullet
+      (level === 1 ? store.assets.playerBullet1 : store.assets.playerBullet2)
+        .naturalHeight,
+      (level === 1 ? store.assets.playerBullet1 : store.assets.playerBullet2)
+        .naturalWidth,
+      level === 1 ? store.assets.playerBullet1 : store.assets.playerBullet2
     );
+
+    this.LEVEL = level;
   }
 
   public draw(ctx: CanvasRenderingContext2D): void {
@@ -34,7 +40,7 @@ export default class PlayerBullet extends Bullet {
         const hasCollision: boolean = this.checkCollisionWith(e);
         if (hasCollision) {
           this.isEnded = true;
-          e.reduceHealth(1);
+          e.reduceHealth(this.LEVEL);
         }
       });
     }

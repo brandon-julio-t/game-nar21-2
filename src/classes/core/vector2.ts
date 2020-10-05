@@ -23,4 +23,10 @@ export default class Vector2 {
     const { x, y } = this;
     return Math.atan2(y, x) + Math.PI / 2;
   }
+
+  public euclideanDistanceTo(another: Vector2) {
+    const { x: x1, y: y1 } = this;
+    const { x: x2, y: y2 } = another;
+    return Math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2);
+  }
 }

@@ -6,7 +6,7 @@ import EnemyBulletLaser from "./enemy-bullet-laser";
 import Vector2 from "./core/vector2";
 
 export default class EnemyBoss extends Enemy {
-  private static readonly HEALTH: number = 420;
+  private static readonly HEALTH: number = 700;
   private static readonly HEALTH_BAR_HEIGHT: number = 20;
   private static readonly SCALE_DOWN_RATIO: number = 0.35;
   private static readonly VELOCITY: number = 3;
@@ -16,9 +16,10 @@ export default class EnemyBoss extends Enemy {
   private readonly LASER_BULLET_SPAWN_TIME: number = 50;
 
   private animatedSpriteIdx: number = 0;
-  private isEntering: boolean = true;
   private nextCircleBulletShootTime: number = Date.now();
   private nextLaserBulletShootTime: number = Date.now();
+
+  public isEntering: boolean = true;
 
   public constructor() {
     super(
@@ -163,5 +164,10 @@ export default class EnemyBoss extends Enemy {
       );
       this.nextLaserBulletShootTime = Date.now() + this.LASER_BULLET_SPAWN_TIME;
     }
+  }
+
+  public die(): void {
+    super.die();
+    store.enemiesKilledCount += 10; // 10 * 100 == 1000
   }
 }

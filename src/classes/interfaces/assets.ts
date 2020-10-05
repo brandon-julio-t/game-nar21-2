@@ -22,9 +22,12 @@ export default interface Assets {
   player3: HTMLImageElement;
   player4: HTMLImageElement;
   player5: HTMLImageElement;
-  playerBullet: HTMLImageElement;
+  playerBullet1: HTMLImageElement;
+  playerBullet2: HTMLImageElement;
   playerExplodeAudio: HTMLAudioElement;
   playerHitAudio: HTMLAudioElement;
   playerHitSprite: HTMLImageElement;
+  playerPowerUp: HTMLImageElement;
+  playerPowerUpAudio: HTMLAudioElement;
   shootingAudio: HTMLAudioElement;
 }

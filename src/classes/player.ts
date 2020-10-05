@@ -29,6 +29,7 @@ export default class Player extends Entity {
 
   protected blinkingTimeoutId: number | null = null;
 
+  public bulletLevel: number = 1;
   public isInvulnerable: boolean = false;
   public isMovingDown: boolean = false;
   public isMovingLeft: boolean = false;
@@ -257,7 +258,7 @@ export default class Player extends Entity {
       const nY: number[] = [2, 1, 0, 1, 2];
 
       const len: number = nX.length;
-      const nMultiplier: number = 15;
+      const nMultiplier: number = this.bulletLevel === 1 ? 15 : 20;
 
       const { x, y } = this.position;
 
@@ -268,7 +269,11 @@ export default class Player extends Entity {
         store.bullets.splice(
           0,
           0,
-          new PlayerBullet(x + xOffset, y + yOffset - this.HEIGHT / 2)
+          new PlayerBullet(
+            x + xOffset,
+            y + yOffset - this.HEIGHT / 2,
+            this.bulletLevel
+          )
         );
       }
 

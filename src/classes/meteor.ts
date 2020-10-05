@@ -80,12 +80,10 @@ export default class Meteor extends Bullet {
   public checkCollision(): void {
     const player: Player = store.player as Player;
     if (player !== null && !player.isInvulnerable) {
-      const { x: x1, y: y1 } = this.position;
-      const { x: x2, y: y2 } = player.position;
+      const { position: p1 } = this;
+      const { position: p2 } = player;
 
-      const euclideanDistance: number = Math.sqrt(
-        (x1 - x2) ** 2 + (y1 - y2) ** 2
-      );
+      const euclideanDistance: number = p1.euclideanDistanceTo(p2);
 
       const hasCollision: boolean =
         euclideanDistance <=

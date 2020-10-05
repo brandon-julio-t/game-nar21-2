@@ -1,7 +1,7 @@
 import Player from "../player";
 import router from "@/router";
 import store from "@/store";
-import Environment from './environment';
+import Environment from "./environment";
 
 export default class InputSystem {
   private static get player(): Player | null {
@@ -23,13 +23,12 @@ export default class InputSystem {
   }
 
   public static disableInspectElement(): void {
-    if (Environment.isProduction) {
-      document.removeEventListener(
-        "keydown",
-        this.disableInspectElementListener
-      );
-      document.addEventListener("keydown", this.disableInspectElementListener);
+    if (Environment.isDevelopment) {
+      return;
     }
+
+    document.removeEventListener("keydown", this.disableInspectElementListener);
+    document.addEventListener("keydown", this.disableInspectElementListener);
   }
 
   private static disableInspectElementListener(e: KeyboardEvent): boolean {

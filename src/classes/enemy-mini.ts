@@ -2,6 +2,7 @@ import Enemy from "./abstracts/enemy";
 import EnemyBulletLaser from "./enemy-bullet-laser";
 import store from "@/store";
 import { degreeToRadian, randomIntegerBetween } from "./core/utilities";
+import PowerUp from "./power-up";
 
 export default class EnemyMini extends Enemy {
   private static readonly SCALE_DOWN_RATIO: number = 0.15;
@@ -48,7 +49,6 @@ export default class EnemyMini extends Enemy {
 
   public move(): void {
     super.move();
-
     this.position.y += this.velocity;
   }
 
@@ -56,8 +56,13 @@ export default class EnemyMini extends Enemy {
     if (Date.now() >= this.nextTimeToShoot && !this.isDead) {
       const { x, y } = this.position;
       store.bullets.splice(0, 0, new EnemyBulletLaser(x, y + this.HEIGHT / 2));
-
       this.nextTimeToShoot = Date.now() + 1000;
     }
+  }
+
+  public die(): void {
+    super.die();
+    const { x, y } = this.position;
+    store.powerUps.splice(0, 0, new PowerUp(x, y));
   }
 }

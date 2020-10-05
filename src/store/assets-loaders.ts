@@ -10,6 +10,8 @@ enum Assets {
   PLAYER_EXPLODE = "player-explode.wav",
   PLAYER_HIT_AUDIO = "player-get-hit.ogg",
   PLAYER_HIT_SPRITE = "sprite-player-hit.webp",
+  PLAYER_POWER_UP = "player-power-up.webp",
+  PLAYER_POWER_UP_AUDIO = "player-power-up.ogg",
   PLAYER_SHOOT = "player-shoot.ogg",
   SPRITE_ENEMY_1 = "sprite-enemy-1.webp",
   SPRITE_ENEMY_2 = "sprite-enemy-2.webp",
@@ -28,7 +30,8 @@ enum Assets {
   SPRITE_PLAYER_3 = "sprite-player-3.webp",
   SPRITE_PLAYER_4 = "sprite-player-4.webp",
   SPRITE_PLAYER_5 = "sprite-player-5.webp",
-  SPRITE_PLAYER_BULLET = "sprite-player-bullet.webp"
+  SPRITE_PLAYER_BULLET_1 = "sprite-player-bullet-1.webp",
+  SPRITE_PLAYER_BULLET_2 = "sprite-player-bullet-2.webp"
 }
 
 const {
@@ -41,6 +44,8 @@ const {
   PLAYER_EXPLODE,
   PLAYER_HIT_AUDIO,
   PLAYER_HIT_SPRITE,
+  PLAYER_POWER_UP,
+  PLAYER_POWER_UP_AUDIO,
   PLAYER_SHOOT,
   SPRITE_ENEMY_1,
   SPRITE_ENEMY_2,
@@ -59,7 +64,8 @@ const {
   SPRITE_PLAYER_3,
   SPRITE_PLAYER_4,
   SPRITE_PLAYER_5,
-  SPRITE_PLAYER_BULLET
+  SPRITE_PLAYER_BULLET_1,
+  SPRITE_PLAYER_BULLET_2
 } = Assets;
 
 export default {
@@ -89,9 +95,12 @@ export default {
   loadPlayer3: (): HTMLImageElement => loadImage(SPRITE_PLAYER_3),
   loadPlayer4: (): HTMLImageElement => loadImage(SPRITE_PLAYER_4),
   loadPlayer5: (): HTMLImageElement => loadImage(SPRITE_PLAYER_5),
-  loadPlayerBullet: (): HTMLImageElement => loadImage(SPRITE_PLAYER_BULLET),
+  loadPlayerBullet1: (): HTMLImageElement => loadImage(SPRITE_PLAYER_BULLET_1),
+  loadPlayerBullet2: (): HTMLImageElement => loadImage(SPRITE_PLAYER_BULLET_2),
   loadPlayerExplodeAudio: (): HTMLAudioElement => loadAudio(PLAYER_EXPLODE),
   loadPlayerGetHitAudio: (): HTMLAudioElement => loadAudio(PLAYER_HIT_AUDIO),
   loadPlayerHitSprite: (): HTMLImageElement => loadImage(PLAYER_HIT_SPRITE),
+  loadPowerUp: (): HTMLImageElement => loadImage(PLAYER_POWER_UP),
+  loadPowerUpAudio: (): HTMLAudioElement => loadAudio(PLAYER_POWER_UP_AUDIO),
   loadShootingAudio: (): HTMLAudioElement => loadAudio(PLAYER_SHOOT)
 };

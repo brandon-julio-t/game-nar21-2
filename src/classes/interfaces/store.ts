@@ -1,8 +1,9 @@
 import Assets from "./assets";
 import Bullet from "../abstracts/bullet";
 import EnemyBoss from "../enemy-boss";
-import Player from "../player";
 import EnemyMini from "../enemy-mini";
+import Player from "../player";
+import PowerUp from '../power-up';
 
 export default interface Store {
   assets: Assets;
@@ -14,5 +15,6 @@ export default interface Store {
   loadedAssetsCount: number;
   miniEnemies: EnemyMini[];
   player: Player | null;
+  powerUps: PowerUp[];
   useKeyboard: boolean;
 }

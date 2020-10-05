@@ -9,9 +9,10 @@ export default abstract class Entity {
   public readonly HEIGHT: number;
   public readonly WIDTH: number;
 
-  private explodingSpriteRowIdx: number = 0;
-  private explodingSpriteColIdx: number = 0;
   private explodingAudio: HTMLAudioElement;
+  private explodingSpriteColIdx: number = 0;
+  private explodingSpriteRowIdx: number = 0;
+  private hasTriggeredOnDie: boolean = false;
 
   protected _velocity: number;
   protected healthBarHeight: number;
@@ -20,7 +21,7 @@ export default abstract class Entity {
 
   public currentHealth: number;
   public explodeSprite: HTMLImageElement;
-  public hasFinishedExploding: boolean = false;
+  public hasFinishedDying: boolean = false;
   public position: Vector2;
   public sprite: HTMLImageElement;
 
@@ -66,6 +67,10 @@ export default abstract class Entity {
   public drawSelfAndHealthBar(ctx: CanvasRenderingContext2D): void {
     if (this.isDead) {
       this.drawExplodeSprite(ctx);
+
+      if (!this.hasTriggeredOnDie) {
+        this.die();
+      }
     } else {
       this.drawSelf(ctx);
       this.drawHealthBar(ctx);
@@ -73,6 +78,11 @@ export default abstract class Entity {
   }
 
   public drawExplodeSprite(ctx: CanvasRenderingContext2D): void {
+    if (this.explodingSpriteRowIdx >= this.EXPLODING_SPRITE_ROWS) {
+      this.hasFinishedDying = true;
+      return;
+    }
+
     const { naturalHeight, naturalWidth } = this.explodeSprite;
 
     const spriteHeight: number = naturalHeight / this.EXPLODING_SPRITE_ROWS;
@@ -103,10 +113,6 @@ export default abstract class Entity {
       this.explodingSpriteColIdx = 0;
       this.explodingSpriteRowIdx++;
     }
-
-    if (this.explodingSpriteRowIdx >= this.EXPLODING_SPRITE_ROWS) {
-      this.hasFinishedExploding = true;
-    }
   }
 
   protected abstract drawSelf(ctx: CanvasRenderingContext2D): void;
@@ -120,6 +126,10 @@ export default abstract class Entity {
 
   protected stopMoving(): void {
     this._velocity = 0;
+  }
+
+  public die(): void {
+    this.hasTriggeredOnDie = true;
   }
 
   public abstract shoot(): void;
