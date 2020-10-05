@@ -6,7 +6,7 @@
       class="container border-2 border-lionel bg-black bg-opacity-75 rounded-lg mx-8"
     >
       <div
-        class="flex flex-wrap lg:flex-no-wrap justify-center items-center m-8 md:m-32"
+        class="flex flex-wrap lg:flex-no-wrap justify-center items-center m-8 md:mx-16 md:my-32"
       >
         <section
           class="w-full mx-auto lg:w-1/4 flex justify-center items-center"
@@ -58,3 +58,9 @@ export default defineComponent({
   }
 });
 </script>
+
+<style scoped>
+.container {
+  border-color: #3ecfef !important;
+}
+</style>

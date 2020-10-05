@@ -1,22 +1,26 @@
 <template>
-  <ul class="grid grid-rows-5 gap-4">
+  <ul class="grid grid-rows-5 gap-8">
     <li v-for="(tab, idx) in tabs" :key="idx">
-      <app-button
+      <app-button-about
         @click="onButtonClick(tab.name)"
-        class="w-full rounded truncate transition duration-150 bg-primary"
+        class="w-full rounded truncate bg-primary"
       >
         {{ tab.label }}
-      </app-button>
+      </app-button-about>
     </li>
   </ul>
 </template>
 
+<style scoped>
+
+</style>
+
 <script lang="ts">
-import AppButton from "../AppButton.vue";
+import AppButtonAbout from "../AppButtonAbout.vue";
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  components: { AppButton },
+  components: { AppButtonAbout },
 
   emits: ["change-tab"],
 
@@ -38,3 +42,4 @@ export default defineComponent({
   }
 });
 </script>
+// class="w-full rounded truncate transition duration-150 bg-primary"

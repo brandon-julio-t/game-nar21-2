@@ -17,29 +17,21 @@
         target="_blank"
         rel="noopener noreferrer"
       >
-        <app-button
+        <app-button-about
           class="bg-primary px-6 py-3 rounded-md text-xl tracking-widest mt-4"
         >
           REGISTER HERE
-        </app-button>
+        </app-button-about>
       </a>
     </section>
   </div>
 </template>
 
-<style scoped>
-button:hover {
-  background-color: #228dfd;
-  box-shadow: 2px 2px 4px rgba(255, 255, 255, 0.9),
-    -2px -2px 4px rgba(255, 255, 255, 0.9);
-}
-</style>
-
 <script lang="ts">
-import AppButton from "../AppButton.vue";
+import AppButtonAbout from "../AppButtonAbout.vue";
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  components: { AppButton },
+  components: { AppButtonAbout },
 });
 </script>
