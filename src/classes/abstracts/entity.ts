@@ -81,7 +81,7 @@ export default abstract class Entity {
     const { WIDTH, position } = this;
     const { x, y } = position;
 
-    const scaleDownRatio: number = 0.025;
+    const scaleDownRatio: number = 0.0125;
     const scaledHeight: number = spriteHeight * WIDTH * scaleDownRatio;
     const scaledWidth: number = spriteWidth * WIDTH * scaleDownRatio;
 

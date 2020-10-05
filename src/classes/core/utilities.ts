@@ -44,19 +44,6 @@ export function playAudio(audio: HTMLAudioElement): void {
   audio.play();
 }
 
-export function randomMiniEnemySprite(): HTMLImageElement {
-  const {
-    miniEnemy1,
-    miniEnemy2,
-    miniEnemy3,
-    miniEnemy4,
-    miniEnemy5
-  } = store.assets;
-
-  const sprites = [miniEnemy1, miniEnemy2, miniEnemy3, miniEnemy4, miniEnemy5];
-  return sprites[randomIntegerBetween(0, sprites.length - 1)];
-}
-
 export function vectorToRadian(vector: Vector2) {
   return Math.atan2(vector.y, vector.x) + Math.PI / 2;
 }

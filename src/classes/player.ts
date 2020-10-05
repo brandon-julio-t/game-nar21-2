@@ -167,6 +167,15 @@ export default class Player extends Entity {
     if (this.isPlayingHitAnimation) {
       this.drawHitAnimation(ctx);
     }
+
+    ctx.fillStyle = "deepskyblue";
+    ctx.font =
+      'normal 20px Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace';
+    ctx.fillText(
+      `Score: ${Number(store.enemiesKilledCount * 100).toLocaleString()}`,
+      x - this.WIDTH / 2,
+      y + this.HEIGHT
+    );
   }
 
   private drawHitBox(ctx: CanvasRenderingContext2D): void {
@@ -230,7 +239,7 @@ export default class Player extends Entity {
     const width: number = (WIDTH * currentHealth) / maxHealth;
     const height: number = healthBarHeight;
 
-    ctx.fillStyle = "red";
+    ctx.fillStyle = "deepskyblue";
     ctx.fillRect(xPos, yPos, width, height);
 
     ctx.strokeStyle = "black";

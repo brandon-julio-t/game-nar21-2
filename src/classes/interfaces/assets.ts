@@ -13,14 +13,10 @@ export default interface Assets {
   enemyBulletCircle: HTMLImageElement;
   enemyBulletLaser: HTMLImageElement;
   enemyExplodeAudio: HTMLAudioElement;
+  enemyMini: HTMLImageElement;
   enemyMiniExplodeAudio: HTMLAudioElement;
   explodeSprite: HTMLImageElement;
   meteor: HTMLImageElement;
-  miniEnemy1: HTMLImageElement;
-  miniEnemy2: HTMLImageElement;
-  miniEnemy3: HTMLImageElement;
-  miniEnemy4: HTMLImageElement;
-  miniEnemy5: HTMLImageElement;
   player1: HTMLImageElement;
   player2: HTMLImageElement;
   player3: HTMLImageElement;

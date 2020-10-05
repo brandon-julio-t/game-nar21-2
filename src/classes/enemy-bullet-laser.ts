@@ -36,7 +36,7 @@ export default class EnemyBulletLaser extends EnemyBullet {
     ctx.save();
     ctx.translate(x, y);
     ctx.rotate(this.ANGLE);
-    ctx.drawImage(this.SPRITE, 0, 0);
+    ctx.drawImage(this.SPRITE, -this.WIDTH / 2, -this.HEIGHT / 2);
     ctx.restore();
   }
 

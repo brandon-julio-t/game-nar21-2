@@ -13,7 +13,7 @@ import Environment from "./core/environment";
 
 export default class Game {
   private static readonly FPS: number = 60;
-  private static readonly MINI_ENEMY_SPAWN_TIME = 3000; // 1 enemy per 3 seconds
+  private static readonly MINI_ENEMY_SPAWN_TIME = 2500; // 1 enemy per 3 seconds
 
   private static contextsGroup: ContextsGroup;
   private static enemy: EnemyBoss;

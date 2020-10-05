@@ -54,9 +54,6 @@
     <canvas class="absolute" ref="enemiesCanvas"></canvas>
     <canvas class="absolute" ref="playerCanvas"></canvas>
     <canvas class="absolute" ref="bulletsCanvas"></canvas>
-    <p class="absolute bottom-0 left-0 text-white text-2xl p-4">
-      Score: {{ score }}
-    </p>
     <div class="scroll-down-background-7" ref="backgroundImage"></div>
   </div>
 </template>
@@ -94,9 +91,6 @@ export default defineComponent({
     const state = reactive({
       logoClicked: false,
       openChooseInputSystemModal: false,
-      score: computed(() =>
-        Number(store.enemiesKilledCount * 100).toLocaleString()
-      ),
       totalAssetsCount: computed(() =>
         store.assets != null ? Object.keys(store.assets).length : -1
       ),
