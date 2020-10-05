@@ -38,9 +38,3 @@ export default defineComponent({
   }
 });
 </script>
-
-<style scoped>
-button:hover {
-  background-color: #228dfd;
-}
-</style>

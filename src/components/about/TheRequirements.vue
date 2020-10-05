@@ -1,16 +1,18 @@
 <template>
-  <h1 class="text-center font-bold heading tracking-widest">Requirements</h1>
+  <div>
+    <h1 class="text-center font-bold heading tracking-widest">Requirements</h1>
 
-  <section class="grid grid-cols-2 gap-8 mt-10">
-    <figure v-for="(requirement, idx) in requirements" :key="idx">
-      <img
-        :src="requirement.img"
-        :alt="requirement.desc"
-        class="w-32 mx-auto"
-      />
-      <figcaption class="text-center">{{ requirement.desc }}</figcaption>
-    </figure>
-  </section>
+    <section class="grid grid-cols-2 gap-8 mt-10">
+      <figure v-for="(requirement, idx) in requirements" :key="idx">
+        <img
+          :src="requirement.img"
+          :alt="requirement.desc"
+          class="w-32 mx-auto"
+        />
+        <figcaption class="text-center">{{ requirement.desc }}</figcaption>
+      </figure>
+    </section>
+  </div>
 </template>
 
 <script lang="ts">

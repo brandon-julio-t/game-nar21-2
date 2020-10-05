@@ -17,7 +17,7 @@
       class="flex justify-center items-center p-16 rounded bg-black bg-opacity-75 border-2 border-lionel text-white"
     >
       <div>
-        <the-dialog-game-instruction />
+        <the-dialog-game-instruction></the-dialog-game-instruction>
 
         <div
           v-if="!isLoadingFinished"
@@ -37,7 +37,7 @@
           @click="openChooseInputSystemModal = true"
           class="flex justify-center items-center py-4 lg:py-8 mt-4 w-full"
         >
-          <icon-controller class="mr-2" />
+          <icon-controller class="mr-2"></icon-controller>
           Play
         </app-button>
       </div>
@@ -51,13 +51,13 @@
   </section>
 
   <div class="w-screen h-screen relative overflow-hidden">
-    <canvas class="absolute" ref="enemiesCanvas" />
-    <canvas class="absolute" ref="playerCanvas" />
-    <canvas class="absolute" ref="bulletsCanvas" />
+    <canvas class="absolute" ref="enemiesCanvas"></canvas>
+    <canvas class="absolute" ref="playerCanvas"></canvas>
+    <canvas class="absolute" ref="bulletsCanvas"></canvas>
     <p class="absolute bottom-0 left-0 text-white text-2xl p-4">
       Score: {{ score }}
     </p>
-    <div class="scroll-down-background-7" ref="backgroundImage" />
+    <div class="scroll-down-background-7" ref="backgroundImage"></div>
   </div>
 </template>
 

@@ -8,11 +8,11 @@
       v-if="!store.isGaming"
       id="main-background"
       class="scroll-down-background-60"
-    />
+    ></div>
     <main>
       <router-view v-slot="{ Component }">
         <transition name="fade">
-          <component :is="Component" />
+          <component :is="Component"></component>
         </transition>
       </router-view>
     </main>

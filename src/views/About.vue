@@ -11,13 +11,13 @@
         <section
           class="w-full mx-auto lg:w-1/4 flex justify-center items-center"
         >
-          <the-tabs @change-tab="changeTab" />
+          <the-tabs @change-tab="changeTab"></the-tabs>
         </section>
 
-        <div class="mx-8" />
+        <div class="mx-8"></div>
 
         <section class="w-full mx-auto lg:w-3/4">
-          <component :is="currentTab" />
+          <component :is="currentTab"></component>
         </section>
       </div>
     </div>

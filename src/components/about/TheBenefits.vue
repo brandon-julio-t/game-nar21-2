@@ -1,30 +1,32 @@
 <template>
-  <h1 class="text-center font-bold heading tracking-widest">Benefits</h1>
+  <div>
+    <h1 class="text-center font-bold heading tracking-widest">Benefits</h1>
 
-  <section>
-    <h2>Hard Skill</h2>
-    <div class="grid grid-cols-5">
-      <div v-for="(hardSkill, idx) in hardSkills" :key="idx">
-        <img :src="hardSkill.img" :alt="hardSkill.name" class="mx-auto w-1/2" />
-        <!-- <h3 class="text-center">{{ hardSkill.name }}</h3> -->
+    <section>
+      <h2>Hard Skill</h2>
+      <div class="grid grid-cols-5">
+        <div v-for="(hardSkill, idx) in hardSkills" :key="idx">
+          <img :src="hardSkill.img" :alt="hardSkill.name" class="mx-auto w-1/2" />
+          <!-- <h3 class="text-center">{{ hardSkill.name }}</h3> -->
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section>
-    <h2>Soft Skill</h2>
-    <div class="grid grid-cols-5">
-      <div v-for="(softSkill, idx) in softSkills" :key="idx">
-        <img :src="softSkill.img" :alt="softSkill.name" class="mx-auto w-1/2" />
-        <!-- <h3 class="text-center">{{ softSkill.name }}</h3> -->
+    <section>
+      <h2>Soft Skill</h2>
+      <div class="grid grid-cols-5">
+        <div v-for="(softSkill, idx) in softSkills" :key="idx">
+          <img :src="softSkill.img" :alt="softSkill.name" class="mx-auto w-1/2" />
+          <!-- <h3 class="text-center">{{ softSkill.name }}</h3> -->
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section>
-    <h2>Job Experiences</h2>
-    <div></div>
-  </section>
+    <section>
+      <h2>Job Experiences</h2>
+      <div></div>
+    </section>
+  </div>
 </template>
 
 <script lang="ts">

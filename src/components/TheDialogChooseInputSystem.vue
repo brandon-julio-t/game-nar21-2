@@ -8,11 +8,11 @@
 
         <div class="grid grid-cols-2 gap-2 md:gap-4 lg:gap-8">
           <app-button @click="playWithKeyboard()" class="truncate">
-            <icon-keyboard class="w-full text-6xl" />
+            <icon-keyboard class="w-full text-6xl"></icon-keyboard>
             Keyboard
           </app-button>
           <app-button @click="playWithMouse()" class="truncate">
-            <icon-mouse class="w-full text-6xl" />
+            <icon-mouse class="w-full text-6xl"></icon-mouse>
             Mouse
           </app-button>
         </div>
@@ -21,7 +21,7 @@
           @click="$emit('close-dialog')"
           class="absolute top-0 right-0 p-4"
         >
-          <icon-x />
+          <icon-x></icon-x>
         </button>
       </div>
     </div>
