@@ -1,7 +1,6 @@
 import EnemyBullet from "./abstracts/enemy-bullet";
 import Player from "./player";
 import store from "@/store";
-import { radianToVector, vectorToRadian } from "./core/utilities";
 import Vector2 from "./core/vector2";
 
 export default class EnemyBulletLaser extends EnemyBullet {
@@ -27,7 +26,7 @@ export default class EnemyBulletLaser extends EnemyBullet {
       this.VELOCITY.x = normalized.x * this.SPEED;
       this.VELOCITY.y = normalized.y * this.SPEED;
 
-      this.ANGLE = vectorToRadian(this.VELOCITY);
+      this.ANGLE = this.VELOCITY.toRadian();
     }
   }
 
@@ -43,7 +42,7 @@ export default class EnemyBulletLaser extends EnemyBullet {
   public checkCollision(): void {
     const player: Player = store.player as Player;
     if (player !== null) {
-      const { x, y } = radianToVector(this.ANGLE);
+      const { x, y } = Vector2.fromRadian(this.ANGLE);
 
       const xPos: number = this.position.x + x;
       const yPos: number = this.position.y + y;

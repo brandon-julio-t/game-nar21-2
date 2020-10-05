@@ -1,7 +1,7 @@
 import Enemy from "./abstracts/enemy";
 import EnemyBulletCircle from "./enemy-bullet-circle";
 import store from "@/store";
-import { radianToVector, randomIntegerBetween } from "./core/utilities";
+import { randomIntegerBetween } from "./core/utilities";
 import EnemyBulletLaser from "./enemy-bullet-laser";
 import Vector2 from "./core/vector2";
 
@@ -12,6 +12,8 @@ export default class EnemyBoss extends Enemy {
   private static readonly VELOCITY: number = 3;
 
   private readonly ANIMATED_SPRITE: HTMLImageElement[];
+  private readonly CIRCLE_BULLET_SPAWN_TIME: number = 3000;
+  private readonly LASER_BULLET_SPAWN_TIME: number = 50;
 
   private animatedSpriteIdx: number = 0;
   private nextCircleBulletShootTime: number = Date.now();
@@ -107,7 +109,7 @@ export default class EnemyBoss extends Enemy {
     ) {
       const velocity: number = randomIntegerBetween(3, 5);
       for (let degree = 0; degree < 360; degree += 5) {
-        const direction: Vector2 = radianToVector(degree).normalized();
+        const direction: Vector2 = Vector2.fromRadian(degree).normalized();
 
         store.bullets.splice(
           0,
@@ -121,7 +123,8 @@ export default class EnemyBoss extends Enemy {
         );
       }
 
-      this.nextCircleBulletShootTime = Date.now() + 3000;
+      this.nextCircleBulletShootTime =
+        Date.now() + this.CIRCLE_BULLET_SPAWN_TIME;
     }
 
     if (
@@ -129,7 +132,7 @@ export default class EnemyBoss extends Enemy {
       this.currentHealth <= (this.maxHealth * 30) / 100
     ) {
       store.bullets.splice(0, 0, new EnemyBulletLaser(xSpawn, ySpawn));
-      this.nextLaserBulletShootTime = Date.now() + 150;
+      this.nextLaserBulletShootTime = Date.now() + this.LASER_BULLET_SPAWN_TIME;
     }
   }
 }
