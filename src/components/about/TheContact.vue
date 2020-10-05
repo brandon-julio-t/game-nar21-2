@@ -15,32 +15,56 @@
       </section>
 
       <section class="flex flex-wrap justify-center items-center">
-        <figure class="text-center flex justify-center items-center">
-          <img
-            src="@/assets/icons/facebook.svg"
-            alt="Facebook"
-            class="mx-auto w-8 mr-2"
-          />
-          <figcaption>SoftwareLabCenter</figcaption>
-        </figure>
+        <a
+          href="https://www.facebook.com/SoftwareLabCenter"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <figure
+            class="text-center flex justify-center items-center hover:underline"
+          >
+            <img
+              src="@/assets/icons/facebook.svg"
+              alt="Facebook"
+              class="mx-auto w-8 mr-2"
+            />
+            <figcaption>SoftwareLabCenter</figcaption>
+          </figure>
+        </a>
 
-        <figure class="text-center mx-8 flex justify-center items-center">
-          <img
-            src="@/assets/icons/instagram.svg"
-            alt="Instagram"
-            class="mx-auto w-8 mr-2"
-          />
-          <figcaption>slcbinusuniv</figcaption>
-        </figure>
+        <a
+          href="https://www.instagram.com/slcbinusuniv/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <figure
+            class="text-center mx-8 flex justify-center items-center hover:underline"
+          >
+            <img
+              src="@/assets/icons/instagram.svg"
+              alt="Instagram"
+              class="mx-auto w-8 mr-2"
+            />
+            <figcaption>slcbinusuniv</figcaption>
+          </figure>
+        </a>
 
-        <figure class="text-center flex justify-center items-center">
-          <img
-            src="@/assets/icons/youtube.svg"
-            alt="YouTube"
-            class="mx-auto w-8 mr-2"
-          />
-          <figcaption>Software Lab Center</figcaption>
-        </figure>
+        <a
+          href="https://www.youtube.com/user/SoftwareLabCenter"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <figure
+            class="text-center flex justify-center items-center hover:underline"
+          >
+            <img
+              src="@/assets/icons/youtube.svg"
+              alt="YouTube"
+              class="mx-auto w-8 mr-2"
+            />
+            <figcaption>Software Lab Center</figcaption>
+          </figure>
+        </a>
       </section>
     </section>
   </div>
