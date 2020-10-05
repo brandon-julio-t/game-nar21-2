@@ -129,7 +129,7 @@ export default class EnemyBoss extends Enemy {
 
     if (
       Date.now() >= this.nextCircleBulletShootTime &&
-      this.currentHealth <= (this.maxHealth * 80) / 100
+      this.currentHealth <= (this.maxHealth * 70) / 100
     ) {
       const velocity: number = randomIntegerBetween(3, 5);
       for (let degree = 0; degree < 360; degree += 5) {
@@ -153,9 +153,14 @@ export default class EnemyBoss extends Enemy {
 
     if (
       Date.now() >= this.nextLaserBulletShootTime &&
-      this.currentHealth <= (this.maxHealth * 60) / 100
+      this.currentHealth <= (this.maxHealth * 50) / 100
     ) {
-      store.bullets.splice(0, 0, new EnemyBulletLaser(xSpawn, ySpawn));
+      const velocity: number = 12;
+      store.bullets.splice(
+        0,
+        0,
+        new EnemyBulletLaser(xSpawn, ySpawn, velocity, velocity)
+      );
       this.nextLaserBulletShootTime = Date.now() + this.LASER_BULLET_SPAWN_TIME;
     }
   }

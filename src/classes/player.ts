@@ -6,6 +6,7 @@ import Environment from "./core/environment";
 
 export default class Player extends Entity {
   private static readonly SCALE_DOWN_RATIO: number = 0.15;
+
   private static readonly HEALTH: number = 7;
   private static readonly HEALTH_BAR_HEIGTH: number = 10;
   private static readonly SLOW_DOWN_RATIO: number = 0.5;
@@ -18,7 +19,7 @@ export default class Player extends Entity {
 
   protected readonly BLINKING_FREQUENCY: number = 50;
 
-  public readonly HITBOX_SIZE = 10;
+  public readonly HITBOX_SIZE = 5;
 
   private animatedSpriteIdx: number = 0;
   private hitSpriteColIdx: number = 0;

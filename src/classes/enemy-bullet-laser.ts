@@ -4,10 +4,16 @@ import store from "@/store";
 import Vector2 from "./core/vector2";
 
 export default class EnemyBulletLaser extends EnemyBullet {
-  private readonly SPEED: number = 7;
+  private static readonly SPEED: number = 7;
+
   private readonly ANGLE: number = 0;
 
-  public constructor(x: number, y: number) {
+  public constructor(
+    x: number,
+    y: number,
+    xVelocity: number = EnemyBulletLaser.SPEED,
+    yVelocity: number = EnemyBulletLaser.SPEED
+  ) {
     super(
       x,
       y,
@@ -23,8 +29,8 @@ export default class EnemyBulletLaser extends EnemyBullet {
       const y: number = (player.position.y - this.position.y) * 0.01;
       const normalized = new Vector2(x, y).normalized();
 
-      this.VELOCITY.x = normalized.x * this.SPEED;
-      this.VELOCITY.y = normalized.y * this.SPEED;
+      this.VELOCITY.x = normalized.x * xVelocity;
+      this.VELOCITY.y = normalized.y * yVelocity;
 
       this.ANGLE = this.VELOCITY.toRadian();
     }
