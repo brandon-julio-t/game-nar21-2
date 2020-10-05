@@ -1,20 +1,23 @@
 <template>
-  <ul class="flex flex-col list-none m-auto">
+  <ul class="grid grid-rows-5 gap-4">
     <li v-for="(tab, idx) in tabs" :key="idx">
-      <button
+      <app-button
         @click="onButtonClick(tab.name)"
-        class="py-2 px-4 w-full my-2 text-lg rounded truncate transition duration-150 bg-primary"
+        class="w-full rounded truncate transition duration-150 bg-primary"
       >
         {{ tab.label }}
-      </button>
+      </app-button>
     </li>
   </ul>
 </template>
 
 <script lang="ts">
+import AppButton from "../AppButton.vue";
 import { defineComponent } from "vue";
 
 export default defineComponent({
+  components: { AppButton },
+
   emits: ["change-tab"],
 
   setup(props, { emit }) {
@@ -27,7 +30,7 @@ export default defineComponent({
       tabs: [
         { name: "TheBenefits", label: "Benefits" },
         { name: "TheRequirements", label: "Req." },
-        { name: "TheTest", label: "Initial Test" },
+        { name: "TheInitialTest", label: "Initial Test" },
         { name: "TheRegistration", label: "Registration" },
         { name: "TheContact", label: "Contact" }
       ]
@@ -35,9 +38,3 @@ export default defineComponent({
   }
 });
 </script>
-
-<style scoped>
-button:hover {
-  background-color: #228dfd;
-}
-</style>

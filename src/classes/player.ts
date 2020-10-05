@@ -2,10 +2,11 @@ import Entity from "./abstracts/entity";
 import PlayerBullet from "./player-bullet";
 import store from "@/store";
 import { playAudio } from "./core/utilities";
+import Environment from "./core/environment";
 
 export default class Player extends Entity {
   private static readonly SCALE_DOWN_RATIO: number = 0.15;
-  private static readonly HEALTH: number = 12;
+  private static readonly HEALTH: number = 15;
   private static readonly HEALTH_BAR_HEIGTH: number = 10;
   private static readonly SLOW_DOWN_RATIO: number = 0.5;
   private static readonly VELOCITY: number = 10;
@@ -81,6 +82,7 @@ export default class Player extends Entity {
   }
 
   public move(): void {
+    super.move();
     this.moveUp();
     this.moveLeft();
     this.moveDown();
@@ -158,13 +160,22 @@ export default class Player extends Entity {
       }, 1000);
     }
 
-    if (process.env.NODE_ENV === "development") {
+    if (Environment.isDevelopment) {
       this.drawHitBox(ctx);
     }
 
     if (this.isPlayingHitAnimation) {
       this.drawHitAnimation(ctx);
     }
+
+    ctx.fillStyle = "dodgerblue";
+    ctx.font =
+      'normal 20px Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace';
+    ctx.fillText(
+      `Score: ${Number(store.enemiesKilledCount * 100).toLocaleString()}`,
+      x - this.WIDTH / 2,
+      y + this.HEIGHT
+    );
   }
 
   private drawHitBox(ctx: CanvasRenderingContext2D): void {
@@ -228,7 +239,7 @@ export default class Player extends Entity {
     const width: number = (WIDTH * currentHealth) / maxHealth;
     const height: number = healthBarHeight;
 
-    ctx.fillStyle = "red";
+    ctx.fillStyle = "dodgerblue";
     ctx.fillRect(xPos, yPos, width, height);
 
     ctx.strokeStyle = "black";
@@ -241,8 +252,8 @@ export default class Player extends Entity {
       this.isShooting &&
       Date.now() >= this.nextTimeToAttack
     ) {
-      const nX: number[] = [-3, -2, -1, 0, 1, 2, 3];
-      const nY: number[] = [3, 2, 1, 0, 1, 2, 3];
+      const nX: number[] = [-2, -1, 0, 1, 2];
+      const nY: number[] = [2, 1, 0, 1, 2];
 
       const len: number = nX.length;
       const nMultiplier: number = 15;

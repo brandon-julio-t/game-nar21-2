@@ -1,23 +1,23 @@
 <template>
   <section
     v-if="!store.isGaming"
-    class="flex justify-center items-center w-screen h-screen"
+    class="flex justify-center items-center w-screen h-screen m-0"
   >
-    <div v-if="!logoClicked">
+    <div v-if="!logoClicked" class="w-1/5 m-0">
       <img
         @click="onLogoClick()"
         alt="Vue logo"
-        class="transition duration-300 ease-in-out transform hover:scale-125 cursor-pointer w-64 h-64 mx-auto"
+        class="transition duration-300 ease-in-out transform hover:scale-125 cursor-pointer h-full w-full mx-auto"
         src="/images/logo-nar21-2.webp"
       />
     </div>
 
     <div
       v-else
-      class="flex justify-center items-center mt-16 p-16 rounded bg-black text-white"
+      class="flex justify-center items-center p-16 rounded bg-black bg-opacity-75 border-2 border-lionel text-white"
     >
       <div>
-        <the-dialog-game-instruction />
+        <the-dialog-game-instruction></the-dialog-game-instruction>
 
         <div
           v-if="!isLoadingFinished"
@@ -32,14 +32,14 @@
             }}%
           </h2>
         </div>
-        <app-button-dark
+        <app-button
           v-else
           @click="openChooseInputSystemModal = true"
           class="flex justify-center items-center py-4 lg:py-8 mt-4 w-full"
         >
-          <icon-controller class="mr-2" />
+          <icon-controller class="mr-2"></icon-controller>
           Play
-        </app-button-dark>
+        </app-button>
       </div>
     </div>
 
@@ -51,13 +51,10 @@
   </section>
 
   <div class="w-screen h-screen relative overflow-hidden">
-    <canvas class="absolute" ref="enemiesCanvas" />
-    <canvas class="absolute" ref="playerCanvas" />
-    <canvas class="absolute" ref="bulletsCanvas" />
-    <p class="absolute bottom-0 left-0 text-white text-2xl p-4">
-      Score: {{ score }}
-    </p>
-    <div id="game-background" ref="backgroundImage" />
+    <canvas class="absolute" ref="enemiesCanvas"></canvas>
+    <canvas class="absolute" ref="playerCanvas"></canvas>
+    <canvas class="absolute" ref="bulletsCanvas"></canvas>
+    <div class="scroll-down-background-7" ref="backgroundImage"></div>
   </div>
 </template>
 
@@ -73,7 +70,7 @@ import {
 } from "vue";
 
 import IconController from "@/components/icons/IconController.vue";
-import AppButtonDark from "@/components/AppButtonDark.vue";
+import AppButton from "@/components/AppButton.vue";
 import TheDialogChooseInputSystem from "@/components/TheDialogChooseInputSystem.vue";
 import TheDialogGameInstruction from "@/components/TheDialogGameInstruction.vue";
 
@@ -85,7 +82,7 @@ import loadAssets from "@/store/assets";
 export default defineComponent({
   components: {
     IconController,
-    AppButtonDark,
+    AppButton,
     TheDialogChooseInputSystem,
     TheDialogGameInstruction
   },
@@ -94,23 +91,14 @@ export default defineComponent({
     const state = reactive({
       logoClicked: false,
       openChooseInputSystemModal: false,
-      score: computed(() =>
-        Number(store.enemiesKilledCount * 100).toLocaleString()
+      totalAssetsCount: computed(() =>
+        store.assets != null ? Object.keys(store.assets).length : -1
       ),
-      totalAssetsCount: computed(() => {
-        if (store.assets != null) {
-          return Object.keys(store.assets).length;
-        }
-
-        return -1;
-      }),
-      isLoadingFinished: computed(() => {
-        if (store.assets !== null) {
-          return store.loadedAssetsCount === Object.keys(store.assets).length;
-        }
-
-        return false;
-      })
+      isLoadingFinished: computed(() =>
+        store.assets !== null
+          ? store.loadedAssetsCount === Object.keys(store.assets).length
+          : false
+      )
     });
 
     const backgroundImage = ref<HTMLImageElement | null>(null);
@@ -154,24 +142,3 @@ export default defineComponent({
   }
 });
 </script>
-
-<style scoped>
-#game-background {
-  animation: backgroundScroll 7s linear infinite;
-  background-repeat: repeat;
-  height: 2048px;
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  z-index: -1;
-}
-
-@keyframes backgroundScroll {
-  0% {
-    transform: translate3d(0, 0, 0);
-  }
-  100% {
-    transform: translate3d(0, 1024px, 0);
-  }
-}
-</style>

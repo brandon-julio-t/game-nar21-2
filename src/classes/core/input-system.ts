@@ -1,6 +1,7 @@
 import Player from "../player";
 import router from "@/router";
 import store from "@/store";
+import Environment from './environment';
 
 export default class InputSystem {
   private static get player(): Player | null {
@@ -22,7 +23,7 @@ export default class InputSystem {
   }
 
   public static disableInspectElement(): void {
-    if (process.env.NODE_ENV === "production") {
+    if (Environment.isProduction) {
       document.removeEventListener(
         "keydown",
         this.disableInspectElementListener
@@ -119,7 +120,7 @@ export default class InputSystem {
         break;
 
       case "Escape":
-        if (process.env.NODE_ENV === "development") {
+        if (Environment.isDevelopment) {
           router.push("/");
         }
         break;

@@ -1,7 +1,6 @@
 import Vector2 from "../core/vector2";
 import store from "@/store";
 import { playAudio } from "../core/utilities";
-import Player from "../player";
 
 export default abstract class Entity {
   private readonly EXPLODING_SPRITE_COLS: number = 8;
@@ -82,7 +81,7 @@ export default abstract class Entity {
     const { WIDTH, position } = this;
     const { x, y } = position;
 
-    const scaleDownRatio: number = 0.025;
+    const scaleDownRatio: number = 0.0125;
     const scaledHeight: number = spriteHeight * WIDTH * scaleDownRatio;
     const scaledWidth: number = spriteWidth * WIDTH * scaleDownRatio;
 
@@ -113,7 +112,15 @@ export default abstract class Entity {
   protected abstract drawSelf(ctx: CanvasRenderingContext2D): void;
   protected abstract drawHealthBar(ctx: CanvasRenderingContext2D): void;
 
-  public abstract move(): void;
+  public move(): void {
+    if (this.isDead) {
+      this.stopMoving();
+    }
+  }
+
+  protected stopMoving(): void {
+    this._velocity = 0;
+  }
+
   public abstract shoot(): void;
-  public abstract stopMoving(): void;
 }

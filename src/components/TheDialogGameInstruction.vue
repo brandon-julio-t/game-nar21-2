@@ -1,13 +1,13 @@
 <template>
   <h1 class="font-bold mb-4 flex items-center">
-    <icon-question-circle class="mr-2" />
+    <icon-question-circle class="mr-2"></icon-question-circle>
     Instructions
   </h1>
 
   <div class="grid grid-cols-2 gap-8">
     <section>
       <h2 class="flex items-center">
-        <icon-keyboard class="mr-2" />
+        <icon-keyboard class="mr-2"></icon-keyboard>
         Keyboard
       </h2>
       <ul class="list-disc">
@@ -29,7 +29,7 @@
 
     <section>
       <h2 class="flex items-center">
-        <icon-mouse class="mr-2" />
+        <icon-mouse class="mr-2"></icon-mouse>
         Mouse
       </h2>
       <ul class="list-disc">
@@ -40,7 +40,7 @@
   </div>
 
   <h1 class="font-bold my-4 flex items-center">
-    <icon-exclamation-circle class="mr-2" />
+    <icon-exclamation-circle class="mr-2"></icon-exclamation-circle>
     Notes
   </h1>
   <ul class="list-disc">

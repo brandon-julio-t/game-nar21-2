@@ -3,15 +3,23 @@
     class="flex justify-center items-center w-screen h-screen text-white"
   >
     <div
-      class="container grid lg:grid-cols-4 gap-8 border-2 bg-black bg-opacity-75 p-16 rounded-lg"
+      class="container border-2 border-lionel bg-black bg-opacity-75 rounded-lg mx-8"
     >
-      <section class="lg:col-span-1 flex items-center">
-        <the-tabs @change-tab="changeTab" />
-      </section>
+      <div
+        class="flex flex-wrap lg:flex-no-wrap justify-center items-center m-8 md:m-32"
+      >
+        <section
+          class="w-full mx-auto lg:w-1/4 flex justify-center items-center"
+        >
+          <the-tabs @change-tab="changeTab"></the-tabs>
+        </section>
 
-      <section class="lg:col-span-3 flex items-center justify-center">
-        <component :is="currentTab"></component>
-      </section>
+        <div class="mx-8"></div>
+
+        <section class="w-full mx-auto lg:w-3/4">
+          <component :is="currentTab"></component>
+        </section>
+      </div>
     </div>
   </article>
 </template>
@@ -24,7 +32,7 @@ import TheContact from "@/components/about/TheContact.vue";
 import TheRegistration from "@/components/about/TheRegistration.vue";
 import TheRequirements from "@/components/about/TheRequirements.vue";
 import TheTabs from "@/components/about/TheTabs.vue";
-import TheTest from "@/components/about/TheInitialTest.vue";
+import TheInitialTest from "@/components/about/TheInitialTest.vue";
 
 export default defineComponent({
   components: {
@@ -33,7 +41,7 @@ export default defineComponent({
     TheRegistration,
     TheRequirements,
     TheTabs,
-    TheTest
+    TheInitialTest
   },
 
   setup() {
@@ -50,11 +58,3 @@ export default defineComponent({
   }
 });
 </script>
-
-<style scoped>
-.container {
-  max-width: 80%;
-  min-height: 75%;
-  border-color: #1676eb;
-}
-</style>

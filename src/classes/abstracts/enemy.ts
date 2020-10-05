@@ -2,6 +2,8 @@ import store from "@/store";
 import Entity from "./entity";
 
 export default abstract class Enemy extends Entity {
+  private isScoreAdded: boolean = false;
+
   public constructor(
     x: number,
     y: number,
@@ -28,8 +30,9 @@ export default abstract class Enemy extends Entity {
   public reduceHealth(points: number): void {
     super.reduceHealth(points);
 
-    if (this.isDead) {
+    if (this.isDead && !this.isScoreAdded) {
       store.enemiesKilledCount++;
+      this.isScoreAdded = true;
     }
   }
 

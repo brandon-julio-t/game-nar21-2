@@ -1,37 +1,71 @@
 <template>
   <div>
-    <h1 class="text-4xl text-center">Contact</h1>
+    <h1 class="text-center font-bold heading tracking-widest">Contact</h1>
 
     <section>
-      <h2 class="text-2xl text-center mt-3">For more information</h2>
+      <h2 class="text-center">For more information</h2>
 
-      <div class="ml-8 text-center">
+      <section class="text-center">
         <p>Contact us on :</p>
         <p>- Kemanggisan -</p>
-        <h3 class="text-primary-light text-3xl">Christina / Hanni / Natasia</h3>
-        <p>
-          <span class="text-xl">021-5345830</span> ext
-          <span class="text-xl">1762</span> - Room
-          <span class="text-xl">724</span>
-        </p>
-      </div>
+        <h3 class="text-lionel-light font-semibold text-4xl">
+          Christina / Hanni / Natasia
+        </h3>
+        <p>021-5345830 ext 1762 - Room 724</p>
+      </section>
 
-      <div class="flex justify-between mt-8 text-sm">
-        <div class="flex">
-          <!-- fb -->
-          SoftwareLabCenter
-        </div>
+      <section class="flex flex-wrap justify-center items-center">
+        <a
+          href="https://www.facebook.com/SoftwareLabCenter"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <figure
+            class="text-center flex justify-center items-center hover:underline"
+          >
+            <img
+              src="@/assets/icons/facebook.svg"
+              alt="Facebook"
+              class="mx-auto w-8 mr-2"
+            />
+            <figcaption>SoftwareLabCenter</figcaption>
+          </figure>
+        </a>
 
-        <div class="flex">
-          <!-- ig -->
-          slcbinusuniv
-        </div>
+        <a
+          href="https://www.instagram.com/slcbinusuniv/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <figure
+            class="text-center mx-8 flex justify-center items-center hover:underline"
+          >
+            <img
+              src="@/assets/icons/instagram.svg"
+              alt="Instagram"
+              class="mx-auto w-8 mr-2"
+            />
+            <figcaption>slcbinusuniv</figcaption>
+          </figure>
+        </a>
 
-        <div class="flex">
-          <!-- yt -->
-          Software Lab Center
-        </div>
-      </div>
+        <a
+          href="https://www.youtube.com/user/SoftwareLabCenter"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <figure
+            class="text-center flex justify-center items-center hover:underline"
+          >
+            <img
+              src="@/assets/icons/youtube.svg"
+              alt="YouTube"
+              class="mx-auto w-8 mr-2"
+            />
+            <figcaption>Software Lab Center</figcaption>
+          </figure>
+        </a>
+      </section>
     </section>
   </div>
 </template>

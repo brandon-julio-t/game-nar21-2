@@ -9,10 +9,11 @@ import { getContext } from "./core/utilities";
 import CanvasesGroup from "./interfaces/canvases-group";
 import ContextsGroup from "./interfaces/contexts-group";
 import EnemyMini from "./enemy-mini";
+import Environment from "./core/environment";
 
 export default class Game {
   private static readonly FPS: number = 60;
-  private static readonly MINI_ENEMY_SPAWN_TIME = 3000; // 1 enemy per 3 seconds
+  private static readonly MINI_ENEMY_SPAWN_TIME = 2500; // 1 enemy per 3 seconds
 
   private static contextsGroup: ContextsGroup;
   private static enemy: EnemyBoss;
@@ -73,7 +74,7 @@ export default class Game {
 
     store.player = store.enemy = null;
 
-    store.assets.backgroundMusic.currentTime = 0;
+    store.enemiesKilledCount = store.assets.backgroundMusic.currentTime = 0;
     store.assets.backgroundMusic.pause();
 
     if (this.animationId !== null) {
@@ -97,7 +98,7 @@ export default class Game {
     const { backgroundMusic } = store.assets;
     backgroundMusic.play();
     backgroundMusic.loop = true;
-    backgroundMusic.volume = process.env.NODE_ENV === "development" ? 0.1 : 1;
+    backgroundMusic.volume = Environment.isDevelopment ? 0.5 : 1;
   }
 
   private static play(): void {
@@ -139,7 +140,6 @@ export default class Game {
     const entity: Entity = this.enemy.isDead ? this.enemy : this.player;
 
     InputSystem.reset();
-    entity.stopMoving();
 
     if (entity.hasFinishedExploding) {
       router.push("/about");
