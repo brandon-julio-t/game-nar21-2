@@ -30,7 +30,7 @@ export default defineComponent({
       tabs: [
         { name: "TheBenefits", label: "Benefits" },
         { name: "TheRequirements", label: "Req." },
-        { name: "TheTest", label: "Initial Test" },
+        { name: "TheInitialTest", label: "Initial Test" },
         { name: "TheRegistration", label: "Registration" },
         { name: "TheContact", label: "Contact" }
       ]

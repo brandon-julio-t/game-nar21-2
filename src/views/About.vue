@@ -32,7 +32,7 @@ import TheContact from "@/components/about/TheContact.vue";
 import TheRegistration from "@/components/about/TheRegistration.vue";
 import TheRequirements from "@/components/about/TheRequirements.vue";
 import TheTabs from "@/components/about/TheTabs.vue";
-import TheTest from "@/components/about/TheInitialTest.vue";
+import TheInitialTest from "@/components/about/TheInitialTest.vue";
 
 export default defineComponent({
   components: {
@@ -41,7 +41,7 @@ export default defineComponent({
     TheRegistration,
     TheRequirements,
     TheTabs,
-    TheTest
+    TheInitialTest
   },
 
   setup() {
