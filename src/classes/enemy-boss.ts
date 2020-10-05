@@ -131,7 +131,12 @@ export default class EnemyBoss extends Enemy {
       Date.now() >= this.nextLaserBulletShootTime &&
       this.currentHealth <= (this.maxHealth * 50) / 100
     ) {
-      store.bullets.splice(0, 0, new EnemyBulletLaser(xSpawn, ySpawn, 15, 15));
+      const velocity: number = 12;
+      store.bullets.splice(
+        0,
+        0,
+        new EnemyBulletLaser(xSpawn, ySpawn, velocity, velocity)
+      );
       this.nextLaserBulletShootTime = Date.now() + this.LASER_BULLET_SPAWN_TIME;
     }
   }
