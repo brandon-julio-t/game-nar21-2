@@ -48,14 +48,8 @@ export function vectorToRadian(vector: Vector2) {
   return Math.atan2(vector.y, vector.x) + Math.PI / 2;
 }
 
-export function radianToVector(angle: number) {
+export function radianToVector(angle: number): Vector2 {
   const x = Math.cos(angle);
   const y = Math.sin(angle);
-  return { x, y };
-}
-
-export function normalize(vector: Vector2) {
-  const { x, y } = vector;
-  const unit: number = Math.sqrt(x * x + y * y);
-  return new Vector2(x / unit, y / unit);
+  return new Vector2(x, y);
 }

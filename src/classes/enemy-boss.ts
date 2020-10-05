@@ -1,7 +1,9 @@
 import Enemy from "./abstracts/enemy";
 import EnemyBulletCircle from "./enemy-bullet-circle";
 import store from "@/store";
-import { randomIntegerBetween } from "./core/utilities";
+import { radianToVector, randomIntegerBetween } from "./core/utilities";
+import EnemyBulletLaser from "./enemy-bullet-laser";
+import Vector2 from "./core/vector2";
 
 export default class EnemyBoss extends Enemy {
   private static readonly HEALTH: number = 420;
@@ -12,6 +14,8 @@ export default class EnemyBoss extends Enemy {
   private readonly ANIMATED_SPRITE: HTMLImageElement[];
 
   private animatedSpriteIdx: number = 0;
+  private nextCircleBulletShootTime: number = Date.now();
+  private nextLaserBulletShootTime: number = Date.now();
 
   public constructor() {
     super(
@@ -90,16 +94,42 @@ export default class EnemyBoss extends Enemy {
 
   public shoot(): void {
     const { x, y } = this.position;
+
+    const xSpawn = randomIntegerBetween(x - this.WIDTH / 2, x + this.WIDTH / 2);
     const ySpawn =
       y + this.healthBarHeight + randomIntegerBetween(0, this.HEIGHT);
 
-    store.bullets.splice(
-      0,
-      0,
-      new EnemyBulletCircle(
-        randomIntegerBetween(x - this.WIDTH / 2, x + this.WIDTH / 2),
-        ySpawn
-      )
-    );
+    store.bullets.splice(0, 0, new EnemyBulletCircle(xSpawn, ySpawn));
+
+    if (
+      Date.now() >= this.nextCircleBulletShootTime &&
+      this.currentHealth <= (this.maxHealth * 60) / 100
+    ) {
+      const velocity: number = randomIntegerBetween(3, 5);
+      for (let degree = 0; degree < 360; degree += 5) {
+        const direction: Vector2 = radianToVector(degree).normalized();
+
+        store.bullets.splice(
+          0,
+          0,
+          new EnemyBulletCircle(
+            x,
+            y,
+            direction.x * velocity,
+            direction.y * velocity
+          )
+        );
+      }
+
+      this.nextCircleBulletShootTime = Date.now() + 3000;
+    }
+
+    if (
+      Date.now() >= this.nextLaserBulletShootTime &&
+      this.currentHealth <= (this.maxHealth * 30) / 100
+    ) {
+      store.bullets.splice(0, 0, new EnemyBulletLaser(xSpawn, ySpawn));
+      this.nextLaserBulletShootTime = Date.now() + 150;
+    }
   }
 }

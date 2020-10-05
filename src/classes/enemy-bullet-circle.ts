@@ -8,12 +8,17 @@ export default class EnemyBulletCircle extends EnemyBullet {
 
   private rotationDegree: number = 0;
 
-  public constructor(x: number, y: number) {
+  public constructor(
+    x: number,
+    y: number,
+    xVelocity: number = randomIntegerBetween(-7, 7),
+    yVelocity: number = randomIntegerBetween(3, 7)
+  ) {
     super(
       x,
       y,
-      randomIntegerBetween(-7, 7),
-      randomIntegerBetween(3, 7),
+      xVelocity,
+      yVelocity,
       EnemyBulletCircle.HEIGHT,
       EnemyBulletCircle.WIDTH,
       store.assets.enemyBulletCircle

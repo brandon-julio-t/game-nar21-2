@@ -1,7 +1,7 @@
 import EnemyBullet from "./abstracts/enemy-bullet";
 import Player from "./player";
 import store from "@/store";
-import { normalize, radianToVector, vectorToRadian } from "./core/utilities";
+import { radianToVector, vectorToRadian } from "./core/utilities";
 import Vector2 from "./core/vector2";
 
 export default class EnemyBulletLaser extends EnemyBullet {
@@ -22,7 +22,7 @@ export default class EnemyBulletLaser extends EnemyBullet {
     if (player !== null) {
       const x: number = (player.position.x - this.position.x) * 0.01;
       const y: number = (player.position.y - this.position.y) * 0.01;
-      const normalized = normalize(new Vector2(x, y));
+      const normalized = new Vector2(x, y).normalized();
 
       this.VELOCITY.x = normalized.x * this.SPEED;
       this.VELOCITY.y = normalized.y * this.SPEED;
