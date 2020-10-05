@@ -37,7 +37,7 @@
           @click="openChooseInputSystemModal = true"
           class="flex justify-center items-center py-4 lg:py-8 mt-4 w-full"
         >
-          <icon-controller class="mr-2"></icon-controller>
+          <icon-controller class="inline"></icon-controller>
           Play
         </app-button>
       </div>
