@@ -2,12 +2,13 @@ import Bullet from "./abstracts/bullet";
 import Player from "./player";
 import Vector2 from "./core/vector2";
 import store from "@/store";
-import { randomIntegerBetween } from "./core/utilities";
+import { degreeToRadian, randomIntegerBetween } from "./core/utilities";
 
 export default class Meteor extends Bullet {
-  private static readonly SCALE_DOWN_RATIO: number = 0.3;
+  private static readonly SCALE_DOWN_RATIO: number = 0.125;
   private static readonly VELOCITY: Vector2 = new Vector2(10, 3);
 
+  private rotationDegree: number = 0;
   private timeoutId: number | null = null;
 
   public constructor() {
@@ -60,24 +61,35 @@ export default class Meteor extends Bullet {
 
   public drawSelf(ctx: CanvasRenderingContext2D): void {
     const { x, y } = this.position;
-    ctx.drawImage(this.SPRITE, x, y, this.WIDTH, this.HEIGHT);
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(degreeToRadian(this.rotationDegree));
+    ctx.drawImage(
+      this.SPRITE,
+      -this.WIDTH / 2,
+      -this.HEIGHT / 2,
+      this.WIDTH,
+      this.HEIGHT
+    );
+    ctx.restore();
+
+    this.rotationDegree -=
+      Math.sqrt(this.VELOCITY.y ** 2 + this.VELOCITY.x ** 2) / 2;
   }
 
   public checkCollision(): void {
     const player: Player = store.player as Player;
     if (player !== null && !player.isInvulnerable) {
-      const { x: xMin, y: yMin } = this.position;
-      const xMax = xMin + this.WIDTH;
-      const yMax = yMin + this.HEIGHT;
+      const { x: x1, y: y1 } = this.position;
+      const { x: x2, y: y2 } = player.position;
 
-      const hitboxOffset = player.HITBOX_SIZE;
-      const left = player.position.x - hitboxOffset;
-      const top = player.position.y - hitboxOffset;
-      const right = player.position.x + hitboxOffset;
-      const bottom = player.position.y + hitboxOffset;
+      const euclideanDistance: number = Math.sqrt(
+        (x1 - x2) ** 2 + (y1 - y2) ** 2
+      );
 
       const hasCollision: boolean =
-        left >= xMin && top >= yMin && right <= xMax && bottom <= yMax;
+        euclideanDistance <=
+        player.HITBOX_SIZE + Math.min(this.WIDTH, this.HEIGHT) / 2;
 
       if (hasCollision) {
         player.reduceHealth(player.currentHealth);

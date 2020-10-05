@@ -168,7 +168,7 @@ export default class Player extends Entity {
       this.drawHitAnimation(ctx);
     }
 
-    ctx.fillStyle = "deepskyblue";
+    ctx.fillStyle = "dodgerblue";
     ctx.font =
       'normal 20px Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace';
     ctx.fillText(
@@ -239,7 +239,7 @@ export default class Player extends Entity {
     const width: number = (WIDTH * currentHealth) / maxHealth;
     const height: number = healthBarHeight;
 
-    ctx.fillStyle = "deepskyblue";
+    ctx.fillStyle = "dodgerblue";
     ctx.fillRect(xPos, yPos, width, height);
 
     ctx.strokeStyle = "black";
