@@ -16,14 +16,18 @@ export default class EnemyBoss extends Enemy {
   private readonly LASER_BULLET_SPAWN_TIME: number = 50;
 
   private animatedSpriteIdx: number = 0;
+  private isEntering: boolean = true;
   private nextCircleBulletShootTime: number = Date.now();
   private nextLaserBulletShootTime: number = Date.now();
 
   public constructor() {
     super(
-      innerWidth / 2 - store.assets.enemy1.naturalWidth / 2,
-      EnemyBoss.HEALTH_BAR_HEIGHT +
-        (store.assets.enemy1.naturalHeight * EnemyBoss.SCALE_DOWN_RATIO) / 2,
+      randomIntegerBetween(
+        store.assets.enemy1.naturalWidth * EnemyBoss.SCALE_DOWN_RATIO,
+        innerWidth -
+          store.assets.enemy1.naturalWidth * EnemyBoss.SCALE_DOWN_RATIO
+      ),
+      -store.assets.enemy1.naturalHeight * EnemyBoss.SCALE_DOWN_RATIO,
       EnemyBoss.HEALTH,
       store.assets.enemy1,
       EnemyBoss.HEALTH_BAR_HEIGHT,
@@ -57,12 +61,28 @@ export default class EnemyBoss extends Enemy {
     ];
   }
 
+  public reduceHealth(points: number): void {
+    if (!this.isEntering) {
+      super.reduceHealth(points);
+    }
+  }
+
   public move(): void {
     super.move();
-    const { x } = this.position;
-    const isOnEdge = x + this.WIDTH >= innerWidth || x <= this.WIDTH;
-    this._velocity *= isOnEdge ? -1 : 1;
-    this.position.x += this.velocity;
+
+    if (
+      this.position.y <
+      EnemyBoss.HEALTH_BAR_HEIGHT +
+        (store.assets.enemy1.naturalHeight * EnemyBoss.SCALE_DOWN_RATIO) / 2
+    ) {
+      this.position.y += this.velocity / 2;
+    } else {
+      const { x } = this.position;
+      const isOnEdge = x + this.WIDTH >= innerWidth || x <= this.WIDTH;
+      this._velocity *= isOnEdge ? -1 : 1;
+      this.position.x += this.velocity;
+      this.isEntering = false;
+    }
   }
 
   protected drawSelf(ctx: CanvasRenderingContext2D): void {
@@ -83,7 +103,7 @@ export default class EnemyBoss extends Enemy {
 
   protected drawHealthBar(ctx: CanvasRenderingContext2D): void {
     const x = this.position.x - this.WIDTH / 2;
-    const y = 0;
+    const y = this.position.y - this.HEIGHT / 2;
     const w = this.WIDTH * (this.currentHealth / this.maxHealth);
     const h = this.healthBarHeight;
 
@@ -95,6 +115,10 @@ export default class EnemyBoss extends Enemy {
   }
 
   public shoot(): void {
+    if (this.isEntering) {
+      return;
+    }
+
     const { x, y } = this.position;
 
     const xSpawn = randomIntegerBetween(x - this.WIDTH / 2, x + this.WIDTH / 2);
@@ -105,7 +129,7 @@ export default class EnemyBoss extends Enemy {
 
     if (
       Date.now() >= this.nextCircleBulletShootTime &&
-      this.currentHealth <= (this.maxHealth * 60) / 100
+      this.currentHealth <= (this.maxHealth * 80) / 100
     ) {
       const velocity: number = randomIntegerBetween(3, 5);
       for (let degree = 0; degree < 360; degree += 5) {
@@ -129,7 +153,7 @@ export default class EnemyBoss extends Enemy {
 
     if (
       Date.now() >= this.nextLaserBulletShootTime &&
-      this.currentHealth <= (this.maxHealth * 30) / 100
+      this.currentHealth <= (this.maxHealth * 60) / 100
     ) {
       store.bullets.splice(0, 0, new EnemyBulletLaser(xSpawn, ySpawn));
       this.nextLaserBulletShootTime = Date.now() + this.LASER_BULLET_SPAWN_TIME;
