@@ -6,7 +6,8 @@ import Environment from "./core/environment";
 
 export default class Player extends Entity {
   private static readonly SCALE_DOWN_RATIO: number = 0.15;
-  private static readonly HEALTH: number = 5;
+
+  private static readonly HEALTH: number = 7;
   private static readonly HEALTH_BAR_HEIGTH: number = 10;
   private static readonly SLOW_DOWN_RATIO: number = 0.5;
   private static readonly VELOCITY: number = 10;
