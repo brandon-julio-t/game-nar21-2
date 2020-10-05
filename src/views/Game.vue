@@ -32,14 +32,14 @@
             }}%
           </h2>
         </div>
-        <app-button
+        <app-button-main-menu
           v-else
           @click="openChooseInputSystemModal = true"
-          class="flex justify-center items-center py-4 lg:py-8 mt-4 w-full"
+          class="flex justify-center items-center py-4 lg:py-8 mt-16 w-full"
         >
-          <icon-controller class="mr-2"></icon-controller>
+          <icon-controller class="inline"></icon-controller>
           Play
-        </app-button>
+        </app-button-main-menu>
       </div>
     </div>
 
@@ -70,7 +70,7 @@ import {
 } from "vue";
 
 import IconController from "@/components/icons/IconController.vue";
-import AppButton from "@/components/AppButton.vue";
+import AppButtonMainMenu from "@/components/AppButtonMainMenu.vue";
 import TheDialogChooseInputSystem from "@/components/TheDialogChooseInputSystem.vue";
 import TheDialogGameInstruction from "@/components/TheDialogGameInstruction.vue";
 
@@ -82,7 +82,7 @@ import loadAssets from "@/store/assets";
 export default defineComponent({
   components: {
     IconController,
-    AppButton,
+    AppButtonMainMenu,
     TheDialogChooseInputSystem,
     TheDialogGameInstruction
   },
