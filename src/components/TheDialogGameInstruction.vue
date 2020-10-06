@@ -1,5 +1,5 @@
 <template>
-  <h1 class="font-bold mb-4 flex items-center">
+  <h1 class="font-bold flex items-center">
     <icon-question-circle class="mr-2"></icon-question-circle>
     Instructions
   </h1>
@@ -39,7 +39,7 @@
     </section>
   </div>
 
-  <h1 class="font-bold my-4 flex items-center">
+  <h1 class="font-bold flex items-center">
     <icon-exclamation-circle class="mr-2"></icon-exclamation-circle>
     Notes
   </h1>

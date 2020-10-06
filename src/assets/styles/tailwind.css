@@ -14,6 +14,7 @@
   body {
     font-family: "PT Mono";
     @apply font-mono;
+    @apply transition-all duration-300;
   }
 
   @screen sm {
