@@ -14,7 +14,7 @@
 
     <div
       v-else
-      class="flex justify-center items-center p-16 rounded bg-black bg-opacity-75 border-2 border-lionel text-white"
+      class="flex justify-center items-center p-16 rounded-lg bg-black bg-opacity-75 border-2 border-lionel-alternate text-white"
     >
       <div>
         <the-dialog-game-instruction></the-dialog-game-instruction>

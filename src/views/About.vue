@@ -2,9 +2,7 @@
   <article
     class="flex justify-center items-center w-screen h-screen text-white"
   >
-    <div
-      class="container border-2 border-lionel bg-black bg-opacity-75 rounded-lg mx-8"
-    >
+    <div class="container card mx-8">
       <div
         class="flex flex-wrap lg:flex-no-wrap justify-center items-center m-8 md:mx-16 md:my-32"
       >
@@ -58,9 +56,3 @@ export default defineComponent({
   }
 });
 </script>
-
-<style scoped>
-.container {
-  border-color: #3ecfef !important;
-}
-</style>

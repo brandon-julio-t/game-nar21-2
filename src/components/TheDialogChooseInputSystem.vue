@@ -3,7 +3,7 @@
     <div
       class="h-screen w-screen flex justify-center items-center absolute inset-0 bg-black bg-opacity-50 text-white"
     >
-      <div class="border-2 border-lionel p-16 bg-black rounded-lg relative">
+      <div class="card p-16 relative">
         <h1 class="font-bold text-center mb-8">Choose Input System</h1>
 
         <div class="grid grid-cols-2 gap-2 md:gap-4 lg:gap-8">

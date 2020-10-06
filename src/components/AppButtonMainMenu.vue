@@ -18,14 +18,14 @@
  */
 
 .animated-button {
-  background: linear-gradient(-30deg, #0b1b3d 50%, #08142b 50%);
+  background: linear-gradient(-30deg, #0b333d 50%, #08242b 50%);
   padding: 20px 40px;
   margin: 12px;
   display: inline-block;
   -webkit-transform: translate(0%, 0%);
   transform: translate(0%, 0%);
   overflow: hidden;
-  color: #d4e0f7;
+  color: #3ecfef;
   letter-spacing: 2.5px;
   text-align: center;
   text-transform: uppercase;
@@ -41,7 +41,7 @@
   left: 0px;
   width: 100%;
   height: 100%;
-  background-color: #8592ad;
+  background-color: #3ecfef;
   opacity: 0;
   -webkit-transition: 0.2s opacity ease-in-out;
   transition: 0.2s opacity ease-in-out;
@@ -65,9 +65,9 @@
     right top,
     left top,
     from(rgba(8, 20, 43, 0)),
-    to(#1676eb)
+    to(#3ecfef)
   );
-  background: linear-gradient(to left, rgba(8, 20, 43, 0), #1676eb);
+  background: linear-gradient(to left, rgba(8, 20, 43, 0), #3ecfef);
   -webkit-animation: 2s animateTop linear infinite;
   animation: 2s animateTop linear infinite;
 }
@@ -106,9 +106,9 @@
     left bottom,
     left top,
     from(rgba(8, 20, 43, 0)),
-    to(#1676eb)
+    to(#3ecfef)
   );
-  background: linear-gradient(to top, rgba(8, 20, 43, 0), #1676eb);
+  background: linear-gradient(to top, rgba(8, 20, 43, 0), #3ecfef);
   -webkit-animation: 2s animateRight linear -1s infinite;
   animation: 2s animateRight linear -1s infinite;
 }
@@ -147,9 +147,9 @@
     left top,
     right top,
     from(rgba(8, 20, 43, 0)),
-    to(#1676eb)
+    to(#3ecfef)
   );
-  background: linear-gradient(to right, rgba(8, 20, 43, 0), #1676eb);
+  background: linear-gradient(to right, rgba(8, 20, 43, 0), #3ecfef);
   -webkit-animation: 2s animateBottom linear infinite;
   animation: 2s animateBottom linear infinite;
 }
@@ -188,9 +188,9 @@
     left top,
     left bottom,
     from(rgba(8, 20, 43, 0)),
-    to(#1676eb)
+    to(#3ecfef)
   );
-  background: linear-gradient(to bottom, rgba(8, 20, 43, 0), #1676eb);
+  background: linear-gradient(to bottom, rgba(8, 20, 43, 0), #3ecfef);
   -webkit-animation: 2s animateLeft linear -1s infinite;
   animation: 2s animateLeft linear -1s infinite;
 }
