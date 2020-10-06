@@ -2,9 +2,9 @@
   <article
     class="flex justify-center items-center w-screen h-screen text-white"
   >
-    <div class="container card mx-8">
+    <div class="container test-bg card mx-8">
       <div
-        class="flex flex-wrap lg:flex-no-wrap justify-center items-center m-8 md:mx-16 md:my-32"
+        class="flex flex-wrap lg:flex-no-wrap justify-center items-center m-8 md:mx-24 md:my-32"
       >
         <section
           class="w-full mx-auto lg:w-1/4 flex justify-center items-center"
@@ -56,3 +56,14 @@ export default defineComponent({
   }
 });
 </script>
+
+<style scoped>
+.test-bg {
+  /* url */
+  background-image: url('https://i.ibb.co/qkc2YzP/bg-container.png');
+}
+
+.container {
+  border: none;
+}
+</style>
