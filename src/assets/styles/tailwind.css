@@ -13,23 +13,75 @@
 
   body {
     font-family: "PT Mono";
-    @apply text-xl;
     @apply font-mono;
   }
 
-  h1 {
-    @apply text-4xl;
-    @apply mb-8;
+  @screen sm {
+    body {
+      @apply text-sm;
+    }
+
+    h1 {
+      @apply text-xl;
+    }
+
+    h2 {
+      @apply text-lg;
+    }
+
+    h3 {
+      @apply text-base;
+    }
   }
 
-  h2 {
-    @apply text-3xl;
-    @apply mb-4;
+  @screen md {
+    h1 {
+      @apply text-2xl;
+    }
+
+    h2 {
+      @apply text-xl;
+    }
+
+    h3 {
+      @apply text-lg;
+    }
   }
 
-  h3 {
-    @apply text-2xl;
-    @apply mb-2;
+  @screen lg {
+    body {
+      @apply text-lg;
+    }
+
+    h1 {
+      @apply text-3xl;
+    }
+
+    h2 {
+      @apply text-2xl;
+    }
+
+    h3 {
+      @apply text-xl;
+    }
+  }
+
+  @screen xl {
+    body {
+      @apply text-xl;
+    }
+
+    h1 {
+      @apply text-4xl;
+    }
+
+    h2 {
+      @apply text-3xl;
+    }
+
+    h3 {
+      @apply text-2xl;
+    }
   }
 
   section {
@@ -37,18 +89,7 @@
   }
 
   kbd {
-    background-color: #eee;
-    border-radius: 3px;
-    border: 1px solid #b4b4b4;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2),
-      0 2px 0 0 rgba(255, 255, 255, 0.7) inset;
-    color: #333;
-    display: inline-block;
-    font-size: 0.85em;
-    font-weight: 700;
-    line-height: 1;
-    padding: 2px 4px;
-    white-space: nowrap;
+    @apply bg-gray-300 rounded border border-gray-500 text-black inline-block font-bold px-1;
   }
 }
 

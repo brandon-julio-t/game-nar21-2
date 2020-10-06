@@ -26,7 +26,6 @@
   transform: translate(0%, 0%);
   overflow: hidden;
   color: #d4e0f7;
-  font-size: 20px;
   letter-spacing: 2.5px;
   text-align: center;
   text-transform: uppercase;
