@@ -42,4 +42,3 @@ export default defineComponent({
   }
 });
 </script>
-// class="w-full rounded truncate transition duration-150 bg-primary"
