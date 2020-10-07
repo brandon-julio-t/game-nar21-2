@@ -3,6 +3,9 @@ import AssetsLoaders from "./assets-loaders";
 const {
   loadBackgroundImage,
   loadBackgroundMusic,
+  loadBackgroundMusic1,
+  loadBackgroundMusic2,
+  loadBackgroundMusic3,
   loadEnemy1,
   loadEnemy2,
   loadEnemy3,
@@ -38,6 +41,9 @@ export default function loadAssets(): Assets {
   return {
     backgroundImage: loadBackgroundImage(),
     backgroundMusic: loadBackgroundMusic(),
+    backgroundMusic1: loadBackgroundMusic1(),
+    backgroundMusic2: loadBackgroundMusic2(),
+    backgroundMusic3: loadBackgroundMusic3(),
     enemy1: loadEnemy1(),
     enemy2: loadEnemy2(),
     enemy3: loadEnemy3(),

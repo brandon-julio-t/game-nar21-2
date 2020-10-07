@@ -6,7 +6,7 @@ import EnemyBulletLaser from "./enemy-bullet-laser";
 import Vector2 from "./core/vector2";
 
 export default class EnemyBoss extends Enemy {
-  private static readonly HEALTH: number = 700;
+  private static readonly HEALTH: number = 850;
   private static readonly HEALTH_BAR_HEIGHT: number = 20;
   private static readonly SCALE_DOWN_RATIO: number = 0.35;
   private static readonly VELOCITY: number = 3;
@@ -18,6 +18,7 @@ export default class EnemyBoss extends Enemy {
   private animatedSpriteIdx: number = 0;
   private nextCircleBulletShootTime: number = Date.now();
   private nextLaserBulletShootTime: number = Date.now();
+  private currentStage: number = 1;
 
   public isEntering: boolean = true;
 
@@ -60,6 +61,14 @@ export default class EnemyBoss extends Enemy {
       enemy8,
       enemy9
     ];
+  }
+
+  private get isStageTwo(): boolean {
+    return this.currentHealth <= (this.maxHealth * 80) / 100;
+  }
+
+  private get isStageThree(): boolean {
+    return this.currentHealth <= (this.maxHealth * 40) / 100;
   }
 
   public reduceHealth(points: number): void {
@@ -126,12 +135,20 @@ export default class EnemyBoss extends Enemy {
     const ySpawn =
       y + this.healthBarHeight + randomIntegerBetween(0, this.HEIGHT);
 
-    store.bullets.splice(0, 0, new EnemyBulletCircle(xSpawn, ySpawn));
+    this.handleStageOneBullets(xSpawn, ySpawn);
+    this.handleStageTwoBullets(x, y);
+    this.handleStageThreebullets(xSpawn, ySpawn);
+    this.handleBackgroundMusic();
+  }
 
-    if (
-      Date.now() >= this.nextCircleBulletShootTime &&
-      this.currentHealth <= (this.maxHealth * 70) / 100
-    ) {
+  private handleStageOneBullets(x: number, y: number): void {
+    store.bullets.splice(0, 0, new EnemyBulletCircle(x, y));
+  }
+
+  private handleStageTwoBullets(x: number, y: number): void {
+    if (Date.now() >= this.nextCircleBulletShootTime && this.isStageTwo) {
+      this.currentStage = 2;
+
       const velocity: number = randomIntegerBetween(3, 5);
       for (let degree = 0; degree < 360; degree += 5) {
         const direction: Vector2 = Vector2.fromRadian(degree).normalized();
@@ -151,18 +168,45 @@ export default class EnemyBoss extends Enemy {
       this.nextCircleBulletShootTime =
         Date.now() + this.CIRCLE_BULLET_SPAWN_TIME;
     }
+  }
 
-    if (
-      Date.now() >= this.nextLaserBulletShootTime &&
-      this.currentHealth <= (this.maxHealth * 50) / 100
-    ) {
+  private handleStageThreebullets(x: number, y: number): void {
+    if (Date.now() >= this.nextLaserBulletShootTime && this.isStageThree) {
+      this.currentStage = 3;
+
       const velocity: number = 12;
       store.bullets.splice(
         0,
         0,
-        new EnemyBulletLaser(xSpawn, ySpawn, velocity, velocity)
+        new EnemyBulletLaser(x, y, velocity, velocity)
       );
       this.nextLaserBulletShootTime = Date.now() + this.LASER_BULLET_SPAWN_TIME;
+    }
+  }
+
+  private handleBackgroundMusic(): void {
+    const {
+      backgroundMusic1,
+      backgroundMusic2,
+      backgroundMusic3
+    } = store.assets;
+
+    // BGM1 is handled by game.ts in prepareBackgroundMusic()
+
+    if (this.currentStage === 2 && backgroundMusic2.paused) {
+      console.log(`Stage 2 BGM: ${backgroundMusic2.paused}`);
+      backgroundMusic2.currentTime = backgroundMusic1.currentTime;
+
+      backgroundMusic1.pause();
+      backgroundMusic2.play();
+      backgroundMusic3.pause();
+    } else if (this.currentStage === 3 && backgroundMusic3.paused) {
+      console.log(`Stage 3 BGM: ${backgroundMusic3.paused}`);
+      backgroundMusic3.currentTime = backgroundMusic2.currentTime;
+
+      backgroundMusic1.pause();
+      backgroundMusic2.pause();
+      backgroundMusic3.play();
     }
   }
 

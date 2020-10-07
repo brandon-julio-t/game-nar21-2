@@ -70,12 +70,16 @@ export default class Game {
   }
 
   private static cleanUp(): void {
-    [store.bullets, store.miniEnemies].forEach(e => e.splice(0));
+    const { assets, bullets, miniEnemies } = store;
+    const { backgroundMusic1, backgroundMusic2, backgroundMusic3 } = assets;
+
+    [bullets, miniEnemies].forEach(e => e.splice(0));
+    [backgroundMusic1, backgroundMusic2, backgroundMusic3].forEach(bgm =>
+      bgm.pause()
+    );
 
     store.player = store.enemy = null;
-
-    store.enemiesKilledCount = store.assets.backgroundMusic.currentTime = 0;
-    store.assets.backgroundMusic.pause();
+    store.enemiesKilledCount = backgroundMusic1.currentTime = backgroundMusic2.currentTime = backgroundMusic3.currentTime = 0;
 
     if (this.animationId !== null) {
       cancelAnimationFrame(this.animationId);
@@ -95,10 +99,18 @@ export default class Game {
   }
 
   private static prepareBackgroundMusic(): void {
-    const { backgroundMusic } = store.assets;
-    backgroundMusic.play();
-    backgroundMusic.loop = true;
-    backgroundMusic.volume = Environment.isDevelopment ? 0.5 : 1;
+    const {
+      backgroundMusic1,
+      backgroundMusic2,
+      backgroundMusic3
+    } = store.assets;
+
+    backgroundMusic1.currentTime = backgroundMusic2.currentTime = backgroundMusic3.currentTime = 0;
+    backgroundMusic1.loop = backgroundMusic2.loop = backgroundMusic3.loop = true;
+
+    backgroundMusic1.play();
+    backgroundMusic2.pause();
+    backgroundMusic3.pause();
   }
 
   private static play(): void {

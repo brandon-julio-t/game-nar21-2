@@ -1,6 +1,9 @@
 export default interface Assets {
   backgroundImage: HTMLImageElement;
   backgroundMusic: HTMLAudioElement;
+  backgroundMusic1: HTMLAudioElement;
+  backgroundMusic2: HTMLAudioElement;
+  backgroundMusic3: HTMLAudioElement;
   enemy1: HTMLImageElement;
   enemy2: HTMLImageElement;
   enemy3: HTMLImageElement;
