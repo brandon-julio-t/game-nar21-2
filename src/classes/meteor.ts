@@ -1,8 +1,9 @@
+import { degreeToRadian, randomIntegerBetween } from "./core/utilities";
+
 import Bullet from "./abstracts/bullet";
 import Player from "./player";
 import Vector2 from "./core/vector2";
 import store from "@/store";
-import { degreeToRadian, randomIntegerBetween } from "./core/utilities";
 
 export default class Meteor extends Bullet {
   private static readonly SCALE_DOWN_RATIO: number = 0.125;

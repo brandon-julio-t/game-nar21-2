@@ -1,9 +1,10 @@
+import { playBgm, randomIntegerBetween } from "./core/utilities";
+
 import Enemy from "./abstracts/enemy";
 import EnemyBulletCircle from "./enemy-bullet-circle";
 import EnemyBulletLaser from "./enemy-bullet-laser";
 import Vector2 from "./core/vector2";
 import store from "@/store";
-import { playBgm, randomIntegerBetween } from "./core/utilities";
 
 export default class EnemyBoss extends Enemy {
   private static readonly HEALTH: number = 750;

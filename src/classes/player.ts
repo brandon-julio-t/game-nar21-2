@@ -1,8 +1,8 @@
 import Entity from "./abstracts/entity";
 import Environment from "./core/environment";
 import PlayerBullet from "./player-bullet";
-import store from "@/store";
 import { playAudio } from "./core/utilities";
+import store from "@/store";
 
 export default class Player extends Entity {
   private static readonly SCALE_DOWN_RATIO: number = 0.15;

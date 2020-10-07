@@ -1,8 +1,9 @@
+import { degreeToRadian, randomIntegerBetween } from "./core/utilities";
+
 import Enemy from "./abstracts/enemy";
 import EnemyBulletLaser from "./enemy-bullet-laser";
 import PowerUp from "./power-up";
 import store from "@/store";
-import { degreeToRadian, randomIntegerBetween } from "./core/utilities";
 
 export default class EnemyMini extends Enemy {
   private static readonly SCALE_DOWN_RATIO: number = 0.15;

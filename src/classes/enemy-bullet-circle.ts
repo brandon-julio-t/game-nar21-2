@@ -1,6 +1,7 @@
+import { degreeToRadian, randomIntegerBetween } from "./core/utilities";
+
 import EnemyBullet from "./abstracts/enemy-bullet";
 import store from "@/store";
-import { degreeToRadian, randomIntegerBetween } from "./core/utilities";
 
 export default class EnemyBulletCircle extends EnemyBullet {
   private static readonly WIDTH: number = 15;

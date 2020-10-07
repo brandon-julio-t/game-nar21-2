@@ -1,15 +1,15 @@
+import { getContext, playBgm } from "./core/utilities";
+
+import CanvasesGroup from "./interfaces/canvases-group";
+import ContextsGroup from "./interfaces/contexts-group";
 import EnemyBoss from "./enemy-boss";
+import EnemyMini from "./enemy-mini";
 import Entity from "./abstracts/entity";
 import InputSystem from "./core/input-system";
 import Meteor from "./meteor";
 import Player from "./player";
 import router from "@/router";
-import store from "@/store";
-import { getContext, playBgm } from "./core/utilities";
-import CanvasesGroup from "./interfaces/canvases-group";
-import ContextsGroup from "./interfaces/contexts-group";
-import EnemyMini from "./enemy-mini";
-import Environment from "./core/environment";
+import store from '@/store';
 
 export default class Game {
   private static readonly FPS: number = 60;

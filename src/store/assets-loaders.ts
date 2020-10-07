@@ -1,5 +1,6 @@
-import Assets from "@/classes/interfaces/assets";
 import { loadAudio, loadImage } from "@/classes/core/utilities";
+
+import Assets from "@/classes/interfaces/assets";
 
 enum AssetsDictionary {
   BACKGROUND = "background.webp",
