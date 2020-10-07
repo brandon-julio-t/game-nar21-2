@@ -1,7 +1,6 @@
 import { degreeToRadian, randomIntegerBetween } from "./core/utilities";
 
 import Bullet from "./abstracts/bullet";
-import Player from "./player";
 import Vector2 from "./core/vector2";
 import store from "@/store";
 
@@ -79,7 +78,7 @@ export default class Meteor extends Bullet {
   }
 
   public checkCollision(): void {
-    const player: Player = store.player as Player;
+    const { player } = store;
     if (player !== null && !player.isInvulnerable) {
       const { position: p1 } = this;
       const { position: p2 } = player;
@@ -91,8 +90,15 @@ export default class Meteor extends Bullet {
         player.HITBOX_SIZE + Math.min(this.WIDTH, this.HEIGHT) / 2;
 
       if (hasCollision) {
-        player.reduceHealth(player.currentHealth);
+        this.onCollide()
       }
+    }
+  }
+
+  public onCollide(): void {
+    const { player } = store;
+    if (player !== null) {
+      player.reduceHealth(player.currentHealth);
     }
   }
 }

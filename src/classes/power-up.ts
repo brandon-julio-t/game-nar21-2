@@ -52,11 +52,18 @@ export default class PowerUp
         euclideanDistance <= Math.min(WIDTH, HEIGHT) / 2;
 
       if (hasCollision) {
-        player.bulletLevel++;
-        store.assets.playerPowerUpAudio.currentTime = 0;
-        store.assets.playerPowerUpAudio.play();
-        this.isEnded = true;
+        this.onCollide();
       }
+    }
+  }
+
+  public onCollide(): void {
+    const { player } = store;
+    if (player !== null) {
+      player.bulletLevel++;
+      store.assets.playerPowerUpAudio.currentTime = 0;
+      store.assets.playerPowerUpAudio.play();
+      this.isEnded = true;
     }
   }
 }
