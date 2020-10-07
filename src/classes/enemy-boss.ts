@@ -1,9 +1,9 @@
 import Enemy from "./abstracts/enemy";
 import EnemyBulletCircle from "./enemy-bullet-circle";
-import store from "@/store";
-import { randomIntegerBetween } from "./core/utilities";
 import EnemyBulletLaser from "./enemy-bullet-laser";
 import Vector2 from "./core/vector2";
+import store from "@/store";
+import { playBgm, randomIntegerBetween } from "./core/utilities";
 
 export default class EnemyBoss extends Enemy {
   private static readonly HEALTH: number = 750;
@@ -95,7 +95,7 @@ export default class EnemyBoss extends Enemy {
     }
   }
 
-  protected drawSelf(ctx: CanvasRenderingContext2D): void {
+  public drawSelf(ctx: CanvasRenderingContext2D): void {
     const { x, y } = this.position;
 
     ctx.fillStyle = store.color;
@@ -111,7 +111,7 @@ export default class EnemyBoss extends Enemy {
     this.animatedSpriteIdx %= this.ANIMATED_SPRITE.length;
   }
 
-  protected drawHealthBar(ctx: CanvasRenderingContext2D): void {
+  public drawHealthBar(ctx: CanvasRenderingContext2D): void {
     const x = this.position.x - this.WIDTH / 2;
     const y = this.position.y - this.HEIGHT / 2;
     const w = this.WIDTH * (this.currentHealth / this.maxHealth);
@@ -138,7 +138,8 @@ export default class EnemyBoss extends Enemy {
     this.handleStageOneBullets(xSpawn, ySpawn);
     this.handleStageTwoBullets(x, y);
     this.handleStageThreebullets(xSpawn, ySpawn);
-    this.handleBackgroundMusic();
+
+    playBgm(this.currentStage);
   }
 
   private handleStageOneBullets(x: number, y: number): void {
@@ -181,32 +182,6 @@ export default class EnemyBoss extends Enemy {
         new EnemyBulletLaser(x, y, velocity, velocity)
       );
       this.nextLaserBulletShootTime = Date.now() + this.LASER_BULLET_SPAWN_TIME;
-    }
-  }
-
-  private handleBackgroundMusic(): void {
-    const {
-      backgroundMusic1,
-      backgroundMusic2,
-      backgroundMusic3
-    } = store.assets;
-
-    // BGM1 is handled by game.ts in prepareBackgroundMusic()
-
-    if (this.currentStage === 2 && backgroundMusic2.paused) {
-      console.log(`Stage 2 BGM: ${backgroundMusic2.paused}`);
-      backgroundMusic2.currentTime = backgroundMusic1.currentTime;
-
-      backgroundMusic1.pause();
-      backgroundMusic2.play();
-      backgroundMusic3.pause();
-    } else if (this.currentStage === 3 && backgroundMusic3.paused) {
-      console.log(`Stage 3 BGM: ${backgroundMusic3.paused}`);
-      backgroundMusic3.currentTime = backgroundMusic2.currentTime;
-
-      backgroundMusic1.pause();
-      backgroundMusic2.pause();
-      backgroundMusic3.play();
     }
   }
 

@@ -1,8 +1,13 @@
+import CanDraw from "../interfaces/can-draw";
+import CanMove from "../interfaces/can-move";
+import HasHealthBar from "../interfaces/has-health-bar";
 import Vector2 from "../core/vector2";
 import store from "@/store";
 import { playAudio } from "../core/utilities";
+import CanShoot from "../interfaces/can-shoot";
 
-export default abstract class Entity {
+export default abstract class Entity
+  implements CanDraw, CanMove, CanShoot, HasHealthBar {
   private readonly EXPLODING_SPRITE_COLS: number = 8;
   private readonly EXPLODING_SPRITE_ROWS: number = 8;
 
@@ -115,9 +120,6 @@ export default abstract class Entity {
     }
   }
 
-  protected abstract drawSelf(ctx: CanvasRenderingContext2D): void;
-  protected abstract drawHealthBar(ctx: CanvasRenderingContext2D): void;
-
   public move(): void {
     if (this.isDead) {
       this.stopMoving();
@@ -133,4 +135,6 @@ export default abstract class Entity {
   }
 
   public abstract shoot(): void;
+  public abstract drawSelf(ctx: CanvasRenderingContext2D): void;
+  public abstract drawHealthBar(ctx: CanvasRenderingContext2D): void;
 }

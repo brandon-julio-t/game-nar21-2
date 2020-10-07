@@ -25,7 +25,7 @@ export default class EnemyBulletCircle extends EnemyBullet {
     );
   }
 
-  public draw(ctx: CanvasRenderingContext2D): void {
+  public drawSelf(ctx: CanvasRenderingContext2D): void {
     const { x, y } = this.position;
 
     ctx.save();

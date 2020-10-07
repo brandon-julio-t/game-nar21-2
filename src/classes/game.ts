@@ -5,7 +5,7 @@ import Meteor from "./meteor";
 import Player from "./player";
 import router from "@/router";
 import store from "@/store";
-import { getContext } from "./core/utilities";
+import { getContext, playBgm } from "./core/utilities";
 import CanvasesGroup from "./interfaces/canvases-group";
 import ContextsGroup from "./interfaces/contexts-group";
 import EnemyMini from "./enemy-mini";
@@ -47,14 +47,12 @@ export default class Game {
       this.prepareCanvas(canvas as HTMLCanvasElement)
     );
 
-    this.contextsGroup = contexts;
-
     backgroundImage.style.backgroundImage = `url("${store.assets.backgroundImage.src}")`;
 
+    this.contextsGroup = contexts;
     this.enemy = store.enemy = new EnemyBoss();
     this.meteor = new Meteor();
     this.player = store.player = this.preparePlayer();
-
     this.prepareBackgroundMusic();
 
     this.play();
@@ -79,7 +77,7 @@ export default class Game {
     );
 
     store.player = store.enemy = null;
-    store.enemiesKilledCount = backgroundMusic1.currentTime = backgroundMusic2.currentTime = backgroundMusic3.currentTime = 0;
+    store.enemiesKilledCount = 0;
 
     if (this.animationId !== null) {
       cancelAnimationFrame(this.animationId);
@@ -108,9 +106,7 @@ export default class Game {
     backgroundMusic1.currentTime = backgroundMusic2.currentTime = backgroundMusic3.currentTime = 0;
     backgroundMusic1.loop = backgroundMusic2.loop = backgroundMusic3.loop = true;
 
-    backgroundMusic1.play();
-    backgroundMusic2.pause();
-    backgroundMusic3.pause();
+    playBgm(1);
   }
 
   private static play(): void {
@@ -201,7 +197,7 @@ export default class Game {
       }
 
       powerUp.move();
-      powerUp.draw(this.contextsGroup.bulletsCtx);
+      powerUp.drawSelf(this.contextsGroup.bulletsCtx);
       powerUp.checkCollision();
 
       return true;
@@ -215,7 +211,7 @@ export default class Game {
       }
 
       bullet.move();
-      bullet.draw(this.contextsGroup.bulletsCtx);
+      bullet.drawSelf(this.contextsGroup.bulletsCtx);
       bullet.checkCollision();
 
       return true;

@@ -1,6 +1,11 @@
+import CanCollide from "../interfaces/can-collide";
+import CanDraw from "../interfaces/can-draw";
+import CanGoOutOfBounds from "../interfaces/can-go-out-of-bounds";
+import CanMove from '../interfaces/can-move';
 import Vector2 from "../core/vector2";
 
-export default abstract class Bullet {
+export default abstract class Bullet
+  implements CanCollide, CanDraw, CanGoOutOfBounds, CanMove {
   protected readonly HEIGHT: number;
   protected readonly VELOCITY: Vector2;
   protected readonly WIDTH: number;
@@ -46,5 +51,5 @@ export default abstract class Bullet {
   }
 
   public abstract checkCollision(): void;
-  public abstract draw(ctx: CanvasRenderingContext2D): void;
+  public abstract drawSelf(ctx: CanvasRenderingContext2D): void;
 }

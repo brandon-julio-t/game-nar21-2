@@ -5,7 +5,7 @@ Bullet Laser: https://opengameart.org/content/space-shooter-redux
 Enemy Spaceship: https://opengameart.org/content/complete-spaceship-game-art-pack
 Explode Audio: https://opengameart.org/content/9-explosion-sounds
 Explode Sprite: https://opengameart.org/content/2d-explosion-animations-frame-by-frame
-Fonts: https://www.fontsquirrel.com/license/Distant-Galaxy
+Font: https://fonts.google.com/specimen/PT+Mono
 Icons: https://icons.getbootstrap.com/
 Meteor: https://www.downloadclipart.net/download/14749/meteor-svg
 Mini Enemy: https://opengameart.org/content/alien-ufo-pack

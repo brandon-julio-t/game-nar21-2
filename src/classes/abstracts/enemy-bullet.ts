@@ -1,6 +1,6 @@
-import store from "@/store";
-import Player from "../player";
 import Bullet from "./bullet";
+import Player from "../player";
+import store from "@/store";
 
 export default abstract class EnemyBullet extends Bullet {
   public constructor(

@@ -94,9 +94,4 @@ export default class Meteor extends Bullet {
       }
     }
   }
-
-  /**
-   * Handled by drawSelf()
-   */
-  public draw(_: CanvasRenderingContext2D): void {}
 }

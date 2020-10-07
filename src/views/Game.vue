@@ -76,8 +76,8 @@ import TheDialogGameInstruction from "@/components/TheDialogGameInstruction.vue"
 
 import Game from "@/classes/game";
 import InputSystem from "@/classes/core/input-system";
+import loadAssets from "@/store/assets-loaders";
 import store from "@/store";
-import loadAssets from "@/store/assets";
 
 export default defineComponent({
   components: {

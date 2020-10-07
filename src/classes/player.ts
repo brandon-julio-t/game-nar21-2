@@ -1,8 +1,8 @@
 import Entity from "./abstracts/entity";
+import Environment from "./core/environment";
 import PlayerBullet from "./player-bullet";
 import store from "@/store";
 import { playAudio } from "./core/utilities";
-import Environment from "./core/environment";
 
 export default class Player extends Entity {
   private static readonly SCALE_DOWN_RATIO: number = 0.15;
@@ -135,7 +135,7 @@ export default class Player extends Entity {
     }
   }
 
-  protected drawSelf(ctx: CanvasRenderingContext2D): void {
+  public drawSelf(ctx: CanvasRenderingContext2D): void {
     const { WIDTH, HEIGHT } = this;
     const { x, y } = this.position;
 
@@ -225,7 +225,7 @@ export default class Player extends Entity {
     }
   }
 
-  protected drawHealthBar(ctx: CanvasRenderingContext2D): void {
+  public drawHealthBar(ctx: CanvasRenderingContext2D): void {
     const {
       HEIGHT,
       WIDTH,

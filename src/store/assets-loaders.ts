@@ -1,6 +1,7 @@
+import Assets from "@/classes/interfaces/assets";
 import { loadAudio, loadImage } from "@/classes/core/utilities";
 
-enum Assets {
+enum AssetsDictionary {
   BACKGROUND = "background.webp",
   BACKGROUND_MUSIC_1 = "background-music-1.wav",
   BACKGROUND_MUSIC_2 = "background-music-2.wav",
@@ -70,43 +71,42 @@ const {
   SPRITE_PLAYER_5,
   SPRITE_PLAYER_BULLET_1,
   SPRITE_PLAYER_BULLET_2
-} = Assets;
+} = AssetsDictionary;
 
-export default {
-  loadBackgroundImage: (): HTMLImageElement => loadImage(BACKGROUND),
-  loadBackgroundMusic1: (): HTMLAudioElement => loadAudio(BACKGROUND_MUSIC_1),
-  loadBackgroundMusic2: (): HTMLAudioElement => loadAudio(BACKGROUND_MUSIC_2),
-  loadBackgroundMusic3: (): HTMLAudioElement => loadAudio(BACKGROUND_MUSIC_3),
-  loadEnemy1: (): HTMLImageElement => loadImage(SPRITE_ENEMY_1),
-  loadEnemy2: (): HTMLImageElement => loadImage(SPRITE_ENEMY_2),
-  loadEnemy3: (): HTMLImageElement => loadImage(SPRITE_ENEMY_3),
-  loadEnemy4: (): HTMLImageElement => loadImage(SPRITE_ENEMY_4),
-  loadEnemy5: (): HTMLImageElement => loadImage(SPRITE_ENEMY_5),
-  loadEnemy6: (): HTMLImageElement => loadImage(SPRITE_ENEMY_6),
-  loadEnemy7: (): HTMLImageElement => loadImage(SPRITE_ENEMY_7),
-  loadEnemy8: (): HTMLImageElement => loadImage(SPRITE_ENEMY_8),
-  loadEnemy9: (): HTMLImageElement => loadImage(SPRITE_ENEMY_9),
-  loadEnemyBulletCircle: (): HTMLImageElement =>
-    loadImage(SPRITE_ENEMY_BULLET_CIRCLE),
-  loadEnemyBulletLaser: (): HTMLImageElement =>
-    loadImage(SPRITE_ENEMY_BULLET_LASER),
-  loadEnemyExplodeAudio: (): HTMLAudioElement => loadAudio(ENEMY_EXPLODE_AUDIO),
-  loadEnemyMiniExplodeAudio: (): HTMLAudioElement =>
-    loadAudio(ENEMY_MINI_EXPLODE_AUDIO),
-  loadExplodeSprite: (): HTMLImageElement => loadImage(EXPLODE_SPRITE),
-  loadMeteor: (): HTMLImageElement => loadImage(METEOR),
-  loadMiniEnemy: (): HTMLImageElement => loadImage(SPRITE_ENEMY_MINI),
-  loadPlayer1: (): HTMLImageElement => loadImage(SPRITE_PLAYER_1),
-  loadPlayer2: (): HTMLImageElement => loadImage(SPRITE_PLAYER_2),
-  loadPlayer3: (): HTMLImageElement => loadImage(SPRITE_PLAYER_3),
-  loadPlayer4: (): HTMLImageElement => loadImage(SPRITE_PLAYER_4),
-  loadPlayer5: (): HTMLImageElement => loadImage(SPRITE_PLAYER_5),
-  loadPlayerBullet1: (): HTMLImageElement => loadImage(SPRITE_PLAYER_BULLET_1),
-  loadPlayerBullet2: (): HTMLImageElement => loadImage(SPRITE_PLAYER_BULLET_2),
-  loadPlayerExplodeAudio: (): HTMLAudioElement => loadAudio(PLAYER_EXPLODE),
-  loadPlayerGetHitAudio: (): HTMLAudioElement => loadAudio(PLAYER_HIT_AUDIO),
-  loadPlayerHitSprite: (): HTMLImageElement => loadImage(PLAYER_HIT_SPRITE),
-  loadPowerUp: (): HTMLImageElement => loadImage(PLAYER_POWER_UP),
-  loadPowerUpAudio: (): HTMLAudioElement => loadAudio(PLAYER_POWER_UP_AUDIO),
-  loadShootingAudio: (): HTMLAudioElement => loadAudio(PLAYER_SHOOT)
-};
+export default function loadAssets(dummy: boolean = false): Assets {
+  return {
+    backgroundImage: loadImage(BACKGROUND, dummy),
+    backgroundMusic1: loadAudio(BACKGROUND_MUSIC_1, dummy),
+    backgroundMusic2: loadAudio(BACKGROUND_MUSIC_2, dummy),
+    backgroundMusic3: loadAudio(BACKGROUND_MUSIC_3, dummy),
+    enemy1: loadImage(SPRITE_ENEMY_1, dummy),
+    enemy2: loadImage(SPRITE_ENEMY_2, dummy),
+    enemy3: loadImage(SPRITE_ENEMY_3, dummy),
+    enemy4: loadImage(SPRITE_ENEMY_4, dummy),
+    enemy5: loadImage(SPRITE_ENEMY_5, dummy),
+    enemy6: loadImage(SPRITE_ENEMY_6, dummy),
+    enemy7: loadImage(SPRITE_ENEMY_7, dummy),
+    enemy8: loadImage(SPRITE_ENEMY_8, dummy),
+    enemy9: loadImage(SPRITE_ENEMY_9, dummy),
+    enemyBulletCircle: loadImage(SPRITE_ENEMY_BULLET_CIRCLE, dummy),
+    enemyBulletLaser: loadImage(SPRITE_ENEMY_BULLET_LASER, dummy),
+    enemyExplodeAudio: loadAudio(ENEMY_EXPLODE_AUDIO, dummy),
+    enemyMiniExplodeAudio: loadAudio(ENEMY_MINI_EXPLODE_AUDIO, dummy),
+    explodeSprite: loadImage(EXPLODE_SPRITE, dummy),
+    meteor: loadImage(METEOR, dummy),
+    enemyMini: loadImage(SPRITE_ENEMY_MINI, dummy),
+    player1: loadImage(SPRITE_PLAYER_1, dummy),
+    player2: loadImage(SPRITE_PLAYER_2, dummy),
+    player3: loadImage(SPRITE_PLAYER_3, dummy),
+    player4: loadImage(SPRITE_PLAYER_4, dummy),
+    player5: loadImage(SPRITE_PLAYER_5, dummy),
+    playerBullet1: loadImage(SPRITE_PLAYER_BULLET_1, dummy),
+    playerBullet2: loadImage(SPRITE_PLAYER_BULLET_2, dummy),
+    playerExplodeAudio: loadAudio(PLAYER_EXPLODE, dummy),
+    playerHitAudio: loadAudio(PLAYER_HIT_AUDIO, dummy),
+    playerHitSprite: loadImage(PLAYER_HIT_SPRITE, dummy),
+    playerPowerUp: loadImage(PLAYER_POWER_UP, dummy),
+    playerPowerUpAudio: loadAudio(PLAYER_POWER_UP_AUDIO, dummy),
+    shootingAudio: loadAudio(PLAYER_SHOOT, dummy)
+  };
+}

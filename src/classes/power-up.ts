@@ -1,7 +1,12 @@
-import store from "@/store";
+import CanCollide from "./interfaces/can-collide";
+import CanDraw from "./interfaces/can-draw";
+import CanGoOutOfBounds from "./interfaces/can-go-out-of-bounds";
+import CanMove from "./interfaces/can-move";
 import Vector2 from "./core/vector2";
+import store from "@/store";
 
-export default class PowerUp {
+export default class PowerUp
+  implements CanCollide, CanDraw, CanMove, CanGoOutOfBounds {
   private readonly HEIGHT: number;
   private readonly SPRITE: HTMLImageElement;
   private readonly VELOCITY: number = 5;
@@ -26,7 +31,7 @@ export default class PowerUp {
     return x + this.WIDTH < 0 || y < 0 || x > innerWidth || y > innerHeight;
   }
 
-  public draw(ctx: CanvasRenderingContext2D): void {
+  public drawSelf(ctx: CanvasRenderingContext2D): void {
     const { x, y } = this.position;
     ctx.drawImage(this.SPRITE, x - this.WIDTH / 2, y - this.HEIGHT / 2);
   }

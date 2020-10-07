@@ -1,8 +1,8 @@
 import Enemy from "./abstracts/enemy";
 import EnemyBulletLaser from "./enemy-bullet-laser";
+import PowerUp from "./power-up";
 import store from "@/store";
 import { degreeToRadian, randomIntegerBetween } from "./core/utilities";
-import PowerUp from "./power-up";
 
 export default class EnemyMini extends Enemy {
   private static readonly SCALE_DOWN_RATIO: number = 0.15;
@@ -27,7 +27,7 @@ export default class EnemyMini extends Enemy {
     setTimeout(() => this.stopMoving(), 3000);
   }
 
-  protected drawSelf(ctx: CanvasRenderingContext2D): void {
+  public drawSelf(ctx: CanvasRenderingContext2D): void {
     const { x, y } = this.position;
     ctx.save();
     ctx.translate(x, y);
@@ -45,7 +45,7 @@ export default class EnemyMini extends Enemy {
   /**
    * No health bar.
    */
-  protected drawHealthBar(_: CanvasRenderingContext2D): void {}
+  public drawHealthBar(_: CanvasRenderingContext2D): void {}
 
   public move(): void {
     super.move();
