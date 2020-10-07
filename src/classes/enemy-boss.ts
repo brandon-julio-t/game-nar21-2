@@ -6,7 +6,7 @@ import EnemyBulletLaser from "./enemy-bullet-laser";
 import Vector2 from "./core/vector2";
 
 export default class EnemyBoss extends Enemy {
-  private static readonly HEALTH: number = 850;
+  private static readonly HEALTH: number = 750;
   private static readonly HEALTH_BAR_HEIGHT: number = 20;
   private static readonly SCALE_DOWN_RATIO: number = 0.35;
   private static readonly VELOCITY: number = 3;

@@ -2,7 +2,6 @@ import { loadAudio, loadImage } from "@/classes/core/utilities";
 
 enum Assets {
   BACKGROUND = "background.webp",
-  BACKGROUND_MUSIC = "background-music.m4a",
   BACKGROUND_MUSIC_1 = "background-music-1.wav",
   BACKGROUND_MUSIC_2 = "background-music-2.wav",
   BACKGROUND_MUSIC_3 = "background-music-3.wav",
@@ -39,7 +38,6 @@ enum Assets {
 
 const {
   BACKGROUND,
-  BACKGROUND_MUSIC,
   BACKGROUND_MUSIC_1,
   BACKGROUND_MUSIC_2,
   BACKGROUND_MUSIC_3,
@@ -76,7 +74,6 @@ const {
 
 export default {
   loadBackgroundImage: (): HTMLImageElement => loadImage(BACKGROUND),
-  loadBackgroundMusic: (): HTMLAudioElement => loadAudio(BACKGROUND_MUSIC),
   loadBackgroundMusic1: (): HTMLAudioElement => loadAudio(BACKGROUND_MUSIC_1),
   loadBackgroundMusic2: (): HTMLAudioElement => loadAudio(BACKGROUND_MUSIC_2),
   loadBackgroundMusic3: (): HTMLAudioElement => loadAudio(BACKGROUND_MUSIC_3),

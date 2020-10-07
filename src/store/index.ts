@@ -4,7 +4,6 @@ import { reactive } from "vue";
 const initialState: Store = {
   assets: {
     backgroundImage: new Image(),
-    backgroundMusic: new Audio(),
     backgroundMusic1: new Audio(),
     backgroundMusic2: new Audio(),
     backgroundMusic3: new Audio(),

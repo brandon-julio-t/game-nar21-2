@@ -2,7 +2,6 @@ import Assets from "@/classes/interfaces/assets";
 import AssetsLoaders from "./assets-loaders";
 const {
   loadBackgroundImage,
-  loadBackgroundMusic,
   loadBackgroundMusic1,
   loadBackgroundMusic2,
   loadBackgroundMusic3,
@@ -40,7 +39,6 @@ const {
 export default function loadAssets(): Assets {
   return {
     backgroundImage: loadBackgroundImage(),
-    backgroundMusic: loadBackgroundMusic(),
     backgroundMusic1: loadBackgroundMusic1(),
     backgroundMusic2: loadBackgroundMusic2(),
     backgroundMusic3: loadBackgroundMusic3(),
