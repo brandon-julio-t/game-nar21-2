@@ -91,9 +91,9 @@ export default class Game {
   }
 
   private static preparePlayer(): Player {
-    const x: number = innerWidth / 2;
-    const y: number = (innerHeight * 3) / 4;
-    return new Player(x, y);
+    const xMid: number = innerWidth / 2;
+    const yBottom: number = (innerHeight * 3) / 4;
+    return new Player(xMid, yBottom);
   }
 
   private static prepareBackgroundMusic(): void {
