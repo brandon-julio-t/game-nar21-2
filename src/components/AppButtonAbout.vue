@@ -17,7 +17,7 @@ button {
   background-color: transparent;
   padding: 17px 60px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-  box-shadow: 6px 6px 0 #fff, -6px -6px 0 #fff;
+  box-shadow: 4px 4px 0 #fff, -4px -4px 0 #fff;
 }
 
 button span {
@@ -26,7 +26,7 @@ button span {
 }
 
 button:hover {
-  box-shadow: 6px 6px 0 #076a80, -6px -6px 0 #076a80;
+  box-shadow: 4px 4px 0 #076a80, -4px -4px 0 #076a80;
 }
 
 button:after {
