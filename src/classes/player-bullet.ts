@@ -39,7 +39,7 @@ export default class PlayerBullet extends Bullet {
       [enemy, ...miniEnemies].forEach(e => {
         const hasCollision: boolean = this.checkCollisionWith(e);
         if (hasCollision) {
-          this.isEnded = true;
+          this.onCollide();
           e.reduceHealth(this.LEVEL * (this.LEVEL > 1 ? 0.5 : 1));
         }
       });

@@ -39,7 +39,7 @@ export default abstract class EnemyBullet extends Bullet {
   public onCollide(): void {
     const { player } = store;
     if (player !== null) {
-      this.isEnded = true;
+      super.onCollide();
       player.reduceHealth(1);
     }
   }
