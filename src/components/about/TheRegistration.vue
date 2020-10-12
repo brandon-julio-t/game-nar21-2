@@ -1,14 +1,14 @@
 <template>
   <div>
-    <h1 class="text-center font-bold heading tracking-widest">Registration</h1>
+    <h1 class="text-center font-bold text-5xl heading tracking-widest">Registration</h1>
 
     <section class="text-center">
-      <h2>Open Registration</h2>
-      <h3 class="text-3xl">
+      <h2 class="text-3xl">Open Registration</h2>
+      <h3 class="text-4xl">
         <span class="text-lionel-light font-bold">27 Januari</span> 2021
       </h3>
       <p>Until</p>
-      <h3 class="text-3xl">
+      <h3 class="text-4xl">
         <span class="text-lionel-light font-bold">12 February</span> 2021
       </h3>
 
@@ -35,3 +35,10 @@ export default defineComponent({
   components: { AppButtonAbout },
 });
 </script>
+
+<style scoped>
+h1 {
+  font-family: "Russo One" !important;
+  color: #fff;
+}
+</style>

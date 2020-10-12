@@ -1,9 +1,9 @@
 <template>
   <div>
-    <h1 class="text-center font-bold heading tracking-widest">Benefits</h1>
+    <h1 class="text-center text-5xl font-bold heading tracking-widest">Benefits</h1>
 
     <section>
-      <h2>Hard Skill</h2>
+      <h2 class="font-semibold mb-3">Hard Skill</h2>
       <div class="grid grid-cols-5">
         <div v-for="(hardSkill, idx) in hardSkills" :key="idx">
           <img :src="hardSkill.img" :alt="hardSkill.name" class="mx-auto w-1/2" />
@@ -13,7 +13,7 @@
     </section>
 
     <section>
-      <h2>Soft Skill</h2>
+      <h2 class="font-semibold mb-3">Soft Skill</h2>
       <div class="grid grid-cols-5">
         <div v-for="(softSkill, idx) in softSkills" :key="idx">
           <img :src="softSkill.img" :alt="softSkill.name" class="mx-auto w-1/2" />
@@ -23,7 +23,7 @@
     </section>
 
     <section>
-      <h2>Job Experiences</h2>
+      <h2 class="font-semibold">Job Experiences</h2>
       <div></div>
     </section>
   </div>
@@ -62,3 +62,10 @@ export default defineComponent({
   }
 });
 </script>
+
+<style scoped>
+h1 {
+  font-family: "Russo One" !important;
+  color: #fff;
+}
+</style>
