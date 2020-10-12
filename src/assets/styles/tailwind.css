@@ -11,6 +11,12 @@
     src: url("~@/assets/fonts/PTMono-Regular.ttf");
   }
 
+  @font-face {
+    font-display: swap;
+    font-family: "Russo One";
+    src: url("~@/assets/fonts/RussoOne-Regular.ttf");
+  }
+
   body {
     font-family: "PT Mono";
     @apply font-mono;
