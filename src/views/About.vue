@@ -60,7 +60,9 @@ export default defineComponent({
 <style scoped>
 .test-bg {
   /* url */
-  background-image: url('https://i.ibb.co/qkc2YzP/bg-container.png');
+  background-image: url('https://i.ibb.co/j5cm1tp/border.png');
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 .container {
