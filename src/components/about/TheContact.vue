@@ -1,17 +1,17 @@
 <template>
   <div>
-    <h1 class="text-center font-bold heading tracking-widest">Contact</h1>
+    <h1 class="text-center font-bold heading text-5xl tracking-widest">Contact</h1>
 
     <section>
       <h2 class="text-center">For more information</h2>
 
       <section class="text-center">
-        <p>Contact us on :</p>
-        <p>- Kemanggisan -</p>
-        <h3 class="text-lionel-light font-semibold text-4xl">
+        <p class="text-3xl">Contact us on :</p>
+        <p class="text-2xl">- Kemanggisan -</p>
+        <h3 class="text-lionel-light font-bold text-5xl">
           Christina / Hanni / Natasia
         </h3>
-        <p>021-5345830 ext 1762 - Room 724</p>
+        <p class="text-2xl">021-5345830 ext 1762 - Room 724</p>
       </section>
 
       <section class="flex flex-wrap justify-center items-center">
@@ -69,3 +69,10 @@
     </section>
   </div>
 </template>
+
+<style scoped>
+h1 {
+  font-family: "Russo One" !important;
+  color: #fff;
+}
+</style>
