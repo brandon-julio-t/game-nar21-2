@@ -174,14 +174,8 @@ export default class Player extends Entity {
       this.drawHitAnimation(ctx);
     }
 
-    ctx.fillStyle = "dodgerblue";
-    ctx.font =
-      'normal 20px Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace';
-    ctx.fillText(
-      `Score: ${Number(store.enemiesKilledCount * 100).toLocaleString()}`,
-      x - this.WIDTH / 2,
-      y + this.HEIGHT
-    );
+    this.drawScore(ctx);
+    this.drawShield(ctx);
   }
 
   private drawHitBox(ctx: CanvasRenderingContext2D): void {
@@ -227,6 +221,43 @@ export default class Player extends Entity {
       this.hitSpriteRowIdx = 0;
       this.isPlayingHitAnimation = false;
     }
+  }
+
+  private drawScore(ctx: CanvasRenderingContext2D): void {
+    const { x, y } = this.position;
+
+    ctx.fillStyle = "royalblue";
+    ctx.font =
+      'normal 20px "PT Mono", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace';
+    ctx.fillText(
+      `Score: ${Number(store.enemiesKilledCount * 100).toLocaleString()}`,
+      x - this.WIDTH / 2,
+      y + this.HEIGHT
+    );
+  }
+
+  private drawShield(ctx: CanvasRenderingContext2D): void {
+    const { playerShield } = store.assets;
+    const { height, width } = playerShield;
+    const { currentHealth, maxHealth, position } = this;
+    const { x, y } = position;
+
+    const scaleDownRatio: number = 0.25;
+
+    const opacity: number = currentHealth / maxHealth;
+    const scaledWidth: number = width * scaleDownRatio;
+    const scaledHeight: number = height * scaleDownRatio;
+
+    ctx.save();
+    ctx.globalAlpha = opacity;
+    ctx.drawImage(
+      playerShield,
+      x - scaledWidth / 2,
+      y - scaledHeight / 2,
+      scaledWidth,
+      scaledHeight
+    );
+    ctx.restore();
   }
 
   public drawHealthBar(ctx: CanvasRenderingContext2D): void {

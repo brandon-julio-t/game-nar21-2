@@ -35,6 +35,7 @@ enum AssetsDictionary {
   SPRITE_PLAYER_5 = "sprite-player-5.webp",
   SPRITE_PLAYER_BULLET_1 = "sprite-player-bullet-1.webp",
   SPRITE_PLAYER_BULLET_2 = "sprite-player-bullet-2.webp",
+  SPRITE_PLAYER_SHIELD = "sprite-player-shield.webp",
   SPRITE_POWER_UP_BULLET = "sprite-power-up-bullet.webp",
   SPRITE_POWER_UP_HEALTH = "sprite-power-up-health.webp"
 }
@@ -72,6 +73,7 @@ const {
   SPRITE_PLAYER_5,
   SPRITE_PLAYER_BULLET_1,
   SPRITE_PLAYER_BULLET_2,
+  SPRITE_PLAYER_SHIELD,
   SPRITE_POWER_UP_BULLET,
   SPRITE_POWER_UP_HEALTH
 } = AssetsDictionary;
@@ -94,10 +96,10 @@ export default function loadAssets(isDummy: boolean = false): Assets {
     enemyBulletCircle: loadImage(SPRITE_ENEMY_BULLET_CIRCLE, isDummy),
     enemyBulletLaser: loadImage(SPRITE_ENEMY_BULLET_LASER, isDummy),
     enemyExplodeAudio: loadAudio(ENEMY_EXPLODE_AUDIO, isDummy),
+    enemyMini: loadImage(SPRITE_ENEMY_MINI, isDummy),
     enemyMiniExplodeAudio: loadAudio(ENEMY_MINI_EXPLODE_AUDIO, isDummy),
     explodeSprite: loadImage(EXPLODE_SPRITE, isDummy),
     meteor: loadImage(METEOR, isDummy),
-    enemyMini: loadImage(SPRITE_ENEMY_MINI, isDummy),
     player1: loadImage(SPRITE_PLAYER_1, isDummy),
     player2: loadImage(SPRITE_PLAYER_2, isDummy),
     player3: loadImage(SPRITE_PLAYER_3, isDummy),
@@ -109,6 +111,7 @@ export default function loadAssets(isDummy: boolean = false): Assets {
     playerHitAudio: loadAudio(PLAYER_HIT_AUDIO, isDummy),
     playerHitSprite: loadImage(PLAYER_HIT_SPRITE, isDummy),
     playerPowerUpAudio: loadAudio(PLAYER_POWER_UP_AUDIO, isDummy),
+    playerShield: loadImage(SPRITE_PLAYER_SHIELD, isDummy),
     powerUpBullet: loadImage(SPRITE_POWER_UP_BULLET, isDummy),
     powerUpHealth: loadImage(SPRITE_POWER_UP_HEALTH, isDummy),
     shootingAudio: loadAudio(PLAYER_SHOOT, isDummy)

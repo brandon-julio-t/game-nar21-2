@@ -79,7 +79,7 @@ export function playBgm(level: number) {
     if (lvl === level && bgm.paused) {
       const prevBgm: HTMLAudioElement = bgms[i - 1];
 
-      bgm.currentTime = i > 0 ? prevBgm.currentTime : bgm.currentTime;
+      bgm.currentTime = i > 0 ? prevBgm.currentTime + 1 : bgm.currentTime;
       bgm.play();
     } else if (lvl !== level && !bgm.paused) {
       bgm.pause();

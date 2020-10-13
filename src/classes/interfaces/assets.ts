@@ -30,6 +30,7 @@ export default interface Assets {
   playerHitAudio: HTMLAudioElement;
   playerHitSprite: HTMLImageElement;
   playerPowerUpAudio: HTMLAudioElement;
+  playerShield: HTMLImageElement;
   powerUpBullet: HTMLImageElement;
   powerUpHealth: HTMLImageElement;
   shootingAudio: HTMLAudioElement;
