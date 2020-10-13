@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="text-center text-5xl font-bold heading tracking-widest">Benefits</h1>
+    <h1 class="text-center text-5xl font-bold tracking-widest">Benefits</h1>
 
     <section>
       <h2 class="font-semibold mb-3">Hard Skill</h2>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="text-center font-bold text-5xl heading tracking-widest">Requirements</h1>
+    <h1 class="text-center font-bold text-5xl tracking-widest">Requirements</h1>
 
     <section class="grid grid-cols-2 gap-6">
       <figure v-for="(requirement, idx) in requirements" :key="idx">

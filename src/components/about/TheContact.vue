@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="text-center font-bold heading text-5xl tracking-widest">Contact</h1>
+    <h1 class="text-center font-bold text-5xl tracking-widest">Contact</h1>
 
     <section>
       <h2 class="text-center">For more information</h2>

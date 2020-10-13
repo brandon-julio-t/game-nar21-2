@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="text-center font-bold text-5xl heading tracking-widest">Initial Test</h1>
+    <h1 class="text-center font-bold text-5xl tracking-widest">Initial Test</h1>
 
     <section class="text-center">
       <h2 class="text-3xl">
