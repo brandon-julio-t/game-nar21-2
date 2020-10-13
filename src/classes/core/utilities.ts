@@ -1,4 +1,7 @@
 import store from "@/store";
+import PowerUp from "../abstracts/power-up";
+import PowerUpBullet from "../power-up-bullet";
+import PowerUpHealth from "../power-up-health";
 
 export function randomIntegerBetween(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min + 1) + min);
@@ -18,11 +21,11 @@ export function degreeToRadian(degree: number) {
 
 export function loadImage(
   assetName: string,
-  dummy: boolean = false
+  isDummy: boolean = false
 ): HTMLImageElement {
   const image: HTMLImageElement = new Image();
 
-  if (dummy) {
+  if (isDummy) {
     return image;
   }
 
@@ -38,11 +41,11 @@ export function loadImage(
 
 export function loadAudio(
   assetName: string,
-  dummy: boolean = false
+  isDummy: boolean = false
 ): HTMLAudioElement {
   const audio: HTMLAudioElement = new Audio();
 
-  if (dummy) {
+  if (isDummy) {
     return audio;
   }
 
@@ -82,4 +85,15 @@ export function playBgm(level: number) {
       bgm.pause();
     }
   }
+}
+
+export function randomPowerUp(): typeof PowerUp {
+  let powerUps: typeof PowerUp[] = [PowerUpBullet, PowerUpHealth];
+
+  const { player } = store;
+  if (player !== null && player.bulletLevel > 1) {
+    return PowerUpHealth;
+  }
+
+  return powerUps[randomIntegerBetween(0, powerUps.length - 1)];
 }

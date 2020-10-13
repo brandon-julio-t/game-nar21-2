@@ -20,11 +20,11 @@ export default abstract class Entity
   private hasTriggeredOnDie: boolean = false;
 
   protected _velocity: number;
+  protected currentHealth: number;
   protected healthBarHeight: number;
   protected isPlayingExplodingAudio: boolean = false;
   protected maxHealth: number;
 
-  public currentHealth: number;
   public explodeSprite: HTMLImageElement;
   public hasFinishedDying: boolean = false;
   public position: Vector2;

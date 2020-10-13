@@ -78,6 +78,10 @@ export default class Player extends Entity {
     this.isInvulnerable = true;
   }
 
+  public heal(points: number): void {
+    this.currentHealth = Math.min(this.maxHealth, this.currentHealth + points);
+  }
+
   public moveAndDraw(ctx: CanvasRenderingContext2D): void {
     this.move();
     this.drawSelf(ctx);

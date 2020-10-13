@@ -1,9 +1,15 @@
-import { degreeToRadian, randomIntegerBetween } from "./core/utilities";
+import {
+  degreeToRadian,
+  randomIntegerBetween,
+  randomPowerUp as randomPowerUpClass
+} from "./core/utilities";
 
 import Enemy from "./abstracts/enemy";
 import EnemyBulletLaser from "./enemy-bullet-laser";
-import PowerUp from "./power-up";
 import store from "@/store";
+import PowerUpBullet from "./power-up-bullet";
+import PowerUp from "./abstracts/power-up";
+import PowerUpHealth from "./power-up-health";
 
 export default class EnemyMini extends Enemy {
   private static readonly SCALE_DOWN_RATIO: number = 0.15;
@@ -64,6 +70,13 @@ export default class EnemyMini extends Enemy {
   public die(): void {
     super.die();
     const { x, y } = this.position;
-    store.powerUps.splice(0, 0, new PowerUp(x, y));
+
+    const powerUp:
+      | typeof PowerUpBullet
+      | typeof PowerUpHealth = randomPowerUpClass() as
+      | typeof PowerUpBullet
+      | typeof PowerUpHealth;
+
+    store.powerUps.splice(0, 0, new powerUp(x, y));
   }
 }

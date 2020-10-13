@@ -3,7 +3,7 @@ import Bullet from "../abstracts/bullet";
 import EnemyBoss from "../enemy-boss";
 import EnemyMini from "../enemy-mini";
 import Player from "../player";
-import PowerUp from '../power-up';
+import PowerUp from '../abstracts/power-up';
 
 export default interface Store {
   assets: Assets;

@@ -3,6 +3,7 @@ import { degreeToRadian, randomIntegerBetween } from "./core/utilities";
 import Bullet from "./abstracts/bullet";
 import Vector2 from "./core/vector2";
 import store from "@/store";
+import Player from './player';
 
 export default class Meteor extends Bullet {
   private static readonly SCALE_DOWN_RATIO: number = 0.125;
@@ -98,7 +99,7 @@ export default class Meteor extends Bullet {
   public onCollide(): void {
     const { player } = store;
     if (player !== null) {
-      player.reduceHealth(player.currentHealth);
+      player.reduceHealth(Number.MAX_SAFE_INTEGER);
     }
   }
 }

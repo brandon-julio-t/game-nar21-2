@@ -1,11 +1,11 @@
-import CanCollide from "./interfaces/can-collide";
-import CanDraw from "./interfaces/can-draw";
-import CanGoOutOfBounds from "./interfaces/can-go-out-of-bounds";
-import CanMove from "./interfaces/can-move";
-import Vector2 from "./core/vector2";
+import CanCollide from "../interfaces/can-collide";
+import CanDraw from "../interfaces/can-draw";
+import CanGoOutOfBounds from "../interfaces/can-go-out-of-bounds";
+import CanMove from "../interfaces/can-move";
+import Vector2 from "../core/vector2";
 import store from "@/store";
 
-export default class PowerUp
+export default abstract class PowerUp
   implements CanCollide, CanDraw, CanMove, CanGoOutOfBounds {
   private readonly HEIGHT: number;
   private readonly SPRITE: HTMLImageElement;
@@ -16,11 +16,10 @@ export default class PowerUp
 
   public isEnded: boolean = false;
 
-  public constructor(x: number, y: number) {
+  public constructor(x: number, y: number, sprite: HTMLImageElement) {
     this.position = new Vector2(x, y);
 
-    const { naturalHeight, naturalWidth } = (this.SPRITE =
-      store.assets.playerPowerUp);
+    const { naturalHeight, naturalWidth } = (this.SPRITE = sprite);
 
     this.HEIGHT = naturalHeight;
     this.WIDTH = naturalWidth;
@@ -58,12 +57,8 @@ export default class PowerUp
   }
 
   public onCollide(): void {
-    const { player } = store;
-    if (player !== null) {
-      player.bulletLevel++;
-      store.assets.playerPowerUpAudio.currentTime = 0;
-      store.assets.playerPowerUpAudio.play();
-      this.isEnded = true;
-    }
+    store.assets.playerPowerUpAudio.currentTime = 0;
+    store.assets.playerPowerUpAudio.play();
+    this.isEnded = true;
   }
 }
