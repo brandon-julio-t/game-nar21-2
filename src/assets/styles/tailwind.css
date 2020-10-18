@@ -116,6 +116,10 @@
     opacity: 0;
   }
 
+  .z-none {
+    z-index: -1;
+  }
+
   .scroll-down-background-7 {
     @apply absolute;
     @apply bg-repeat;

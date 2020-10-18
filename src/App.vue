@@ -4,11 +4,11 @@
       'w-screen h-screen relative overflow-hidden': !store.isGaming
     }"
   >
-    <div
-      v-if="!store.isGaming"
-      id="main-background"
-      class="scroll-down-background-60"
-    ></div>
+    <canvas
+      v-show="!store.isGaming"
+      ref="starryBg"
+      class="absolute bottom-0 w-full h-full z-none bg-black"
+    ></canvas>
     <main>
       <router-view v-slot="{ Component }">
         <transition name="fade">
@@ -20,30 +20,32 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted } from "vue";
+import { defineComponent, onMounted, ref } from "vue";
 
 import Environment from "./classes/core/environment";
 import InputSystem from "./classes/core/input-system";
+import starry from "./canvas-backgrounds/starry";
 import store from "./store";
 
 export default defineComponent({
   setup() {
-    if (Environment.isProduction) {
-      onMounted(() => {
+    const starryBg = ref<HTMLCanvasElement | null>(null);
+
+    onMounted(() => {
+      if (Environment.isProduction) {
         document.oncontextmenu = e => e.preventDefault();
         InputSystem.disableInspectElement();
-      });
-    }
+      }
+
+      if (starryBg.value !== null) {
+        starry(starryBg.value);
+      }
+    });
 
     return {
-      store
+      store,
+      starryBg
     };
   }
 });
 </script>
-
-<style scoped>
-#main-background {
-  background-image: url("/images/background.webp");
-}
-</style>
