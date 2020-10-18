@@ -5,7 +5,7 @@ import {
 import CanDraw from "@/classes/interfaces/can-draw";
 
 class Star implements CanDraw {
-  private readonly COLOR: string = randomHexColor();
+  private readonly COLOR: string = "#FFFFFF";
   private readonly OPACITY_CHANGE_RATIO: number =
     randomIntegerBetween(1, 5) / 100;
   private readonly X: number = randomIntegerBetween(0, innerWidth);
