@@ -7,7 +7,7 @@
     <div
       v-if="!store.isGaming"
       id="main-background"
-      class="scroll-down-background-60"
+      class="w-full h-full z-none bg-cover absolute inset-0"
     ></div>
     <main>
       <router-view v-slot="{ Component }">
@@ -44,6 +44,6 @@ export default defineComponent({
 
 <style scoped>
 #main-background {
-  background-image: url("/images/background.webp");
+  background-image: url("/images/main-background.webp");
 }
 </style>
