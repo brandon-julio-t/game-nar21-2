@@ -1,8 +1,8 @@
 <template>
   <article
-    class="flex justify-center items-center w-screen h-screen text-white"
+    class="flex justify-center items-center w-screen h-screen text-white test-bg"
   >
-    <div class="container test-bg bg-black bg-opacity-75 mx-8">
+    <div class="container">
       <div
         class="flex flex-wrap lg:flex-no-wrap justify-center items-center m-8 md:mx-24 md:my-32"
       >
@@ -59,9 +59,8 @@ export default defineComponent({
 
 <style scoped>
 .test-bg {
-  /* url */
-  background-image: url("/images/ui-border.webp");
-  background-size: contain;
+  background-image: url("/images/border.webp");
+  background-size: 100vw 100vh;
   background-repeat: no-repeat;
 }
 </style>
