@@ -4,11 +4,11 @@
       'w-screen h-screen relative overflow-hidden': !store.isGaming
     }"
   >
-    <div
+    <canvas
       v-if="!store.isGaming"
-      id="main-background"
+      id="galaxy"
       class="w-full h-full z-none bg-cover absolute inset-0"
-    ></div>
+    ></canvas>
     <main>
       <router-view v-slot="{ Component }">
         <transition name="fade">

@@ -1,5 +1,6 @@
 import "./registerServiceWorker";
 import "./assets/styles/tailwind.css";
+import "./classes/galaxy";
 
 import App from "./App.vue";
 import { createApp } from "vue";
