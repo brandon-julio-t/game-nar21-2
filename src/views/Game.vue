@@ -110,11 +110,24 @@ export default defineComponent({
       store.loadedAssetsCount = 0;
       store.useKeyboard ? InputSystem.useKeyboard() : InputSystem.useMouse();
     });
+
     onUnmounted(() => Game.end());
 
     function onLogoClick() {
       state.logoClicked = true;
       store.assets = loadAssets();
+    }
+
+    function playGame() {
+      // Entry point A.K.A. main
+      Game.start(
+        {
+          bulletsCanvas: bulletsCanvas.value,
+          enemiesCanvas: enemiesCanvas.value,
+          playerCanvas: playerCanvas.value
+        },
+        backgroundImage.value
+      );
     }
 
     return {
@@ -125,18 +138,8 @@ export default defineComponent({
       bulletsCanvas,
       enemiesCanvas,
       onLogoClick,
+      playGame,
       playerCanvas,
-      playGame() {
-        // Entry point A.K.A. main
-        Game.start(
-          {
-            bulletsCanvas: bulletsCanvas.value,
-            enemiesCanvas: enemiesCanvas.value,
-            playerCanvas: playerCanvas.value
-          },
-          backgroundImage.value
-        );
-      },
       store
     };
   }

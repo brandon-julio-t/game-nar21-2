@@ -67,16 +67,7 @@ export default defineComponent({
       handleGalaxyBackground(store.isGaming);
     });
 
-    return {
-      galaxy,
-      store
-    };
+    return { galaxy, store };
   }
 });
 </script>
-
-<style scoped>
-#main-background {
-  background-image: url("/images/main-background.webp");
-}
-</style>

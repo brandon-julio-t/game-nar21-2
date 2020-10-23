@@ -1,6 +1,6 @@
 <template>
   <article
-    class="flex justify-center items-center w-screen h-screen text-white test-bg"
+    class="flex justify-center items-center w-screen h-screen text-white"
   >
     <div class="container">
       <div
@@ -58,9 +58,9 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.test-bg {
+.container {
   background-image: url("/images/border.webp");
-  background-size: 100vw 100vh;
+  background-size: 100% 100%;
   background-repeat: no-repeat;
 }
 </style>
