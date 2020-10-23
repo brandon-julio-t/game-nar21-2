@@ -5,9 +5,9 @@
     }"
   >
     <canvas
-      v-if="!store.isGaming"
-      id="galaxy"
+      v-show="!store.isGaming"
       class="w-full h-full z-none bg-cover absolute inset-0"
+      ref="galaxy"
     ></canvas>
     <main>
       <router-view v-slot="{ Component }">
@@ -20,22 +20,49 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted } from "vue";
+import { defineComponent, onMounted, ref, watch } from "vue";
 
 import Environment from "./classes/core/environment";
+import Galaxy from "./classes/core/galaxy";
 import InputSystem from "./classes/core/input-system";
 import store from "./store";
 
 export default defineComponent({
   setup() {
-    if (Environment.isProduction) {
-      onMounted(() => {
+    const galaxy = ref<HTMLCanvasElement | null>(null);
+
+    onMounted(() => {
+      if (Environment.isProduction) {
         document.oncontextmenu = e => e.preventDefault();
         InputSystem.disableInspectElement();
-      });
-    }
+      }
+
+      const galaxyCanvas = galaxy.value;
+      const galaxyCtx = galaxyCanvas?.getContext("2d");
+
+      watch(() => store.isGaming, handleGalaxyBackground);
+
+      function handleGalaxyBackground(isGaming: boolean): void {
+        console.log(`isGaming: ${isGaming}`);
+        const galaxy = new Galaxy(galaxyCanvas);
+
+        if (
+          !isGaming &&
+          galaxyCanvas !== null &&
+          galaxyCtx !== null &&
+          galaxyCtx !== undefined
+        ) {
+          galaxy.drawSelf(galaxyCtx);
+        } else {
+          galaxy.pause();
+        }
+      }
+
+      handleGalaxyBackground(store.isGaming);
+    });
 
     return {
+      galaxy,
       store
     };
   }

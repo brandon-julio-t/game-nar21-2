@@ -8,7 +8,6 @@ import Enemy from "./abstracts/enemy";
 import EnemyBulletLaser from "./enemy-bullet-laser";
 import store from "@/store";
 import PowerUpBullet from "./power-up-bullet";
-import PowerUp from "./abstracts/power-up";
 import PowerUpHealth from "./power-up-health";
 
 export default class EnemyMini extends Enemy {

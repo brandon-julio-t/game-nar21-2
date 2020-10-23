@@ -9,7 +9,7 @@ import InputSystem from "./core/input-system";
 import Meteor from "./meteor";
 import Player from "./player";
 import router from "@/router";
-import store from '@/store';
+import store from "@/store";
 
 export default class Game {
   private static readonly FPS: number = 60;
