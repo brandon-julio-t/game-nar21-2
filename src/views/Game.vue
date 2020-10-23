@@ -51,9 +51,9 @@
   </section>
 
   <div class="w-screen h-screen relative overflow-hidden">
-    <canvas class="absolute" ref="bulletsCanvas"></canvas>
     <canvas class="absolute" ref="enemiesCanvas"></canvas>
     <canvas class="absolute" ref="playerCanvas"></canvas>
+    <canvas class="absolute" ref="bulletsCanvas"></canvas>
     <div class="scroll-down-background-7" ref="backgroundImage"></div>
   </div>
 </template>

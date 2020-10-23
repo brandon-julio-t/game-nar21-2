@@ -306,7 +306,7 @@ export default class Player extends Entity {
           0,
           new PlayerBullet(
             x + xOffset,
-            y + yOffset - this.HEIGHT / 2,
+            y + yOffset - this.HEIGHT / 2 - (this.bulletLevel === 1 ? 0 : 50),
             this.bulletLevel
           )
         );
