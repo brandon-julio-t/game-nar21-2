@@ -82,7 +82,7 @@ export default class Player extends Entity {
     this.currentHealth = Math.min(this.maxHealth, this.currentHealth + points);
   }
 
-  public moveAndDraw(ctx: CanvasRenderingContext2D): void {
+  public moveAndDraw(ctx: OffscreenCanvasRenderingContext2D): void {
     this.move();
     this.drawSelf(ctx);
   }
@@ -139,7 +139,7 @@ export default class Player extends Entity {
     }
   }
 
-  public drawSelf(ctx: CanvasRenderingContext2D): void {
+  public drawSelf(ctx: OffscreenCanvasRenderingContext2D): void {
     const { WIDTH, HEIGHT } = this;
     const { x, y } = this.position;
 
@@ -178,7 +178,7 @@ export default class Player extends Entity {
     this.drawShield(ctx);
   }
 
-  private drawHitBox(ctx: CanvasRenderingContext2D): void {
+  private drawHitBox(ctx: OffscreenCanvasRenderingContext2D): void {
     const { HITBOX_SIZE, position } = this;
     const { x, y } = position;
 
@@ -190,7 +190,7 @@ export default class Player extends Entity {
     ctx.fill();
   }
 
-  private drawHitAnimation(ctx: CanvasRenderingContext2D): void {
+  private drawHitAnimation(ctx: OffscreenCanvasRenderingContext2D): void {
     const width: number = this.HIT_SPRITE.naturalWidth / this.HIT_SPRITE_COLS;
     const height: number = this.HIT_SPRITE.naturalHeight / this.HIT_SPRITE_ROWS;
 
@@ -223,7 +223,7 @@ export default class Player extends Entity {
     }
   }
 
-  private drawScore(ctx: CanvasRenderingContext2D): void {
+  private drawScore(ctx: OffscreenCanvasRenderingContext2D): void {
     const { x, y } = this.position;
 
     ctx.fillStyle = "royalblue";
@@ -236,7 +236,7 @@ export default class Player extends Entity {
     );
   }
 
-  private drawShield(ctx: CanvasRenderingContext2D): void {
+  private drawShield(ctx: OffscreenCanvasRenderingContext2D): void {
     const { playerShield } = store.assets;
     const { height, width } = playerShield;
     const { currentHealth, maxHealth, position } = this;
@@ -260,7 +260,7 @@ export default class Player extends Entity {
     ctx.restore();
   }
 
-  public drawHealthBar(ctx: CanvasRenderingContext2D): void {
+  public drawHealthBar(ctx: OffscreenCanvasRenderingContext2D): void {
     const {
       HEIGHT,
       WIDTH,

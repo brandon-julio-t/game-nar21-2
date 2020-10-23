@@ -28,7 +28,7 @@ export default class Star implements CanDraw, CanMove {
     this.trail = randomIntegerBetween(0, 10);
   }
 
-  public drawSelf(ctx: CanvasRenderingContext2D): void {
+  public drawSelf(ctx: OffscreenCanvasRenderingContext2D): void {
     const rgb = hexToRgb(this.color);
     if (rgb !== null) {
       const { opacity, position, radius, trail } = this;

@@ -38,23 +38,29 @@ export default defineComponent({
       }
 
       const galaxyCanvas = galaxy.value;
-      const galaxyCtx = galaxyCanvas?.getContext("2d");
+      const galaxyAnimation = new Galaxy(galaxyCanvas);
+
+      if (galaxyCanvas !== null) {
+        galaxyCanvas.width = innerWidth;
+        galaxyCanvas.height = innerHeight;
+      }
+
+      const galaxyCtx = galaxyCanvas
+        ?.transferControlToOffscreen()
+        ?.getContext("2d");
 
       watch(() => store.isGaming, handleGalaxyBackground);
 
       function handleGalaxyBackground(isGaming: boolean): void {
-        console.log(`isGaming: ${isGaming}`);
-        const galaxy = new Galaxy(galaxyCanvas);
-
         if (
           !isGaming &&
           galaxyCanvas !== null &&
           galaxyCtx !== null &&
           galaxyCtx !== undefined
         ) {
-          galaxy.drawSelf(galaxyCtx);
+          galaxyAnimation.drawSelf(galaxyCtx);
         } else {
-          galaxy.pause();
+          galaxyAnimation.pause();
         }
       }
 

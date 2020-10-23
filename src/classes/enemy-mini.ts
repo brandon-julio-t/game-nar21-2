@@ -33,7 +33,7 @@ export default class EnemyMini extends Enemy {
     setTimeout(() => this.stopMoving(), 3000);
   }
 
-  public drawSelf(ctx: CanvasRenderingContext2D): void {
+  public drawSelf(ctx: OffscreenCanvasRenderingContext2D): void {
     const { x, y } = this.position;
     ctx.save();
     ctx.translate(x, y);
@@ -51,7 +51,7 @@ export default class EnemyMini extends Enemy {
   /**
    * No health bar.
    */
-  public drawHealthBar(_: CanvasRenderingContext2D): void {}
+  public drawHealthBar(_: OffscreenCanvasRenderingContext2D): void {}
 
   public move(): void {
     super.move();

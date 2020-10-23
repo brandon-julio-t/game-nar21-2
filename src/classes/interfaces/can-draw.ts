@@ -1,3 +1,3 @@
 export default interface CanDraw {
-  drawSelf(ctx: CanvasRenderingContext2D): void;
+  drawSelf(ctx: OffscreenCanvasRenderingContext2D): void;
 }

@@ -8,15 +8,17 @@ export function randomIntegerBetween(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-export function asset(filename: string) {
+export function asset(filename: string): string {
   return `${process.env.BASE_URL}${filename}`;
 }
 
-export function getContext(canvas: HTMLCanvasElement | null) {
-  return canvas?.getContext("2d") as CanvasRenderingContext2D;
+export function getContext(canvas: HTMLCanvasElement | null): OffscreenCanvasRenderingContext2D {
+  return canvas
+    ?.transferControlToOffscreen()
+    ?.getContext("2d") as OffscreenCanvasRenderingContext2D;
 }
 
-export function degreeToRadian(degree: number) {
+export function degreeToRadian(degree: number): number {
   return (Math.PI / 180) * degree;
 }
 
@@ -65,7 +67,7 @@ export function playAudio(audio: HTMLAudioElement): void {
   audio.play();
 }
 
-export function playBgm(level: number) {
+export function playBgm(level: number): void {
   const { backgroundMusic1, backgroundMusic2, backgroundMusic3 } = store.assets;
   const bgms: HTMLAudioElement[] = [
     backgroundMusic1,

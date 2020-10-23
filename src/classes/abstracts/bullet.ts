@@ -55,5 +55,5 @@ export default abstract class Bullet
   }
 
   public abstract checkCollision(): void;
-  public abstract drawSelf(ctx: CanvasRenderingContext2D): void;
+  public abstract drawSelf(ctx: OffscreenCanvasRenderingContext2D): void;
 }

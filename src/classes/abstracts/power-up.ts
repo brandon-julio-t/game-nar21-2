@@ -30,7 +30,7 @@ export default abstract class PowerUp
     return x + this.WIDTH < 0 || y < 0 || x > innerWidth || y > innerHeight;
   }
 
-  public drawSelf(ctx: CanvasRenderingContext2D): void {
+  public drawSelf(ctx: OffscreenCanvasRenderingContext2D): void {
     const { x, y } = this.position;
     ctx.drawImage(this.SPRITE, x - this.WIDTH / 2, y - this.HEIGHT / 2);
   }

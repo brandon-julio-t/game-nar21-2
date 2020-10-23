@@ -17,9 +17,6 @@ export default class Galaxy implements CanDraw {
   public constructor(canvas: HTMLCanvasElement | null) {
     if (canvas === null) return;
 
-    canvas.width = innerWidth;
-    canvas.height = innerHeight;
-
     const { x: xVelocity, y: yVelocity } = Vector2.fromRadian(
       degreeToRadian(this.STARS_DIRECTION_DEGREE)
     ).normalized();
@@ -40,7 +37,7 @@ export default class Galaxy implements CanDraw {
     }
   }
 
-  public drawSelf(ctx: CanvasRenderingContext2D): void {
+  public drawSelf(ctx: OffscreenCanvasRenderingContext2D): void {
     const FPSInterval = 1000 / 60;
     let lastFrameTime = Date.now();
 
@@ -96,7 +93,6 @@ export default class Galaxy implements CanDraw {
   }
 
   public pause(): void {
-    this.stars = [];
     cancelAnimationFrame(this.animationId);
   }
 }

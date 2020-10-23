@@ -27,6 +27,8 @@ export default class Game {
     canvasesGroup: CanvasesGroup,
     backgroundImage: HTMLImageElement | null
   ): void {
+    Object.values(canvasesGroup).forEach(canvas => this.prepareCanvas(canvas));
+
     let contexts: ContextsGroup = {
       bulletsCtx: getContext(canvasesGroup.bulletsCanvas),
       enemiesCtx: getContext(canvasesGroup.enemiesCanvas),
@@ -42,10 +44,6 @@ export default class Game {
 
     store.isGaming = true;
     this.cleanUp();
-
-    Object.values(canvasesGroup).forEach(canvas =>
-      this.prepareCanvas(canvas as HTMLCanvasElement)
-    );
 
     backgroundImage.style.backgroundImage = `url("${store.assets.backgroundImage.src}")`;
 
@@ -161,7 +159,7 @@ export default class Game {
         return;
       }
 
-      const ctx: CanvasRenderingContext2D =
+      const ctx: OffscreenCanvasRenderingContext2D =
         entity instanceof Player
           ? this.contextsGroup.playerCtx
           : this.contextsGroup.enemiesCtx;

@@ -69,7 +69,7 @@ export default abstract class Entity
     }
   }
 
-  public drawSelfAndHealthBar(ctx: CanvasRenderingContext2D): void {
+  public drawSelfAndHealthBar(ctx: OffscreenCanvasRenderingContext2D): void {
     if (this.isDead) {
       this.drawExplodeSprite(ctx);
 
@@ -82,7 +82,7 @@ export default abstract class Entity
     }
   }
 
-  public drawExplodeSprite(ctx: CanvasRenderingContext2D): void {
+  public drawExplodeSprite(ctx: OffscreenCanvasRenderingContext2D): void {
     if (this.explodingSpriteRowIdx >= this.EXPLODING_SPRITE_ROWS) {
       this.hasFinishedDying = true;
       return;
@@ -135,6 +135,6 @@ export default abstract class Entity
   }
 
   public abstract shoot(): void;
-  public abstract drawSelf(ctx: CanvasRenderingContext2D): void;
-  public abstract drawHealthBar(ctx: CanvasRenderingContext2D): void;
+  public abstract drawSelf(ctx: OffscreenCanvasRenderingContext2D): void;
+  public abstract drawHealthBar(ctx: OffscreenCanvasRenderingContext2D): void;
 }

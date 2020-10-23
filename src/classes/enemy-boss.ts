@@ -96,7 +96,7 @@ export default class EnemyBoss extends Enemy {
     }
   }
 
-  public drawSelf(ctx: CanvasRenderingContext2D): void {
+  public drawSelf(ctx: OffscreenCanvasRenderingContext2D): void {
     const { x, y } = this.position;
 
     ctx.fillStyle = store.color;
@@ -112,7 +112,7 @@ export default class EnemyBoss extends Enemy {
     this.animatedSpriteIdx %= this.ANIMATED_SPRITE.length;
   }
 
-  public drawHealthBar(ctx: CanvasRenderingContext2D): void {
+  public drawHealthBar(ctx: OffscreenCanvasRenderingContext2D): void {
     const x = this.position.x - this.WIDTH / 2;
     const y = this.position.y - this.HEIGHT / 2;
     const w = this.WIDTH * (this.currentHealth / this.maxHealth);
