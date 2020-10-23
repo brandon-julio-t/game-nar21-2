@@ -12,6 +12,7 @@ export default class Galaxy implements CanDraw {
   private readonly STARS_SPEED_MIN: number = 1;
 
   private stars: Star[] = [];
+  private animationId: number = -1;
 
   public constructor(canvas: HTMLCanvasElement | null) {
     if (canvas === null) return;
@@ -44,7 +45,7 @@ export default class Galaxy implements CanDraw {
     let lastFrameTime = Date.now();
 
     const loop = () => {
-      requestAnimationFrame(loop);
+      this.animationId = requestAnimationFrame(loop);
 
       const now = Date.now();
       const deltaTime = now - lastFrameTime;
@@ -59,7 +60,7 @@ export default class Galaxy implements CanDraw {
           innerWidth / 4,
           innerWidth / 2,
           innerHeight / 2,
-          2000
+          innerWidth * 1.5
         );
         leftCloud.addColorStop(0, "#495B9A");
         leftCloud.addColorStop(1, "rgb(0, 0, 0, 0)");
@@ -73,7 +74,7 @@ export default class Galaxy implements CanDraw {
           innerWidth / 2,
           innerWidth / 2,
           innerHeight / 2,
-          2000
+          innerWidth * 1.5
         );
         rightCloud.addColorStop(0, "#243C5A");
         rightCloud.addColorStop(1, "rgb(0, 0, 0, 0)");
@@ -91,6 +92,11 @@ export default class Galaxy implements CanDraw {
       }
     };
 
-    requestAnimationFrame(loop);
+    this.animationId = requestAnimationFrame(loop);
+  }
+
+  public pause(): void {
+    this.stars = [];
+    cancelAnimationFrame(this.animationId);
   }
 }

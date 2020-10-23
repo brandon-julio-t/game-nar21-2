@@ -20,7 +20,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from "vue";
+import { defineComponent, onMounted, ref, watch } from "vue";
 
 import Environment from "./classes/core/environment";
 import Galaxy from "./classes/core/galaxy";
@@ -40,13 +40,25 @@ export default defineComponent({
       const galaxyCanvas = galaxy.value;
       const galaxyCtx = galaxyCanvas?.getContext("2d");
 
-      if (
-        galaxyCanvas !== null &&
-        galaxyCtx !== null &&
-        galaxyCtx !== undefined
-      ) {
-        new Galaxy(galaxyCanvas).drawSelf(galaxyCtx);
+      watch(() => store.isGaming, handleGalaxyBackground);
+
+      function handleGalaxyBackground(isGaming: boolean): void {
+        console.log(`isGaming: ${isGaming}`);
+        const galaxy = new Galaxy(galaxyCanvas);
+
+        if (
+          !isGaming &&
+          galaxyCanvas !== null &&
+          galaxyCtx !== null &&
+          galaxyCtx !== undefined
+        ) {
+          galaxy.drawSelf(galaxyCtx);
+        } else {
+          galaxy.pause();
+        }
       }
+
+      handleGalaxyBackground(store.isGaming);
     });
 
     return {
