@@ -25,7 +25,7 @@ export default class Star implements CanDraw, CanMove {
     this.velocity = new Vector2(xVelocity, yVelocity);
     this.opacity = Math.random();
     this.color = randomHexColor();
-    this.trail = randomIntegerBetween(0, 10);
+    this.trail = randomIntegerBetween(5, 10);
   }
 
   public drawSelf(ctx: OffscreenCanvasRenderingContext2D): void {

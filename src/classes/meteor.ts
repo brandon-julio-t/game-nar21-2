@@ -3,7 +3,7 @@ import { degreeToRadian, randomIntegerBetween } from "./core/utilities";
 import Bullet from "./abstracts/bullet";
 import Vector2 from "./core/vector2";
 import store from "@/store";
-import Player from './player';
+import Player from "./player";
 
 export default class Meteor extends Bullet {
   private static readonly SCALE_DOWN_RATIO: number = 0.125;
@@ -91,7 +91,7 @@ export default class Meteor extends Bullet {
         player.HITBOX_SIZE + Math.min(this.WIDTH, this.HEIGHT) / 2;
 
       if (hasCollision) {
-        this.onCollide()
+        this.onCollide();
       }
     }
   }
