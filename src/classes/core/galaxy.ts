@@ -3,7 +3,7 @@ import Star from "./star";
 import Vector2 from "./vector2";
 import { degreeToRadian, randomIntegerBetween } from "./utilities";
 
-export default class Galaxy implements CanDraw {
+export default class Galaxy {
   private readonly STARS_COUNT: number = innerWidth / 3;
   private readonly STARS_DIRECTION_DEGREE: number = 145;
   private readonly STARS_RADIUS_MAX: number = 3;
@@ -14,9 +14,7 @@ export default class Galaxy implements CanDraw {
   private stars: Star[] = [];
   private animationId: number = -1;
 
-  public constructor(canvas: HTMLCanvasElement | null) {
-    if (canvas === null) return;
-
+  public constructor() {
     const { x: xVelocity, y: yVelocity } = Vector2.fromRadian(
       degreeToRadian(this.STARS_DIRECTION_DEGREE)
     ).normalized();
@@ -37,7 +35,40 @@ export default class Galaxy implements CanDraw {
     }
   }
 
-  public drawSelf(ctx: OffscreenCanvasRenderingContext2D): void {
+  public play(
+    backgroundCtx: OffscreenCanvasRenderingContext2D,
+    starsCtx: OffscreenCanvasRenderingContext2D
+  ): void {
+    const leftCloud = backgroundCtx.createRadialGradient(
+      0,
+      0,
+      innerWidth / 4,
+      innerWidth / 2,
+      innerHeight / 2,
+      innerWidth * 2
+    );
+    leftCloud.addColorStop(0, "#007ACE");
+    leftCloud.addColorStop(1, "rgb(0, 0, 0, 0)");
+
+    backgroundCtx.fillStyle = leftCloud;
+    backgroundCtx.fillRect(0, 0, innerWidth, innerHeight);
+
+    const rightCloud = backgroundCtx.createRadialGradient(
+      innerWidth,
+      innerHeight,
+      innerWidth / 2,
+      innerWidth / 2,
+      innerHeight / 2,
+      innerWidth * 2
+    );
+    rightCloud.addColorStop(0, "#243C5A");
+    rightCloud.addColorStop(1, "rgb(0, 0, 0, 0)");
+
+    backgroundCtx.fillStyle = rightCloud;
+    backgroundCtx.fillRect(0, 0, innerWidth, innerHeight);
+
+    backgroundCtx.fill();
+
     const FPSInterval = 1000 / 60;
     let lastFrameTime = Date.now();
 
@@ -49,40 +80,10 @@ export default class Galaxy implements CanDraw {
       if (deltaTime > FPSInterval) {
         lastFrameTime = now - (lastFrameTime % deltaTime);
 
-        ctx.clearRect(0, 0, innerWidth, innerHeight);
-
-        const leftCloud = ctx.createRadialGradient(
-          0,
-          0,
-          innerWidth / 4,
-          innerWidth / 2,
-          innerHeight / 2,
-          innerWidth * 2
-        );
-        leftCloud.addColorStop(0, "#007ACE");
-        leftCloud.addColorStop(1, "rgb(0, 0, 0, 0)");
-
-        ctx.fillStyle = leftCloud;
-        ctx.fillRect(0, 0, innerWidth, innerHeight);
-
-        const rightCloud = ctx.createRadialGradient(
-          innerWidth,
-          innerHeight,
-          innerWidth / 2,
-          innerWidth / 2,
-          innerHeight / 2,
-          innerWidth * 2
-        );
-        rightCloud.addColorStop(0, "#243C5A");
-        rightCloud.addColorStop(1, "rgb(0, 0, 0, 0)");
-
-        ctx.fillStyle = rightCloud;
-        ctx.fillRect(0, 0, innerWidth, innerHeight);
-
-        ctx.fill();
+        starsCtx.clearRect(0, 0, innerWidth, innerHeight);
 
         this.stars.forEach(star => {
-          star.drawSelf(ctx);
+          star.drawSelf(starsCtx);
           star.move();
           star.wrapIfNecessary();
         });

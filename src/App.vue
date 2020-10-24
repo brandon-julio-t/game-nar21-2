@@ -7,8 +7,14 @@
     <canvas
       v-show="!store.isGaming"
       class="w-full h-full z-none bg-cover absolute inset-0"
-      ref="galaxy"
+      ref="galaxyBackground"
     ></canvas>
+    <canvas
+      v-show="!store.isGaming"
+      class="w-full h-full z-none bg-cover absolute inset-0"
+      ref="galaxyStars"
+    ></canvas>
+
     <main>
       <router-view v-slot="{ Component }">
         <transition name="fade">
@@ -29,7 +35,8 @@ import store from "./store";
 
 export default defineComponent({
   setup() {
-    const galaxy = ref<HTMLCanvasElement | null>(null);
+    const galaxyStars = ref<HTMLCanvasElement | null>(null);
+    const galaxyBackground = ref<HTMLCanvasElement | null>(null);
 
     onMounted(() => {
       if (Environment.isProduction) {
@@ -37,15 +44,22 @@ export default defineComponent({
         InputSystem.disableInspectElement();
       }
 
-      const galaxyCanvas = galaxy.value;
-      const galaxyAnimation = new Galaxy(galaxyCanvas);
+      const galaxyAnimation = new Galaxy();
+      const galaxyBackgroundCanvas = galaxyBackground.value;
+      const galaxyStarsCanvas = galaxyStars.value;
 
-      if (galaxyCanvas !== null) {
-        galaxyCanvas.width = innerWidth;
-        galaxyCanvas.height = innerHeight;
+      if (galaxyStarsCanvas !== null && galaxyBackgroundCanvas !== null) {
+        galaxyBackgroundCanvas.height = innerHeight;
+        galaxyBackgroundCanvas.width = innerWidth;
+        galaxyStarsCanvas.height = innerHeight;
+        galaxyStarsCanvas.width = innerWidth;
       }
 
-      const galaxyCtx = galaxyCanvas
+      const galaxyBackgroundCtx = galaxyBackgroundCanvas
+        ?.transferControlToOffscreen()
+        ?.getContext("2d");
+
+      const galaxyStarsCtx = galaxyStarsCanvas
         ?.transferControlToOffscreen()
         ?.getContext("2d");
 
@@ -54,11 +68,14 @@ export default defineComponent({
       function handleGalaxyBackground(isGaming: boolean): void {
         if (
           !isGaming &&
-          galaxyCanvas !== null &&
-          galaxyCtx !== null &&
-          galaxyCtx !== undefined
+          galaxyBackgroundCanvas !== null &&
+          galaxyBackgroundCtx !== null &&
+          galaxyBackgroundCtx !== undefined &&
+          galaxyStarsCanvas !== null &&
+          galaxyStarsCtx !== null &&
+          galaxyStarsCtx !== undefined
         ) {
-          galaxyAnimation.drawSelf(galaxyCtx);
+          galaxyAnimation.play(galaxyBackgroundCtx, galaxyStarsCtx);
         } else {
           galaxyAnimation.pause();
         }
@@ -67,7 +84,7 @@ export default defineComponent({
       handleGalaxyBackground(store.isGaming);
     });
 
-    return { galaxy, store };
+    return { galaxyBackground, galaxyStars, store };
   }
 });
 </script>
