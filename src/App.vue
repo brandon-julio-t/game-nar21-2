@@ -1,8 +1,6 @@
 <template>
   <div
-    :class="{
-      'w-screen h-screen relative overflow-hidden': !store.isGaming
-    }"
+    class="w-screen h-screen relative"
   >
     <canvas
       v-show="!store.isGaming"
@@ -44,42 +42,16 @@ export default defineComponent({
         InputSystem.disableInspectElement();
       }
 
-      const galaxyAnimation = new Galaxy();
-      const galaxyBackgroundCanvas = galaxyBackground.value;
-      const galaxyStarsCanvas = galaxyStars.value;
-
-      if (galaxyStarsCanvas !== null && galaxyBackgroundCanvas !== null) {
-        galaxyBackgroundCanvas.height = innerHeight;
-        galaxyBackgroundCanvas.width = innerWidth;
-        galaxyStarsCanvas.height = innerHeight;
-        galaxyStarsCanvas.width = innerWidth;
-      }
-
-      const galaxyBackgroundCtx = galaxyBackgroundCanvas
-        ?.transferControlToOffscreen()
-        ?.getContext("2d");
-
-      const galaxyStarsCtx = galaxyStarsCanvas
-        ?.transferControlToOffscreen()
-        ?.getContext("2d");
-
-      watch(() => store.isGaming, handleGalaxyBackground);
-
+      const galaxy = new Galaxy(galaxyBackground.value, galaxyStars.value);
       function handleGalaxyBackground(isGaming: boolean): void {
-        if (
-          !isGaming &&
-          galaxyBackgroundCanvas !== null &&
-          galaxyBackgroundCtx !== null &&
-          galaxyBackgroundCtx !== undefined &&
-          galaxyStarsCanvas !== null &&
-          galaxyStarsCtx !== null &&
-          galaxyStarsCtx !== undefined
-        ) {
-          galaxyAnimation.play(galaxyBackgroundCtx, galaxyStarsCtx);
+        if (!isGaming) {
+          galaxy.play();
         } else {
-          galaxyAnimation.pause();
+          galaxy.pause();
         }
       }
+
+      watch(() => store.isGaming, handleGalaxyBackground);
 
       handleGalaxyBackground(store.isGaming);
     });

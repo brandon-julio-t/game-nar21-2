@@ -11,10 +11,6 @@
   </ul>
 </template>
 
-<style scoped>
-
-</style>
-
 <script lang="ts">
 import AppButtonAbout from "../AppButtonAbout.vue";
 import { defineComponent } from "vue";

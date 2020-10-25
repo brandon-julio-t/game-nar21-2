@@ -50,7 +50,7 @@
     />
   </section>
 
-  <div class="w-screen h-screen relative overflow-hidden">
+  <div v-show="store.isGaming" class="w-screen h-screen relative overflow-hidden">
     <canvas class="absolute" ref="enemiesCanvas"></canvas>
     <canvas class="absolute" ref="playerCanvas"></canvas>
     <canvas class="absolute" ref="bulletsCanvas"></canvas>

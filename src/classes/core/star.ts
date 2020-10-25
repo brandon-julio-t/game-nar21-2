@@ -19,7 +19,8 @@ export default class Star implements CanDraw, CanMove {
     y: number,
     xVelocity: number,
     yVelocity: number,
-    private radius: number
+    private radius: number,
+    private ctx: OffscreenCanvasRenderingContext2D
   ) {
     this.position = new Vector2(x, y);
     this.velocity = new Vector2(xVelocity, yVelocity);
@@ -52,17 +53,18 @@ export default class Star implements CanDraw, CanMove {
   }
 
   public wrapIfNecessary(): void {
+    const { height, width } = this.ctx.canvas;
     const { position } = this;
     const { x, y } = position;
 
     const outLeft = x < 0;
-    const outRight = x > innerWidth;
+    const outRight = x > width;
     const outTop = y < 0;
-    const outBottom = y > innerHeight;
+    const outBottom = y > height;
 
-    if (outLeft) position.x = innerWidth;
+    if (outLeft) position.x = width;
     if (outRight) position.x = 0;
-    if (outTop) position.y = innerHeight;
+    if (outTop) position.y = height;
     if (outBottom) position.y = 0;
   }
 }

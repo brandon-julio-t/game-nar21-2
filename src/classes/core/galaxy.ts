@@ -1,4 +1,3 @@
-import CanDraw from "../interfaces/can-draw";
 import Star from "./star";
 import Vector2 from "./vector2";
 import { degreeToRadian, randomIntegerBetween } from "./utilities";
@@ -13,8 +12,26 @@ export default class Galaxy {
 
   private stars: Star[] = [];
   private animationId: number = -1;
+  private backgroundCtx: OffscreenCanvasRenderingContext2D | null = null;
+  private starsCtx: OffscreenCanvasRenderingContext2D | null = null;
 
-  public constructor() {
+  public constructor(
+    backgroundCanvas: HTMLCanvasElement | null,
+    starsCanvas: HTMLCanvasElement | null
+  ) {
+    if (!backgroundCanvas || !starsCanvas) return;
+
+    backgroundCanvas.width = starsCanvas.width = innerWidth;
+    backgroundCanvas.height = starsCanvas.height = innerHeight;
+
+    this.backgroundCtx = backgroundCanvas
+      .transferControlToOffscreen()
+      .getContext("2d") as OffscreenCanvasRenderingContext2D;
+
+    this.starsCtx = starsCanvas
+      .transferControlToOffscreen()
+      .getContext("2d") as OffscreenCanvasRenderingContext2D;
+
     const { x: xVelocity, y: yVelocity } = Vector2.fromRadian(
       degreeToRadian(this.STARS_DIRECTION_DEGREE)
     ).normalized();
@@ -29,45 +46,24 @@ export default class Galaxy {
           randomIntegerBetween(0, innerHeight),
           xVelocity * randomVelocityMultiplier,
           yVelocity * randomVelocityMultiplier,
-          randomIntegerBetween(this.STARS_RADIUS_MIN, this.STARS_RADIUS_MAX)
+          randomIntegerBetween(this.STARS_RADIUS_MIN, this.STARS_RADIUS_MAX),
+          this.starsCtx
         )
       );
     }
   }
 
-  public play(
-    backgroundCtx: OffscreenCanvasRenderingContext2D,
-    starsCtx: OffscreenCanvasRenderingContext2D
-  ): void {
-    const leftCloud = backgroundCtx.createRadialGradient(
-      0,
-      0,
-      innerWidth / 4,
-      innerWidth / 2,
-      innerHeight / 2,
-      innerWidth * 2
-    );
-    leftCloud.addColorStop(0, "#007ACE");
-    leftCloud.addColorStop(1, "rgb(0, 0, 0, 0)");
+  public play(): void {
+    onresize = () => {
+      if (!this.backgroundCtx || !this.starsCtx) return;
 
-    backgroundCtx.fillStyle = leftCloud;
-    backgroundCtx.fillRect(0, 0, innerWidth, innerHeight);
+      this.backgroundCtx.canvas.width = innerWidth;
+      this.backgroundCtx.canvas.height = innerHeight;
 
-    const rightCloud = backgroundCtx.createRadialGradient(
-      innerWidth,
-      innerHeight,
-      innerWidth / 2,
-      innerWidth / 2,
-      innerHeight / 2,
-      innerWidth * 2
-    );
-    rightCloud.addColorStop(0, "#243C5A");
-    rightCloud.addColorStop(1, "rgb(0, 0, 0, 0)");
+      this.drawBackground();
+    };
 
-    backgroundCtx.fillStyle = rightCloud;
-    backgroundCtx.fillRect(0, 0, innerWidth, innerHeight);
-
-    backgroundCtx.fill();
+    this.drawBackground();
 
     const FPSInterval = 1000 / 60;
     let lastFrameTime = Date.now();
@@ -77,13 +73,19 @@ export default class Galaxy {
 
       const now = Date.now();
       const deltaTime = now - lastFrameTime;
-      if (deltaTime > FPSInterval) {
+      if (deltaTime > FPSInterval && this.starsCtx) {
         lastFrameTime = now - (lastFrameTime % deltaTime);
 
-        starsCtx.clearRect(0, 0, innerWidth, innerHeight);
+        this.starsCtx.clearRect(
+          0,
+          0,
+          this.starsCtx.canvas.width,
+          this.starsCtx.canvas.height
+        );
 
         this.stars.forEach(star => {
-          star.drawSelf(starsCtx);
+          if (!this.starsCtx) return;
+          star.drawSelf(this.starsCtx);
           star.move();
           star.wrapIfNecessary();
         });
@@ -93,7 +95,44 @@ export default class Galaxy {
     this.animationId = requestAnimationFrame(loop);
   }
 
+  private drawBackground(): void {
+    if (!this.backgroundCtx) return;
+
+    const { height, width } = this.backgroundCtx.canvas;
+
+    const leftCloud = this.backgroundCtx.createRadialGradient(
+      0,
+      0,
+      width / 4,
+      width / 2,
+      height / 2,
+      width * 2
+    );
+    leftCloud.addColorStop(0, "#007ACE");
+    leftCloud.addColorStop(1, "rgb(0, 0, 0, 0)");
+
+    this.backgroundCtx.fillStyle = leftCloud;
+    this.backgroundCtx.fillRect(0, 0, width, height);
+
+    const rightCloud = this.backgroundCtx.createRadialGradient(
+      width,
+      height,
+      width / 2,
+      width / 2,
+      height / 2,
+      width * 2
+    );
+    rightCloud.addColorStop(0, "#243C5A");
+    rightCloud.addColorStop(1, "rgb(0, 0, 0, 0)");
+
+    this.backgroundCtx.fillStyle = rightCloud;
+    this.backgroundCtx.fillRect(0, 0, width, height);
+
+    this.backgroundCtx.fill();
+  }
+
   public pause(): void {
+    onresize = null;
     cancelAnimationFrame(this.animationId);
   }
 }
