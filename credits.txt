@@ -7,7 +7,7 @@ Explode Audio: https://opengameart.org/content/9-explosion-sounds
 Explode Sprite: https://opengameart.org/content/2d-explosion-animations-frame-by-frame
 Font: https://fonts.google.com/specimen/PT+Mono
 Icons: https://icons.getbootstrap.com/
-Main Background: https://www.google.com/sky/
+Main Background: https://github.com/kurisubrooks/galaxy
 Meteor: https://www.downloadclipart.net/download/14749/meteor-svg
 Mini Enemy: https://opengameart.org/content/alien-ufo-pack
 Player Bullet: https://opengameart.org/content/complete-spaceship-game-art-pack
