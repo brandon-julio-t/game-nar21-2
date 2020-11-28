@@ -8,8 +8,8 @@ import Entity from "./abstracts/entity";
 import InputSystem from "./core/input-system";
 import Meteor from "./meteor";
 import Player from "./player";
-import router from "@/router";
 import store from "@/store";
+import router from "@/router";
 
 export default class Game {
   private static readonly FPS: number = 60;
@@ -22,6 +22,10 @@ export default class Game {
   private static player: Player;
 
   private static animationId: number | null = null;
+
+  public static get loading(): boolean {
+    return store.loadedAssetsCount < Object.keys(store.assets).length;
+  }
 
   public static start(
     canvasesGroup: CanvasesGroup,
@@ -56,10 +60,6 @@ export default class Game {
     this.play();
   }
 
-  public static get loading(): boolean {
-    return store.loadedAssetsCount < Object.keys(store.assets).length;
-  }
-
   public static end(): void {
     store.isGaming = false;
     this.cleanUp();
@@ -74,7 +74,7 @@ export default class Game {
       bgm.pause()
     );
 
-    store.player = store.enemy = null;
+    store.gameOver = store.hasPressedOk = store.player = store.enemy = null;
     store.enemiesKilledCount = 0;
 
     if (this.animationId !== null) {
@@ -146,10 +146,14 @@ export default class Game {
   private static gameOver(): void {
     const entity: Entity = this.enemy.isDead ? this.enemy : this.player;
 
+    if (entity === this.enemy)
+      store.miniEnemies.forEach(e => e.reduceHealth(Number.MAX_SAFE_INTEGER));
+
     InputSystem.reset();
 
     if (entity.hasFinishedDying) {
-      router.push("/about");
+      store.gameOver = true;
+      setTimeout(() => router.push("/about"), 7000);
     }
   }
 
@@ -171,13 +175,16 @@ export default class Game {
   }
 
   private static handleMiniEnemy(): void {
+    if (this.player?.isDead) return;
+
     const timeToSpawn = Date.now() >= this.nextTimeToSpawnMiniEnemy;
     const spawnedEnemiesAreLessThanSeven = store.miniEnemies.length < 7;
 
     if (
       spawnedEnemiesAreLessThanSeven &&
       timeToSpawn &&
-      !store.enemy?.isEntering
+      !store.enemy?.isEntering &&
+      !this.enemy.isDead
     ) {
       store.miniEnemies.push(new EnemyMini());
       this.nextTimeToSpawnMiniEnemy = Date.now() + this.MINI_ENEMY_SPAWN_TIME;

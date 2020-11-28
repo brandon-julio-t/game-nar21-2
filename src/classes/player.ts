@@ -6,28 +6,11 @@ import store from "@/store";
 
 export default class Player extends Entity {
   private static readonly HEALTH: number = 7;
-  private static readonly HEALTH_BAR_HEIGTH: number = 10;
+  private static readonly HEALTH_BAR_HEIGHT: number = 10;
   private static readonly SCALE_DOWN_RATIO: number = 0.15;
   private static readonly SLOW_DOWN_RATIO: number = 0.5;
   private static readonly VELOCITY: number = 10;
-
-  private readonly ANIMATED_SPRITE: HTMLImageElement[];
-  private readonly HIT_SPRITE: HTMLImageElement;
-  private readonly HIT_SPRITE_COLS: number = 4;
-  private readonly HIT_SPRITE_ROWS: number = 4;
-
-  protected readonly BLINKING_FREQUENCY: number = 50;
-
-  public readonly HITBOX_SIZE = 5;
-
-  private animatedSpriteIdx: number = 0;
-  private hitSpriteColIdx: number = 0;
-  private hitSpriteRowIdx: number = 0;
-  private isPlayingHitAnimation: boolean = false;
-  private nextTimeToAttack: number = Date.now();
-
-  protected blinkingTimeoutId: number | null = null;
-
+  public readonly HIT_BOX_SIZE = 10;
   public bulletLevel: number = 1;
   public isInvulnerable: boolean = false;
   public isMovingDown: boolean = false;
@@ -36,6 +19,17 @@ export default class Player extends Entity {
   public isMovingUp: boolean = false;
   public isShooting: boolean = false;
   public isSlowingDown: boolean = false;
+  protected readonly BLINKING_FREQUENCY: number = 50;
+  protected blinkingTimeoutId: number | null = null;
+  private readonly ANIMATED_SPRITE: HTMLImageElement[];
+  private readonly HIT_SPRITE: HTMLImageElement;
+  private readonly HIT_SPRITE_COLS: number = 4;
+  private readonly HIT_SPRITE_ROWS: number = 4;
+  private animatedSpriteIdx: number = 0;
+  private hitSpriteColIdx: number = 0;
+  private hitSpriteRowIdx: number = 0;
+  private isPlayingHitAnimation: boolean = false;
+  private nextTimeToAttack: number = Date.now();
 
   public constructor(x: number, y: number) {
     super(
@@ -43,7 +37,7 @@ export default class Player extends Entity {
       y,
       Player.HEALTH,
       store.assets.player1,
-      Player.HEALTH_BAR_HEIGTH,
+      Player.HEALTH_BAR_HEIGHT,
       store.assets.player1.naturalHeight * Player.SCALE_DOWN_RATIO,
       store.assets.player1.naturalWidth * Player.SCALE_DOWN_RATIO,
       Player.VELOCITY,
@@ -64,7 +58,7 @@ export default class Player extends Entity {
   }
 
   public reduceHealth(points: number): void {
-    if (!this.isInvulnerable) {
+    if (!this.isInvulnerable && !store.enemy?.isDead) {
       super.reduceHealth(points);
 
       if (!this.isDead) {
@@ -74,7 +68,7 @@ export default class Player extends Entity {
       this.isPlayingHitAnimation = true;
     }
 
-    this.isInvulnerable = true;
+    if (!store.enemy?.isDead) this.isInvulnerable = true;
   }
 
   public heal(points: number): void {
@@ -92,50 +86,6 @@ export default class Player extends Entity {
     this.moveLeft();
     this.moveDown();
     this.moveRight();
-  }
-
-  private moveLeft(): void {
-    if (!this.isMovingLeft) {
-      return;
-    }
-
-    const afterMoveLeft = this.position.x - this.velocity;
-    if (afterMoveLeft >= this.WIDTH / 2) {
-      this.position.x = afterMoveLeft;
-    }
-  }
-
-  private moveRight(): void {
-    if (!this.isMovingRight) {
-      return;
-    }
-
-    const afterMoveRight = this.position.x + this.velocity;
-    if (afterMoveRight <= innerWidth - this.WIDTH / 2) {
-      this.position.x = afterMoveRight;
-    }
-  }
-
-  private moveUp(): void {
-    if (!this.isMovingUp) {
-      return;
-    }
-
-    const afterMoveUp = this.position.y - this.velocity;
-    if (afterMoveUp >= this.HEIGHT / 2) {
-      this.position.y = afterMoveUp;
-    }
-  }
-
-  private moveDown(): void {
-    if (!this.isMovingDown) {
-      return;
-    }
-
-    const afterMoveDown = this.position.y + this.velocity;
-    if (afterMoveDown <= innerHeight - this.HEIGHT / 2) {
-      this.position.y = afterMoveDown;
-    }
   }
 
   public drawSelf(ctx: OffscreenCanvasRenderingContext2D): void {
@@ -175,88 +125,6 @@ export default class Player extends Entity {
 
     this.drawScore(ctx);
     this.drawShield(ctx);
-  }
-
-  private drawHitBox(ctx: OffscreenCanvasRenderingContext2D): void {
-    const { HITBOX_SIZE, position } = this;
-    const { x, y } = position;
-
-    const size: number = HITBOX_SIZE * 2;
-
-    ctx.fillStyle = "red";
-    ctx.beginPath();
-    ctx.rect(x - HITBOX_SIZE, y - HITBOX_SIZE, size, size);
-    ctx.fill();
-  }
-
-  private drawHitAnimation(ctx: OffscreenCanvasRenderingContext2D): void {
-    const width: number = this.HIT_SPRITE.naturalWidth / this.HIT_SPRITE_COLS;
-    const height: number = this.HIT_SPRITE.naturalHeight / this.HIT_SPRITE_ROWS;
-
-    const scaleDownRatio: number = 0.25;
-    const scaledWidth: number = width * scaleDownRatio;
-    const scaledHeight: number = height * scaleDownRatio;
-
-    ctx.drawImage(
-      this.HIT_SPRITE,
-      this.hitSpriteColIdx * width,
-      this.hitSpriteRowIdx * height,
-      width,
-      height,
-      this.position.x - scaledWidth / 2,
-      this.position.y - scaledHeight / 2,
-      scaledWidth,
-      scaledHeight
-    );
-
-    this.hitSpriteColIdx++;
-
-    if (this.hitSpriteColIdx >= this.HIT_SPRITE_COLS) {
-      this.hitSpriteColIdx = 0;
-      this.hitSpriteRowIdx++;
-    }
-
-    if (this.hitSpriteRowIdx >= this.HIT_SPRITE_ROWS) {
-      this.hitSpriteRowIdx = 0;
-      this.isPlayingHitAnimation = false;
-    }
-  }
-
-  private drawScore(ctx: OffscreenCanvasRenderingContext2D): void {
-    const { x, y } = this.position;
-
-    ctx.fillStyle = "royalblue";
-    ctx.font =
-      'normal 20px "PT Mono", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace';
-    ctx.fillText(
-      `Score: ${Number(store.enemiesKilledCount * 100).toLocaleString()}`,
-      x - this.WIDTH / 2,
-      y + this.HEIGHT
-    );
-  }
-
-  private drawShield(ctx: OffscreenCanvasRenderingContext2D): void {
-    const { playerShield } = store.assets;
-    const { height, width } = playerShield;
-    const { currentHealth, maxHealth, position } = this;
-    const { x, y } = position;
-
-    const scaleDownRatio: number = 0.25;
-
-    const opacity: number = currentHealth / maxHealth;
-    const scaledWidth: number = width * scaleDownRatio;
-    const scaledHeight: number = height * scaleDownRatio;
-
-    ctx.save();
-    ctx.globalAlpha = opacity;
-    ctx.drawImage(
-      playerShield,
-      x - scaledWidth / 2,
-      y - scaledHeight / 2,
-      scaledWidth,
-      scaledHeight
-    );
-    ctx.restore();
   }
 
   public drawHealthBar(ctx: OffscreenCanvasRenderingContext2D): void {
@@ -314,5 +182,131 @@ export default class Player extends Entity {
       playAudio(store.assets.shootingAudio);
       this.nextTimeToAttack = Date.now() + 75;
     }
+  }
+
+  private moveLeft(): void {
+    if (!this.isMovingLeft) {
+      return;
+    }
+
+    const afterMoveLeft = this.position.x - this.velocity;
+    if (afterMoveLeft >= this.WIDTH / 2) {
+      this.position.x = afterMoveLeft;
+    }
+  }
+
+  private moveRight(): void {
+    if (!this.isMovingRight) {
+      return;
+    }
+
+    const afterMoveRight = this.position.x + this.velocity;
+    if (afterMoveRight <= innerWidth - this.WIDTH / 2) {
+      this.position.x = afterMoveRight;
+    }
+  }
+
+  private moveUp(): void {
+    if (!this.isMovingUp) {
+      return;
+    }
+
+    const afterMoveUp = this.position.y - this.velocity;
+    if (afterMoveUp >= this.HEIGHT / 2) {
+      this.position.y = afterMoveUp;
+    }
+  }
+
+  private moveDown(): void {
+    if (!this.isMovingDown) {
+      return;
+    }
+
+    const afterMoveDown = this.position.y + this.velocity;
+    if (afterMoveDown <= innerHeight - this.HEIGHT / 2) {
+      this.position.y = afterMoveDown;
+    }
+  }
+
+  private drawHitBox(ctx: OffscreenCanvasRenderingContext2D): void {
+    const { HIT_BOX_SIZE, position } = this;
+    const { x, y } = position;
+
+    const size: number = HIT_BOX_SIZE * 2;
+
+    ctx.fillStyle = "red";
+    ctx.beginPath();
+    ctx.rect(x - HIT_BOX_SIZE, y - HIT_BOX_SIZE, size, size);
+    ctx.fill();
+  }
+
+  private drawHitAnimation(ctx: OffscreenCanvasRenderingContext2D): void {
+    const width: number = this.HIT_SPRITE.naturalWidth / this.HIT_SPRITE_COLS;
+    const height: number = this.HIT_SPRITE.naturalHeight / this.HIT_SPRITE_ROWS;
+
+    const scaleDownRatio: number = 0.25;
+    const scaledWidth: number = width * scaleDownRatio;
+    const scaledHeight: number = height * scaleDownRatio;
+
+    ctx.drawImage(
+      this.HIT_SPRITE,
+      this.hitSpriteColIdx * width,
+      this.hitSpriteRowIdx * height,
+      width,
+      height,
+      this.position.x - scaledWidth / 2,
+      this.position.y - scaledHeight / 2,
+      scaledWidth,
+      scaledHeight
+    );
+
+    this.hitSpriteColIdx++;
+
+    if (this.hitSpriteColIdx >= this.HIT_SPRITE_COLS) {
+      this.hitSpriteColIdx = 0;
+      this.hitSpriteRowIdx++;
+    }
+
+    if (this.hitSpriteRowIdx >= this.HIT_SPRITE_ROWS) {
+      this.hitSpriteRowIdx = 0;
+      this.isPlayingHitAnimation = false;
+    }
+  }
+
+  private drawScore(ctx: OffscreenCanvasRenderingContext2D): void {
+    const { x, y } = this.position;
+
+    ctx.fillStyle = "royalblue";
+    ctx.font =
+      "normal 20px \"PT Mono\", Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace";
+    ctx.fillText(
+      `Score: ${Number(store.enemiesKilledCount * 100).toLocaleString()}`,
+      x - this.WIDTH / 2,
+      y + this.HEIGHT
+    );
+  }
+
+  private drawShield(ctx: OffscreenCanvasRenderingContext2D): void {
+    const { playerShield } = store.assets;
+    const { height, width } = playerShield;
+    const { currentHealth, maxHealth, position } = this;
+    const { x, y } = position;
+
+    const scaleDownRatio: number = 0.25;
+
+    const opacity: number = currentHealth / maxHealth;
+    const scaledWidth: number = width * scaleDownRatio;
+    const scaledHeight: number = height * scaleDownRatio;
+
+    ctx.save();
+    ctx.globalAlpha = opacity;
+    ctx.drawImage(
+      playerShield,
+      x - scaledWidth / 2,
+      y - scaledHeight / 2,
+      scaledWidth,
+      scaledHeight
+    );
+    ctx.restore();
   }
 }

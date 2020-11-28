@@ -22,10 +22,10 @@ export default abstract class EnemyBullet extends Bullet {
       const xMid: number = x - this.WIDTH / 2;
       const yMid: number = y - this.HEIGHT / 2;
 
-      const xMin: number = player.position.x - player.HITBOX_SIZE;
-      const yMin: number = player.position.y - player.HITBOX_SIZE;
-      const xMax: number = player.position.x + player.HITBOX_SIZE;
-      const yMax: number = player.position.y + player.HITBOX_SIZE;
+      const xMin: number = player.position.x - player.HIT_BOX_SIZE;
+      const yMin: number = player.position.y - player.HIT_BOX_SIZE;
+      const xMax: number = player.position.x + player.HIT_BOX_SIZE;
+      const yMax: number = player.position.y + player.HIT_BOX_SIZE;
 
       const hasCollision: boolean =
         xMid >= xMin && xMid <= xMax && yMid >= yMin && yMid <= yMax;

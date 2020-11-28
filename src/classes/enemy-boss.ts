@@ -11,7 +11,7 @@ export default class EnemyBoss extends Enemy {
   private static readonly HEALTH_BAR_HEIGHT: number = 20;
   private static readonly SCALE_DOWN_RATIO: number = 0.35;
   private static readonly VELOCITY: number = 3;
-
+  public isEntering: boolean = true;
   private readonly ANIMATED_SPRITE: HTMLImageElement[];
   private readonly CIRCLE_BULLET_SPAWN_TIME: number = 3000;
   private readonly LASER_BULLET_SPAWN_TIME: number = 50;
@@ -21,14 +21,12 @@ export default class EnemyBoss extends Enemy {
   private nextLaserBulletShootTime: number = Date.now();
   private currentStage: number = 1;
 
-  public isEntering: boolean = true;
-
   public constructor() {
     super(
       randomIntegerBetween(
         store.assets.enemy1.naturalWidth * EnemyBoss.SCALE_DOWN_RATIO,
         innerWidth -
-          store.assets.enemy1.naturalWidth * EnemyBoss.SCALE_DOWN_RATIO
+        store.assets.enemy1.naturalWidth * EnemyBoss.SCALE_DOWN_RATIO
       ),
       -store.assets.enemy1.naturalHeight * EnemyBoss.SCALE_DOWN_RATIO,
       EnemyBoss.HEALTH,
@@ -79,12 +77,14 @@ export default class EnemyBoss extends Enemy {
   }
 
   public move(): void {
+    if (store.player?.isDead) return;
+
     super.move();
 
     if (
       this.position.y <
       EnemyBoss.HEALTH_BAR_HEIGHT +
-        (store.assets.enemy1.naturalHeight * EnemyBoss.SCALE_DOWN_RATIO) / 2
+      (store.assets.enemy1.naturalHeight * EnemyBoss.SCALE_DOWN_RATIO) / 2
     ) {
       this.position.y += this.velocity / 2;
     } else {
@@ -126,7 +126,7 @@ export default class EnemyBoss extends Enemy {
   }
 
   public shoot(): void {
-    if (this.isEntering) {
+    if (this.isEntering || this.isDead || store.player?.isDead) {
       return;
     }
 
@@ -141,6 +141,11 @@ export default class EnemyBoss extends Enemy {
     this.handleStageThreebullets(xSpawn, ySpawn);
 
     playBgm(this.currentStage);
+  }
+
+  protected die(): void {
+    super.die();
+    store.enemiesKilledCount += 10; // 10 * 100 == 1000
   }
 
   private handleStageOneBullets(x: number, y: number): void {
@@ -184,10 +189,5 @@ export default class EnemyBoss extends Enemy {
       );
       this.nextLaserBulletShootTime = Date.now() + this.LASER_BULLET_SPAWN_TIME;
     }
-  }
-
-  public die(): void {
-    super.die();
-    store.enemiesKilledCount += 10; // 10 * 100 == 1000
   }
 }

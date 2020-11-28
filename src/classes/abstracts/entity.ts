@@ -6,31 +6,26 @@ import store from "@/store";
 import { playAudio } from "../core/utilities";
 import CanShoot from "../interfaces/can-shoot";
 
-export default abstract class Entity
-  implements CanDraw, CanMove, CanShoot, HasHealthBar {
-  private readonly EXPLODING_SPRITE_COLS: number = 8;
-  private readonly EXPLODING_SPRITE_ROWS: number = 8;
-
+export default abstract class Entity implements CanDraw, CanMove, CanShoot, HasHealthBar {
   public readonly HEIGHT: number;
   public readonly WIDTH: number;
-
-  private explodingAudio: HTMLAudioElement;
-  private explodingSpriteColIdx: number = 0;
-  private explodingSpriteRowIdx: number = 0;
-  private hasTriggeredOnDie: boolean = false;
-
-  protected _velocity: number;
-  protected currentHealth: number;
-  protected healthBarHeight: number;
-  protected isPlayingExplodingAudio: boolean = false;
-  protected maxHealth: number;
-
   public explodeSprite: HTMLImageElement;
   public hasFinishedDying: boolean = false;
   public position: Vector2;
   public sprite: HTMLImageElement;
+  protected currentHealth: number;
+  protected healthBarHeight: number;
+  protected isPlayingExplodingAudio: boolean = false;
+  protected maxHealth: number;
+  protected _velocity: number;
+  private readonly EXPLODING_SPRITE_COLS: number = 8;
+  private readonly EXPLODING_SPRITE_ROWS: number = 8;
+  private readonly explodingAudio: HTMLAudioElement;
+  private explodingSpriteColIdx: number = 0;
+  private explodingSpriteRowIdx: number = 0;
+  private hasTriggeredOnDie: boolean = false;
 
-  public constructor(
+  protected constructor(
     x: number,
     y: number,
     health: number,
@@ -126,15 +121,17 @@ export default abstract class Entity
     }
   }
 
-  protected stopMoving(): void {
-    this._velocity = 0;
-  }
-
-  public die(): void {
+  protected die(): void {
     this.hasTriggeredOnDie = true;
   }
 
   public abstract shoot(): void;
+
   public abstract drawSelf(ctx: OffscreenCanvasRenderingContext2D): void;
+
   public abstract drawHealthBar(ctx: OffscreenCanvasRenderingContext2D): void;
+
+  protected stopMoving(): void {
+    this._velocity = 0;
+  }
 }

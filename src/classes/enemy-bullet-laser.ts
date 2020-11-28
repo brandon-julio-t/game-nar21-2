@@ -54,10 +54,10 @@ export default class EnemyBulletLaser extends EnemyBullet {
       const yPos: number = this.position.y + y;
 
       const hasCollision: boolean =
-        xPos >= player.position.x - player.HITBOX_SIZE / 2 &&
-        xPos <= player.position.x + player.HITBOX_SIZE / 2 &&
-        yPos >= player.position.y - player.HITBOX_SIZE / 2 &&
-        yPos <= player.position.y + player.HITBOX_SIZE / 2;
+        xPos >= player.position.x - player.HIT_BOX_SIZE / 2 &&
+        xPos <= player.position.x + player.HIT_BOX_SIZE / 2 &&
+        yPos >= player.position.y - player.HIT_BOX_SIZE / 2 &&
+        yPos <= player.position.y + player.HIT_BOX_SIZE / 2;
 
       if (hasCollision) {
         this.isEnded = true;

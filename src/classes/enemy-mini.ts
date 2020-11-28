@@ -1,8 +1,4 @@
-import {
-  degreeToRadian,
-  randomIntegerBetween,
-  randomPowerUp as randomPowerUpClass
-} from "./core/utilities";
+import { degreeToRadian, randomIntegerBetween, randomPowerUp as randomPowerUpClass } from "./core/utilities";
 
 import Enemy from "./abstracts/enemy";
 import EnemyBulletLaser from "./enemy-bullet-laser";
@@ -12,7 +8,6 @@ import PowerUpHealth from "./power-up-health";
 
 export default class EnemyMini extends Enemy {
   private static readonly SCALE_DOWN_RATIO: number = 0.15;
-
   private nextTimeToShoot: number = Date.now();
 
   public constructor() {
@@ -51,7 +46,8 @@ export default class EnemyMini extends Enemy {
   /**
    * No health bar.
    */
-  public drawHealthBar(_: OffscreenCanvasRenderingContext2D): void {}
+  public drawHealthBar(_: OffscreenCanvasRenderingContext2D): void {
+  }
 
   public move(): void {
     super.move();
@@ -59,14 +55,14 @@ export default class EnemyMini extends Enemy {
   }
 
   public shoot(): void {
-    if (Date.now() >= this.nextTimeToShoot && !this.isDead) {
+    if (Date.now() >= this.nextTimeToShoot && !this.isDead && !store.player?.isDead) {
       const { x, y } = this.position;
       store.bullets.splice(0, 0, new EnemyBulletLaser(x, y + this.HEIGHT / 2));
       this.nextTimeToShoot = Date.now() + 1000;
     }
   }
 
-  public die(): void {
+  protected die(): void {
     super.die();
     const { x, y } = this.position;
 

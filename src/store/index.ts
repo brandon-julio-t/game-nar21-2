@@ -1,5 +1,5 @@
 import Store from "@/classes/interfaces/store";
-import loadAssets from './assets-loaders';
+import loadAssets from "./assets-loaders";
 import { reactive } from "vue";
 
 const initialState: Store = {
@@ -13,7 +13,9 @@ const initialState: Store = {
   miniEnemies: [],
   player: null,
   powerUps: [],
-  useKeyboard: true
+  useKeyboard: true,
+  gameOver: null,
+  hasPressedOk: null
 };
 
 export default reactive(initialState);

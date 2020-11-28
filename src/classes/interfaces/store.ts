@@ -3,7 +3,7 @@ import Bullet from "../abstracts/bullet";
 import EnemyBoss from "../enemy-boss";
 import EnemyMini from "../enemy-mini";
 import Player from "../player";
-import PowerUp from '../abstracts/power-up';
+import PowerUp from "../abstracts/power-up";
 
 export default interface Store {
   assets: Assets;
@@ -17,4 +17,6 @@ export default interface Store {
   player: Player | null;
   powerUps: PowerUp[];
   useKeyboard: boolean;
+  gameOver: boolean | null;
+  hasPressedOk: boolean | null;
 }
