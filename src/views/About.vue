@@ -60,7 +60,7 @@ export default defineComponent({
 
 <style scoped>
 .container {
-  background-image: url("/images/border.webp");
+  background-image: url("/images/bg-container-2.png");
   background-size: 100% 100%;
   background-repeat: no-repeat;
 }
