@@ -138,7 +138,7 @@ export default class EnemyBoss extends Enemy {
 
     this.handleStageOneBullets(xSpawn, ySpawn);
     this.handleStageTwoBullets(x, y);
-    this.handleStageThreebullets(xSpawn, ySpawn);
+    this.handleStageThreeBullets(xSpawn, ySpawn);
 
     playBgm(this.currentStage);
   }
@@ -177,7 +177,7 @@ export default class EnemyBoss extends Enemy {
     }
   }
 
-  private handleStageThreebullets(x: number, y: number): void {
+  private handleStageThreeBullets(x: number, y: number): void {
     if (Date.now() >= this.nextLaserBulletShootTime && this.isStageThree) {
       this.currentStage = 3;
 

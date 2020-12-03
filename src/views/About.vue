@@ -1,5 +1,8 @@
 <template>
-  <article class="flex justify-center items-center w-screen text-white pt-2 sm:pt-4 md:pt-8 lg:pt-16 xl:pt-32">
+  <article class="flex justify-center items-center w-screen text-white">
+    <!--  Trick to center div.container in the middle of the screen.  -->
+    <div class="h-screen"></div>
+
     <div class="container">
       <div
         class="flex flex-wrap lg:flex-no-wrap justify-center items-center m-8 md:mx-24 md:my-32"
