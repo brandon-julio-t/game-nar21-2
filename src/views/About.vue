@@ -3,7 +3,7 @@
     <!--  Trick to center div.container in the middle of the screen.  -->
     <div class="h-screen"></div>
 
-    <div class="container">
+    <div class="container shadow-2xl">
       <div
         class="flex flex-wrap lg:flex-no-wrap justify-center items-center m-8 md:mx-24 md:my-32"
       >
