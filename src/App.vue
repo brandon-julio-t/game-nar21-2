@@ -1,19 +1,17 @@
 <template>
-  <div
-    class="w-screen h-screen relative"
-  >
+  <div class="w-screen h-screen relative overflow-hidden">
     <canvas
       v-show="!store.isGaming"
-      class="w-full h-full z-none bg-cover absolute inset-0"
       ref="galaxyBackground"
+      class="w-full h-full z-none bg-cover absolute inset-0"
     ></canvas>
     <canvas
       v-show="!store.isGaming"
-      class="w-full h-full z-none bg-cover absolute inset-0"
       ref="galaxyStars"
+      class="w-full h-full z-none bg-cover absolute inset-0"
     ></canvas>
 
-    <main>
+    <main class="overflow-y-auto overflow-x-hidden h-full">
       <router-view v-slot="{ Component }">
         <transition name="fade">
           <component :is="Component"></component>
@@ -43,12 +41,10 @@ export default defineComponent({
       }
 
       const galaxy = new Galaxy(galaxyBackground.value, galaxyStars.value);
+
       function handleGalaxyBackground(isGaming: boolean): void {
-        if (!isGaming) {
-          galaxy.play();
-        } else {
-          galaxy.pause();
-        }
+        if (!isGaming) galaxy.play();
+        else galaxy.pause();
       }
 
       watch(() => store.isGaming, handleGalaxyBackground);

@@ -1,13 +1,15 @@
 <template>
   <div>
-    <h1 class="text-center font-bold text-5xl tracking-widest">Contact</h1>
+    <h1 class="text-center text-white font-bold text-5xl tracking-widest">
+      Contact
+    </h1>
 
     <section>
       <h2 class="text-center">For more information</h2>
 
       <section class="text-center">
         <p class="text-3xl">Contact us on :</p>
-        <p class="text-2xl">- Kemanggisan -</p>
+        <p class="text-2xl">— Kemanggisan —</p>
         <h3 class="text-lionel-light font-bold text-5xl">
           Christina / Hanni / Natasia
         </h3>
@@ -69,10 +71,3 @@
     </section>
   </div>
 </template>
-
-<style scoped>
-h1 {
-  font-family: "Russo One" !important;
-  color: #fff;
-}
-</style>

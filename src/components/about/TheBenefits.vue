@@ -1,24 +1,54 @@
 <template>
   <div>
-    <h1 class="text-center text-5xl font-bold tracking-widest">Benefits</h1>
+    <h1 class="text-center text-white text-5xl font-bold tracking-widest">
+      Benefits
+    </h1>
 
     <section>
       <h2 class="font-semibold mb-3">Hard Skill</h2>
       <div class="grid grid-cols-5">
-        <div v-for="(hardSkill, idx) in hardSkills" :key="idx">
-          <img :src="hardSkill.img" :alt="hardSkill.name" class="mx-auto w-1/2" />
-          <!-- <h3 class="text-center">{{ hardSkill.name }}</h3> -->
-        </div>
+        <font-awesome-icon
+          :icon="['fa', 'database']"
+          class="text-6xl mx-auto"
+        ></font-awesome-icon>
+        <font-awesome-icon
+          :icon="['fab', 'js']"
+          class="text-6xl mx-auto text-yellow-500"
+        ></font-awesome-icon>
+        <font-awesome-icon
+          :icon="['fab', 'laravel']"
+          class="text-6xl mx-auto text-red-600"
+        ></font-awesome-icon>
+        <font-awesome-icon
+          :icon="['fab', 'angular']"
+          class="text-6xl mx-auto text-red-600"
+        ></font-awesome-icon>
+        <font-awesome-icon
+          :icon="['fab', 'android']"
+          class="text-6xl mx-auto text-green-500"
+        ></font-awesome-icon>
       </div>
     </section>
 
     <section>
       <h2 class="font-semibold mb-3">Soft Skill</h2>
-      <div class="grid grid-cols-5">
-        <div v-for="(softSkill, idx) in softSkills" :key="idx">
-          <img :src="softSkill.img" :alt="softSkill.name" class="mx-auto w-1/2" />
-          <!-- <h3 class="text-center">{{ softSkill.name }}</h3> -->
-        </div>
+      <div class="grid grid-cols-4 w-full">
+        <font-awesome-icon
+          :icon="['fa', 'clock']"
+          class="text-6xl mx-auto"
+        ></font-awesome-icon>
+        <font-awesome-icon
+          :icon="['fa', 'users']"
+          class="text-6xl mx-auto"
+        ></font-awesome-icon>
+        <font-awesome-icon
+          :icon="['fa', 'bullhorn']"
+          class="text-6xl mx-auto"
+        ></font-awesome-icon>
+        <font-awesome-icon
+          :icon="['fa', 'user-friends']"
+          class="text-6xl mx-auto"
+        ></font-awesome-icon>
       </div>
     </section>
 
@@ -28,44 +58,3 @@
     </section>
   </div>
 </template>
-
-<script lang="ts">
-import { defineComponent } from "vue";
-
-export default defineComponent({
-  data() {
-    return {
-      hardSkills: [
-        { name: "Angular", img: "/images/benefits/vue.webp" },
-        { name: "Java", img: "/images/benefits/vue.webp" },
-        { name: "Javascript", img: "/images/benefits/vue.webp" },
-        { name: "Python", img: "/images/benefits/vue.webp" },
-        { name: "Android", img: "/images/benefits/vue.webp" }
-      ],
-
-      softSkills: [
-        {
-          name: "Public Speaking",
-          img: "/images/benefits/vue.webp"
-        },
-        {
-          name: "Social Networking",
-          img: "/images/benefits/vue.webp"
-        },
-        { name: "Teamwork", img: "/images/benefits/vue.webp" },
-        {
-          name: "Time Management",
-          img: "/images/benefits/vue.webp"
-        }
-      ]
-    };
-  }
-});
-</script>
-
-<style scoped>
-h1 {
-  font-family: "Russo One" !important;
-  color: #fff;
-}
-</style>

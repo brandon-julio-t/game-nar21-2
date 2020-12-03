@@ -10,10 +10,11 @@ export default class Galaxy {
   private readonly STARS_SPEED_MAX: number = 5;
   private readonly STARS_SPEED_MIN: number = 1;
 
+  private readonly backgroundCtx: OffscreenCanvasRenderingContext2D | null = null;
+  private readonly starsCtx: OffscreenCanvasRenderingContext2D | null = null;
+
   private stars: Star[] = [];
   private animationId: number = -1;
-  private backgroundCtx: OffscreenCanvasRenderingContext2D | null = null;
-  private starsCtx: OffscreenCanvasRenderingContext2D | null = null;
 
   public constructor(
     backgroundCanvas: HTMLCanvasElement | null,
@@ -55,10 +56,12 @@ export default class Galaxy {
 
   public play(): void {
     onresize = () => {
-      if (!this.backgroundCtx || !this.starsCtx) return;
+      const main = document.querySelector("main");
 
-      this.backgroundCtx.canvas.width = innerWidth;
-      this.backgroundCtx.canvas.height = innerHeight;
+      if (!this.backgroundCtx || !this.starsCtx || !main) return;
+
+      this.starsCtx.canvas.width = this.backgroundCtx.canvas.width = innerWidth;
+      this.starsCtx.canvas.height = this.backgroundCtx.canvas.height = innerHeight;
 
       this.drawBackground();
     };
@@ -95,6 +98,11 @@ export default class Galaxy {
     this.animationId = requestAnimationFrame(loop);
   }
 
+  public pause(): void {
+    onresize = null;
+    cancelAnimationFrame(this.animationId);
+  }
+
   private drawBackground(): void {
     if (!this.backgroundCtx) return;
 
@@ -129,10 +137,5 @@ export default class Galaxy {
     this.backgroundCtx.fillRect(0, 0, width, height);
 
     this.backgroundCtx.fill();
-  }
-
-  public pause(): void {
-    onresize = null;
-    cancelAnimationFrame(this.animationId);
   }
 }

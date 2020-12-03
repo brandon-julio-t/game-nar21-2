@@ -1,6 +1,8 @@
 <template>
   <div>
-    <h1 class="text-center font-bold text-5xl tracking-widest">Registration</h1>
+    <h1 class="text-center text-white font-bold text-5xl tracking-widest">
+      Registration
+    </h1>
 
     <section class="text-center">
       <h2 class="text-3xl">Open Registration</h2>
@@ -32,13 +34,6 @@ import AppButtonAbout from "../AppButtonAbout.vue";
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  components: { AppButtonAbout },
+  components: { AppButtonAbout }
 });
 </script>
-
-<style scoped>
-h1 {
-  font-family: "Russo One" !important;
-  color: #fff;
-}
-</style>

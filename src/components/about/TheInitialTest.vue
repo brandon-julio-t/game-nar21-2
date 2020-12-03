@@ -1,10 +1,13 @@
 <template>
   <div>
-    <h1 class="text-center font-bold text-5xl tracking-widest">Initial Test</h1>
+    <h1 class="text-center text-white font-bold text-5xl tracking-widest">
+      Initial Test
+    </h1>
 
     <section class="text-center">
       <h2 class="text-3xl">
-        Sunday, <span class="text-lionel-light font-semibold">03 March</span> 2021
+        Sunday,
+        <span class="text-lionel-light font-semibold">03 March</span> 2021
         <br />
         07:30 - 12:00
       </h2>
@@ -27,10 +30,3 @@
     </section>
   </div>
 </template>
-
-<style scoped>
-h1 {
-  font-family: "Russo One" !important;
-  color: #fff;
-}
-</style>
