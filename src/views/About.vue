@@ -1,6 +1,6 @@
 <template>
   <article class="flex justify-center items-center w-screen text-white pt-2 sm:pt-4 md:pt-8 lg:pt-16 xl:pt-32">
-    <div class="container">
+    <div class="container shadow-2xl">
       <div
         class="flex flex-wrap lg:flex-no-wrap justify-center items-center m-8 md:mx-24 md:my-32"
       >
@@ -57,8 +57,9 @@ export default defineComponent({
 
 <style scoped>
 .container {
-  background-image: url("/images/border.webp");
+  background-image: url("/images/bg-container-2.png");
   background-size: 100% 100%;
   background-repeat: no-repeat;
+  image-rendering: pixelated; 
 }
 </style>
