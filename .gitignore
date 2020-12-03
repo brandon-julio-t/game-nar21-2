@@ -27,5 +27,3 @@ pnpm-debug.log*
 
 # Images built with imagemin-webpack-plugin on development
 public/images
-
-yarn.lock

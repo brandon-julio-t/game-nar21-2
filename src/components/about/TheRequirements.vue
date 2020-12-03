@@ -1,8 +1,6 @@
 <template>
   <div>
-    <h1
-      class="text-center text-white text-white font-bold text-5xl tracking-widest"
-    >
+    <h1 class="text-center text-white font-bold text-5xl tracking-widest">
       Requirements
     </h1>
 

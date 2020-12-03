@@ -9,7 +9,7 @@
       <div class="grid grid-cols-5">
         <font-awesome-icon
           :icon="['fa', 'database']"
-          class="text-6xl mx-auto"
+          class="text-6xl mx-auto text-red-500"
         ></font-awesome-icon>
         <font-awesome-icon
           :icon="['fab', 'js']"
