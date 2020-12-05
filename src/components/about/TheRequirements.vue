@@ -4,7 +4,7 @@
       Requirements
     </h1>
 
-    <section class="grid grid-rows-2 md:grid-cols-2 gap-3 md:gap-6">
+    <section class="grid grid-rows-2 md:grid-cols-2 gap-8 lg:gap-0">
       <figure v-for="(requirement, idx) in requirements" :key="idx">
         <img
           :alt="requirement.desc"
