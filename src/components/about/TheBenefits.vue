@@ -39,15 +39,15 @@
         ></font-awesome-icon>
         <font-awesome-icon
           :icon="['fa', 'users']"
-          class="text-6xl mx-auto"
+          class="text-6xl mx-auto text-indigo-600"
         ></font-awesome-icon>
         <font-awesome-icon
           :icon="['fa', 'bullhorn']"
-          class="text-6xl mx-auto"
+          class="text-6xl mx-auto text-red-700"
         ></font-awesome-icon>
         <font-awesome-icon
           :icon="['fa', 'user-friends']"
-          class="text-6xl mx-auto"
+          class="text-6xl mx-auto text-blue-500"
         ></font-awesome-icon>
       </div>
     </section>

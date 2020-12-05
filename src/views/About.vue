@@ -4,10 +4,8 @@
       <!--  Trick to center div.container in the middle of the screen.  -->
     </div>
 
-    <div class="container shadow-2xl">
-      <div
-        class="flex flex-wrap lg:flex-no-wrap justify-center items-center m-8 md:mx-24 md:my-32"
-      >
+    <div class="container shadow-2xl p-8">
+      <div class="flex flex-wrap lg:flex-no-wrap justify-center items-center">
         <section
           class="w-full mx-auto lg:w-1/4 flex justify-center items-center"
         >
