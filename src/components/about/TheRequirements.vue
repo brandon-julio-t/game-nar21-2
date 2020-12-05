@@ -1,15 +1,15 @@
 <template>
   <div>
-    <h1 class="text-center text-white font-bold text-5xl tracking-widest">
+    <h1 class="text-center text-white font-bold tracking-widest">
       Requirements
     </h1>
 
-    <section class="grid grid-cols-2 gap-6">
+    <section class="grid grid-rows-2 md:grid-cols-2 gap-3 md:gap-6">
       <figure v-for="(requirement, idx) in requirements" :key="idx">
         <img
           :alt="requirement.desc"
           :src="requirement.img"
-          class="w-24 mx-auto h-16 xl:h-32 w-auto mb-6"
+          class="mx-auto h-16 md:h-32 mb-6"
         />
         <figcaption class="text-center">{{ requirement.desc }}</figcaption>
       </figure>

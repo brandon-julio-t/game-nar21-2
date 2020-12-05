@@ -1,5 +1,5 @@
 <template>
-  <button>
+  <button class="px-8 py-4">
     <span>
       <slot></slot>
     </span>
@@ -15,7 +15,6 @@ button {
   position: relative;
   color: #fff;
   background-color: transparent;
-  padding: 17px 60px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   box-shadow: 4px 4px 0 #fff, -4px -4px 0 #fff;
 }

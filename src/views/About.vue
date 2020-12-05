@@ -4,7 +4,7 @@
       <!--  Trick to center div.container in the middle of the screen.  -->
     </div>
 
-    <div class="container shadow-2xl p-8">
+    <div class="container shadow-2xl py-32 px-16 md:px-32">
       <div class="flex flex-wrap lg:flex-no-wrap justify-center items-center">
         <section
           class="w-full mx-auto lg:w-1/4 flex justify-center items-center"
@@ -59,7 +59,7 @@ export default defineComponent({
 
 <style scoped>
 .container {
-  background-image: url("/images/bg-container-2.png");
+  background-image: url("/images/border.webp");
   background-size: 100% 100%;
   background-repeat: no-repeat;
 }
