@@ -4,14 +4,14 @@
       Requirements
     </h1>
 
-    <section class="grid grid-rows-2 md:grid-cols-2 gap-8 lg:gap-0">
+    <section class="grid grid-rows-2 md:grid-cols-2 gap-8 lg:gap-4">
       <figure v-for="(requirement, idx) in requirements" :key="idx">
         <img
           :alt="requirement.desc"
           :src="requirement.img"
-          class="mx-auto h-16 md:h-32 mb-6"
+          class="mx-auto h-16 md:h-20 mb-6"
         />
-        <figcaption class="text-center">{{ requirement.desc }}</figcaption>
+        <figcaption class="text-center text-base">{{ requirement.desc }}</figcaption>
       </figure>
     </section>
   </div>
