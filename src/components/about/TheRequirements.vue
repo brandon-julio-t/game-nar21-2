@@ -15,7 +15,7 @@
           v-else
           :alt="requirement.desc"
           :src="requirement.img"
-          class="mx-auto h-16 md:h-32 mb-6"
+          class="mx-auto h-16 md:h-20 mb-6"
         />
         <p class="text-center">{{ requirement.desc }}</p>
       </div>

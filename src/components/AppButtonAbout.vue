@@ -25,7 +25,7 @@ button span {
 }
 
 button:hover {
-  box-shadow: 4px 4px 0 #076a80, -4px -4px 0 #076a80;
+  box-shadow: 4px 4px 0 #fff, -4px -4px 0 #fff;
 }
 
 button:after {
@@ -35,7 +35,7 @@ button:after {
   top: 0;
   height: 490%;
   width: 140%;
-  background: #00aacd;
+  background: #2981E2;
   -webkit-transition: all 0.5s ease-in-out;
   transition: all 0.2s ease-in-out;
   -webkit-transform: translateX(-98%) translateY(-25%) rotate(45deg);
