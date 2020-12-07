@@ -1,10 +1,11 @@
 <template>
-  <ul class="grid grid-rows-5 gap-8">
-    <li v-for="(tab, idx) in tabs" :key="idx">
-      <app-button-about
-        @click="onButtonClick(tab.name)"
-        class="w-full rounded truncate bg-primary"
-      >
+  <ul class="grid grid-rows-5 gap-8 w-full">
+    <li
+      v-for="(tab, idx) in tabs"
+      :key="idx"
+      class="flex justify-center items-center"
+    >
+      <app-button-about @click="onButtonClick(tab.name)" class="w-full mx-auto">
         {{ tab.label }}
       </app-button-about>
     </li>

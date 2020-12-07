@@ -5,14 +5,20 @@
     </h1>
 
     <section class="grid grid-rows-2 md:grid-cols-2 gap-8 lg:gap-0">
-      <figure v-for="(requirement, idx) in requirements" :key="idx">
+      <div v-for="(requirement, idx) in requirements" :key="idx">
+        <font-awesome-icon
+          v-if="requirement.icon"
+          :icon="[requirement.family, requirement.icon]"
+          class="mx-auto text-6xl flex text-center h-16 md:h-32 mb-6 text-blue-300"
+        ></font-awesome-icon>
         <img
+          v-else
           :alt="requirement.desc"
           :src="requirement.img"
           class="mx-auto h-16 md:h-32 mb-6"
         />
-        <figcaption class="text-center">{{ requirement.desc }}</figcaption>
-      </figure>
+        <p class="text-center">{{ requirement.desc }}</p>
+      </div>
     </section>
   </div>
 </template>
@@ -26,20 +32,28 @@ export default defineComponent({
       requirements: [
         {
           img: "/images/requirement-binusian.webp",
-          desc: "Must be a binusian"
+          desc: "Must be a binusian",
+          family: null,
+          icon: null
         },
         {
           img: "/images/requirement-sign-contract.webp",
-          desc: "Willing to sign a 2 years contract"
+          desc: "Willing to sign a 2 years contract",
+          family: "fa",
+          icon: "file-signature"
         },
         {
           img: "/images/requirement-grade-b.webp",
-          desc: "Min B in Algorithm and Programming or Intro to Programming"
+          desc: "Min B in Algorithm and Programming or Intro to Programming",
+          family: "fab",
+          icon: "bootstrap"
         },
         {
           img: "/images/requirement-faculty.webp",
           desc:
-            "Binusian of the following program or faculty : Socs, SIS, FoE, DP, MTP"
+            "Binusian of the following program or faculty : Socs, SIS, FoE, DP, MTP",
+          family: "fa",
+          icon: "graduation-cap"
         }
       ]
     };

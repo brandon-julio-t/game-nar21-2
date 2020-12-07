@@ -9,23 +9,23 @@
       <div class="flex justify-center items-center flex-wrap">
         <font-awesome-icon
           :icon="['fa', 'database']"
-          class="text-6xl mx-4 sm:mx-auto text-red-500"
+          class="text-6xl mx-4 sm:mx-auto text-blue-300 shadow-light"
         ></font-awesome-icon>
         <font-awesome-icon
           :icon="['fab', 'js']"
-          class="text-6xl mx-4 sm:mx-auto text-yellow-500"
+          class="text-6xl mx-4 sm:mx-auto text-blue-300 shadow-light"
         ></font-awesome-icon>
         <font-awesome-icon
           :icon="['fab', 'laravel']"
-          class="text-6xl mx-4 sm:mx-auto text-red-600"
+          class="text-6xl mx-4 sm:mx-auto text-blue-300 shadow-light"
         ></font-awesome-icon>
         <font-awesome-icon
           :icon="['fab', 'angular']"
-          class="text-6xl mx-4 sm:mx-auto text-red-600"
+          class="text-6xl mx-4 sm:mx-auto text-blue-300 shadow-light"
         ></font-awesome-icon>
         <font-awesome-icon
           :icon="['fab', 'android']"
-          class="text-6xl mx-4 sm:mx-auto text-green-500"
+          class="text-6xl mx-4 sm:mx-auto text-blue-300 shadow-light"
         ></font-awesome-icon>
       </div>
     </section>
@@ -35,19 +35,19 @@
       <div class="flex justify-center items-center flex-wrap">
         <font-awesome-icon
           :icon="['fa', 'clock']"
-          class="text-6xl mx-4 sm:mx-auto text-white"
+          class="text-6xl mx-4 sm:mx-auto text-blue-300 shadow-light"
         ></font-awesome-icon>
         <font-awesome-icon
           :icon="['fa', 'users']"
-          class="text-6xl mx-4 sm:mx-auto text-indigo-600"
+          class="text-6xl mx-4 sm:mx-auto text-blue-300 shadow-light"
         ></font-awesome-icon>
         <font-awesome-icon
           :icon="['fa', 'bullhorn']"
-          class="text-6xl mx-4 sm:mx-auto text-red-700"
+          class="text-6xl mx-4 sm:mx-auto text-blue-300 shadow-light"
         ></font-awesome-icon>
         <font-awesome-icon
           :icon="['fa', 'user-friends']"
-          class="text-6xl mx-4 sm:mx-auto text-blue-500"
+          class="text-6xl mx-4 sm:mx-auto text-blue-300 shadow-light"
         ></font-awesome-icon>
       </div>
     </section>

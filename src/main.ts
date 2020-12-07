@@ -9,12 +9,15 @@ import {
   faBullhorn,
   faClock,
   faDatabase,
+  faFileSignature,
+  faGraduationCap,
   faUserFriends,
   faUsers
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faAndroid,
   faAngular,
+  faBootstrap,
   faJs,
   faLaravel
 } from "@fortawesome/free-brands-svg-icons";
@@ -29,7 +32,10 @@ library.add(
   faBullhorn,
   faUsers,
   faUserFriends,
-  faClock
+  faClock,
+  faGraduationCap,
+  faFileSignature,
+  faBootstrap
 );
 
 createApp(App)
