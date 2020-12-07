@@ -4,12 +4,12 @@
       Requirements
     </h1>
 
-    <section class="grid grid-rows-2 md:grid-cols-2 gap-8 lg:gap-0">
+    <section class="grid grid-rows-2 md:grid-cols-2 gap-8 lg:gap-4 my-0">
       <div v-for="(requirement, idx) in requirements" :key="idx">
         <font-awesome-icon
           v-if="requirement.icon"
           :icon="[requirement.family, requirement.icon]"
-          class="mx-auto text-6xl flex text-center h-16 md:h-32 mb-6 text-blue-300"
+          class="mx-auto text-6xl flex text-center h-16 md:h-20 mb-6 text-blue-300"
         ></font-awesome-icon>
         <img
           v-else
@@ -17,7 +17,7 @@
           :src="requirement.img"
           class="mx-auto h-16 md:h-20 mb-6"
         />
-        <p class="text-center">{{ requirement.desc }}</p>
+        <p class="text-center text-base">{{ requirement.desc }}</p>
       </div>
     </section>
   </div>
@@ -45,8 +45,8 @@ export default defineComponent({
         {
           img: "/images/requirement-grade-b.webp",
           desc: "Min B in Algorithm and Programming or Intro to Programming",
-          family: "fab",
-          icon: "bootstrap"
+          family: null,
+          icon: null
         },
         {
           img: "/images/requirement-faculty.webp",
