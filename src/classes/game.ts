@@ -20,6 +20,9 @@ export default class Game {
   private static meteor: Meteor;
   private static nextTimeToSpawnMiniEnemy: number = Date.now();
   private static player: Player;
+  private static bgCounter: number = 0;
+  private static bgCounterIncrementer: number = 10;
+  private static bgCounterIncrementerChangeTimeoutId: number | null = null;
 
   private static animationId: number | null = null;
 
@@ -81,6 +84,14 @@ export default class Game {
       cancelAnimationFrame(this.animationId);
       this.animationId = null;
     }
+
+    if (store.gameBackground) {
+      store.gameBackground.style.position = "0px 0px";
+    }
+
+    this.bgCounter = 0;
+    this.bgCounterIncrementer = 10;
+    this.bgCounterIncrementerChangeTimeoutId = null;
   }
 
   private static prepareCanvas(canvas: HTMLCanvasElement): void {
@@ -113,6 +124,19 @@ export default class Game {
 
     const loop = () => {
       this.animationId = requestAnimationFrame(loop);
+
+      if (store.gameBackground) {
+        if (store.enemy?.isDead && !this.bgCounterIncrementerChangeTimeoutId) {
+          this.bgCounterIncrementerChangeTimeoutId = setTimeout(
+            () => (this.bgCounterIncrementer = -40),
+            2000
+          );
+        }
+
+        const position = this.bgCounter;
+        this.bgCounter -= this.bgCounterIncrementer;
+        store.gameBackground.style.backgroundPosition = `0px ${position}px`;
+      }
 
       if (this.loading) {
         return;

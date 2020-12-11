@@ -112,7 +112,6 @@
     @apply bg-contain;
     height: 100vh;
     z-index: -1;
-    transition: all 2s;
   }
 
   .scroll-down-background-7 {

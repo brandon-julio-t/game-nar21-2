@@ -35,7 +35,6 @@ export default class Player extends Entity implements CanGoOutOfBounds {
   private nextTimeToAttack: number = Date.now();
   private isMovingBackward: boolean = true;
   private movingBackwardTimeoutId: number | null = null;
-  private bgCounter: number = 0;
   private winCallbackTimeoutId: number | null = null;
 
   public constructor(x: number, y: number) {
@@ -93,17 +92,6 @@ export default class Player extends Entity implements CanGoOutOfBounds {
     this.moveLeft();
     this.moveDown();
     this.moveRight();
-
-    if (!store.enemy?.isDead) {
-      this.moveBackground();
-    }
-  }
-
-  private moveBackground(): void {
-    if (store.gameBackground) {
-      const position = (this.bgCounter += 10);
-      store.gameBackground.style.backgroundPosition = `0px ${position}px`;
-    }
   }
 
   public drawSelf(ctx: OffscreenCanvasRenderingContext2D): void {
@@ -333,7 +321,21 @@ export default class Player extends Entity implements CanGoOutOfBounds {
     ctx.restore();
   }
 
+  private movingBackwardDelayTimeoutId: number | null = null;
+  private isDelayingMovingBackward: boolean = true;
+
   public win(callback: () => void): void {
+    if (!this.movingBackwardDelayTimeoutId) {
+      this.movingBackwardDelayTimeoutId = setTimeout(
+        () => (this.isDelayingMovingBackward = false),
+        1000
+      );
+
+      return;
+    }
+
+    if (this.isDelayingMovingBackward) return;
+
     if (this.isMovingBackward) {
       if (!this.movingBackwardTimeoutId) {
         this.movingBackwardTimeoutId = setTimeout(
@@ -345,11 +347,6 @@ export default class Player extends Entity implements CanGoOutOfBounds {
       this.position.y += Math.abs(this.velocity) * 0.25;
     } else {
       this.position.y -= Math.abs(this.velocity) * 2;
-    }
-
-    if (store.gameBackground) {
-      const position = (this.bgCounter += 10) + this.position.y * -2;
-      store.gameBackground.style.backgroundPosition = `0px ${position}px`;
     }
 
     if (this.isOutOfBounds && !this.winCallbackTimeoutId) {
