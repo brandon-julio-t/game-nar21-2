@@ -102,6 +102,8 @@ export default class EnemyBoss extends Enemy implements CanGoOutOfBounds {
   }
 
   public drawSelf(ctx: OffscreenCanvasRenderingContext2D): void {
+    if (store.player?.isDead) return;
+
     const { x, y } = this.position;
 
     ctx.fillStyle = store.color;
@@ -118,6 +120,8 @@ export default class EnemyBoss extends Enemy implements CanGoOutOfBounds {
   }
 
   public drawHealthBar(ctx: OffscreenCanvasRenderingContext2D): void {
+    if (store.player?.isDead) return;
+
     const x = this.position.x - this.WIDTH / 2;
     const y = this.position.y - this.HEIGHT / 2;
     const w = this.WIDTH * (this.currentHealth / this.maxHealth);
