@@ -122,15 +122,15 @@ export default class Game {
       const delta: number = now - lastFrameTime;
 
       if (delta > FPSInterval) {
-        if (this.enemy.isDead || this.player.isDead) {
-          this.gameOver();
-        }
-
         lastFrameTime = now - (delta % FPSInterval);
 
         Object.values(this.contextsGroup).forEach(ctx =>
           ctx.clearRect(0, 0, innerWidth, innerHeight)
         );
+
+        if (this.enemy.isDead || this.player.isDead) {
+          this.gameOver();
+        }
 
         this.handlePlayerAndEnemy();
         this.handleMiniEnemy();
@@ -152,7 +152,10 @@ export default class Game {
     InputSystem.reset();
 
     if (this.player.isDead) {
-      this.enemy.win(() => router.push("/about"));
+      this.enemy.win(
+        () => router.push("/about"),
+        this.contextsGroup.enemiesCtx
+      );
     } else if (this.enemy.isDead) {
       this.player.win(() => router.push("/about"));
     }

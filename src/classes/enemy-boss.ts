@@ -196,21 +196,66 @@ export default class EnemyBoss extends Enemy implements CanGoOutOfBounds {
     }
   }
 
-  public win(callback: () => void): void {
-    if (this.isMovingBackward) {
-      if (!this.movingBackwardTimeoutId) {
-        this.movingBackwardTimeoutId = setTimeout(
-          () => (this.isMovingBackward = false),
-          1000
-        );
-      }
+  private explodingSpriteXPositions: number[] = [];
+  private explodingSpriteYPositions: number[] = [];
+  private explodingSpriteColIdxs: number[] = [];
+  private explodingSpriteRowIdxs: number[] = [];
+  private explodingSpritesCount: number = 0;
+  private lastExplodingSpriteTime: number = 0;
 
-      this.position.y -= Math.abs(this.velocity) * 0.25;
-    } else {
-      this.position.y += Math.abs(this.velocity) * 2;
+  public win(
+    callback: () => void,
+    ctx: OffscreenCanvasRenderingContext2D
+  ): void {
+    const now = Date.now();
+    const delta = now - this.lastExplodingSpriteTime;
+
+    if (delta >= 100) {
+      this.lastExplodingSpriteTime = Date.now();
+      this.explodingSpriteXPositions.push(randomIntegerBetween(0, innerWidth));
+      this.explodingSpriteYPositions.push(randomIntegerBetween(0, innerHeight));
+      this.explodingSpriteColIdxs.push(0);
+      this.explodingSpriteRowIdxs.push(0);
+      this.explodingSpritesCount++;
     }
 
-    if (this.isOutOfBounds && !this.winCallbackTimeoutId) {
+    for (let i = 0; i < this.explodingSpritesCount; i++) {
+      const { naturalHeight, naturalWidth } = this.explodeSprite;
+
+      const spriteHeight: number = naturalHeight / 8;
+      const spriteWidth: number = naturalWidth / 8;
+
+      const { WIDTH } = this;
+      const { x, y } = {
+        x: this.explodingSpriteXPositions[i],
+        y: this.explodingSpriteYPositions[i]
+      };
+
+      const scaleDownRatio: number = 0.0125;
+      const scaledHeight: number = spriteHeight * WIDTH * scaleDownRatio;
+      const scaledWidth: number = spriteWidth * WIDTH * scaleDownRatio;
+
+      ctx.drawImage(
+        this.explodeSprite,
+        this.explodingSpriteColIdxs[i] * spriteWidth,
+        this.explodingSpriteRowIdxs[i] * spriteHeight,
+        spriteWidth,
+        spriteHeight,
+        x - scaledWidth / 2,
+        y - scaledHeight / 2,
+        scaledWidth,
+        scaledHeight
+      );
+
+      this.explodingSpriteColIdxs[i]++;
+
+      if (this.explodingSpriteColIdxs[i] >= 8) {
+        this.explodingSpriteColIdxs[i] = 0;
+        this.explodingSpriteRowIdxs[i]++;
+      }
+    }
+
+    if (!this.winCallbackTimeoutId) {
       this.winCallbackTimeoutId = setTimeout(() => {
         callback();
       }, 3000);
