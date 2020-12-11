@@ -8,7 +8,8 @@ import store from "@/store";
 import CanGoOutOfBounds from "./interfaces/can-go-out-of-bounds";
 
 export default class EnemyBoss extends Enemy implements CanGoOutOfBounds {
-  private static readonly HEALTH: number = 750;
+  // private static readonly HEALTH: number = 750;
+  private static readonly HEALTH: number = 1;
   private static readonly HEALTH_BAR_HEIGHT: number = 20;
   private static readonly SCALE_DOWN_RATIO: number = 0.35;
   private static readonly VELOCITY: number = 3;
@@ -21,6 +22,9 @@ export default class EnemyBoss extends Enemy implements CanGoOutOfBounds {
   private nextCircleBulletShootTime: number = Date.now();
   private nextLaserBulletShootTime: number = Date.now();
   private currentStage: number = 1;
+  private isMovingBackward: boolean = true;
+  private movingBackwardTimeoutId: number | null = null;
+  private winCallbackTimeoutId: number | null = null;
 
   public constructor() {
     super(
@@ -192,15 +196,24 @@ export default class EnemyBoss extends Enemy implements CanGoOutOfBounds {
     }
   }
 
-  private winCallbackTimeoutId: number | null = null;
-
   public win(callback: () => void): void {
-    this.position.y += Math.abs(this.velocity) * 1.5;
+    if (this.isMovingBackward) {
+      if (!this.movingBackwardTimeoutId) {
+        this.movingBackwardTimeoutId = setTimeout(
+          () => (this.isMovingBackward = false),
+          1000
+        );
+      }
+
+      this.position.y -= Math.abs(this.velocity) * 0.25;
+    } else {
+      this.position.y += Math.abs(this.velocity) * 2;
+    }
 
     if (this.isOutOfBounds && !this.winCallbackTimeoutId) {
       this.winCallbackTimeoutId = setTimeout(() => {
         callback();
-      }, 5000);
+      }, 3000);
     }
   }
 

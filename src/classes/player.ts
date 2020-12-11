@@ -7,7 +7,8 @@ import CanGoOutOfBounds from "./interfaces/can-go-out-of-bounds";
 import Vector2 from "./core/vector2";
 
 export default class Player extends Entity implements CanGoOutOfBounds {
-  private static readonly HEALTH: number = 7;
+  // private static readonly HEALTH: number = 7;
+  private static readonly HEALTH: number = 1;
   private static readonly HEALTH_BAR_HEIGHT: number = 10;
   private static readonly SCALE_DOWN_RATIO: number = 0.15;
   private static readonly SLOW_DOWN_RATIO: number = 0.5;
@@ -35,8 +36,6 @@ export default class Player extends Entity implements CanGoOutOfBounds {
   private isMovingBackward: boolean = true;
   private movingBackwardTimeoutId: number | null = null;
   private bgCounter: number = 0;
-  private xLast: number | null = null;
-  private yLast: number | null = null;
   private winCallbackTimeoutId: number | null = null;
 
   public constructor(x: number, y: number) {
@@ -356,7 +355,7 @@ export default class Player extends Entity implements CanGoOutOfBounds {
     if (this.isOutOfBounds && !this.winCallbackTimeoutId) {
       this.winCallbackTimeoutId = setTimeout(() => {
         callback();
-      }, 5000);
+      }, 3000);
     }
   }
 
