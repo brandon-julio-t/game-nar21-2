@@ -3,14 +3,16 @@ import Environment from "./core/environment";
 import PlayerBullet from "./player-bullet";
 import { playAudio } from "./core/utilities";
 import store from "@/store";
+import CanGoOutOfBounds from "./interfaces/can-go-out-of-bounds";
+import Vector2 from "./core/vector2";
 
-export default class Player extends Entity {
+export default class Player extends Entity implements CanGoOutOfBounds {
   private static readonly HEALTH: number = 7;
   private static readonly HEALTH_BAR_HEIGHT: number = 10;
   private static readonly SCALE_DOWN_RATIO: number = 0.15;
   private static readonly SLOW_DOWN_RATIO: number = 0.5;
   private static readonly VELOCITY: number = 10;
-  public readonly HIT_BOX_SIZE = 10;
+  public readonly HIT_BOX_SIZE = 20;
   public bulletLevel: number = 1;
   public isInvulnerable: boolean = false;
   public isMovingDown: boolean = false;
@@ -30,6 +32,12 @@ export default class Player extends Entity {
   private hitSpriteRowIdx: number = 0;
   private isPlayingHitAnimation: boolean = false;
   private nextTimeToAttack: number = Date.now();
+  private isMovingBackward: boolean = true;
+  private movingBackwardTimeoutId: number | null = null;
+  private bgCounter: number = 0;
+  private xLast: number | null = null;
+  private yLast: number | null = null;
+  private winCallbackTimeoutId: number | null = null;
 
   public constructor(x: number, y: number) {
     super(
@@ -86,6 +94,17 @@ export default class Player extends Entity {
     this.moveLeft();
     this.moveDown();
     this.moveRight();
+
+    if (!store.enemy?.isDead) {
+      this.moveBackground();
+    }
+  }
+
+  private moveBackground(): void {
+    if (store.gameBackground) {
+      const position = (this.bgCounter += 10);
+      store.gameBackground.style.backgroundPosition = `0px ${position}px`;
+    }
   }
 
   public drawSelf(ctx: OffscreenCanvasRenderingContext2D): void {
@@ -238,6 +257,11 @@ export default class Player extends Entity {
     ctx.beginPath();
     ctx.rect(x - HIT_BOX_SIZE, y - HIT_BOX_SIZE, size, size);
     ctx.fill();
+
+    ctx.fillStyle = "blue";
+    ctx.beginPath();
+    ctx.arc(x, y, 2, 0, Math.PI * 2);
+    ctx.fill();
   }
 
   private drawHitAnimation(ctx: OffscreenCanvasRenderingContext2D): void {
@@ -278,7 +302,7 @@ export default class Player extends Entity {
 
     ctx.fillStyle = "royalblue";
     ctx.font =
-      "normal 20px \"PT Mono\", Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace";
+      'normal 20px "PT Mono", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace';
     ctx.fillText(
       `Score: ${Number(store.enemiesKilledCount * 100).toLocaleString()}`,
       x - this.WIDTH / 2,
@@ -308,5 +332,35 @@ export default class Player extends Entity {
       scaledHeight
     );
     ctx.restore();
+  }
+
+  public win(callback: () => void): void {
+    if (this.isMovingBackward) {
+      if (!this.movingBackwardTimeoutId) {
+        this.movingBackwardTimeoutId = setTimeout(
+          () => (this.isMovingBackward = false),
+          1000
+        );
+      }
+
+      this.position.y += Math.abs(this.velocity) * 0.25;
+    } else {
+      this.position.y -= Math.abs(this.velocity) * 2;
+    }
+
+    if (store.gameBackground) {
+      const position = (this.bgCounter += 10) + this.position.y * -2;
+      store.gameBackground.style.backgroundPosition = `0px ${position}px`;
+    }
+
+    if (this.isOutOfBounds && !this.winCallbackTimeoutId) {
+      this.winCallbackTimeoutId = setTimeout(() => {
+        callback();
+      }, 5000);
+    }
+  }
+
+  public get isOutOfBounds(): boolean {
+    return this.position.y - this.HEIGHT / 2 <= innerHeight;
   }
 }

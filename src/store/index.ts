@@ -15,7 +15,8 @@ const initialState: Store = {
   powerUps: [],
   useKeyboard: true,
   gameOver: null,
-  hasPressedOk: null
+  hasPressedOk: null,
+  gameBackground: null
 };
 
 export default reactive(initialState);

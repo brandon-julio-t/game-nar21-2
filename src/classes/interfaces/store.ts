@@ -19,4 +19,5 @@ export default interface Store {
   useKeyboard: boolean;
   gameOver: boolean | null;
   hasPressedOk: boolean | null;
+  gameBackground: HTMLImageElement | null;
 }

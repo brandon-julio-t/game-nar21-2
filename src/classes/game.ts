@@ -151,9 +151,14 @@ export default class Game {
 
     InputSystem.reset();
 
+    if (this.player.isDead) {
+      this.enemy.win(() => router.push("/about"));
+    } else if (this.enemy.isDead) {
+      this.player.win(() => router.push("/about"));
+    }
+
     if (entity.hasFinishedDying) {
       store.gameOver = true;
-      setTimeout(() => router.push("/about"), 7000);
     }
   }
 

@@ -55,7 +55,7 @@
       <canvas ref="enemiesCanvas" class="absolute"></canvas>
       <canvas ref="playerCanvas" class="absolute"></canvas>
       <canvas ref="bulletsCanvas" class="absolute"></canvas>
-      <div ref="backgroundImage" class="scroll-down-background-7"></div>
+      <div ref="backgroundImage" class="game-background" id="game-bg"></div>
     </div>
 
     <transition name="fade">
@@ -128,6 +128,7 @@ export default defineComponent({
 
     function playGame() {
       // Entry point A.K.A. main
+      store.gameBackground = backgroundImage.value
       Game.start(
         {
           bulletsCanvas: bulletsCanvas.value,

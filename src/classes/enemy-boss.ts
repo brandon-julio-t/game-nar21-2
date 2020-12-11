@@ -5,8 +5,9 @@ import EnemyBulletCircle from "./enemy-bullet-circle";
 import EnemyBulletLaser from "./enemy-bullet-laser";
 import Vector2 from "./core/vector2";
 import store from "@/store";
+import CanGoOutOfBounds from "./interfaces/can-go-out-of-bounds";
 
-export default class EnemyBoss extends Enemy {
+export default class EnemyBoss extends Enemy implements CanGoOutOfBounds {
   private static readonly HEALTH: number = 750;
   private static readonly HEALTH_BAR_HEIGHT: number = 20;
   private static readonly SCALE_DOWN_RATIO: number = 0.35;
@@ -26,7 +27,7 @@ export default class EnemyBoss extends Enemy {
       randomIntegerBetween(
         store.assets.enemy1.naturalWidth * EnemyBoss.SCALE_DOWN_RATIO,
         innerWidth -
-        store.assets.enemy1.naturalWidth * EnemyBoss.SCALE_DOWN_RATIO
+          store.assets.enemy1.naturalWidth * EnemyBoss.SCALE_DOWN_RATIO
       ),
       -store.assets.enemy1.naturalHeight * EnemyBoss.SCALE_DOWN_RATIO,
       EnemyBoss.HEALTH,
@@ -84,7 +85,7 @@ export default class EnemyBoss extends Enemy {
     if (
       this.position.y <
       EnemyBoss.HEALTH_BAR_HEIGHT +
-      (store.assets.enemy1.naturalHeight * EnemyBoss.SCALE_DOWN_RATIO) / 2
+        (store.assets.enemy1.naturalHeight * EnemyBoss.SCALE_DOWN_RATIO) / 2
     ) {
       this.position.y += this.velocity / 2;
     } else {
@@ -157,7 +158,7 @@ export default class EnemyBoss extends Enemy {
       this.currentStage = 2;
 
       const velocity: number = randomIntegerBetween(3, 5);
-      for (let degree = 0; degree < 360; degree += 5) {
+      for (let degree = 0; degree < 360; degree += Math.PI) {
         const direction: Vector2 = Vector2.fromRadian(degree).normalized();
 
         store.bullets.splice(
@@ -189,5 +190,21 @@ export default class EnemyBoss extends Enemy {
       );
       this.nextLaserBulletShootTime = Date.now() + this.LASER_BULLET_SPAWN_TIME;
     }
+  }
+
+  private winCallbackTimeoutId: number | null = null;
+
+  public win(callback: () => void): void {
+    this.position.y += Math.abs(this.velocity) * 1.5;
+
+    if (this.isOutOfBounds && !this.winCallbackTimeoutId) {
+      this.winCallbackTimeoutId = setTimeout(() => {
+        callback();
+      }, 5000);
+    }
+  }
+
+  public get isOutOfBounds(): boolean {
+    return this.position.y - this.HEIGHT / 2 >= innerHeight;
   }
 }
