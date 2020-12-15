@@ -4,21 +4,25 @@
       <!--  Trick to center div.container in the middle of the screen.  -->
     </div>
 
-    <div
-      class="container rounded-3xl shadow-2xl py-8 px-16 md:px-32"
-      :style="{ backgroundImage: `url('${image}')` }"
-    >
-      <div>
-        <section class="w-full">
-          <the-tabs @change-tab="changeTab" :currentTab="currentTab"></the-tabs>
-        </section>
+    <div class="container py-8 px-16 relative">
+      <img
+        v-for="(tab, idx) in tabs"
+        :key="idx"
+        :class="{ hidden: currentTab !== tab, block: currentTab === tab }"
+        :src="`/images/about-bg/${tab}.webp`"
+        alt="background"
+        class="absolute inset-0 w-full h-full object-cover rounded-3xl shadow-2xl z-none"
+      />
 
-        <div class="my-16"></div>
+      <section class="w-full">
+        <the-tabs :currentTab="currentTab" @change-tab="changeTab"></the-tabs>
+      </section>
 
-        <section style="min-height: 650px;">
-          <component :is="currentTab"></component>
-        </section>
-      </div>
+      <div class="my-16"></div>
+
+      <section style="min-height: 650px;">
+        <component :is="currentTab"></component>
+      </section>
     </div>
   </article>
 </template>
@@ -46,6 +50,13 @@ export default defineComponent({
   setup() {
     const currentTab = ref("TheBenefits");
     const image = ref("/images/about-bg/TheBenefits.webp");
+    const tabs = [
+      "TheBenefits",
+      "TheContact",
+      "TheInitialTest",
+      "TheRegistration",
+      "TheRequirements"
+    ];
 
     function changeTab(tabName: string) {
       currentTab.value = tabName;
@@ -55,7 +66,8 @@ export default defineComponent({
     return {
       changeTab,
       currentTab,
-      image
+      image,
+      tabs
     };
   }
 });
