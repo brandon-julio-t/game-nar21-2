@@ -17,7 +17,7 @@
           :src="requirement.img"
           class="mx-auto h-16 md:h-20 mb-6"
         />
-        <p class="text-center text-base">{{ requirement.desc }}</p>
+        <p class="text-center">{{ requirement.desc }}</p>
       </div>
     </section>
   </div>

@@ -1,5 +1,5 @@
 <template>
-  <button class="px-6 py-3 max-w-xs">
+  <button class="px-6 py-3 max-w-xs text-xl">
     <span>
       <slot></slot>
     </span>
@@ -12,7 +12,7 @@ button {
 }
 
 button:hover {
-  color: #FC21CD;
+  color: #fc21cd;
 }
 
 /* button {

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="text-white font-bold text-6xl">
+    <h1 class="text-white font-bold text-5xl">
       Initial Test
     </h1>
 

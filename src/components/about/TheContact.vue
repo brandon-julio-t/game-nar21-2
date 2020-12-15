@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="text-center text-white font-bold text-6xl" style="color: #B122FE;">
+    <h1 class="text-center text-white font-bold text-5xl" style="color: #B122FE;">
       Contact Us
     </h1>
 
