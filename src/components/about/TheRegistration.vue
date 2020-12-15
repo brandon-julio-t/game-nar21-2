@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1 class="text-center text-white font-bold tracking-widest">
-      Registration
+      BE ONE OF US!
     </h1>
 
     <section class="text-center">

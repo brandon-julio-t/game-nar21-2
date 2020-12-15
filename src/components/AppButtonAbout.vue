@@ -1,5 +1,5 @@
 <template>
-  <button class="px-8 py-4 max-w-xs">
+  <button class="px-6 py-3 max-w-xs">
     <span>
       <slot></slot>
     </span>
@@ -8,6 +8,14 @@
 
 <style scoped>
 button {
+  outline: none;
+}
+
+button:hover {
+  color: #FC21CD;
+}
+
+/* button {
   border: none;
   text-transform: uppercase;
   outline: none;
@@ -45,5 +53,5 @@ button:after {
 button:hover:after {
   -webkit-transform: translateX(-9%) translateY(-25%) rotate(45deg);
   transform: translateX(-9%) translateY(-25%) rotate(45deg);
-}
+} */
 </style>

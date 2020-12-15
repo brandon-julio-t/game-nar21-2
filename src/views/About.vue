@@ -4,17 +4,15 @@
       <!--  Trick to center div.container in the middle of the screen.  -->
     </div>
 
-    <div class="container shadow-2xl py-32 px-16 md:px-32">
-      <div class="flex flex-wrap lg:flex-no-wrap justify-center items-center">
+    <div class="container shadow-2xl py-8 px-16 md:px-32">
+      <div class="flex flex-wrap lg:flex-no-wrap lg:flex-col justify-center items-center min-h-full">
         <section
-          class="w-full mx-auto lg:w-1/4 flex justify-center items-center"
+          class="w-full"
         >
           <the-tabs @change-tab="changeTab"></the-tabs>
         </section>
 
-        <div class="mx-8"></div>
-
-        <section class="w-full mx-auto lg:w-3/4">
+        <section class="w-full mx-auto">
           <component :is="currentTab"></component>
         </section>
       </div>
@@ -58,9 +56,15 @@ export default defineComponent({
 </script>
 
 <style scoped>
+article {
+  font-family: 'Montserrat', sans-serif;
+}
+
 .container {
-  background-image: url("/images/border.webp");
+  background-image: url("/images/galaxy.webp");
   background-size: 100% 100%;
   background-repeat: no-repeat;
+  min-height: 80vh;
 }
+
 </style>

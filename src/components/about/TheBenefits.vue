@@ -1,12 +1,12 @@
 <template>
   <div>
-    <h1 class="text-center text-white font-bold tracking-widest">
+    <!-- <h1 class="text-center text-white font-bold tracking-widest">
       Benefits
-    </h1>
+    </h1> -->
 
     <section class="my-0">
       <h2 class="font-semibold mb-3">Hard Skill</h2>
-      <div class="flex justify-center items-center flex-wrap">
+      <div class="flex justify-around items-center flex-wrap">
         <div v-for="(icon, idx) in hardSkills" :key="idx">
           <v-popover>
             <font-awesome-icon

@@ -116,7 +116,7 @@ export default class Galaxy {
       height / 2,
       width * 2
     );
-    leftCloud.addColorStop(0, "#007ACE");
+    leftCloud.addColorStop(0, "#3D2288");
     leftCloud.addColorStop(1, "rgb(0, 0, 0, 0)");
 
     this.backgroundCtx.fillStyle = leftCloud;
@@ -130,7 +130,7 @@ export default class Galaxy {
       height / 2,
       width * 2
     );
-    rightCloud.addColorStop(0, "#243C5A");
+    rightCloud.addColorStop(0, "#2D1C70");
     rightCloud.addColorStop(1, "rgb(0, 0, 0, 0)");
 
     this.backgroundCtx.fillStyle = rightCloud;
