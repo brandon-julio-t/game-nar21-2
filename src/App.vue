@@ -1,14 +1,14 @@
 <template>
   <div class="w-screen h-screen relative overflow-hidden">
     <canvas
-      v-show="!store.isGaming"
-      ref="galaxyBackground"
-      class="w-full h-full z-none bg-cover absolute inset-0"
+        v-show="!store.isGaming"
+        ref="galaxyBackground"
+        class="w-full h-full z-none bg-cover absolute inset-0"
     ></canvas>
     <canvas
-      v-show="!store.isGaming"
-      ref="galaxyStars"
-      class="w-full h-full z-none bg-cover absolute inset-0"
+        v-show="!store.isGaming"
+        ref="galaxyStars"
+        class="w-full h-full z-none bg-cover absolute inset-0"
     ></canvas>
 
     <main class="overflow-y-auto overflow-x-hidden h-full">

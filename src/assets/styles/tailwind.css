@@ -1,3 +1,7 @@
+/*! @import */
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+
 @tailwind base;
 
 @tailwind components;
@@ -11,11 +15,9 @@
     src: url("~@/assets/fonts/PTMono-Regular.ttf");
   }
 
-  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
-
 
   body {
-    font-family: "PT Mono";
+    font-family: "PT Mono", serif;
   }
 
   @screen sm {
