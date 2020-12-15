@@ -1,8 +1,8 @@
 <template>
   <div>
-    <!-- <h1 class="text-center text-white font-bold tracking-widest">
-      Benefits
-    </h1> -->
+    <h1 class="text-center text-white font-bold text-5xl mb-5" style="color: #B122FE">
+      What Will You Get
+    </h1>
 
     <section class="my-0">
       <h2 class="font-semibold mb-3">Hard Skill</h2>
@@ -10,28 +10,27 @@
         <div v-for="(icon, idx) in hardSkills" :key="idx">
           <v-popover>
             <font-awesome-icon
-              slot="popover"
               :icon="[icon.family, icon.name]"
-              class="text-6xl mx-4 sm:mx-auto text-blue-300 hover:text-blue-400"
+              class="text-6xl mx-4 sm:mx-auto"
             ></font-awesome-icon>
           </v-popover>
         </div>
       </div>
     </section>
 
-    <section>
+    <section class="mt-12">
       <h2 class="font-semibold mb-3">Soft Skill</h2>
       <div class="flex justify-center items-center flex-wrap">
         <font-awesome-icon
           v-for="(icon, idx) in softSkills"
           :key="idx"
           :icon="[icon.family, icon.name]"
-          class="text-6xl mx-4 sm:mx-auto text-blue-300 hover:text-blue-400"
+          class="text-6xl mx-4 sm:mx-auto"
         ></font-awesome-icon>
       </div>
     </section>
 
-    <section>
+    <section class="mt-12">
       <h2 class="font-semibold">Job Experiences</h2>
       <div></div>
     </section>

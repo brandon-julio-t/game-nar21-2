@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h1 class="text-center text-white font-bold tracking-widest">
-      Contact
+    <h1 class="text-center text-white font-bold text-6xl" style="color: #B122FE;">
+      Contact Us
     </h1>
 
     <section>
@@ -10,13 +10,13 @@
       <section class="text-center">
         <p>Contact us on :</p>
         <p>— Kemanggisan —</p>
-        <h3 class="text-lionel-light font-bold ">
+        <h3 class="font-semibold" style="color: #B122FE;">
           Christina / Hanni / Natasia
         </h3>
         <p class="text-2xl">021-5345830 ext 1762 - Room 724</p>
       </section>
 
-      <section class="flex flex-wrap justify-center items-center">
+      <section class="flex flex-wrap justify-center items-center mt-32">
         <a
           href="https://www.facebook.com/SoftwareLabCenter"
           rel="noopener noreferrer"

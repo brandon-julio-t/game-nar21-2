@@ -1,10 +1,10 @@
 <template>
   <div>
-    <h1 class="text-center text-white font-bold tracking-widest">
+    <h1 class="text-center text-white font-bold text-5xl mb-12">
       Requirements
     </h1>
 
-    <section class="grid grid-rows-2 md:grid-cols-2 gap-8 lg:gap-4 my-0">
+    <section class="grid grid-rows-2 md:grid-cols-2 gap-8 lg:gap-x-4 lg:gap-y-12 my-0">
       <div v-for="(requirement, idx) in requirements" :key="idx">
         <font-awesome-icon
           v-if="requirement.icon"
