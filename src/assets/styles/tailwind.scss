@@ -24,10 +24,8 @@
     @apply bg-gray-300 rounded border border-gray-500 text-black inline-block font-bold px-1;
   }
 
-  @for $i from 1 through 8 {
-    .bg-blur-#{$i} {
-      backdrop-filter: blur($i * 0.5rem);
-    }
+  .bg-blur {
+    backdrop-filter: blur(1rem);
   }
 
   ::-webkit-scrollbar {
@@ -40,6 +38,10 @@
 
   ::-webkit-scrollbar-thumb {
     @apply rounded-full shadow-inner bg-white bg-opacity-75 hover:bg-opacity-90;
+  }
+
+  .lionel-purple {
+    color: #B122FE;
   }
 }
 

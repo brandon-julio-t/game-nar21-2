@@ -4,7 +4,7 @@
       v-for="(tab, idx) in tabs"
       :key="idx"
       :class="{
-        'text-purple-500 border border-white border-opacity-10 bg-blur-2':
+        'lionel-purple border border-white border-opacity-10 bg-blur':
           tab.name === currentTab
       }"
       class="flex justify-center items-center rounded-lg"

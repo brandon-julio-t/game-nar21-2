@@ -7,16 +7,28 @@
     >
       <font-awesome-icon
         :icon="[icon.family, icon.name]"
-        class="text-6xl mx-4 sm:mx-auto"
+        class="text-6xl"
       ></font-awesome-icon>
       <div
-        class="bg-black bg-opacity-50 text-center align-middle rounded text-white px-4 py-2 my-4 opacity-0 group-hover:opacity-100"
+        class="bg-black bg-opacity-50 text-center align-middle rounded text-white px-4 py-2 my-4 opacity-0 group-hover:opacity-100 transition duration-150 ease-in-out fly-down"
       >
         {{ icon.tooltip }}
       </div>
     </div>
   </div>
 </template>
+
+<style lang="scss">
+.fly-down {
+  transform: translateY(-1.5rem);
+}
+
+.group:hover {
+  .fly-down {
+    transform: translateY(0);
+  }
+}
+</style>
 
 <script lang="ts">
 import { defineComponent } from "vue";
