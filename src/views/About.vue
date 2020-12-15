@@ -4,17 +4,15 @@
       <!--  Trick to center div.container in the middle of the screen.  -->
     </div>
 
-    <div class="container shadow-2xl py-32 px-16 md:px-32">
-      <div class="flex flex-wrap lg:flex-no-wrap justify-center items-center">
+    <div class="container rounded-xl shadow-2xl py-8 px-16 md:px-32" :style="{backgroundImage: 'url(' + image + ')'}">
+      <div class="flex flex-wrap lg:flex-no-wrap lg:flex-col justify-center items-center min-h-full">
         <section
-          class="w-full mx-auto lg:w-1/4 flex justify-center items-center"
+          class="w-full"
         >
           <the-tabs @change-tab="changeTab"></the-tabs>
         </section>
 
-        <div class="mx-8"></div>
-
-        <section class="w-full mx-auto lg:w-3/4">
+        <section id="content" class="w-full">
           <component :is="currentTab"></component>
         </section>
       </div>
@@ -44,23 +42,37 @@ export default defineComponent({
 
   setup() {
     const currentTab = ref("TheBenefits");
+    const image = ref("/images/about-bg/TheBenefits.webp")
 
     function changeTab(tabName: string) {
+      console.log(tabName);
       currentTab.value = tabName;
+      image.value = "/images/about-bg/" + tabName + ".webp";
     }
 
     return {
       changeTab,
-      currentTab
+      currentTab,
+      image
     };
   }
 });
 </script>
 
 <style scoped>
+article {
+  font-family: 'Montserrat', sans-serif;
+}
+
 .container {
-  background-image: url("/images/border.webp");
-  background-size: 100% 100%;
+  /* background-image: url("/images/galaxy2.webp"); */
+  /* background-size: 100% 100%; */
+  background-size: cover;
   background-repeat: no-repeat;
 }
+
+#content {
+  min-height: 60vh;
+}
+
 </style>

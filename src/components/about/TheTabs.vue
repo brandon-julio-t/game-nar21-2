@@ -1,5 +1,5 @@
 <template>
-  <ul class="grid grid-rows-5 gap-8 w-full">
+  <ul class="flex justify-between">
     <li
       v-for="(tab, idx) in tabs"
       :key="idx"
