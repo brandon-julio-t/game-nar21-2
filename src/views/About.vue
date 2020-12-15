@@ -9,13 +9,14 @@
       :style="{ backgroundImage: `url('${image}')` }"
     >
       <div
-        class="flex flex-wrap lg:flex-no-wrap lg:flex-col justify-center items-center min-h-full"
+        class="flex flex-col justify-center items-center space-y-16"
+        style="height: 800px;"
       >
-        <section class="w-full">
-          <the-tabs @change-tab="changeTab"></the-tabs>
+        <section class="w-full flex items-center">
+          <the-tabs @change-tab="changeTab" :currentTab="currentTab"></the-tabs>
         </section>
 
-        <section id="content" class="w-full">
+        <section class="overflow-y-auto" style="min-height: 700px;">
           <component :is="currentTab"></component>
         </section>
       </div>
@@ -69,9 +70,5 @@ article {
 .container {
   background-size: cover;
   background-repeat: no-repeat;
-}
-
-#content {
-  min-height: 60vh;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <button class="px-6 py-3 max-w-xs text-xl">
+  <button class="px-6 py-3 outline-none text-xl">
     <span>
       <slot></slot>
     </span>
@@ -7,14 +7,6 @@
 </template>
 
 <style scoped>
-button {
-  outline: none;
-}
-
-button:hover {
-  color: #fc21cd;
-}
-
 /* button {
   border: none;
   text-transform: uppercase;

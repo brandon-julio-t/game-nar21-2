@@ -7,32 +7,18 @@
       What will you get?
     </h1>
 
-    <section class="my-0">
-      <h2 class="font-semibold mb-3">Hard Skills</h2>
-      <div class="flex justify-around items-center flex-wrap">
-        <div v-for="(icon, idx) in hardSkills" :key="idx">
-          <font-awesome-icon
-            :icon="[icon.family, icon.name]"
-            class="text-6xl mx-4 sm:mx-auto"
-          ></font-awesome-icon>
-        </div>
-      </div>
+    <section>
+      <h2 class="font-semibold mb-8 text-3xl">Hard Skills</h2>
+      <app-skills :skills="hardSkills"></app-skills>
     </section>
 
     <section class="mt-12">
-      <h2 class="font-semibold mb-3">Soft Skills</h2>
-      <div class="flex justify-center items-center flex-wrap">
-        <font-awesome-icon
-          v-for="(icon, idx) in softSkills"
-          :key="idx"
-          :icon="[icon.family, icon.name]"
-          class="text-6xl mx-4 sm:mx-auto"
-        ></font-awesome-icon>
-      </div>
+      <h2 class="font-semibold mb-8 text-3xl">Soft Skills</h2>
+      <app-skills :skills="softSkills"></app-skills>
     </section>
 
     <section class="mt-12">
-      <h2 class="font-semibold">Job Experiences</h2>
+      <h2 class="font-semibold text-3xl">Job Experiences</h2>
       <div></div>
     </section>
   </div>
@@ -40,8 +26,10 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import AppSkills from "@/components/about/AppSkills.vue";
 
 export default defineComponent({
+  components: { AppSkills },
   data: () => ({
     hardSkills: [
       { family: "fa", tooltip: "SQL", name: "database" },

@@ -5,6 +5,8 @@ import App from "./App.vue";
 import { createApp } from "vue";
 import router from "./router";
 import { library } from "@fortawesome/fontawesome-svg-core";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+
 import {
   faBullhorn,
   faClock,
@@ -14,14 +16,17 @@ import {
   faUserFriends,
   faUsers
 } from "@fortawesome/free-solid-svg-icons";
+
 import {
   faAndroid,
   faAngular,
   faBootstrap,
   faJs,
-  faLaravel
+  faLaravel,
+  faYoutube,
+  faFacebook,
+  faInstagram
 } from "@fortawesome/free-brands-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 library.add(
   faAngular,
@@ -35,7 +40,10 @@ library.add(
   faClock,
   faGraduationCap,
   faFileSignature,
-  faBootstrap
+  faBootstrap,
+  faYoutube,
+  faFacebook,
+  faInstagram
 );
 
 createApp(App)

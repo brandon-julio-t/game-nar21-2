@@ -1,11 +1,12 @@
 <template>
-  <ul class="flex justify-between">
+  <ul class="flex-grow flex justify-between">
     <li
       v-for="(tab, idx) in tabs"
       :key="idx"
+      :class="{ 'text-purple-400': tab.name === currentTab }"
       class="flex justify-center items-center"
     >
-      <app-button-about @click="onButtonClick(tab.name)" class="w-full mx-auto">
+      <app-button-about class="w-full mx-auto" @click="onButtonClick(tab.name)">
         {{ tab.label }}
       </app-button-about>
     </li>
@@ -18,7 +19,7 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   components: { AppButtonAbout },
-
+  props: { currentTab: String },
   emits: ["change-tab"],
 
   setup(props, { emit }) {
