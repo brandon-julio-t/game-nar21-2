@@ -1,10 +1,13 @@
 <template>
-  <ul class="flex-grow flex justify-between">
+  <ul class="w-full grid grid-cols-1 lg:grid-cols-5 grid-flow-row lg:gap-4">
     <li
       v-for="(tab, idx) in tabs"
       :key="idx"
-      :class="{ 'text-purple-400': tab.name === currentTab }"
-      class="flex justify-center items-center"
+      :class="{
+        'text-purple-500 border border-white border-opacity-10 bg-blur-2':
+          tab.name === currentTab
+      }"
+      class="flex justify-center items-center rounded-lg"
     >
       <app-button-about class="w-full mx-auto" @click="onButtonClick(tab.name)">
         {{ tab.label }}

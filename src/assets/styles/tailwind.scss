@@ -23,6 +23,24 @@
   kbd {
     @apply bg-gray-300 rounded border border-gray-500 text-black inline-block font-bold px-1;
   }
+
+  @for $i from 1 through 8 {
+    .bg-blur-#{$i} {
+      backdrop-filter: blur($i * 0.5rem);
+    }
+  }
+
+  ::-webkit-scrollbar {
+    @apply w-1;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply rounded-full shadow-inner;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-full shadow-inner bg-white bg-opacity-75 hover:bg-opacity-90;
+  }
 }
 
 @layer utilities {

@@ -5,18 +5,17 @@
     </div>
 
     <div
-      class="container rounded-xl shadow-2xl py-8 px-16 md:px-32"
+      class="container rounded-3xl shadow-2xl py-8 px-16 md:px-32"
       :style="{ backgroundImage: `url('${image}')` }"
     >
-      <div
-        class="flex flex-col justify-center items-center space-y-16"
-        style="height: 800px;"
-      >
-        <section class="w-full flex items-center">
+      <div>
+        <section class="w-full">
           <the-tabs @change-tab="changeTab" :currentTab="currentTab"></the-tabs>
         </section>
 
-        <section class="overflow-y-auto" style="min-height: 700px;">
+        <div class="my-16"></div>
+
+        <section style="min-height: 650px;">
           <component :is="currentTab"></component>
         </section>
       </div>
