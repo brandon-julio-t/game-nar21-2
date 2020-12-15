@@ -1,6 +1,6 @@
 <template>
   <div class="text-xl">
-    <header class="text-center font-bold text-5xl lionel-purple">
+    <header class="text-center font-bold text-5xl text-lionel-purple">
       <slot name="header"></slot>
     </header>
 

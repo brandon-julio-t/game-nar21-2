@@ -5,7 +5,7 @@
     <section>
       <h2>
         Sunday,
-        <span class="font-semibold lionel-purple">03 March</span> 2021
+        <span class="font-semibold text-lionel-purple">03 March</span> 2021
         <br />
         07:30 - 12:00
       </h2>
@@ -20,13 +20,13 @@
 
       <ol class="list-decimal ml-8">
         <li>
-          <span class="font-semibold lionel-purple">Aptitude</span>
+          <span class="font-semibold text-lionel-purple">Aptitude</span>
           Test
         </li>
         <li>
-          <span class="font-semibold lionel-purple">Programming</span>
+          <span class="font-semibold text-lionel-purple">Programming</span>
           Test (Using
-          <span class="font-semibold lionel-purple">C / C++ / Java</span>)
+          <span class="font-semibold text-lionel-purple">C / C++ / Java</span>)
         </li>
       </ol>
     </section>

@@ -8,7 +8,7 @@
       <section class="text-center">
         <p>Contact us on :</p>
         <p>— Kemanggisan —</p>
-        <h3 class="font-semibold lionel-purple">
+        <h3 class="font-semibold text-lionel-purple">
           Christina / Hanni / Natasia
         </h3>
         <p class="text-2xl">021-5345830 ext 1762 - Room 724</p>

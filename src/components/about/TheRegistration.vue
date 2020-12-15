@@ -4,9 +4,13 @@
 
     <section class="text-center">
       <h2>Open Registration</h2>
-      <h3><span class="font-semibold lionel-purple">27 January</span> 2021</h3>
+      <h3>
+        <span class="font-semibold text-lionel-purple">27 January</span> 2021
+      </h3>
       <p>Until</p>
-      <h3><span class="font-semibold lionel-purple">12 February</span> 2021</h3>
+      <h3>
+        <span class="font-semibold text-lionel-purple">12 February</span> 2021
+      </h3>
 
       <a
         href="https://bluejack.binus.ac.id/lab"

@@ -24,10 +24,6 @@
     @apply bg-gray-300 rounded border border-gray-500 text-black inline-block font-bold px-1;
   }
 
-  .bg-blur {
-    backdrop-filter: blur(1rem);
-  }
-
   ::-webkit-scrollbar {
     @apply w-1;
   }
@@ -40,8 +36,12 @@
     @apply rounded-full shadow-inner bg-white bg-opacity-75 hover:bg-opacity-90;
   }
 
-  .lionel-purple {
+  .text-lionel-purple {
     color: #B122FE;
+  }
+
+  .bg-blur {
+    backdrop-filter: blur(1rem);
   }
 }
 
