@@ -1,5 +1,5 @@
 <template>
-  <button class="px-6 py-3 outline-none text-xl">
+  <button class="px-4 py-2 outline-none">
     <span>
       <slot></slot>
     </span>

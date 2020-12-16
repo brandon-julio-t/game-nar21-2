@@ -23,7 +23,9 @@
   kbd {
     @apply bg-gray-300 rounded border border-gray-500 text-black inline-block font-bold px-1;
   }
+}
 
+@layer utilities {
   ::-webkit-scrollbar {
     @apply w-1;
   }
@@ -43,9 +45,7 @@
   .bg-blur {
     backdrop-filter: blur(1rem);
   }
-}
 
-@layer utilities {
   .fade-enter-active,
   .fade-leave-active {
     transition: opacity 0.5s ease;

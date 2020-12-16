@@ -23,7 +23,7 @@
           :href="social.link"
           rel="noopener noreferrer"
           target="_blank"
-          class="flex flex-row space-x-2 justify-center items-center text-center text-base sm:text-lg md:text-xl hover:underline"
+          class="flex flex-row space-x-2 justify-center items-center text-center text-base sm:text-lg md:text-2xl hover:underline"
         >
           <font-awesome-icon
             :icon="[social.icon.family, social.icon.name]"

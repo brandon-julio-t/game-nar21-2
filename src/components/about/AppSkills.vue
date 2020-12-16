@@ -10,7 +10,7 @@
         class="text-6xl"
       ></font-awesome-icon>
       <div
-        class="bg-black bg-opacity-50 text-center align-middle rounded text-white px-4 py-2 my-4 opacity-0 group-hover:opacity-100 transition duration-150 ease-in-out fly-down"
+        class="bg-black bg-opacity-50 text-center align-middle rounded text-white px-4 py-2 my-2 opacity-0 group-hover:opacity-100 transition duration-150 ease-in-out fly-down text-lg"
       >
         {{ icon.tooltip }}
       </div>

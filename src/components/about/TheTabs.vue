@@ -1,5 +1,7 @@
 <template>
-  <ul class="w-full grid grid-cols-1 lg:grid-cols-5 grid-flow-row gap-4">
+  <ul
+    class="w-full grid grid-cols-1 lg:grid-cols-5 grid-flow-row gap-4 text-xl"
+  >
     <li
       v-for="(tab, idx) in tabs"
       :key="idx"

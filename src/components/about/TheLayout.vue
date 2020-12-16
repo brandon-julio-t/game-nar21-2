@@ -1,5 +1,5 @@
 <template>
-  <div class="text-xl">
+  <div class="text-2xl">
     <header class="text-center font-bold text-5xl text-lionel-purple">
       <slot name="header"></slot>
     </header>
