@@ -1,5 +1,5 @@
 <template>
-  <the-layout>
+  <the-layout class="rounded-xl md:rounded-none bg-gray-800 md:bg-none bg-opacity-40 md:bg-opacity-0 p-12 md:p-0">
     <template v-slot:header>Contact Us</template>
 
     <section>
@@ -15,7 +15,7 @@
       </section>
 
       <section
-        class="flex flex-wrap justify-around items-center mt-16 max-w-4xl mx-auto"
+        class="flex flex-wrap justify-around mx-auto items-center mt-24 max-w-4xl"
       >
         <a
           v-for="(social, idx) in socials"
