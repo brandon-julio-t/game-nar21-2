@@ -13,7 +13,7 @@ module.exports = {
   configureWebpack: {
     plugins: [
       new ImageminPlugin({
-        disable: process.env.NODE_ENV === "development",
+        // disable: process.env.NODE_ENV === "development",
         optipng: null,
         pngquant: process.env.NODE_ENV !== "production" ? null : { speed: 11 },
         svgo: { plugins: [{ removeViewBox: false }] },

@@ -7,6 +7,10 @@
 </template>
 
 <style scoped>
+button {
+  outline: none;
+}
+
 /* button {
   border: none;
   text-transform: uppercase;

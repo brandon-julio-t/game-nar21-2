@@ -1,22 +1,22 @@
 <template>
-  <the-layout>
-    <template v-slot:header>Require&shy;ments</template>
+  <the-layout class="rounded-xl md:rounded-none bg-gray-600 md:bg-none bg-opacity-40 md:bg-opacity-0 p-12 md:p-0">
+    <template v-slot:header class="text-red-800">Require&shy;ments</template>
 
-    <section class="grid grid-flow-row grid-cols-2 gap-8 max-w-4xl mx-auto">
+    <section class="grid grid-flow-row grid-cols-1 md:grid-cols-2 gap-y-16 gap-x-16 md:gap-y-16 md:gap-x-12 max-w-4xl mx-auto mb-12 md:mb-0">
       <div v-for="(requirement, idx) in requirements" :key="idx">
         <font-awesome-icon
           v-if="requirement.icon"
           :icon="[requirement.family, requirement.icon]"
-          class="mx-auto text-6xl lg:text-9xl flex text-center text-blue-300 mb-6"
+          class="mx-auto text-9xl md:text-8xl flex text-center text-blue-300 mb-6"
         ></font-awesome-icon>
 
         <img
           v-else
           :alt="requirement.desc"
           :src="requirement.img"
-          class="mx-auto h-16 lg:h-32 mb-6"
+          class="mx-auto h-32 md:h-24 mb-6"
         />
-        <p class="text-center text-base sm:text-lg md:text-2xl">
+        <p class="text-center">
           {{ requirement.desc }}
         </p>
       </div>
