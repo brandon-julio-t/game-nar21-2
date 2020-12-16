@@ -1,11 +1,17 @@
 <template>
-  <ul class="flex justify-between">
+  <ul
+    class="w-full grid grid-cols-1 lg:grid-cols-5 grid-flow-row gap-4 text-xl"
+  >
     <li
       v-for="(tab, idx) in tabs"
       :key="idx"
-      class="flex justify-center items-center"
+      :class="{
+        'bg-purple-600 bg-opacity-50 bg-blur border border-white border-opacity-10 shadow-inner':
+          tab.name === currentTab
+      }"
+      class="flex justify-center items-center rounded-lg"
     >
-      <app-button-about @click="onButtonClick(tab.name)" class="w-full mx-auto">
+      <app-button-about class="w-full mx-auto" @click="onButtonClick(tab.name)">
         {{ tab.label }}
       </app-button-about>
     </li>
@@ -18,7 +24,7 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   components: { AppButtonAbout },
-
+  props: { currentTab: String },
   emits: ["change-tab"],
 
   setup(props, { emit }) {

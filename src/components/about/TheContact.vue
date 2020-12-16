@@ -1,73 +1,80 @@
 <template>
-  <div>
-    <h1 class="text-center text-white font-bold text-5xl" style="color: #B122FE;">
-      Contact Us
-    </h1>
+  <the-layout>
+    <template v-slot:header>Contact Us</template>
 
     <section>
-      <h2 class="text-center">For more information</h2>
+      <h2 class="text-center text-3xl">For more information</h2>
 
       <section class="text-center">
         <p>Contact us on :</p>
         <p>— Kemanggisan —</p>
-        <h3 class="font-semibold" style="color: #B122FE;">
+        <h3 class="font-semibold text-lionel-purple">
           Christina / Hanni / Natasia
         </h3>
         <p class="text-2xl">021-5345830 ext 1762 - Room 724</p>
       </section>
 
-      <section class="flex flex-wrap justify-center items-center mt-32">
+      <section
+        class="flex flex-wrap justify-around items-center mt-16 max-w-4xl mx-auto"
+      >
         <a
-          href="https://www.facebook.com/SoftwareLabCenter"
+          v-for="(social, idx) in socials"
+          :key="idx"
+          :href="social.link"
           rel="noopener noreferrer"
           target="_blank"
+          class="flex flex-row space-x-2 justify-center items-center text-center text-base sm:text-lg md:text-2xl hover:underline"
         >
-          <figure
-            class="text-center flex justify-center items-center hover:underline"
-          >
-            <img
-              alt="Facebook"
-              class="mx-auto w-8 mr-2"
-              src="@/assets/icons/facebook.svg"
-            />
-            <figcaption>SoftwareLabCenter</figcaption>
-          </figure>
-        </a>
-
-        <a
-          href="https://www.instagram.com/slcbinusuniv/"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          <figure
-            class="text-center mx-8 flex justify-center items-center hover:underline"
-          >
-            <img
-              alt="Instagram"
-              class="mx-auto w-8 mr-2"
-              src="@/assets/icons/instagram.svg"
-            />
-            <figcaption>slcbinusuniv</figcaption>
-          </figure>
-        </a>
-
-        <a
-          href="https://www.youtube.com/user/SoftwareLabCenter"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          <figure
-            class="text-center flex justify-center items-center hover:underline"
-          >
-            <img
-              alt="YouTube"
-              class="mx-auto w-8 mr-2"
-              src="@/assets/icons/youtube.svg"
-            />
-            <figcaption>Software Lab Center</figcaption>
-          </figure>
+          <font-awesome-icon
+            :icon="[social.icon.family, social.icon.name]"
+          ></font-awesome-icon>
+          <span>
+            {{ social.caption }}
+          </span>
         </a>
       </section>
     </section>
-  </div>
+  </the-layout>
 </template>
+
+<script>
+import { defineComponent } from "vue";
+import TheLayout from "@/components/about/TheLayout.vue";
+
+export default defineComponent({
+  components: { TheLayout },
+  data() {
+    return {
+      socials: [
+        {
+          icon: {
+            family: "fab",
+            name: "facebook"
+          },
+          alt: "Facebook",
+          caption: "SoftwareLabCenter",
+          link: "https://www.facebook.com/SoftwareLabCenter"
+        },
+        {
+          icon: {
+            family: "fab",
+            name: "instagram"
+          },
+          alt: "Instagram",
+          caption: "slcbinusuniv",
+          link: "https://www.instagram.com/slcbinusuniv"
+        },
+        {
+          icon: {
+            family: "fab",
+            name: "youtube"
+          },
+          alt: "YouTube",
+          caption: "Software Lab Center",
+          link: "https://www.facebook.com/SoftwareLabCenter"
+        }
+      ]
+    };
+  }
+});
+</script>

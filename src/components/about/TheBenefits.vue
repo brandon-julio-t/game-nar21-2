@@ -1,47 +1,31 @@
 <template>
-  <div>
-    <h1
-      class="text-center text-white font-bold text-5xl mb-5"
-      style="color: #B122FE"
-    >
-      What will you get?
-    </h1>
+  <the-layout class="max-w-4xl mx-auto">
+    <template v-slot:header>What will you get?</template>
 
-    <section class="my-0">
-      <h2 class="font-semibold mb-3">Hard Skills</h2>
-      <div class="flex justify-around items-center flex-wrap">
-        <div v-for="(icon, idx) in hardSkills" :key="idx">
-          <font-awesome-icon
-            :icon="[icon.family, icon.name]"
-            class="text-6xl mx-4 sm:mx-auto"
-          ></font-awesome-icon>
-        </div>
-      </div>
+    <section>
+      <h2 class="font-semibold mb-8 text-3xl">Hard Skills</h2>
+      <app-skills :skills="hardSkills"></app-skills>
     </section>
 
     <section class="mt-12">
-      <h2 class="font-semibold mb-3">Soft Skills</h2>
-      <div class="flex justify-center items-center flex-wrap">
-        <font-awesome-icon
-          v-for="(icon, idx) in softSkills"
-          :key="idx"
-          :icon="[icon.family, icon.name]"
-          class="text-6xl mx-4 sm:mx-auto"
-        ></font-awesome-icon>
-      </div>
+      <h2 class="font-semibold mb-8 text-3xl">Soft Skills</h2>
+      <app-skills :skills="softSkills"></app-skills>
     </section>
 
     <section class="mt-12">
-      <h2 class="font-semibold">Job Experiences</h2>
+      <h2 class="font-semibold text-3xl">Job Experiences</h2>
       <div></div>
     </section>
-  </div>
+  </the-layout>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import AppSkills from "@/components/about/AppSkills.vue";
+import TheLayout from "@/components/about/TheLayout.vue";
 
 export default defineComponent({
+  components: { AppSkills, TheLayout },
   data: () => ({
     hardSkills: [
       { family: "fa", tooltip: "SQL", name: "database" },
