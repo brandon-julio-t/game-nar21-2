@@ -2,7 +2,7 @@
   <the-layout class="rounded-xl md:rounded-none bg-gray-800 md:bg-none bg-opacity-40 md:bg-opacity-0 p-8 md:p-0">
     <template v-slot:header>BE ONE OF US!</template>
 
-    <section class="text-center text-3xl">
+    <section class="text-center text-2xl md:text-3xl">
       <h2>Open Registration</h2>
       <h3>
         <span class="font-semibold text-lionel-purple">27 January</span> 2021

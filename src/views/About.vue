@@ -4,7 +4,7 @@
       <!--  Trick to center div.container in the middle of the screen.  -->
     </div>
 
-    <div class="container py-8 px-16 relative">
+    <div class="container py-8 px-4 md:px-16 relative">
       <img
         v-for="(tab, idx) in tabs"
         :key="idx"
