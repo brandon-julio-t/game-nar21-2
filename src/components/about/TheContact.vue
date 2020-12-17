@@ -3,15 +3,15 @@
     <template v-slot:header>Contact Us</template>
 
     <section>
-      <h2 class="text-center text-3xl">For more information</h2>
+      <h2 class="text-center text-2xl md:text-3xl">For more information</h2>
 
-      <section class="text-center">
+      <section class="text-center text-xl md:text-2xl">
         <p>Contact us on :</p>
         <p>— Kemanggisan —</p>
         <h3 class="font-semibold text-lionel-purple">
           Christina / Hanni / Natasia
         </h3>
-        <p class="text-2xl">021-5345830 ext 1762 - Room 724</p>
+        <p class="text-xl md:text-2xl">021-5345830 ext 1762 - Room 724</p>
       </section>
 
       <section

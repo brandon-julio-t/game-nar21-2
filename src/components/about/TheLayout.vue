@@ -1,6 +1,6 @@
 <template>
   <div class="text-2xl">
-    <header class="text-center font-bold text-5xl text-lionel-purple">
+    <header class="text-center font-bold text-4xl md:text-5xl text-lionel-purple">
       <slot name="header"></slot>
     </header>
 
