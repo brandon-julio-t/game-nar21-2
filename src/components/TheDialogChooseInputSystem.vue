@@ -53,7 +53,6 @@ export default defineComponent({
 
     onUnmounted(() => {
       if (SL.value) {
-        console.log("clean");
         SL.value.cleanUp();
       }
     });

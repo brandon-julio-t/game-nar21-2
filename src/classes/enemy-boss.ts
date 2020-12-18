@@ -8,7 +8,7 @@ import store from "@/store";
 import CanGoOutOfBounds from "./interfaces/can-go-out-of-bounds";
 
 export default class EnemyBoss extends Enemy implements CanGoOutOfBounds {
-  private static readonly HEALTH: number = 750;
+  private static readonly HEALTH: number = 350;
   // private static readonly HEALTH: number = 1;
   private static readonly HEALTH_BAR_HEIGHT: number = 20;
   private static readonly SCALE_DOWN_RATIO: number = 0.35;

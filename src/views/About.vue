@@ -36,7 +36,6 @@ import TheRegistration from "@/components/about/TheRegistration.vue";
 import TheRequirements from "@/components/about/TheRequirements.vue";
 import TheTabs from "@/components/about/TheTabs.vue";
 import TheInitialTest from "@/components/about/TheInitialTest.vue";
-import Galaxy from "@/classes/core/galaxy";
 
 export default defineComponent({
   components: {
