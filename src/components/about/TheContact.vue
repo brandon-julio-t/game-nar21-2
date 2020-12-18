@@ -1,5 +1,7 @@
 <template>
-  <the-layout class="rounded-xl md:rounded-none bg-gray-800 md:bg-none bg-opacity-40 md:bg-opacity-0 p-12 md:p-0">
+  <the-layout
+    class="rounded-xl md:rounded-none bg-gray-800 md:bg-none bg-opacity-40 md:bg-opacity-0 p-12 md:p-0"
+  >
     <template v-slot:header>Contact Us</template>
 
     <section>
@@ -15,7 +17,7 @@
       </section>
 
       <section
-        class="flex flex-wrap justify-around mx-auto items-center mt-24 max-w-4xl"
+        class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-16 max-w-screen-md mx-auto"
       >
         <a
           v-for="(social, idx) in socials"
@@ -51,7 +53,6 @@ export default defineComponent({
             family: "fab",
             name: "facebook"
           },
-          alt: "Facebook",
           caption: "SoftwareLabCenter",
           link: "https://www.facebook.com/SoftwareLabCenter"
         },
@@ -60,7 +61,6 @@ export default defineComponent({
             family: "fab",
             name: "instagram"
           },
-          alt: "Instagram",
           caption: "slcbinusuniv",
           link: "https://www.instagram.com/slcbinusuniv"
         },
@@ -69,9 +69,16 @@ export default defineComponent({
             family: "fab",
             name: "youtube"
           },
-          alt: "YouTube",
           caption: "Software Lab Center",
           link: "https://www.facebook.com/SoftwareLabCenter"
+        },
+        {
+          icon: {
+            family: "fa",
+            name: "envelope"
+          },
+          caption: "recsel.slc@binus.edu",
+          link: "mailto:recsel.slc@binus.edu"
         }
       ]
     };

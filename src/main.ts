@@ -11,6 +11,7 @@ import {
   faBullhorn,
   faClock,
   faDatabase,
+  faEnvelope,
   faExclamationCircle,
   faFileSignature,
   faGamepad,
@@ -55,7 +56,8 @@ library.add(
   faMouse,
   faExclamationCircle,
   faGamepad,
-  faTimes
+  faTimes,
+  faEnvelope
 );
 
 createApp(App)
