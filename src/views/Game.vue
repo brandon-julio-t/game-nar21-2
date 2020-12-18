@@ -99,7 +99,6 @@ import {
   toRefs
 } from "vue";
 
-import IconController from "@/components/icons/IconController.vue";
 import AppButtonMainMenu from "@/components/AppButtonMainMenu.vue";
 import TheDialogChooseInputSystem from "@/components/TheDialogChooseInputSystem.vue";
 import TheDialogGameInstruction from "@/components/TheDialogGameInstruction.vue";
@@ -111,7 +110,6 @@ import store from "@/store";
 
 export default defineComponent({
   components: {
-    IconController,
     AppButtonMainMenu,
     TheDialogChooseInputSystem,
     TheDialogGameInstruction

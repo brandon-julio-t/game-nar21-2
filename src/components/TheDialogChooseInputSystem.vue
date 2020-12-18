@@ -1,9 +1,9 @@
 <template>
   <div
-    class="h-screen w-screen flex justify-center items-center absolute inset-0 bg-black bg-opacity-50 text-white"
+    class="h-screen w-screen flex justify-center items-center absolute inset-0 bg-black text-white"
   >
     <div
-      class="border-2 border-lionel-alternate bg-black bg-opacity-75 rounded-lg p-16 relative"
+      class="border-2 border-lionel-alternate bg-black bg-opacity-75 rounded-lg p-16 relative z-20"
     >
       <h1 class="font-bold text-center mb-8">Choose Input System</h1>
 
@@ -23,15 +23,18 @@
         <font-awesome-icon :icon="['fa', 'times']"></font-awesome-icon>
       </button>
     </div>
+
+    <canvas ref="SLakeCanvas" class="absolute inset-0 z-10"></canvas>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, onMounted, onUnmounted, ref } from "vue";
 
 import InputSystem from "@/classes/core/input-system";
 import AppButtonMainMenu from "./AppButtonMainMenu.vue";
 import store from "@/store";
+import SLake from "@/classes/core/SLake";
 
 export default defineComponent({
   components: { AppButtonMainMenu },
@@ -39,6 +42,22 @@ export default defineComponent({
   emits: ["play-game", "close-dialog"],
 
   setup(props, { emit }) {
+    const SLakeCanvas = ref<HTMLCanvasElement | null>(null);
+    const SL = ref<SLake | null>(null);
+
+    onMounted(() => {
+      if (SLakeCanvas.value) {
+        SL.value = new SLake(SLakeCanvas.value.transferControlToOffscreen());
+      }
+    });
+
+    onUnmounted(() => {
+      if (SL.value) {
+        console.log("clean");
+        SL.value.cleanUp();
+      }
+    });
+
     function playWithKeyboard() {
       InputSystem.useKeyboard();
       emit("play-game");
@@ -50,6 +69,7 @@ export default defineComponent({
     }
 
     return {
+      SLakeCanvas,
       InputSystem,
       playWithKeyboard,
       playWithMouse,

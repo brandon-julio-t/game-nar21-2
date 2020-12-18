@@ -79,8 +79,14 @@
     }
   }
 
+  @for $i from 1 through 4 {
+    .-z-#{$i} {
+      z-index: $i * -10;
+    }
+  }
+
   .z-none {
-    z-index: -1;
+    z-index: -9999;
   }
 }
 
