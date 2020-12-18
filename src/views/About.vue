@@ -72,9 +72,3 @@ export default defineComponent({
   }
 });
 </script>
-
-<style scoped>
-article {
-  font-family: "Montserrat", sans-serif;
-}
-</style>

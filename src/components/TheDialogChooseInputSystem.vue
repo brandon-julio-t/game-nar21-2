@@ -1,6 +1,7 @@
 <template>
   <div
-    class="h-screen w-screen flex justify-center items-center absolute inset-0 bg-black text-white"
+    class="h-screen w-screen flex justify-center items-center absolute inset-0 text-white"
+    style="background: #1b2f47;"
   >
     <div
       class="border-2 border-lionel-alternate bg-black bg-opacity-75 rounded-lg p-16 relative z-20"
