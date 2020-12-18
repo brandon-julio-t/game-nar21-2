@@ -3,7 +3,9 @@
     class="h-screen w-screen flex justify-center items-center absolute inset-0 text-white"
     style="background: #1b2f47;"
   >
-    <div class="bg-white bg-opacity-5 bg-blur rounded-3xl p-16 relative z-20">
+    <div
+      class="bg-white bg-opacity-5 bg-blur rounded-3xl p-16 relative z-20 border border-white border-opacity-5 shadow-2xl"
+    >
       <h1 class="font-bold text-center mb-8">Choose Input System</h1>
 
       <div class="grid grid-cols-2 gap-2 md:gap-4 lg:gap-8">
