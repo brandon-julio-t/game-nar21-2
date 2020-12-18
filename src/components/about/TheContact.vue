@@ -13,19 +13,29 @@
         <h3 class="font-semibold text-lionel-purple">
           Christina / Hanni / Natasia
         </h3>
-        <p class="text-xl md:text-2xl">021-5345830 ext 1762 - Room 724</p>
+        <p class="text-xl md:text-2xl">
+          <a class="hover:underline" href="tel:+62215345830">021-5345830</a>
+          ext 1762 - Room 724
+        </p>
+        <a
+          class="text-xl md:text-2xl hover:underline"
+          href="mailto:recsel.slc@binus.edu"
+        >
+          <font-awesome-icon :icon="['fa', 'envelope']"></font-awesome-icon>
+          recsel.slc@binus.edu
+        </a>
       </section>
 
       <section
-        class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-16 max-w-screen-md mx-auto"
+        class="flex flex-wrap justify-around mx-auto items-center mt-24 max-w-4xl"
       >
         <a
           v-for="(social, idx) in socials"
           :key="idx"
           :href="social.link"
+          class="flex flex-row space-x-2 justify-center items-center text-center text-base sm:text-lg md:text-2xl hover:underline"
           rel="noopener noreferrer"
           target="_blank"
-          class="flex flex-row space-x-2 justify-center items-center text-center text-base sm:text-lg md:text-2xl hover:underline"
         >
           <font-awesome-icon
             :icon="[social.icon.family, social.icon.name]"
@@ -71,14 +81,6 @@ export default defineComponent({
           },
           caption: "Software Lab Center",
           link: "https://www.facebook.com/SoftwareLabCenter"
-        },
-        {
-          icon: {
-            family: "fa",
-            name: "envelope"
-          },
-          caption: "recsel.slc@binus.edu",
-          link: "mailto:recsel.slc@binus.edu"
         }
       ]
     };
