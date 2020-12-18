@@ -1,5 +1,5 @@
 <template>
-  <div class="relative">
+  <div class="relative text-xl md:text-2xl">
     <section
       v-if="!store.isGaming"
       class="flex justify-center items-center w-screen h-screen m-0"
@@ -35,10 +35,10 @@
           </div>
           <app-button-main-menu
             v-else
-            class="flex justify-center items-center py-4 lg:py-8 mt-16 w-full"
+            class="py-4 lg:py-8 mt-16 w-full"
             @click="openChooseInputSystemModal = true"
           >
-            <icon-controller class="inline"></icon-controller>
+            <font-awesome-icon :icon="['fa', 'gamepad']"></font-awesome-icon>
             Play
           </app-button-main-menu>
         </div>
@@ -51,7 +51,10 @@
       />
     </section>
 
-    <div v-show="store.isGaming" class="w-screen h-screen relative overflow-hidden">
+    <div
+      v-show="store.isGaming"
+      class="w-screen h-screen relative overflow-hidden"
+    >
       <canvas ref="enemiesCanvas" class="absolute"></canvas>
       <canvas ref="playerCanvas" class="absolute"></canvas>
       <canvas ref="bulletsCanvas" class="absolute"></canvas>
@@ -59,7 +62,10 @@
     </div>
 
     <transition name="fade">
-      <div v-show="store.gameOver" class="absolute inset-0 h-screen w-screen flex justify-center items-center">
+      <div
+        v-show="store.gameOver"
+        class="absolute inset-0 h-screen w-screen flex justify-center items-center"
+      >
         <div
           :class="{
             'text-red-600': store.player?.isDead,
@@ -67,7 +73,9 @@
           }"
           class="w-full p-32 bg-black text-center"
         >
-          <h2 class="text-6xl">You {{ store.player?.isDead ? "Lose" : "Win" }}!</h2>
+          <h2 class="text-6xl">
+            You {{ store.player?.isDead ? "Lose" : "Win" }}!
+          </h2>
           <h3 v-if="!store.player?.isDead" class="text-3xl text-blue-600">
             In Honesty and Hard-work, We Strive for Excellence.
           </h3>
@@ -81,7 +89,15 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, onUnmounted, reactive, ref, toRefs } from "vue";
+import {
+  computed,
+  defineComponent,
+  onMounted,
+  onUnmounted,
+  reactive,
+  ref,
+  toRefs
+} from "vue";
 
 import IconController from "@/components/icons/IconController.vue";
 import AppButtonMainMenu from "@/components/AppButtonMainMenu.vue";
@@ -106,7 +122,9 @@ export default defineComponent({
       logoClicked: false,
       openChooseInputSystemModal: false,
       totalAssetsCount: computed(() => Object.keys(store.assets).length),
-      isLoadingFinished: computed(() => store.loadedAssetsCount === Object.keys(store.assets).length)
+      isLoadingFinished: computed(
+        () => store.loadedAssetsCount === Object.keys(store.assets).length
+      )
     });
 
     const backgroundImage = ref<HTMLImageElement | null>(null);
@@ -128,7 +146,7 @@ export default defineComponent({
 
     function playGame() {
       // Entry point A.K.A. main
-      store.gameBackground = backgroundImage.value
+      store.gameBackground = backgroundImage.value;
       Game.start(
         {
           bulletsCanvas: bulletsCanvas.value,

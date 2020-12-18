@@ -4,11 +4,10 @@ import PlayerBullet from "./player-bullet";
 import { playAudio } from "./core/utilities";
 import store from "@/store";
 import CanGoOutOfBounds from "./interfaces/can-go-out-of-bounds";
-import Vector2 from "./core/vector2";
 
 export default class Player extends Entity implements CanGoOutOfBounds {
-  // private static readonly HEALTH: number = 7;
-  private static readonly HEALTH: number = 1;
+  private static readonly HEALTH: number = 7;
+  // private static readonly HEALTH: number = 1;
   private static readonly HEALTH_BAR_HEIGHT: number = 10;
   private static readonly SCALE_DOWN_RATIO: number = 0.15;
   private static readonly SLOW_DOWN_RATIO: number = 0.5;
@@ -36,6 +35,8 @@ export default class Player extends Entity implements CanGoOutOfBounds {
   private isMovingBackward: boolean = true;
   private movingBackwardTimeoutId: number | null = null;
   private winCallbackTimeoutId: number | null = null;
+  private movingBackwardDelayTimeoutId: number | null = null;
+  private isDelayingMovingBackward: boolean = true;
 
   public constructor(x: number, y: number) {
     super(
@@ -53,6 +54,10 @@ export default class Player extends Entity implements CanGoOutOfBounds {
     const { player1, player2, player3, player4, player5 } = store.assets;
     this.ANIMATED_SPRITE = [player1, player2, player3, player4, player5];
     this.HIT_SPRITE = store.assets.playerHitSprite;
+  }
+
+  public get isOutOfBounds(): boolean {
+    return this.position.y - this.HEIGHT / 2 <= innerHeight;
   }
 
   protected get velocity(): number {
@@ -190,6 +195,38 @@ export default class Player extends Entity implements CanGoOutOfBounds {
     }
   }
 
+  public win(callback: () => void): void {
+    if (!this.movingBackwardDelayTimeoutId) {
+      this.movingBackwardDelayTimeoutId = setTimeout(
+        () => (this.isDelayingMovingBackward = false),
+        1000
+      );
+
+      return;
+    }
+
+    if (this.isDelayingMovingBackward) return;
+
+    if (this.isMovingBackward) {
+      if (!this.movingBackwardTimeoutId) {
+        this.movingBackwardTimeoutId = setTimeout(
+          () => (this.isMovingBackward = false),
+          1000
+        );
+      }
+
+      this.position.y += Math.abs(this.velocity) * 0.25;
+    } else {
+      this.position.y -= Math.abs(this.velocity) * 2;
+    }
+
+    if (this.isOutOfBounds && !this.winCallbackTimeoutId) {
+      this.winCallbackTimeoutId = setTimeout(() => {
+        callback();
+      }, 3000);
+    }
+  }
+
   private moveLeft(): void {
     if (!this.isMovingLeft) {
       return;
@@ -319,44 +356,5 @@ export default class Player extends Entity implements CanGoOutOfBounds {
       scaledHeight
     );
     ctx.restore();
-  }
-
-  private movingBackwardDelayTimeoutId: number | null = null;
-  private isDelayingMovingBackward: boolean = true;
-
-  public win(callback: () => void): void {
-    if (!this.movingBackwardDelayTimeoutId) {
-      this.movingBackwardDelayTimeoutId = setTimeout(
-        () => (this.isDelayingMovingBackward = false),
-        1000
-      );
-
-      return;
-    }
-
-    if (this.isDelayingMovingBackward) return;
-
-    if (this.isMovingBackward) {
-      if (!this.movingBackwardTimeoutId) {
-        this.movingBackwardTimeoutId = setTimeout(
-          () => (this.isMovingBackward = false),
-          1000
-        );
-      }
-
-      this.position.y += Math.abs(this.velocity) * 0.25;
-    } else {
-      this.position.y -= Math.abs(this.velocity) * 2;
-    }
-
-    if (this.isOutOfBounds && !this.winCallbackTimeoutId) {
-      this.winCallbackTimeoutId = setTimeout(() => {
-        callback();
-      }, 3000);
-    }
-  }
-
-  public get isOutOfBounds(): boolean {
-    return this.position.y - this.HEIGHT / 2 <= innerHeight;
   }
 }

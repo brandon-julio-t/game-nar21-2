@@ -28,13 +28,14 @@ import Environment from "./classes/core/environment";
 import Galaxy from "./classes/core/galaxy";
 import InputSystem from "./classes/core/input-system";
 import store from "./store";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 
 export default defineComponent({
   setup() {
     const galaxyStars = ref<HTMLCanvasElement | null>(null);
     const galaxyBackground = ref<HTMLCanvasElement | null>(null);
 
+    const router = useRouter();
     const route = useRoute();
 
     onMounted(() => {
@@ -42,6 +43,9 @@ export default defineComponent({
         document.oncontextmenu = e => e.preventDefault();
         InputSystem.disableInspectElement();
       }
+
+      router.afterEach(() => handleGalaxyBackground(store.isGaming));
+      watch(() => store.isGaming, handleGalaxyBackground);
 
       const galaxy = new Galaxy(galaxyBackground.value, galaxyStars.value);
 
@@ -51,8 +55,6 @@ export default defineComponent({
         if (!isGaming) galaxy.play(isIndex);
         else galaxy.pause();
       }
-
-      watch(() => store.isGaming, handleGalaxyBackground);
 
       handleGalaxyBackground(store.isGaming);
     });

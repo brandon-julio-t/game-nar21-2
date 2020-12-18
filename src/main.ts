@@ -11,8 +11,14 @@ import {
   faBullhorn,
   faClock,
   faDatabase,
+  faExclamationCircle,
   faFileSignature,
+  faGamepad,
   faGraduationCap,
+  faKeyboard,
+  faMouse,
+  faQuestionCircle,
+  faTimes,
   faUserFriends,
   faUsers
 } from "@fortawesome/free-solid-svg-icons";
@@ -21,11 +27,11 @@ import {
   faAndroid,
   faAngular,
   faBootstrap,
+  faFacebook,
+  faInstagram,
   faJs,
   faLaravel,
-  faYoutube,
-  faFacebook,
-  faInstagram
+  faYoutube
 } from "@fortawesome/free-brands-svg-icons";
 
 library.add(
@@ -43,7 +49,13 @@ library.add(
   faBootstrap,
   faYoutube,
   faFacebook,
-  faInstagram
+  faInstagram,
+  faQuestionCircle,
+  faKeyboard,
+  faMouse,
+  faExclamationCircle,
+  faGamepad,
+  faTimes
 );
 
 createApp(App)

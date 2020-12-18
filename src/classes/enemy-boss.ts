@@ -8,8 +8,8 @@ import store from "@/store";
 import CanGoOutOfBounds from "./interfaces/can-go-out-of-bounds";
 
 export default class EnemyBoss extends Enemy implements CanGoOutOfBounds {
-  // private static readonly HEALTH: number = 750;
-  private static readonly HEALTH: number = 1;
+  private static readonly HEALTH: number = 750;
+  // private static readonly HEALTH: number = 1;
   private static readonly HEALTH_BAR_HEIGHT: number = 20;
   private static readonly SCALE_DOWN_RATIO: number = 0.35;
   private static readonly VELOCITY: number = 3;
@@ -25,6 +25,12 @@ export default class EnemyBoss extends Enemy implements CanGoOutOfBounds {
   private isMovingBackward: boolean = true;
   private movingBackwardTimeoutId: number | null = null;
   private winCallbackTimeoutId: number | null = null;
+  private explodingSpriteXPositions: number[] = [];
+  private explodingSpriteYPositions: number[] = [];
+  private explodingSpriteColIdxs: number[] = [];
+  private explodingSpriteRowIdxs: number[] = [];
+  private explodingSpritesCount: number = 0;
+  private lastExplodingSpriteTime: number = 0;
 
   public constructor() {
     super(
@@ -65,6 +71,10 @@ export default class EnemyBoss extends Enemy implements CanGoOutOfBounds {
       enemy8,
       enemy9
     ];
+  }
+
+  public get isOutOfBounds(): boolean {
+    return this.position.y - this.HEIGHT / 2 >= innerHeight;
   }
 
   private get isStageTwo(): boolean {
@@ -152,61 +162,6 @@ export default class EnemyBoss extends Enemy implements CanGoOutOfBounds {
     playBgm(this.currentStage);
   }
 
-  protected die(): void {
-    super.die();
-    store.enemiesKilledCount += 10; // 10 * 100 == 1000
-  }
-
-  private handleStageOneBullets(x: number, y: number): void {
-    store.bullets.splice(0, 0, new EnemyBulletCircle(x, y));
-  }
-
-  private handleStageTwoBullets(x: number, y: number): void {
-    if (Date.now() >= this.nextCircleBulletShootTime && this.isStageTwo) {
-      this.currentStage = 2;
-
-      const velocity: number = randomIntegerBetween(3, 5);
-      for (let degree = 0; degree < 360; degree += Math.PI) {
-        const direction: Vector2 = Vector2.fromRadian(degree).normalized();
-
-        store.bullets.splice(
-          0,
-          0,
-          new EnemyBulletCircle(
-            x,
-            y,
-            direction.x * velocity,
-            direction.y * velocity
-          )
-        );
-      }
-
-      this.nextCircleBulletShootTime =
-        Date.now() + this.CIRCLE_BULLET_SPAWN_TIME;
-    }
-  }
-
-  private handleStageThreeBullets(x: number, y: number): void {
-    if (Date.now() >= this.nextLaserBulletShootTime && this.isStageThree) {
-      this.currentStage = 3;
-
-      const velocity: number = 12;
-      store.bullets.splice(
-        0,
-        0,
-        new EnemyBulletLaser(x, y, velocity, velocity)
-      );
-      this.nextLaserBulletShootTime = Date.now() + this.LASER_BULLET_SPAWN_TIME;
-    }
-  }
-
-  private explodingSpriteXPositions: number[] = [];
-  private explodingSpriteYPositions: number[] = [];
-  private explodingSpriteColIdxs: number[] = [];
-  private explodingSpriteRowIdxs: number[] = [];
-  private explodingSpritesCount: number = 0;
-  private lastExplodingSpriteTime: number = 0;
-
   public win(
     callback: () => void,
     ctx: OffscreenCanvasRenderingContext2D
@@ -266,7 +221,51 @@ export default class EnemyBoss extends Enemy implements CanGoOutOfBounds {
     }
   }
 
-  public get isOutOfBounds(): boolean {
-    return this.position.y - this.HEIGHT / 2 >= innerHeight;
+  protected die(): void {
+    super.die();
+    store.enemiesKilledCount += 10; // 10 * 100 == 1000
+  }
+
+  private handleStageOneBullets(x: number, y: number): void {
+    store.bullets.splice(0, 0, new EnemyBulletCircle(x, y));
+  }
+
+  private handleStageTwoBullets(x: number, y: number): void {
+    if (Date.now() >= this.nextCircleBulletShootTime && this.isStageTwo) {
+      this.currentStage = 2;
+
+      const velocity: number = randomIntegerBetween(3, 5);
+      for (let degree = 0; degree < 360; degree += Math.PI) {
+        const direction: Vector2 = Vector2.fromRadian(degree).normalized();
+
+        store.bullets.splice(
+          0,
+          0,
+          new EnemyBulletCircle(
+            x,
+            y,
+            direction.x * velocity,
+            direction.y * velocity
+          )
+        );
+      }
+
+      this.nextCircleBulletShootTime =
+        Date.now() + this.CIRCLE_BULLET_SPAWN_TIME;
+    }
+  }
+
+  private handleStageThreeBullets(x: number, y: number): void {
+    if (Date.now() >= this.nextLaserBulletShootTime && this.isStageThree) {
+      this.currentStage = 3;
+
+      const velocity: number = 12;
+      store.bullets.splice(
+        0,
+        0,
+        new EnemyBulletLaser(x, y, velocity, velocity)
+      );
+      this.nextLaserBulletShootTime = Date.now() + this.LASER_BULLET_SPAWN_TIME;
+    }
   }
 }

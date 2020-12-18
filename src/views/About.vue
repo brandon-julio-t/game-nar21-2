@@ -78,9 +78,4 @@ export default defineComponent({
 article {
   font-family: "Montserrat", sans-serif;
 }
-
-.container {
-  background-size: cover;
-  background-repeat: no-repeat;
-}
 </style>
