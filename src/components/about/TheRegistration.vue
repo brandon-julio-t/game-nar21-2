@@ -1,8 +1,8 @@
 <template>
-  <the-layout>
+  <the-layout class="rounded-xl md:rounded-none bg-gray-800 md:bg-none bg-opacity-40 md:bg-opacity-0 p-8 md:p-0">
     <template v-slot:header>BE ONE OF US!</template>
 
-    <section class="text-center">
+    <section class="text-center text-2xl md:text-3xl leading-6">
       <h2>Open Registration</h2>
       <h3>
         <span class="font-semibold text-lionel-purple">27 January</span> 2021
@@ -18,7 +18,7 @@
         rel="noopener noreferrer"
       >
         <button
-          class="py-4 px-8 rounded-full bg-primary tracking-widest mt-24 uppercase"
+          class="py-4 px-8 rounded-full bg-primary mt-16 md:mt-20 shadow-2xl uppercase outline-none border-purple-900 border-2"
         >
           Register Here
         </button>
@@ -29,12 +29,12 @@
 
 <style scoped>
 button {
-  background-color: #1b1464;
+  background-color: #231a84;
   color: #fff;
 }
 
 button:hover {
-  background-color: #231a84;
+  background-color: #2a1fa1;
 }
 </style>
 

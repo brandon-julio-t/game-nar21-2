@@ -1,21 +1,21 @@
 <template>
-  <the-layout>
+  <the-layout class="rounded-xl md:rounded-none bg-gray-800 md:bg-none bg-opacity-40 md:bg-opacity-0 p-12 md:p-0">
     <template v-slot:header>Contact Us</template>
 
     <section>
-      <h2 class="text-center text-3xl">For more information</h2>
+      <h2 class="text-center text-2xl md:text-3xl">For more information</h2>
 
-      <section class="text-center">
+      <section class="text-center text-xl md:text-2xl">
         <p>Contact us on :</p>
         <p>— Kemanggisan —</p>
         <h3 class="font-semibold text-lionel-purple">
           Christina / Hanni / Natasia
         </h3>
-        <p class="text-2xl">021-5345830 ext 1762 - Room 724</p>
+        <p class="text-xl md:text-2xl">021-5345830 ext 1762 - Room 724</p>
       </section>
 
       <section
-        class="flex flex-wrap justify-around items-center mt-16 max-w-4xl mx-auto"
+        class="flex flex-wrap justify-around mx-auto items-center mt-24 max-w-4xl"
       >
         <a
           v-for="(social, idx) in socials"

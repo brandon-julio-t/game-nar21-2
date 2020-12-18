@@ -1,18 +1,18 @@
 <template>
-  <the-layout class="max-w-4xl mx-auto">
+  <the-layout class="max-w-4xl mx-auto rounded-xl md:rounded-none bg-gray-800 md:bg-none bg-opacity-40 md:bg-opacity-0 py-12 px-8 md:p-0">
     <template v-slot:header>What will you get?</template>
 
     <section>
-      <h2 class="font-semibold mb-8 text-3xl">Hard Skills</h2>
+      <h2 class="font-semibold mb-8 text-3xl text-center md:text-left">Hard Skills</h2>
       <app-skills :skills="hardSkills"></app-skills>
     </section>
 
-    <section class="mt-12">
-      <h2 class="font-semibold mb-8 text-3xl">Soft Skills</h2>
+    <section>
+      <h2 class="font-semibold mb-8 text-3xl text-center md:text-left">Soft Skills</h2>
       <app-skills :skills="softSkills"></app-skills>
     </section>
 
-    <section class="mt-12">
+    <section>
       <h2 class="font-semibold text-3xl">Job Experiences</h2>
       <div></div>
     </section>
