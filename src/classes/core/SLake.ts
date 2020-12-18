@@ -4,7 +4,7 @@ import Snake from "@/classes/core/Snake";
 export default class SLake {
   private ctx: OffscreenCanvasRenderingContext2D;
 
-  private maxSnakesCount = Math.floor(innerWidth / 50); // "The more the merrier" - SL19-2
+  private maxSnakesCount = Math.floor(innerWidth / 50); // "The more the merrier" - SL19-1
   private points: Point[][] = [];
   private snakes: Snake[] = [];
   private animationFrameId: number = -1;
@@ -15,8 +15,11 @@ export default class SLake {
 
     this.ctx = canvas.getContext("2d") as OffscreenCanvasRenderingContext2D;
 
-    const rowGapRatio = innerHeight / 20;
-    const colGapRatio = innerWidth / 40;
+    const rowCount = 24;
+    const colCount = 48;
+
+    const rowGapRatio = innerHeight / rowCount;
+    const colGapRatio = innerWidth / colCount;
 
     for (
       let row = -rowGapRatio;
@@ -40,8 +43,8 @@ export default class SLake {
     onmousemove = e => {
       if (this.snakes.length < this.maxSnakesCount) {
         const { clientX, clientY } = e;
-        const row = Math.round((clientY / innerHeight) * 20);
-        const col = Math.round((clientX / innerWidth) * 40);
+        const row = Math.round((clientY / innerHeight) * rowCount);
+        const col = Math.round((clientX / innerWidth) * colCount);
 
         this.snakes.push(new Snake(row + 1, col + 1)); // +1 because row & col starts from negative and ends after limit according to gap ratio
       }
@@ -79,7 +82,7 @@ export default class SLake {
         this.ctx.beginPath();
         this.ctx.moveTo(currPoint.x, currPoint.y);
         this.ctx.lineTo(nextPoint.x, nextPoint.y);
-        this.ctx.lineWidth = 5;
+        this.ctx.lineWidth = 8;
         this.ctx.stroke();
       });
 
