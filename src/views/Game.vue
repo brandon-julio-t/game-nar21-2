@@ -15,14 +15,15 @@
 
       <div
         v-else
-        class="flex justify-center items-center p-16 rounded-lg bg-black bg-opacity-75 border-2 border-lionel-alternate text-white"
+        class="flex justify-center items-center p-16 rounded-lg shadow-xl instruction bg-opacity-75 text-white"
       >
         <div>
           <the-dialog-game-instruction></the-dialog-game-instruction>
 
           <div
             v-if="!isLoadingFinished"
-            class="mt-8 p-16 rounded bg-black text-white text-center"
+            class="mt-8 p-16 rounded text-white text-center"
+            style="background: #142335"
           >
             <h1>Loading...</h1>
             <h2>
@@ -35,7 +36,7 @@
           </div>
           <app-button-main-menu
             v-else
-            class="py-4 lg:py-8 mt-16 w-full"
+            class="py-4 lg:py-8 mt-20 w-full"
             @click="openChooseInputSystemModal = true"
           >
             <font-awesome-icon :icon="['fa', 'gamepad']"></font-awesome-icon>
@@ -87,6 +88,12 @@
     </transition>
   </div>
 </template>
+
+<style scoped>
+.instruction {
+  background: #1b2f47;
+}
+</style>
 
 <script lang="ts">
 import {
