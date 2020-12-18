@@ -54,7 +54,7 @@ export default class Galaxy {
     }
   }
 
-  public play(): void {
+  public play(isIndex: boolean): void {
     onresize = () => {
       const main = document.querySelector("main");
 
@@ -63,10 +63,10 @@ export default class Galaxy {
       this.starsCtx.canvas.width = this.backgroundCtx.canvas.width = innerWidth;
       this.starsCtx.canvas.height = this.backgroundCtx.canvas.height = innerHeight;
 
-      this.drawBackground();
+      this.drawBackground(isIndex);
     };
 
-    this.drawBackground();
+    this.drawBackground(isIndex);
 
     const FPSInterval = 1000 / 60;
     let lastFrameTime = Date.now();
@@ -103,7 +103,7 @@ export default class Galaxy {
     cancelAnimationFrame(this.animationId);
   }
 
-  private drawBackground(): void {
+  private drawBackground(isIndex: boolean): void {
     if (!this.backgroundCtx) return;
 
     const { height, width } = this.backgroundCtx.canvas;
@@ -116,7 +116,7 @@ export default class Galaxy {
       height / 2,
       width * 2
     );
-    leftCloud.addColorStop(0, "#3D2288");
+    leftCloud.addColorStop(0, isIndex ? "#007ACE" : "#3D2288");
     leftCloud.addColorStop(1, "rgb(0, 0, 0, 0)");
 
     this.backgroundCtx.fillStyle = leftCloud;
@@ -130,7 +130,7 @@ export default class Galaxy {
       height / 2,
       width * 2
     );
-    rightCloud.addColorStop(0, "#2D1C70");
+    rightCloud.addColorStop(0, isIndex ? "#243C5A" : "#2D1C70");
     rightCloud.addColorStop(1, "rgb(0, 0, 0, 0)");
 
     this.backgroundCtx.fillStyle = rightCloud;
