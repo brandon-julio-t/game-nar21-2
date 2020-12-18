@@ -27,7 +27,7 @@
       </section>
 
       <section
-        class="flex flex-wrap justify-around mx-auto items-center mt-24 max-w-4xl"
+        class="flex flex-wrap justify-around mx-auto items-center mt-16 max-w-4xl"
       >
         <a
           v-for="(social, idx) in socials"
