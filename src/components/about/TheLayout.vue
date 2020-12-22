@@ -6,7 +6,7 @@
       <slot name="header"></slot>
     </header>
 
-    <div class="my-8 md:my-10"></div>
+    <div class="my-8 md:my-14"></div>
 
     <slot></slot>
   </div>

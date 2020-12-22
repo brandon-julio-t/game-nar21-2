@@ -217,7 +217,7 @@ export default class EnemyBoss extends Enemy implements CanGoOutOfBounds {
     if (!this.winCallbackTimeoutId) {
       this.winCallbackTimeoutId = setTimeout(() => {
         callback();
-      }, 4500);
+      }, 3750);
     }
   }
 

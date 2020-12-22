@@ -7,16 +7,18 @@
     <div class="flex items-center">
       <div class="w-full">
         <section class="text-center text-2xl md:text-3xl leading-6">
-          <h2>Open Registration</h2>
-          <h3>
-            <span class="font-semibold text-lionel-purple">27 January</span>
-            2021
-          </h3>
-          <p>Until</p>
-          <h3>
-            <span class="font-semibold text-lionel-purple">12 February</span>
-            2021
-          </h3>
+          <div class="leading-relaxed">
+            <h2>Open Registration</h2>
+            <h3>
+              <span class="font-semibold text-lionel-purple">27 January</span>
+              2021
+            </h3>
+            <p>Until</p>
+            <h3>
+              <span class="font-semibold text-lionel-purple">12 February</span>
+              2021
+            </h3>
+          </div>
 
           <a
             href="https://bluejack.binus.ac.id/lab"
