@@ -8,7 +8,7 @@ import store from "@/store";
 import CanGoOutOfBounds from "./interfaces/can-go-out-of-bounds";
 
 export default class EnemyBoss extends Enemy implements CanGoOutOfBounds {
-  private static readonly HEALTH: number = 500;
+  private static readonly HEALTH: number = 400;
   // private static readonly HEALTH: number = 1;
   private static readonly HEALTH_BAR_HEIGHT: number = 20;
   private static readonly SCALE_DOWN_RATIO: number = 0.35;
@@ -217,7 +217,7 @@ export default class EnemyBoss extends Enemy implements CanGoOutOfBounds {
     if (!this.winCallbackTimeoutId) {
       this.winCallbackTimeoutId = setTimeout(() => {
         callback();
-      }, 3000);
+      }, 4500);
     }
   }
 

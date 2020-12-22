@@ -223,7 +223,7 @@ export default class Player extends Entity implements CanGoOutOfBounds {
     if (this.isOutOfBounds && !this.winCallbackTimeoutId) {
       this.winCallbackTimeoutId = setTimeout(() => {
         callback();
-      }, 3000);
+      }, 4500);
     }
   }
 

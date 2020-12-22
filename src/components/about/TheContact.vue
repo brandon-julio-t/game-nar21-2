@@ -8,20 +8,20 @@
     <div class="flex items-center">
       <div class="w-full">
         <section>
-          <h2 class="text-center text-2xl md:text-3xl">For more information</h2>
+          <h2 class="text-center text-xl md:text-3xl">For more information</h2>
 
-          <section class="text-center text-xl md:text-2xl">
+          <section class="text-center text-lg md:text-2xl">
             <p>Contact us on :</p>
             <p>— Kemanggisan —</p>
             <h3 class="font-semibold text-lionel-purple">
               Christina / Hanni / Natasia
             </h3>
-            <p class="text-xl md:text-2xl">
+            <p class="text-lg md:text-2xl">
               <a class="hover:underline" href="tel:+62215345830">021-5345830</a>
               ext 1762 - Room 724
             </p>
             <a
-              class="text-xl md:text-2xl hover:underline"
+              class="text-lg md:text-2xl hover:underline"
               href="mailto:recsel.slc@binus.edu"
             >
               <font-awesome-icon :icon="['fa', 'envelope']"></font-awesome-icon>
