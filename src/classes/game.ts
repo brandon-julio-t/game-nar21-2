@@ -14,6 +14,7 @@ import router from "@/router";
 export default class Game {
   private static readonly FPS: number = 60;
   private static readonly MINI_ENEMY_SPAWN_TIME = 2500; // 1 enemy per 3 seconds
+  private static readonly DEFAULT_BG_COUNTER_INCREMENTER: number = 3;
 
   private static contextsGroup: ContextsGroup;
   private static enemy: EnemyBoss;
@@ -21,7 +22,7 @@ export default class Game {
   private static nextTimeToSpawnMiniEnemy: number = Date.now();
   private static player: Player;
   private static bgCounter: number = 0;
-  private static bgCounterIncrementer: number = 10;
+  private static bgCounterIncrementer: number;
   private static bgCounterIncrementerChangeTimeoutId: number | null = null;
 
   private static animationId: number | null = null;
@@ -36,7 +37,7 @@ export default class Game {
   ): void {
     Object.values(canvasesGroup).forEach(canvas => this.prepareCanvas(canvas));
 
-    let contexts: ContextsGroup = {
+    const contexts: ContextsGroup = {
       bulletsCtx: getContext(canvasesGroup.bulletsCanvas),
       enemiesCtx: getContext(canvasesGroup.enemiesCanvas),
       playerCtx: getContext(canvasesGroup.playerCanvas)
@@ -58,6 +59,7 @@ export default class Game {
     this.enemy = store.enemy = new EnemyBoss();
     this.meteor = new Meteor();
     this.player = store.player = this.preparePlayer();
+    this.bgCounterIncrementer = this.DEFAULT_BG_COUNTER_INCREMENTER;
     this.prepareBackgroundMusic();
 
     this.play();
@@ -90,7 +92,7 @@ export default class Game {
     }
 
     this.bgCounter = 0;
-    this.bgCounterIncrementer = 10;
+    this.bgCounterIncrementer = this.DEFAULT_BG_COUNTER_INCREMENTER;
     this.bgCounterIncrementerChangeTimeoutId = null;
   }
 
