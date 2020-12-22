@@ -19,7 +19,7 @@
     </section>
 
     <section>
-      <h2 class="font-semibold text-3xl text-center">Job Experiences</h2>
+      <h2 class="font-semibold text-3xl text-center md:text-left">Job Experiences</h2>
       <div></div>
     </section>
   </the-layout>
@@ -39,7 +39,8 @@ export default defineComponent({
         { family: "fab", name: "js", tooltip: "JavaScript" },
         { family: "fab", name: "laravel", tooltip: "Laravel" },
         { family: "fab", name: "angular", tooltip: "Angular" },
-        { family: "fab", name: "android", tooltip: "Android" }
+        { family: "fab", name: "android", tooltip: "Android" },
+        { family: "fa", name: "ellipsis-h", tooltip: "Many More" }
       ],
       softSkills: [
         { family: "fa", name: "clock", tooltip: "Time Management" },

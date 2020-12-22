@@ -25,7 +25,7 @@
             target="_blank"
           >
             <button
-              class="py-4 px-8 rounded-full bg-primary mt-16 md:mt-20 shadow-2xl uppercase outline-none border-purple-900 border-2"
+              class="py-4 px-8 rounded-full bg-primary text-xl md:text-3xl mt-16 md:mt-20 shadow-2xl uppercase outline-none border-purple-900 border-2"
             >
               Register Here
             </button>

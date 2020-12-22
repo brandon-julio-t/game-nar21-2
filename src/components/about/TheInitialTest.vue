@@ -5,7 +5,7 @@
   >
     <template v-slot:header>Initial Test</template>
 
-    <div class="flex items-center">
+    <div class="flex">
       <div>
         <section class="text-xl md:text-3xl">
           <h2>
