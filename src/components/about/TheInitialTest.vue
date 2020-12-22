@@ -4,7 +4,7 @@
   >
     <template v-slot:header>Initial Test</template>
 
-    <div class="flex">
+    <div class="flex justify-center">
       <div>
         <section class="text-xl md:text-3xl">
           <h2>
