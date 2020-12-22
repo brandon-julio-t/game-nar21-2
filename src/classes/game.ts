@@ -15,6 +15,7 @@ export default class Game {
   private static readonly FPS: number = 60;
   private static readonly MINI_ENEMY_SPAWN_TIME = 2500; // 1 enemy per 3 seconds
   private static readonly DEFAULT_BG_COUNTER_INCREMENTER: number = 4;
+  private static readonly MAX_MINI_ENEMIES_COUNT = 3;
 
   private static contextsGroup: ContextsGroup;
   private static enemy: EnemyBoss;
@@ -212,10 +213,11 @@ export default class Game {
     if (this.player?.isDead) return;
 
     const timeToSpawn = Date.now() >= this.nextTimeToSpawnMiniEnemy;
-    const spawnedEnemiesAreLessThanSeven = store.miniEnemies.length < 7;
+    const isBelowCountLimit =
+      store.miniEnemies.length < this.MAX_MINI_ENEMIES_COUNT;
 
     if (
-      spawnedEnemiesAreLessThanSeven &&
+      isBelowCountLimit &&
       timeToSpawn &&
       !store.enemy?.isEntering &&
       !this.enemy.isDead
@@ -255,6 +257,8 @@ export default class Game {
 
       return true;
     });
+
+    console.log(store.bullets.length);
   }
 
   private static handleMeteor(): void {
