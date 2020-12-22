@@ -1,7 +1,6 @@
 <template>
   <the-layout
     class="rounded-xl md:rounded-none bg-gray-800 md:bg-none bg-opacity-40 md:bg-opacity-0 p-8 md:p-0 flex flex-col"
-    style="min-height: inherit;"
   >
     <template v-slot:header>BE ONE OF US!</template>
 

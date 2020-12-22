@@ -20,7 +20,7 @@
 
       <div class="my-16"></div>
 
-      <section style="min-height: 650px;">
+      <section style="min-height: 40rem;">
         <component :is="currentTab"></component>
       </section>
     </div>
