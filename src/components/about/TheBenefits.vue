@@ -1,19 +1,25 @@
 <template>
-  <the-layout class="max-w-4xl mx-auto rounded-xl md:rounded-none bg-gray-800 md:bg-none bg-opacity-40 md:bg-opacity-0 py-12 px-8 md:p-0">
+  <the-layout
+    class="max-w-4xl mx-auto rounded-xl md:rounded-none bg-gray-800 md:bg-none bg-opacity-40 md:bg-opacity-0 py-12 px-8 md:p-0"
+  >
     <template v-slot:header>What will you get?</template>
 
     <section>
-      <h2 class="font-semibold mb-8 text-3xl text-center md:text-left">Hard Skills</h2>
+      <h2 class="font-semibold mb-8 text-3xl text-center md:text-left">
+        Hard Skills
+      </h2>
       <app-skills :skills="hardSkills"></app-skills>
     </section>
 
     <section>
-      <h2 class="font-semibold mb-8 text-3xl text-center md:text-left">Soft Skills</h2>
+      <h2 class="font-semibold mb-8 text-3xl text-center md:text-left">
+        Soft Skills
+      </h2>
       <app-skills :skills="softSkills"></app-skills>
     </section>
 
     <section>
-      <h2 class="font-semibold text-3xl">Job Experiences</h2>
+      <h2 class="font-semibold text-3xl text-center">Job Experiences</h2>
       <div></div>
     </section>
   </the-layout>
@@ -26,20 +32,23 @@ import TheLayout from "@/components/about/TheLayout.vue";
 
 export default defineComponent({
   components: { AppSkills, TheLayout },
-  data: () => ({
-    hardSkills: [
-      { family: "fa", tooltip: "SQL", name: "database" },
-      { family: "fab", tooltip: "JavaScript", name: "js" },
-      { family: "fab", tooltip: "Laravel", name: "laravel" },
-      { family: "fab", tooltip: "Angular", name: "angular" },
-      { family: "fab", tooltip: "Android", name: "android" }
-    ],
-    softSkills: [
-      { family: "fa", tooltip: "Time Management", name: "clock" },
-      { family: "fa", tooltip: "Networking", name: "users" },
-      { family: "fa", tooltip: "Public Speaking", name: "bullhorn" },
-      { family: "fa", tooltip: "Teamwork", name: "user-friends" }
-    ]
-  })
+  data() {
+    return {
+      hardSkills: [
+        { family: "fa", name: "database", tooltip: "SQL" },
+        { family: "fab", name: "js", tooltip: "JavaScript" },
+        { family: "fab", name: "laravel", tooltip: "Laravel" },
+        { family: "fab", name: "angular", tooltip: "Angular" },
+        { family: "fab", name: "android", tooltip: "Android" }
+      ],
+      softSkills: [
+        { family: "fa", name: "clock", tooltip: "Time Management" },
+        { family: "fa", name: "users", tooltip: "Networking" },
+        { family: "fa", name: "bullhorn", tooltip: "Public Speaking" },
+        { family: "fa", name: "user-friends", tooltip: "Teamwork" },
+        { family: "fa", name: "ellipsis-h", tooltip: "Many More" }
+      ]
+    };
+  }
 });
 </script>

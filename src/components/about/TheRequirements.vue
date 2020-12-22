@@ -1,8 +1,12 @@
 <template>
-  <the-layout class="rounded-xl md:rounded-none bg-gray-600 md:bg-none bg-opacity-40 md:bg-opacity-0 py-12 px-6 md:p-0">
+  <the-layout
+    class="rounded-xl md:rounded-none bg-gray-600 md:bg-none bg-opacity-40 md:bg-opacity-0 py-12 px-6 md:p-0"
+  >
     <template v-slot:header class="text-red-800">Require&shy;ments</template>
 
-    <section class="grid grid-flow-row grid-cols-1 md:grid-cols-2 gap-y-16 gap-x-16 md:gap-y-16 md:gap-x-12 max-w-4xl mx-auto mb-12 md:mb-0">
+    <section
+      class="grid grid-flow-row grid-cols-1 md:grid-cols-2 gap-y-16 gap-x-16 md:gap-y-16 md:gap-x-12 max-w-4xl mx-auto mb-12 md:mb-0"
+    >
       <div v-for="(requirement, idx) in requirements" :key="idx">
         <font-awesome-icon
           v-if="requirement.icon"
@@ -34,7 +38,7 @@ export default defineComponent({
     return {
       requirements: [
         {
-          img: "/images/requirement-binusian.webp",
+          img: "/images/requirement-binusian.svg",
           desc: "Must be a binusian",
           family: null,
           icon: null

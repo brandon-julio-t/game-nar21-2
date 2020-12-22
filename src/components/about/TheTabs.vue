@@ -36,7 +36,7 @@ export default defineComponent({
       onButtonClick,
       tabs: [
         { name: "TheBenefits", label: "Benefits" },
-        { name: "TheRequirements", label: "Req." },
+        { name: "TheRequirements", label: "Requirements" },
         { name: "TheInitialTest", label: "Initial Test" },
         { name: "TheRegistration", label: "Registration" },
         { name: "TheContact", label: "Contact" }
