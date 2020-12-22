@@ -14,7 +14,7 @@ import router from "@/router";
 export default class Game {
   private static readonly FPS: number = 60;
   private static readonly MINI_ENEMY_SPAWN_TIME = 2500; // 1 enemy per 3 seconds
-  private static readonly DEFAULT_BG_COUNTER_INCREMENTER: number = 3;
+  private static readonly DEFAULT_BG_COUNTER_INCREMENTER: number = 7;
 
   private static contextsGroup: ContextsGroup;
   private static enemy: EnemyBoss;

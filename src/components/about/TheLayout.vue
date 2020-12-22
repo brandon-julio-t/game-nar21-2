@@ -1,10 +1,12 @@
 <template>
   <div class="text-2xl">
-    <header class="text-center font-bold text-4xl md:text-5xl text-lionel-purple">
+    <header
+      class="text-center font-bold text-4xl md:text-5xl text-lionel-purple"
+    >
       <slot name="header"></slot>
     </header>
 
-    <div class="my-6 md:my-10"></div>
+    <div class="my-8 md:my-10"></div>
 
     <slot></slot>
   </div>

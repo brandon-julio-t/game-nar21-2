@@ -28,7 +28,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, onMounted, onUnmounted, ref } from "vue";
 
 import TheBenefits from "@/components/about/TheBenefits.vue";
 import TheContact from "@/components/about/TheContact.vue";
@@ -62,6 +62,19 @@ export default defineComponent({
       currentTab.value = tabName;
       image.value = `/images/about-bg/${tabName}.webp`;
     }
+
+    const bgm = ref<HTMLAudioElement>(new Audio("/audio/bgm-about-2.wav"));
+    onMounted(() => {
+      bgm.value.loop = true;
+      bgm.value.currentTime = 0;
+      bgm.value.play();
+      // bgm.volume = 0.25;
+    });
+
+    onUnmounted(() => {
+      bgm.value.pause();
+      bgm.value.currentTime = 0;
+    });
 
     return {
       changeTab,
