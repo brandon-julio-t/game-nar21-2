@@ -12,7 +12,9 @@ export function asset(filename: string): string {
   return `${process.env.BASE_URL}${filename}`;
 }
 
-export function getContext(canvas: HTMLCanvasElement | null): OffscreenCanvasRenderingContext2D {
+export function getContext(
+  canvas: HTMLCanvasElement | null
+): OffscreenCanvasRenderingContext2D {
   return canvas
     ?.transferControlToOffscreen()
     ?.getContext("2d") as OffscreenCanvasRenderingContext2D;
@@ -34,10 +36,6 @@ export function loadImage(
 
   image.src = asset(`images/${assetName}`);
   image.onload = () => store.loadedAssetsCount++;
-  image.onerror = e => {
-    console.error(assetName);
-    console.error(e);
-  };
 
   return image;
 }
@@ -54,10 +52,6 @@ export function loadAudio(
 
   audio.src = asset(`audio/${assetName}`);
   audio.onloadeddata = () => store.loadedAssetsCount++;
-  audio.onerror = e => {
-    console.error(assetName);
-    console.error(e);
-  };
 
   return audio;
 }
@@ -91,7 +85,7 @@ export function playBgm(level: number): void {
 }
 
 export function randomPowerUp(): typeof PowerUp {
-  let powerUps: typeof PowerUp[] = [PowerUpBullet, PowerUpHealth];
+  const powerUps: typeof PowerUp[] = [PowerUpBullet, PowerUpHealth];
 
   const { player } = store;
   if (player !== null && player.bulletLevel > 1) {

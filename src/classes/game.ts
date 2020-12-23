@@ -257,8 +257,6 @@ export default class Game {
 
       return true;
     });
-
-    console.log(store.bullets.length);
   }
 
   private static handleMeteor(): void {
