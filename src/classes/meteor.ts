@@ -59,7 +59,9 @@ export default class Meteor extends Bullet {
     return x + this.WIDTH < 0 || y < 0 || x > innerWidth || y > innerHeight;
   }
 
-  public drawSelf(ctx: OffscreenCanvasRenderingContext2D): void {
+  public drawSelf(
+    ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D
+  ): void {
     const { x, y } = this.position;
     ctx.save();
     ctx.translate(x, y);

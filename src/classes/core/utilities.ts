@@ -14,10 +14,13 @@ export function asset(filename: string): string {
 
 export function getContext(
   canvas: HTMLCanvasElement | null
-): OffscreenCanvasRenderingContext2D {
-  return canvas
-    ?.transferControlToOffscreen()
-    ?.getContext("2d") as OffscreenCanvasRenderingContext2D;
+): CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D {
+  if (canvas?.transferControlToOffscreen) {
+    return canvas
+      ?.transferControlToOffscreen()
+      ?.getContext("2d") as OffscreenCanvasRenderingContext2D;
+  }
+  return canvas?.getContext("2d") as CanvasRenderingContext2D;
 }
 
 export function degreeToRadian(degree: number): number {

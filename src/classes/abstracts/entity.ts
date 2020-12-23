@@ -6,7 +6,8 @@ import store from "@/store";
 import { playAudio } from "../core/utilities";
 import CanShoot from "../interfaces/can-shoot";
 
-export default abstract class Entity implements CanDraw, CanMove, CanShoot, HasHealthBar {
+export default abstract class Entity
+  implements CanDraw, CanMove, CanShoot, HasHealthBar {
   public readonly HEIGHT: number;
   public readonly WIDTH: number;
   public explodeSprite: HTMLImageElement;
@@ -17,7 +18,6 @@ export default abstract class Entity implements CanDraw, CanMove, CanShoot, HasH
   protected healthBarHeight: number;
   protected isPlayingExplodingAudio: boolean = false;
   protected maxHealth: number;
-  protected _velocity: number;
   private readonly EXPLODING_SPRITE_COLS: number = 8;
   private readonly EXPLODING_SPRITE_ROWS: number = 8;
   private readonly explodingAudio: HTMLAudioElement;
@@ -51,6 +51,8 @@ export default abstract class Entity implements CanDraw, CanMove, CanShoot, HasH
     return this.currentHealth <= 0;
   }
 
+  protected _velocity: number;
+
   protected get velocity(): number {
     return this._velocity;
   }
@@ -64,7 +66,9 @@ export default abstract class Entity implements CanDraw, CanMove, CanShoot, HasH
     }
   }
 
-  public drawSelfAndHealthBar(ctx: OffscreenCanvasRenderingContext2D): void {
+  public drawSelfAndHealthBar(
+    ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D
+  ): void {
     if (this.isDead) {
       this.drawExplodeSprite(ctx);
 
@@ -77,7 +81,9 @@ export default abstract class Entity implements CanDraw, CanMove, CanShoot, HasH
     }
   }
 
-  public drawExplodeSprite(ctx: OffscreenCanvasRenderingContext2D): void {
+  public drawExplodeSprite(
+    ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D
+  ): void {
     if (this.explodingSpriteRowIdx >= this.EXPLODING_SPRITE_ROWS) {
       this.hasFinishedDying = true;
       return;
@@ -121,15 +127,19 @@ export default abstract class Entity implements CanDraw, CanMove, CanShoot, HasH
     }
   }
 
+  public abstract shoot(): void;
+
+  public abstract drawSelf(
+    ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D
+  ): void;
+
+  public abstract drawHealthBar(
+    ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D
+  ): void;
+
   protected die(): void {
     this.hasTriggeredOnDie = true;
   }
-
-  public abstract shoot(): void;
-
-  public abstract drawSelf(ctx: OffscreenCanvasRenderingContext2D): void;
-
-  public abstract drawHealthBar(ctx: OffscreenCanvasRenderingContext2D): void;
 
   protected stopMoving(): void {
     this._velocity = 0;

@@ -36,7 +36,9 @@ export default class EnemyBulletLaser extends EnemyBullet {
     }
   }
 
-  public drawSelf(ctx: OffscreenCanvasRenderingContext2D): void {
+  public drawSelf(
+    ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D
+  ): void {
     const { x, y } = this.position;
     ctx.save();
     ctx.translate(x, y);

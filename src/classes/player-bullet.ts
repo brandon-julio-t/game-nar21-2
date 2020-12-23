@@ -26,7 +26,9 @@ export default class PlayerBullet extends Bullet {
     this.LEVEL = level;
   }
 
-  public drawSelf(ctx: OffscreenCanvasRenderingContext2D): void {
+  public drawSelf(
+    ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D
+  ): void {
     const { x, y } = this.position;
     ctx.drawImage(this.SPRITE, x - this.WIDTH / 2, y);
   }

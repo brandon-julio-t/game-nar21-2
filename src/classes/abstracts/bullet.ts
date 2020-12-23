@@ -6,14 +6,12 @@ import Vector2 from "../core/vector2";
 
 export default abstract class Bullet
   implements CanCollide, CanDraw, CanGoOutOfBounds, CanMove {
+  public isEnded: boolean = false;
   protected readonly HEIGHT: number;
   protected readonly VELOCITY: Vector2;
   protected readonly WIDTH: number;
   protected readonly SPRITE: HTMLImageElement;
-
   protected position: Vector2;
-
-  public isEnded: boolean = false;
 
   public constructor(
     x: number,
@@ -55,5 +53,8 @@ export default abstract class Bullet
   }
 
   public abstract checkCollision(): void;
-  public abstract drawSelf(ctx: OffscreenCanvasRenderingContext2D): void;
+
+  public abstract drawSelf(
+    ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D
+  ): void;
 }

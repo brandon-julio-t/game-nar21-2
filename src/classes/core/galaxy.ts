@@ -10,8 +10,14 @@ export default class Galaxy {
   private readonly STARS_SPEED_MAX: number = 5;
   private readonly STARS_SPEED_MIN: number = 1;
 
-  private readonly backgroundCtx: OffscreenCanvasRenderingContext2D | null = null;
-  private readonly starsCtx: OffscreenCanvasRenderingContext2D | null = null;
+  private readonly backgroundCtx:
+    | CanvasRenderingContext2D
+    | OffscreenCanvasRenderingContext2D
+    | null = null;
+  private readonly starsCtx:
+    | CanvasRenderingContext2D
+    | OffscreenCanvasRenderingContext2D
+    | null = null;
 
   private stars: Star[] = [];
   private animationId: number = -1;
@@ -25,13 +31,23 @@ export default class Galaxy {
     backgroundCanvas.width = starsCanvas.width = innerWidth;
     backgroundCanvas.height = starsCanvas.height = innerHeight;
 
-    this.backgroundCtx = backgroundCanvas
-      .transferControlToOffscreen()
-      .getContext("2d") as OffscreenCanvasRenderingContext2D;
+    if (backgroundCanvas.transferControlToOffscreen) {
+      this.backgroundCtx = backgroundCanvas
+        .transferControlToOffscreen()
+        .getContext("2d") as OffscreenCanvasRenderingContext2D;
+    } else {
+      this.backgroundCtx = backgroundCanvas.getContext(
+        "2d"
+      ) as CanvasRenderingContext2D;
+    }
 
-    this.starsCtx = starsCanvas
-      .transferControlToOffscreen()
-      .getContext("2d") as OffscreenCanvasRenderingContext2D;
+    if (starsCanvas.transferControlToOffscreen) {
+      this.starsCtx = starsCanvas
+        .transferControlToOffscreen()
+        .getContext("2d") as OffscreenCanvasRenderingContext2D;
+    } else {
+      this.starsCtx = starsCanvas.getContext("2d") as CanvasRenderingContext2D;
+    }
 
     const { x: xVelocity, y: yVelocity } = Vector2.fromRadian(
       degreeToRadian(this.STARS_DIRECTION_DEGREE)

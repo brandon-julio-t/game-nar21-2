@@ -1,5 +1,5 @@
 export default interface ContextsGroup {
-  bulletsCtx: OffscreenCanvasRenderingContext2D;
-  enemiesCtx: OffscreenCanvasRenderingContext2D;
-  playerCtx: OffscreenCanvasRenderingContext2D;
+  bulletsCtx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D;
+  enemiesCtx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D;
+  playerCtx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D;
 }

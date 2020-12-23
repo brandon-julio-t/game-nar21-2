@@ -2,18 +2,22 @@ import Point from "@/classes/core/Point";
 import Snake from "@/classes/core/Snake";
 
 export default class SLake {
-  private ctx: OffscreenCanvasRenderingContext2D;
+  private ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D;
 
   private maxSnakesCount = Math.floor(innerWidth / 50); // "The more the merrier" - SL19-1
   private points: Point[][] = [];
   private snakes: Snake[] = [];
   private animationFrameId: number = -1;
 
-  public constructor(public canvas: OffscreenCanvas) {
+  public constructor(public canvas: HTMLCanvasElement | OffscreenCanvas) {
     canvas.width = innerWidth;
     canvas.height = innerHeight;
 
-    this.ctx = canvas.getContext("2d") as OffscreenCanvasRenderingContext2D;
+    if (canvas instanceof HTMLCanvasElement) {
+      this.ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
+    } else {
+      this.ctx = canvas.getContext("2d") as OffscreenCanvasRenderingContext2D;
+    }
 
     const rowCount = 24;
     const colCount = 48;

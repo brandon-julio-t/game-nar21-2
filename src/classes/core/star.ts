@@ -21,7 +21,7 @@ export default class Star implements CanDraw, CanMove {
     xVelocity: number,
     yVelocity: number,
     private radius: number,
-    private ctx: OffscreenCanvasRenderingContext2D
+    private ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D
   ) {
     this.position = new Vector2(x, y);
     this.velocity = new Vector2(xVelocity, yVelocity);
@@ -30,7 +30,9 @@ export default class Star implements CanDraw, CanMove {
     this.trail = randomIntegerBetween(5, 10);
   }
 
-  public drawSelf(ctx: OffscreenCanvasRenderingContext2D): void {
+  public drawSelf(
+    ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D
+  ): void {
     const rgb = hexToRgb(this.COLOR);
     if (rgb !== null) {
       const { opacity, position, radius, trail } = this;

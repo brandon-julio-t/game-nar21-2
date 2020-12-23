@@ -1,4 +1,8 @@
-import { degreeToRadian, randomIntegerBetween, randomPowerUp as randomPowerUpClass } from "./core/utilities";
+import {
+  degreeToRadian,
+  randomIntegerBetween,
+  randomPowerUp as randomPowerUpClass
+} from "./core/utilities";
 
 import Enemy from "./abstracts/enemy";
 import EnemyBulletLaser from "./enemy-bullet-laser";
@@ -28,7 +32,9 @@ export default class EnemyMini extends Enemy {
     setTimeout(() => this.stopMoving(), 3000);
   }
 
-  public drawSelf(ctx: OffscreenCanvasRenderingContext2D): void {
+  public drawSelf(
+    ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D
+  ): void {
     const { x, y } = this.position;
     ctx.save();
     ctx.translate(x, y);
@@ -46,8 +52,9 @@ export default class EnemyMini extends Enemy {
   /**
    * No health bar.
    */
-  public drawHealthBar(_: OffscreenCanvasRenderingContext2D): void {
-  }
+  public drawHealthBar(
+    _: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D
+  ): void {}
 
   public move(): void {
     super.move();
@@ -55,7 +62,11 @@ export default class EnemyMini extends Enemy {
   }
 
   public shoot(): void {
-    if (Date.now() >= this.nextTimeToShoot && !this.isDead && !store.player?.isDead) {
+    if (
+      Date.now() >= this.nextTimeToShoot &&
+      !this.isDead &&
+      !store.player?.isDead
+    ) {
       const { x, y } = this.position;
       store.bullets.splice(0, 0, new EnemyBulletLaser(x, y + this.HEIGHT / 2));
       this.nextTimeToShoot = Date.now() + 1000;

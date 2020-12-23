@@ -51,7 +51,12 @@ export default defineComponent({
 
     onMounted(() => {
       if (SLakeCanvas.value) {
-        SL.value = new SLake(SLakeCanvas.value.transferControlToOffscreen());
+        const canvas = SLakeCanvas.value;
+        if (canvas.transferControlToOffscreen) {
+          SL.value = new SLake(canvas.transferControlToOffscreen());
+        } else {
+          SL.value = new SLake(canvas);
+        }
       }
     });
 

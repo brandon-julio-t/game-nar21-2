@@ -111,7 +111,9 @@ export default class EnemyBoss extends Enemy implements CanGoOutOfBounds {
     }
   }
 
-  public drawSelf(ctx: OffscreenCanvasRenderingContext2D): void {
+  public drawSelf(
+    ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D
+  ): void {
     if (store.player?.isDead) return;
 
     const { x, y } = this.position;
@@ -129,7 +131,9 @@ export default class EnemyBoss extends Enemy implements CanGoOutOfBounds {
     this.animatedSpriteIdx %= this.ANIMATED_SPRITE.length;
   }
 
-  public drawHealthBar(ctx: OffscreenCanvasRenderingContext2D): void {
+  public drawHealthBar(
+    ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D
+  ): void {
     if (store.player?.isDead) return;
 
     const x = this.position.x - this.WIDTH / 2;
@@ -164,7 +168,7 @@ export default class EnemyBoss extends Enemy implements CanGoOutOfBounds {
 
   public win(
     callback: () => void,
-    ctx: OffscreenCanvasRenderingContext2D
+    ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D
   ): void {
     const now = Date.now();
     const delta = now - this.lastExplodingSpriteTime;

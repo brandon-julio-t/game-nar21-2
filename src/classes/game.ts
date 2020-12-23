@@ -198,7 +198,7 @@ export default class Game {
         return;
       }
 
-      const ctx: OffscreenCanvasRenderingContext2D =
+      const ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D =
         entity instanceof Player
           ? this.contextsGroup.playerCtx
           : this.contextsGroup.enemiesCtx;
