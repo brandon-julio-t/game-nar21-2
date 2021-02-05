@@ -9,7 +9,7 @@
         <section class="text-xl md:text-3xl">
           <h2>
             Sunday,
-            <span class="font-semibold text-lionel-purple">03 March</span> 2021
+            <span class="font-semibold text-lionel-purple">14 March</span> 2021
             <br />
             07:30 - 12:00
           </h2>

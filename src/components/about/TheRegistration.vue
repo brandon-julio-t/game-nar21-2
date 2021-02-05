@@ -10,12 +10,12 @@
           <div class="leading-relaxed">
             <h2>Open Registration</h2>
             <h3>
-              <span class="font-semibold text-lionel-purple">27 January</span>
+              <span class="font-semibold text-lionel-purple">22 February</span>
               2021
             </h3>
             <p>Until</p>
             <h3>
-              <span class="font-semibold text-lionel-purple">12 February</span>
+              <span class="font-semibold text-lionel-purple">10 March</span>
               2021
             </h3>
           </div>
