@@ -21,7 +21,7 @@
           </div>
 
           <a
-            href="https://bluejack.binus.ac.id/lab"
+            href="https://bluejack.binus.ac.id/nar"
             rel="noopener noreferrer"
             target="_blank"
           >
