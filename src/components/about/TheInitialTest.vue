@@ -11,7 +11,7 @@
             Sunday,
             <span class="font-semibold text-lionel-purple">14 March</span> 2021
             <br />
-            07:30 - 12:00
+            08.00 - 13.05
           </h2>
         </section>
 
