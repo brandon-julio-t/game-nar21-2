@@ -17,7 +17,7 @@
 
         <section class="text-xl md:text-2xl text-left mt-8">
           <p>
-            Please dress politely and bring Binusian Card
+            Please dress politely and join on time
             <br />
             The Initial Test Consists of:
           </p>
