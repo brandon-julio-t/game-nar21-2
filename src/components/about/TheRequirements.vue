@@ -58,7 +58,7 @@ export default defineComponent({
         {
           img: "/images/requirement-faculty.webp",
           desc:
-            "Binusian of the following program or faculty : Socs, SIS, FoE, DP, MTP",
+            "Binusian of the following program or faculty : SoCS, SoIS, SoMM, FoE, DP, MTP",
           family: "fa",
           icon: "graduation-cap"
         }
